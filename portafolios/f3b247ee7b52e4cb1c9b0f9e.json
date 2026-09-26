@@ -1,5 +1,6 @@
 {
  "cliente": "Gema Clinic - Dra. Lizeth Daniela Caro Suarez",
+ "zona": "Zona Norte",
  "productos": [
   {
    "Referencia Interna": "MP1041",
@@ -8,7 +9,7 @@
    "Categoría del Producto": "Despigmentantes",
    "Forma Farmacéutica": "Crema",
    "Presentación Farmacéutica": "Airless",
-   "Tamaño": "50",
+   "Tamaño": 50,
    "Masa": "g",
    "Componentes": "Acido Glicolico 5% + Hidroquinona 4%",
    "Indicación": "Crema despigmentante coadyuvante post-peeling.\n\nMantenimiento del resultado despigmentante tras un peeling químico, y tratamiento de melasma e hiperpigmentación postinflamatoria en piel recientemente exfoliada, donde se requiere un exfoliante de baja intensidad. La hidroquinona inhibe la tirosinasa y actúa como despigmentante principal; el ácido glicólico, a dosis baja, mantiene una renovación epidérmica suave sin agredir la piel en fase de recuperación.",
@@ -22,7 +23,7 @@
    "Categoría del Producto": "Capilares",
    "Forma Farmacéutica": "Locion",
    "Presentación Farmacéutica": "Gotero",
-   "Tamaño": "120",
+   "Tamaño": 120,
    "Masa": "ml",
    "Componentes": "Biotina 0.5% + D-Pantenol 1% + Minoxidil 3% + Phytantriol 0.2% + Trichogen 5%",
    "Indicación": "Loción capilar para alopecia androgenética.\n\nAlopecia androgenética. El minoxidil es el estimulante principal del crecimiento folicular; el Trichogen es un complejo activo anticaída que mejora la microcirculación y el anclaje folicular; la biotina es cofactor esencial en la síntesis de queratina; el phytantriol y el D-pantenol acondicionan y reparan la barrera del cuero cabelludo.",

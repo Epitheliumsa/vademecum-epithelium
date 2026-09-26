@@ -1,5 +1,6 @@
 {
  "cliente": "Plenufarma - Dr. Jesus Enrique Vasquez",
+ "zona": "Zona Sur",
  "productos": [
   {
    "Referencia Interna": "MP0816",
@@ -8,7 +9,7 @@
    "Categoría del Producto": "Acné - Rosacea",
    "Forma Farmacéutica": "Crema",
    "Presentación Farmacéutica": "Pote",
-   "Tamaño": "30",
+   "Tamaño": 30,
    "Masa": "g",
    "Componentes": "Diclofenaco Sodico 3% + Extracto de Arnica 3% + Extracto de Calendula 3% + Lidocaina Liposomada 5%",
    "Indicación": "Crema antiinflamatoria y analgésica con anestésico local.\n\nDolor e inflamación localizada de origen musculoesquelético, con componente de dolor superficial que se beneficia de acción anestésica adicional. El diclofenaco sódico inhibe la ciclooxigenasa, reduciendo la síntesis de prostaglandinas; los extractos de árnica y caléndula aportan acción antiinflamatoria y descongestiva natural complementaria; la lidocaína liposomada aporta anestesia local de acción más sostenida por su vehiculización en liposomas.",
@@ -22,7 +23,7 @@
    "Categoría del Producto": "Acné - Rosacea",
    "Forma Farmacéutica": "Gel",
    "Presentación Farmacéutica": "Pote",
-   "Tamaño": "60",
+   "Tamaño": 60,
    "Masa": "g",
    "Componentes": "Clindamicina 2%",
    "Indicación": "Gel/crema para acné vulgar.\n\nAcné vulgar inflamatorio, leve a moderado. La clindamicina al 2% actúa como antibiótico frente a Cutibacterium acnes, reduciendo la inflamación. En esta concentración reforzada, se recomienda para acné más extenso o resistente a clindamicina al 1%.",
@@ -36,7 +37,7 @@
    "Categoría del Producto": "Hidratantes - Antienvejecimiento - Antiestrias",
    "Forma Farmacéutica": "Emulsion",
    "Presentación Farmacéutica": "Frasco Rollon",
-   "Tamaño": "60",
+   "Tamaño": 60,
    "Masa": "ml",
    "Componentes": "Clorhidroxido de Aluminio - Zirconio 10% + Irgasan (Triclosan) 0.4% + Mantequilla de Karite 0.3%",
    "Indicación": "Emulsión protectora y astringente para piel infantil.\n\nSEGÚN CRITERIO MÉDICO por concentración de uno o varios de sus componentes.\n\nDermatitis irritativa e intertrigo en población pediátrica, con necesidad de acción astringente y protectora leve. El clorhidróxido de aluminio-zirconio, en baja concentración, aporta acción astringente que reduce la humedad y fricción de la zona; el irgasán complementa como antiséptico; la mantequilla de karité nutre y protege la piel.",

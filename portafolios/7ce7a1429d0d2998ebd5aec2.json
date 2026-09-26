@@ -1,5 +1,6 @@
 {
  "cliente": "Dr. Felix Duran Gonzalez",
+ "zona": "Zona Norte",
  "productos": [
   {
    "Referencia Interna": "MP0164",
@@ -8,7 +9,7 @@
    "Categoría del Producto": "Despigmentantes",
    "Forma Farmacéutica": "Crema",
    "Presentación Farmacéutica": "Pote",
-   "Tamaño": "30",
+   "Tamaño": 30,
    "Masa": "g",
    "Componentes": "Acido Glicolico 10% + Acido Kojico 2% + Hidrocortisona 1% + Hidroquinona 2%",
    "Indicación": "Crema despigmentante para hiperpigmentación.\n\nMelasma, hiperpigmentación postinflamatoria y lentigos solares. La hidroquinona inhibe la tirosinasa y actúa como despigmentante principal; el ácido kójico complementa por la misma vía; el ácido glicólico exfolia y potencia la penetración de los activos; la hidrocortisona controla la irritación asociada a la combinación exfoliante.",

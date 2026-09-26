@@ -1,5 +1,6 @@
 {
  "cliente": "Luz Angela Quiñonez Sanchez",
+ "zona": "Zona Sur",
  "productos": [
   {
    "Referencia Interna": "MP0281",
@@ -8,7 +9,7 @@
    "Categoría del Producto": "Protectores Solares",
    "Forma Farmacéutica": "Emulsion",
    "Presentación Farmacéutica": "Tubo Colapsible",
-   "Tamaño": "120",
+   "Tamaño": 120,
    "Masa": "ml",
    "Componentes": "Extracto de Te Verde + Octilmetoxicinamato + Tinosorb M + Tinosorb S + Uvinul A Plus Granular + Uvinul MC 80 + Uvinul T150",
    "Indicación": "Emulsión fotoprotectora SPF 50+.\n\nFotoprotección (Protección Solar) de amplio espectro UVA/UVB en población general. Indicada en la prevención de quemadura solar, fotoenvejecimiento y cáncer cutáneo. Combina filtros orgánicos fotoestables de amplio espectro (Tinosorb M, Tinosorb S, Uvinul) que cubren de forma estable el rango UVA largo; el extracto de té verde aporta acción antioxidante complementaria.",

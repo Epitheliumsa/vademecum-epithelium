@@ -1,5 +1,6 @@
 {
  "cliente": "L´Essence Clinique S.A.S.",
+ "zona": "Zona Norte",
  "productos": [
   {
    "Referencia Interna": "MP0587",
@@ -8,7 +9,7 @@
    "Categoría del Producto": "Corticoides / Dermatitis",
    "Forma Farmacéutica": "Crema",
    "Presentación Farmacéutica": "Pote",
-   "Tamaño": "30",
+   "Tamaño": 30,
    "Masa": "g",
    "Componentes": "Furoato de Mometasona 0.15% + Vitamina E 2%",
    "Indicación": "Crema antiinflamatoria de potencia media con antioxidante.\n\nSEGÚN CRITERIO MÉDICO por concentración de uno o varios de sus componentes.\n\nDermatosis inflamatorias que responden a corticoides de potencia media: dermatitis atópica, dermatitis de contacto, eccema y psoriasis leve a moderada. El furoato de mometasona controla la inflamación, el prurito y la hiperproliferación cutánea; la vitamina E aporta acción antioxidante y ayuda a mitigar el efecto resecante del corticoide.",
@@ -22,7 +23,7 @@
    "Categoría del Producto": "Capilares",
    "Forma Farmacéutica": "Locion",
    "Presentación Farmacéutica": "Gotero",
-   "Tamaño": "120",
+   "Tamaño": 120,
    "Masa": "ml",
    "Componentes": "Acido Retinoico 0.015% + Beta Estradiol 0.02% + Clobetasol 0.015% + Minoxidil 5%",
    "Indicación": "Loción capilar para alopecia androgenética.\n\nAlopecia androgenética masculina y femenina. El minoxidil es el estimulante principal del crecimiento folicular; el beta estradiol modula receptores androgénicos locales del folículo; el clobetasol, a dosis baja, controla la inflamación de base; el ácido retinoico potencia la penetración del minoxidil.",

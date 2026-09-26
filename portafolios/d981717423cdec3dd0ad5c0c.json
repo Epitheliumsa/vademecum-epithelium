@@ -1,5 +1,6 @@
 {
  "cliente": "Aesthetic One S.A.S.",
+ "zona": "Zona Sur",
  "productos": [
   {
    "Referencia Interna": "MP0869",
@@ -8,7 +9,7 @@
    "Categoría del Producto": "Despigmentantes",
    "Forma Farmacéutica": "Crema",
    "Presentación Farmacéutica": "Airless",
-   "Tamaño": "30",
+   "Tamaño": 30,
    "Masa": "g",
    "Componentes": "Betametasona 0.05% + Hidroquinona 2% + Nicotinamida- (Niacinamida) 5% + Revinage 1%",
    "Indicación": "Crema despigmentante — Fase 2 de tratamiento.\n\nMelasma e hiperpigmentación postinflamatoria, en la fase de mantenimiento de un protocolo despigmentante escalonado. La hidroquinona, a dosis baja, inhibe la tirosinasa; la betametasona controla la irritación asociada; la niacinamida bloquea la transferencia de melanosomas al queratinocito; el Revinage aporta un mecanismo despigmentante/iluminador adicional.",

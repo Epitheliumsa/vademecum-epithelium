@@ -1,5 +1,6 @@
 {
  "cliente": "Ciruderma S.A.S.",
+ "zona": "Zona Norte",
  "productos": [
   {
    "Referencia Interna": "MP0247",
@@ -8,7 +9,7 @@
    "Categoría del Producto": "Capilares",
    "Forma Farmacéutica": "Locion",
    "Presentación Farmacéutica": "Gotero",
-   "Tamaño": "60",
+   "Tamaño": 60,
    "Masa": "ml",
    "Componentes": "Acido Retinoico 0.025% + D-Pantenol 1% + Desonida 0.05% + Minoxidil 5%",
    "Indicación": "Loción capilar para alopecia androgenética con componente inflamatorio.\n\nAlopecia androgenética con dermatitis seborreica leve del cuero cabelludo. El minoxidil es el estimulante principal del crecimiento folicular; la desonida, corticoide de baja potencia, controla la inflamación con buen perfil de seguridad para uso crónico; el ácido retinoico potencia la penetración del minoxidil; el D-pantenol acondiciona y repara la barrera del cuero cabelludo.",

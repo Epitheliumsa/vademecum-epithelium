@@ -1,5 +1,6 @@
 {
  "cliente": "Sandra Janeth Cerquera",
+ "zona": "Zona Sur",
  "productos": [
   {
    "Referencia Interna": "MP0211",
@@ -8,7 +9,7 @@
    "Categoría del Producto": "Hidratantes - Antienvejecimiento - Antiestrias",
    "Forma Farmacéutica": "Crema",
    "Presentación Farmacéutica": "Pote",
-   "Tamaño": "30",
+   "Tamaño": 30,
    "Masa": "g",
    "Componentes": "Urea 40%",
    "Indicación": "Crema queratolítica de máxima intensidad para hiperqueratosis.\n\nHiperqueratosis muy marcada, callosidades gruesas y xerosis severa refractaria a concentraciones menores de urea, así como coadyuvante en el debridamiento previo a tratamiento antifúngico ungueal. La urea al 40% actúa como queratolítico e hidratante humectante de máxima intensidad disponible, ablandando de forma marcada la queratina engrosada.",

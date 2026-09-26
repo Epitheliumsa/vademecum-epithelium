@@ -1,5 +1,6 @@
 {
  "cliente": "Guapa Glow - Sandra Carolina Moreno",
+ "zona": "Zona Norte",
  "productos": [
   {
    "Referencia Interna": "MP0914",
@@ -8,7 +9,7 @@
    "Categoría del Producto": "Hidratantes - Antienvejecimiento - Antiestrias",
    "Forma Farmacéutica": "Crema",
    "Presentación Farmacéutica": "Pote",
-   "Tamaño": "200",
+   "Tamaño": 200,
    "Masa": "g",
    "Componentes": "Aceite Mineral + Agua Purificada + Alcohol Cetoestearilico + Dimeticona + Irgasan (Triclosan) + Lauril Sulfato de Sodio + Propilenglicol + Vaselina",
    "Indicación": "Crema humectante con acción antimicrobiana.\n\nXerosis y piel seca con tendencia a la colonización bacteriana o a sobreinfección leve. La vaselina, el aceite mineral y la dimeticona forman una película oclusiva que reduce la pérdida transepidérmica de agua; el propilenglicol actúa como humectante; el irgasán (triclosán) aporta acción antimicrobiana de amplio espectro; el alcohol cetoestearílico y el lauril sulfato de sodio actúan como emulsionantes de la base.",
@@ -22,7 +23,7 @@
    "Categoría del Producto": "Hidratantes - Antienvejecimiento - Antiestrias",
    "Forma Farmacéutica": "Crema",
    "Presentación Farmacéutica": "Pote",
-   "Tamaño": "500",
+   "Tamaño": 500,
    "Masa": "g",
    "Componentes": "Aceite Mineral + Agua Purificada + Alcohol Cetoestearilico + Dimeticona + Irgasan (Triclosan) + Lauril Sulfato de Sodio + Propilenglicol + Vaselina",
    "Indicación": "Crema humectante con acción antimicrobiana.\n\nXerosis y piel seca con tendencia a la colonización bacteriana o a sobreinfección leve. La vaselina, el aceite mineral y la dimeticona forman una película oclusiva que reduce la pérdida transepidérmica de agua; el propilenglicol actúa como humectante; el irgasán (triclosán) aporta acción antimicrobiana de amplio espectro; el alcohol cetoestearílico y el lauril sulfato de sodio actúan como emulsionantes de la base.",

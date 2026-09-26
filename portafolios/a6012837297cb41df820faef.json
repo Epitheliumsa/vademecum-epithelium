@@ -1,5 +1,6 @@
 {
  "cliente": "Boston Medical Group de Colombia S.A.S.",
+ "zona": "Zona Sur",
  "productos": [
   {
    "Referencia Interna": "MP0473",
@@ -8,7 +9,7 @@
    "Categoría del Producto": "Anestésicos / Antibioticos / Cicatrizantes",
    "Forma Farmacéutica": "Crema",
    "Presentación Farmacéutica": "Airless",
-   "Tamaño": "30",
+   "Tamaño": 30,
    "Masa": "g",
    "Componentes": "Lidocaina 11% + Lidocaina Liposomada 4% + Tetracaina 5%",
    "Indicación": "Crema anestésica tópica compuesta.\n\nSEGÚN CRITERIO MÉDICO por concentración de uno o varios de sus componentes.\n\nAnestesia tópica previa a procedimientos dermatológicos menores (depilación láser, procedimientos con aguja, toma de biopsias superficiales, tatuajes). Combina lidocaína en dos formas (convencional y liposomada, para una liberación más sostenida) con tetracaína, sumando distintos anestésicos locales para una acción más profunda y prolongada que un anestésico único.",

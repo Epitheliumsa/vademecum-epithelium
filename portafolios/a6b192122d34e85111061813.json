@@ -1,5 +1,6 @@
 {
  "cliente": "Edgar Yarleyson Cossio Contrera",
+ "zona": "Zona Sur",
  "productos": [
   {
    "Referencia Interna": "MP0259",
@@ -8,7 +9,7 @@
    "Categoría del Producto": "Capilares",
    "Forma Farmacéutica": "Locion",
    "Presentación Farmacéutica": "Gotero",
-   "Tamaño": "60",
+   "Tamaño": 60,
    "Masa": "ml",
    "Componentes": "Acido Retinoico 0.015% + Clobetasol 0.015% + Minoxidil 5%",
    "Indicación": "Loción capilar para alopecia androgenética.\n\nAlopecia androgenética masculina y femenina. El minoxidil es el estimulante principal del crecimiento folicular; el clobetasol, a dosis baja, controla la inflamación de base; el ácido retinoico potencia la penetración del minoxidil.",
