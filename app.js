@@ -9,7 +9,7 @@ const USUARIOS_INTERNOS = [
     { usuario: 'H.Reyes',     clave: 'HReyes',     tipo: 'equipo', zona: null },
     { usuario: 'L.Ramos',     clave: 'LRamos',     tipo: 'comercial', zona: 'Zona Norte' },
     { usuario: 'Y.Caballero', clave: 'YCaballero', tipo: 'comercial', zona: 'Zona Sur' },
-    { usuario: 'J.Herrera',   clave: 'J.Herrera',  tipo: 'comercial', zona: 'Clientes Especiales' }
+    { usuario: 'J.Herrera',   clave: 'JHerrera',   tipo: 'comercial', zona: 'Clientes Especiales' }
 ];
 
 const URL_DATOS = 'https://raw.githubusercontent.com/nanorsf/vademecum-epithelium/main/';
