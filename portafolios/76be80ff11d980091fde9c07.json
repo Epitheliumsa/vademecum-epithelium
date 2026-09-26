@@ -1,20 +1,7 @@
 {
  "cliente": "Dermocosmeticos de Santander S.A.S.",
+ "zona": "Zona Norte",
  "productos": [
-  {
-   "Referencia Interna": "MP0256",
-   "Nombre": "GP - 62 Locion x 120 ml",
-   "Grupo de Producto": "Magistral de Pedido",
-   "Categoría del Producto": "Capilares",
-   "Forma Farmacéutica": "Locion",
-   "Presentación Farmacéutica": "Gotero",
-   "Tamaño": "120",
-   "Masa": "ml",
-   "Componentes": "Acido Retinoico 0.015% + Beta Estradiol 0.02% + Clobetasol 0.015% + Minoxidil 5%",
-   "Indicación": "Loción capilar para alopecia androgenética.\n\nAlopecia androgenética masculina y femenina. El minoxidil es el estimulante principal del crecimiento folicular; el beta estradiol modula receptores androgénicos locales del folículo; el clobetasol, a dosis baja, controla la inflamación de base; el ácido retinoico potencia la penetración del minoxidil.",
-   "Dosis Recomendada": "APLICACIÓN: de noche, sobre cuero cabelludo seco\nCANTIDAD: 1 ml (aprox. 1 gotero o pulverización) por aplicación, distribuido en las zonas de mayor caída/miniaturización\nFRECUENCIA: 1 vez al día\nDuración estimada del tratamiento: resultados visibles a partir de 3-4 meses; uso continuo mientras se busque mantener el efecto\nNo enjuagar tras la aplicación; dejar actuar toda la noche.\n\nPRECAUCIONES\nEl clobetasol está muy por debajo de su concentración estándar (0.015% vs. 0.05%), lo cual es deliberado para uso crónico y reduce el riesgo de atrofia cutánea o taquifilaxia; aun así, vigilar signos de irritación o foliculitis. El minoxidil puede causar hipertricosis facial por contacto accidental. Contraindicado en embarazo y lactancia.",
-   "Etiquetas de producto": "Portafolio"
-  },
   {
    "Referencia Interna": "MP0290",
    "Nombre": "Keto D (K-Dl) Locion x 120 ml",
@@ -22,7 +9,7 @@
    "Categoría del Producto": "Capilares",
    "Forma Farmacéutica": "Locion",
    "Presentación Farmacéutica": "Gotero",
-   "Tamaño": "120",
+   "Tamaño": 120,
    "Masa": "ml",
    "Componentes": "D-Pantenol 5% + Desonida 0.1% + Ketoconazol 2% + Irgasan (Triclosan) 0.6%",
    "Indicación": "Loción capilar antiinflamatoria y antimicótica con antiséptico.\n\nSEGÚN CRITERIO MÉDICO por concentración de uno o varios de sus componentes.\n\nDermatitis seborreica del cuero cabelludo con componente inflamatorio marcado. La desonida controla la inflamación; el ketoconazol controla la colonización por Malassezia; el D-pantenol acondiciona el cuero cabelludo; el irgasán aporta acción antiséptica complementaria.",
@@ -36,12 +23,26 @@
    "Categoría del Producto": "Capilares",
    "Forma Farmacéutica": "Locion",
    "Presentación Farmacéutica": "Gotero",
-   "Tamaño": "120",
+   "Tamaño": 120,
    "Masa": "ml",
    "Componentes": "Acido Net 3% + Acido Retinoico 0.025% + Clobetasol 0.015% + D-Pantenol 1% + Minoxidil 5% + Phytantriol 0.2% + Vitamina E 1%",
    "Indicación": "Loción capilar para alopecia androgenética con componente inflamatorio.\n\nAlopecia androgenética con componente inflamatorio o seborreico del cuero cabelludo asociado. El minoxidil es el estimulante principal del crecimiento folicular; el Ac.Net regula la seborrea del cuero cabelludo; el ácido retinoico potencia la penetración del minoxidil; el clobetasol, a dosis baja, controla la inflamación de base; el phytantriol y el D-pantenol acondicionan y reparan la barrera del cuero cabelludo; la vitamina E aporta acción antioxidante.",
    "Dosis Recomendada": "APLICACIÓN: de noche, sobre cuero cabelludo seco\nCANTIDAD: 1 ml (aprox. 1 gotero o pulverización) por aplicación, distribuido en las zonas de mayor caída\nFRECUENCIA: 1 vez al día\nDuración estimada del tratamiento: resultados visibles a partir de 3-4 meses; uso continuo mientras se busque mantener el efecto\nNo enjuagar tras la aplicación; dejar actuar toda la noche.\n\nPRECAUCIONES\nEl clobetasol está muy por debajo de su concentración estándar (0.015% vs. 0.05%), lo cual es deliberado para uso crónico y reduce el riesgo de atrofia cutánea o taquifilaxia asociados a corticoides potentes en uso prolongado; aun así, vigilar signos de irritación o foliculitis. Es esperable irritación o descamación leve del cuero cabelludo por el ácido retinoico. El minoxidil puede causar hipertricosis facial por contacto accidental. Contraindicado en embarazo y lactancia.",
    "Etiquetas de producto": "Cliente"
+  },
+  {
+   "Referencia Interna": "MP0256",
+   "Nombre": "GP - 62 Locion x 120 ml",
+   "Grupo de Producto": "Magistral de Pedido",
+   "Categoría del Producto": "Capilares",
+   "Forma Farmacéutica": "Locion",
+   "Presentación Farmacéutica": "Gotero",
+   "Tamaño": 120,
+   "Masa": "ml",
+   "Componentes": "Acido Retinoico 0.015% + Beta Estradiol 0.02% + Clobetasol 0.015% + Minoxidil 5%",
+   "Indicación": "Loción capilar para alopecia androgenética.\n\nAlopecia androgenética masculina y femenina. El minoxidil es el estimulante principal del crecimiento folicular; el beta estradiol modula receptores androgénicos locales del folículo; el clobetasol, a dosis baja, controla la inflamación de base; el ácido retinoico potencia la penetración del minoxidil.",
+   "Dosis Recomendada": "APLICACIÓN: de noche, sobre cuero cabelludo seco\nCANTIDAD: 1 ml (aprox. 1 gotero o pulverización) por aplicación, distribuido en las zonas de mayor caída/miniaturización\nFRECUENCIA: 1 vez al día\nDuración estimada del tratamiento: resultados visibles a partir de 3-4 meses; uso continuo mientras se busque mantener el efecto\nNo enjuagar tras la aplicación; dejar actuar toda la noche.\n\nPRECAUCIONES\nEl clobetasol está muy por debajo de su concentración estándar (0.015% vs. 0.05%), lo cual es deliberado para uso crónico y reduce el riesgo de atrofia cutánea o taquifilaxia; aun así, vigilar signos de irritación o foliculitis. El minoxidil puede causar hipertricosis facial por contacto accidental. Contraindicado en embarazo y lactancia.",
+   "Etiquetas de producto": "Portafolio"
   },
   {
    "Referencia Interna": "MP0017",
@@ -50,7 +51,7 @@
    "Categoría del Producto": "Corticoides / Dermatitis",
    "Forma Farmacéutica": "Locion",
    "Presentación Farmacéutica": "Gotero",
-   "Tamaño": "10",
+   "Tamaño": 10,
    "Masa": "ml",
    "Componentes": "Acido Lactico 15% + Acido Salicilico 22% + Podofilina 10%",
    "Indicación": "Solución queratolítica cáustica para verrugas (Peeling Medio).\n\nSEGÚN CRITERIO MÉDICO por concentración de uno o varios de sus componentes.\n\nVerrugas vulgares y plantares. El ácido láctico (15%) y el ácido salicílico (22%) actúan como queratolíticos intensos, destruyendo por acción cáustica directa el tejido de la verruga; la podofilina (10%) aporta acción citotóxica adicional sobre el tejido verrugoso.",

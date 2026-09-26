@@ -1,5 +1,6 @@
 {
  "cliente": "Suad Helena Quessep Alcove",
+ "zona": "Zona Norte",
  "productos": [
   {
    "Referencia Interna": "MP0765",
@@ -8,7 +9,7 @@
    "Categoría del Producto": "Despigmentantes",
    "Forma Farmacéutica": "Gel",
    "Presentación Farmacéutica": "Pote",
-   "Tamaño": "30",
+   "Tamaño": 30,
    "Masa": "g",
    "Componentes": "Acido Fitico 4% + Acido Kojico 10% + Acido Mandelico 50%",
    "Indicación": "Gel de peeling químico despigmentante (Peeling Medio).\n\nSEGÚN CRITERIO MÉDICO por concentración de uno o varios de sus componentes.\n\nMelasma resistente, hiperpigmentación postinflamatoria, fotodaño y queratosis, en esquema de peeling químico de aplicación profesional. El ácido mandélico al 50% actúa como agente de peeling principal, con penetración lenta y uniforme que reduce el riesgo de hiperpigmentación postinflamatoria en fototipos altos; el ácido kójico inhibe la tirosinasa reforzando el efecto despigmentante; el ácido fítico aporta acción quelante y antioxidante.",
@@ -22,7 +23,7 @@
    "Categoría del Producto": "Capilares",
    "Forma Farmacéutica": "Locion",
    "Presentación Farmacéutica": "Cilindro Bala",
-   "Tamaño": "1000",
+   "Tamaño": 1000,
    "Masa": "ml",
    "Componentes": "Acido Retinoico 0.025% + Clobetasol 0.015% + D-Pantenol 1% + Finasteride 0.025% + Minoxidil 5% + Phytantriol 0.5%",
    "Indicación": "Loción capilar para alopecia androgenética.\n\nAlopecia androgenética masculina con componente inflamatorio del cuero cabelludo. El minoxidil es el estimulante principal del crecimiento folicular; el finasteride bloquea la conversión de testosterona a DHT a nivel local; el clobetasol, a dosis baja, controla la inflamación de base; el ácido retinoico potencia la penetración del minoxidil; phytantriol y D-pantenol acondicionan y reparan la barrera del cuero cabelludo.",

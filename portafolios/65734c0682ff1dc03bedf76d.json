@@ -1,5 +1,6 @@
 {
  "cliente": "Drogueria Mary Helena, Diana Milena Gonzalez Navarrete",
+ "zona": "Zona Norte",
  "productos": [
   {
    "Referencia Interna": "MP0041",
@@ -8,7 +9,7 @@
    "Categoría del Producto": "Otras Preparaciones Magistrales",
    "Forma Farmacéutica": "Crema",
    "Presentación Farmacéutica": "Pote",
-   "Tamaño": "15",
+   "Tamaño": 15,
    "Masa": "g",
    "Componentes": "Cinco Fluoracilo 5%",
    "Indicación": "Crema de 5-fluorouracilo para queratosis actínica.\n\nSEGÚN CRITERIO MÉDICO por concentración de uno o varios de sus componentes.\n\nQueratosis actínicas y, bajo indicación médica específica, carcinoma basocelular superficial seleccionado. El 5-fluorouracilo es un antimetabolito citotóxico que inhibe selectivamente la síntesis de ADN en las células displásicas de rápida proliferación, respetando en mayor medida la piel sana circundante.",
@@ -22,7 +23,7 @@
    "Categoría del Producto": "Otras Preparaciones Magistrales",
    "Forma Farmacéutica": "Crema",
    "Presentación Farmacéutica": "Pote",
-   "Tamaño": "30",
+   "Tamaño": 30,
    "Masa": "g",
    "Componentes": "Cinco Fluoracilo 5%",
    "Indicación": "Crema de 5-fluorouracilo para queratosis actínica.\n\nSEGÚN CRITERIO MÉDICO por concentración de uno o varios de sus componentes.\n\nQueratosis actínicas y, bajo indicación médica específica, carcinoma basocelular superficial seleccionado. El 5-fluorouracilo es un antimetabolito citotóxico que inhibe selectivamente la síntesis de ADN en las células displásicas de rápida proliferación, respetando en mayor medida la piel sana circundante.",
@@ -36,7 +37,7 @@
    "Categoría del Producto": "Capilares",
    "Forma Farmacéutica": "Locion",
    "Presentación Farmacéutica": "Gotero",
-   "Tamaño": "120",
+   "Tamaño": 120,
    "Masa": "ml",
    "Componentes": "Acido Retinoico 0.015% + Beta Estradiol 0.02% + Clobetasol 0.015% + Minoxidil 5%",
    "Indicación": "Loción capilar para alopecia androgenética.\n\nAlopecia androgenética masculina y femenina. El minoxidil es el estimulante principal del crecimiento folicular; el beta estradiol modula receptores androgénicos locales del folículo; el clobetasol, a dosis baja, controla la inflamación de base; el ácido retinoico potencia la penetración del minoxidil.",
@@ -50,7 +51,7 @@
    "Categoría del Producto": "Capilares",
    "Forma Farmacéutica": "Locion",
    "Presentación Farmacéutica": "Gotero",
-   "Tamaño": "60",
+   "Tamaño": 60,
    "Masa": "ml",
    "Componentes": "Acido Retinoico 0.025% + D-Pantenol 1% + Desonida 0.05% + Minoxidil 5%",
    "Indicación": "Loción capilar para alopecia androgenética con componente inflamatorio.\n\nAlopecia androgenética con dermatitis seborreica leve del cuero cabelludo. El minoxidil es el estimulante principal del crecimiento folicular; la desonida, corticoide de baja potencia, controla la inflamación con buen perfil de seguridad para uso crónico; el ácido retinoico potencia la penetración del minoxidil; el D-pantenol acondiciona y repara la barrera del cuero cabelludo.",

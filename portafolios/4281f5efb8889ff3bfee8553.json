@@ -1,5 +1,6 @@
 {
  "cliente": "Vitalderma S.A.S.",
+ "zona": "Zona Sur",
  "productos": [
   {
    "Referencia Interna": "MP0148",
@@ -8,7 +9,7 @@
    "Categoría del Producto": "Corticoides / Dermatitis",
    "Forma Farmacéutica": "Esmalte",
    "Presentación Farmacéutica": "Frasco Esmalte",
-   "Tamaño": "15",
+   "Tamaño": 15,
    "Masa": "ml",
    "Componentes": "Aceite de Ajo 1% + Vitamina E 5%",
    "Indicación": "Esmalte fortalecedor para uñas frágiles.\n\nOnicofragilidad, uñas quebradizas, descamadas o con crecimiento lento. El aceite de ajo aporta azufre orgánico, que participa en la formación de queratina de la lámina ungueal; la vitamina E actúa como antioxidante y emoliente, flexibilizando la uña y el reborde periungueal.",
@@ -22,7 +23,7 @@
    "Categoría del Producto": "Antimicoticos / Antifungicos / Antisepticos",
    "Forma Farmacéutica": "Locion",
    "Presentación Farmacéutica": "Gotero",
-   "Tamaño": "30",
+   "Tamaño": 30,
    "Masa": "ml",
    "Componentes": "Ciclopiroxolamina 1%",
    "Indicación": "Loción antimicótica.\n\nPitiriasis versicolor, dermatofitosis (tiña) y candidiasis cutánea superficial. La ciclopiroxolamina es un antifúngico de amplio espectro con actividad frente a dermatofitos, levaduras y algunos mohos, y aporta además cierta actividad antiinflamatoria y antibacteriana.",

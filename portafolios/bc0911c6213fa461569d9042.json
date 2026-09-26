@@ -1,5 +1,6 @@
 {
  "cliente": "Dr. Juan Sebastian Suarez",
+ "zona": "Zona Norte",
  "productos": [
   {
    "Referencia Interna": "MP1060",
@@ -8,7 +9,7 @@
    "Categoría del Producto": "Despigmentantes",
    "Forma Farmacéutica": "Crema",
    "Presentación Farmacéutica": "Airless",
-   "Tamaño": "30",
+   "Tamaño": 30,
    "Masa": "g",
    "Componentes": "Acido Retinoico 0.05% + Extracto de Azucena 1%",
    "Indicación": "Crema con retinoide y extracto calmante.\n\nFotoenvejecimiento moderado y textura irregular, en pacientes con experiencia previa en el uso de retinoides tópicos. El ácido retinoico estimula el recambio celular y la síntesis de colágeno; el extracto de azucena aporta acción calmante e hidratante, compensando la sequedad del retinoide.",
@@ -22,7 +23,7 @@
    "Categoría del Producto": "Acné - Rosacea",
    "Forma Farmacéutica": "Serum",
    "Presentación Farmacéutica": "Airless",
-   "Tamaño": "30",
+   "Tamaño": 30,
    "Masa": "ml",
    "Componentes": "Acetato de Zinc 2% + Nicotinamida (Niacinamida) 12%",
    "Indicación": "Sérum seborregulador para piel grasa y acné.\n\nSEGÚN CRITERIO MÉDICO por concentración de uno o varios de sus componentes.\n\nPiel grasa o mixta con brillo excesivo, poros dilatados y acné leve a moderado. La niacinamida regula la producción sebácea, reduce el tamaño aparente del poro, aporta acción antiinflamatoria y mejora la función de barrera; el acetato de zinc complementa con acción seborreguladora, astringente y antiinflamatoria.",

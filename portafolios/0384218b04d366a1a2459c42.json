@@ -1,5 +1,6 @@
 {
  "cliente": "Dra. Diana Elizabeth Reyes Bocanegra",
+ "zona": "Zona Norte",
  "productos": [
   {
    "Referencia Interna": "MP1015",
@@ -8,7 +9,7 @@
    "Categoría del Producto": "Capilares",
    "Forma Farmacéutica": "Locion",
    "Presentación Farmacéutica": "Frasco Jarabero con Válvula",
-   "Tamaño": "60",
+   "Tamaño": 60,
    "Masa": "ml",
    "Componentes": "Minoxidil 7%",
    "Indicación": "Loción capilar para alopecia androgenética, concentración reforzada.\n\nSEGÚN CRITERIO MÉDICO por concentración de uno o varios de sus componentes.\n\nAlopecia androgenética resistente a la concentración estándar de minoxidil. El minoxidil estimula el crecimiento folicular prolongando la fase anágena.",

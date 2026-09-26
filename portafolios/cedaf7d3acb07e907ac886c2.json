@@ -1,5 +1,6 @@
 {
  "cliente": "Yelenca Ortega Zamora",
+ "zona": "Zona Sur",
  "productos": [
   {
    "Referencia Interna": "MP0764",
@@ -8,7 +9,7 @@
    "Categoría del Producto": "Despigmentantes",
    "Forma Farmacéutica": "Crema",
    "Presentación Farmacéutica": "Pote",
-   "Tamaño": "30",
+   "Tamaño": 30,
    "Masa": "g",
    "Componentes": "Acido Ascorbico 3% + Acido Tranexamico 5% + Arbutina 2%",
    "Indicación": "Crema despigmentante sin hidroquinona.\n\nMelasma e hiperpigmentación postinflamatoria, especialmente como alternativa en pacientes con intolerancia a la hidroquinona o para tratamientos de mantenimiento prolongado. El ácido tranexámico inhibe la vía plasmina-melanocito y reduce el componente vascular del melasma; la arbutina actúa como despigmentante suave liberando hidroquinona de forma controlada en la piel; el ácido ascórbico aporta acción antioxidante y despigmentante complementaria.",

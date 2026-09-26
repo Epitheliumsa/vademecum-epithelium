@@ -1,5 +1,6 @@
 {
  "cliente": "Es Vital S.A.S.",
+ "zona": "Zona Norte",
  "productos": [
   {
    "Referencia Interna": "MP0917",
@@ -8,7 +9,7 @@
    "Categoría del Producto": "Anestésicos / Antibioticos / Cicatrizantes",
    "Forma Farmacéutica": "Emulsion",
    "Presentación Farmacéutica": "Cilindro Bala",
-   "Tamaño": "100",
+   "Tamaño": 100,
    "Masa": "ml",
    "Componentes": "Lidocaina 15% + Lidocaina Liposomada 10% + Tetracaina 5% + Tetracaina Liposomada 3%",
    "Indicación": "Emulsión anestésica tópica compuesta de alta concentración.\n\nSEGÚN CRITERIO MÉDICO por concentración de uno o varios de sus componentes.\n\nAnestesia tópica previa a procedimientos dermatológicos menores (depilación láser, procedimientos con aguja, toma de biopsias superficiales, tatuajes). Combina lidocaína y tetracaína, cada una en su forma convencional y liposomada, alcanzando una concentración total de anestésicos muy elevada para procedimientos que requieren anestesia profunda y prolongada.",

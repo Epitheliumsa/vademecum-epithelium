@@ -1,10 +1,16 @@
 // CONFIGURACIÓN
-const CODIGOS_VALIDOS = {
-    'EPITHE-001': true,
-    'EPITHE-002': true,
-    'EPITHE-003': true,
-    'NANO': true
-};
+// Usuarios internos de Epithelium. Los que tienen "zona" son comerciales y solo
+// ven el portafolio de los clientes de esa zona; los que no tienen zona ven el
+// portafolio de clientes completo. El médico no ve portafolio de clientes.
+const USUARIOS_INTERNOS = [
+    { clave: 'EPITHE-000', tipo: 'equipo', zona: null },   // General equipo (usuario vacío)
+    { clave: 'EPITHE-001', tipo: 'medico', zona: null },   // Médico (usuario vacío)
+    { usuario: 'M.Castro',    clave: 'MCastro',    tipo: 'equipo', zona: null },
+    { usuario: 'H.Reyes',     clave: 'HReyes',     tipo: 'equipo', zona: null },
+    { usuario: 'L.Ramos',     clave: 'LRamos',     tipo: 'comercial', zona: 'Zona Norte' },
+    { usuario: 'Y.Caballero', clave: 'YCaballero', tipo: 'comercial', zona: 'Zona Sur' },
+    { usuario: 'J.Herrera',   clave: 'J.Herrera',  tipo: 'comercial', zona: 'Clientes Especiales' }
+];
 
 const URL_DATOS = 'https://raw.githubusercontent.com/nanorsf/vademecum-epithelium/main/';
 
@@ -17,6 +23,8 @@ let clienteNombre = '';
 let indiceClientes = [];
 let clientesFiltrados = [];
 let modoAdmin = false;
+let modoUsuario = 'cliente';   // 'cliente' | 'medico' | 'equipo' | 'comercial'
+let zonaUsuario = null;        // zona del comercial (null = ve todas)
 
 // Vademécum de productos: el general de Epithelium y el portafolio propio de cada cliente
 const CATALOGOS = {
@@ -88,47 +96,71 @@ async function cargarPortafolio(huella) {
     return true;
 }
 
-async function verificarAcceso() {
-    const codigoGuardado = localStorage.getItem('vademecum_access');
-    const clienteGuardado = localStorage.getItem('vademecum_cliente');
-    if (codigoGuardado && CODIGOS_VALIDOS[codigoGuardado]) {
-        entrarApp();
-    } else if (clienteGuardado && await cargarPortafolio(clienteGuardado)) {
-        entrarApp();
-    } else {
-        mostrarPantalla('loginScreen');
-        localStorage.removeItem('vademecum_access');
-        localStorage.removeItem('vademecum_cliente');
+// Encuentra un usuario interno por usuario + clave (o por código, con el usuario vacío)
+function buscarUsuarioInterno(usuario, clave) {
+    const u = usuario.trim().toLowerCase();
+    const c = clave.trim();
+    for (const x of USUARIOS_INTERNOS) {
+        if (x.usuario) {
+            if (u === x.usuario.toLowerCase() && c.toLowerCase() === x.clave.toLowerCase()) return x;
+        } else {
+            const codigo = (c || u).toUpperCase();
+            if (codigo === x.clave.toUpperCase() && (!u || !c)) return x;
+        }
     }
+    return null;
+}
+
+async function verificarAcceso() {
+    const interno = localStorage.getItem('vademecum_interno');
+    const clienteGuardado = localStorage.getItem('vademecum_cliente');
+    if (interno) {
+        try {
+            const s = JSON.parse(interno);
+            modoUsuario = s.tipo;
+            zonaUsuario = s.zona || null;
+            return entrarApp();
+        } catch (e) { localStorage.removeItem('vademecum_interno'); }
+    }
+    if (clienteGuardado && await cargarPortafolio(clienteGuardado)) {
+        modoUsuario = 'cliente';
+        return entrarApp();
+    }
+    mostrarPantalla('loginScreen');
+    localStorage.removeItem('vademecum_interno');
+    localStorage.removeItem('vademecum_cliente');
 }
 
 async function verificarCodigo() {
-    const usuario = document.getElementById('accessUser').value.trim().toLowerCase();
+    const usuario = document.getElementById('accessUser').value.trim();
     const clave = document.getElementById('accessCode').value.trim();
     const errorMsg = document.getElementById('errorMsg');
     if (!usuario && !clave) {
         errorMsg.textContent = 'Ingresa tu usuario y clave';
         return;
     }
-    // Equipo Epithelium: su código de siempre (en la clave o en el usuario)
-    const codigo = (clave || usuario).toUpperCase();
-    if (CODIGOS_VALIDOS[codigo] && (!usuario || !clave || usuario === 'epithelium')) {
-        localStorage.setItem('vademecum_access', codigo);
+    // Usuarios internos: equipo, comerciales y médico
+    const interno = buscarUsuarioInterno(usuario, clave);
+    if (interno) {
+        modoUsuario = interno.tipo;
+        zonaUsuario = interno.zona || null;
+        localStorage.setItem('vademecum_interno', JSON.stringify({ tipo: interno.tipo, zona: interno.zona || null }));
+        localStorage.removeItem('vademecum_cliente');
         localStorage.setItem('vademecum_timestamp', new Date().toISOString());
         errorMsg.textContent = '';
-        entrarApp();
-        return;
+        return entrarApp();
     }
     // Clientes: usuario + clave de dos dígitos
     if (usuario && /^\d{2}$/.test(clave)) {
         errorMsg.textContent = 'Verificando...';
-        const huella = await huellaCliente(usuario, clave);
+        const huella = await huellaCliente(usuario.toLowerCase(), clave);
         if (await cargarPortafolio(huella)) {
+            modoUsuario = 'cliente';
             localStorage.setItem('vademecum_cliente', huella);
+            localStorage.removeItem('vademecum_interno');
             localStorage.setItem('vademecum_timestamp', new Date().toISOString());
             errorMsg.textContent = '';
-            entrarApp();
-            return;
+            return entrarApp();
         }
     }
     errorMsg.textContent = '❌ Usuario o clave incorrectos';
@@ -137,9 +169,11 @@ async function verificarCodigo() {
 
 function cerrarSesion() {
     if (confirm('¿Cerrar sesión?')) {
-        localStorage.removeItem('vademecum_access');
+        localStorage.removeItem('vademecum_interno');
         localStorage.removeItem('vademecum_cliente');
         localStorage.removeItem('vademecum_timestamp');
+        modoUsuario = 'cliente';
+        zonaUsuario = null;
         portafolio = [];
         portafolioPropio = [];
         clienteNombre = '';
@@ -193,7 +227,7 @@ function compararProductos(a, b) {
 }
 
 // Mi Portafolio = productos propios del cliente + los nuevos de Epithelium (si ya tiene uno con el mismo nombre, no se repite)
-function armarPortafolio() {
+function armarPortafolio(incluirNuevos = true) {
     const nombre = p => p['Nombre'].trim().toLowerCase();
     // Nombre del mismo producto (misma referencia) en el vademécum de Epithelium
     const nombreGeneral = new Map(productos.map(p => [p['Referencia Interna'], p['Nombre']]));
@@ -202,9 +236,10 @@ function armarPortafolio() {
         p.nombreEpithelium = general && general.trim().toLowerCase() !== nombre(p) ? general : '';
     });
     const propios = new Set(portafolioPropio.map(nombre));
-    const nuevosEpithelium = productos
+    // Solo el cliente ve los nuevos de Epithelium sumados; el comercial ve el portafolio real
+    const nuevosEpithelium = incluirNuevos ? productos
         .filter(p => p['Etiquetas de producto'] === 'Nuevo' && !propios.has(nombre(p)))
-        .map(p => ({ ...p, nuevoEpithelium: true }));
+        .map(p => ({ ...p, nuevoEpithelium: true })) : [];
     // Primero los productos propios del cliente y al final los nuevos de Epithelium, cada grupo en orden
     portafolio = [...[...portafolioPropio].sort(compararProductos), ...nuevosEpithelium.sort(compararProductos)];
 }
@@ -221,17 +256,22 @@ function entrarApp() {
     });
     inicializarFiltrosMP();
     filtrarMP();
-    const esCliente = portafolioPropio.length > 0;
-    document.getElementById('btnPortafolioClientes').style.display = (!esCliente && indiceClientes.length > 0) ? '' : 'none';
+    const esCliente = modoUsuario === 'cliente';
+    const veClientes = (modoUsuario === 'equipo' || modoUsuario === 'comercial') && indiceClientes.length > 0;
+    document.getElementById('btnPortafolioClientes').style.display = veClientes ? '' : 'none';
     const totalNuevos = productos.filter(p => p['Etiquetas de producto'] === 'Nuevo').length;
     document.getElementById('loNuevoTexto').textContent = `${totalNuevos} productos nuevos de Epithelium`;
     document.getElementById('btnPortafolio').style.display = esCliente ? '' : 'none';
     const intro = document.getElementById('homeIntro');
     intro.textContent = '¿Qué quieres consultar?';
-    if (esCliente) {
+    let saludoTexto = '';
+    if (esCliente) saludoTexto = `Hola, ${clienteNombre}`;
+    else if (modoUsuario === 'comercial') saludoTexto = `Comercial · ${zonaUsuario}`;
+    else if (modoUsuario === 'equipo') saludoTexto = 'Equipo Epithelium';
+    if (saludoTexto) {
         const saludo = document.createElement('span');
         saludo.className = 'home-saludo';
-        saludo.textContent = `Hola, ${clienteNombre}`;
+        saludo.textContent = saludoTexto;
         intro.prepend(saludo);
     }
     irInicio();
@@ -257,22 +297,31 @@ function abrirPortafolio() {
     modoAdmin = false;
     limpiarFiltros('port');
     ponerNuevo('port', false);
+    document.getElementById('pfBtnNuevo').style.display = '';
     document.getElementById('portTitulo').textContent = 'Mi Portafolio';
     document.getElementById('portBackBtn').innerHTML = '&larr; Inicio';
     document.getElementById('portBackBtn').onclick = irInicio;
     mostrarPantalla('portScreen');
 }
 
+// Clientes que puede ver el usuario: el comercial solo los de su zona; el equipo, todos
+function clientesVisibles() {
+    return modoUsuario === 'comercial'
+        ? indiceClientes.filter(c => c.zona === zonaUsuario)
+        : indiceClientes;
+}
+
 function abrirListaClientes() {
-    clientesFiltrados = indiceClientes;
+    clientesFiltrados = clientesVisibles();
     document.getElementById('clSearchName').value = '';
+    document.getElementById('clSubtitulo').textContent = modoUsuario === 'comercial' ? zonaUsuario : 'Todas las zonas';
     mostrarListaClientes();
     mostrarPantalla('clientsListScreen');
 }
 
 function filtrarListaClientes() {
     const q = normalizar(document.getElementById('clSearchName').value);
-    clientesFiltrados = indiceClientes.filter(c => normalizar(c.cliente).includes(q));
+    clientesFiltrados = clientesVisibles().filter(c => normalizar(c.cliente).includes(q));
     mostrarListaClientes();
 }
 
@@ -285,9 +334,11 @@ function mostrarListaClientes() {
     }
     clientesFiltrados.forEach(c => {
         const card = document.createElement('div');
-        card.className = 'producto-card';
+        card.className = 'producto-card cliente-card';
         card.onclick = () => abrirPortafolioDeCliente(c.huella, c.cliente);
-        card.innerHTML = `<h3>${c.cliente}</h3>`;
+        // El equipo ve la zona de cada cliente; el comercial ya está dentro de su zona
+        const zona = (modoUsuario === 'equipo' && c.zona) ? `<span class="cliente-zona">${c.zona}</span>` : '';
+        card.innerHTML = `<h3>${c.cliente}${zona}</h3>`;
         container.appendChild(card);
     });
 }
@@ -308,10 +359,12 @@ async function abrirPortafolioDeCliente(huella, nombre) {
     }
     clienteNombre = datos.cliente;
     portafolioPropio = datos.productos;
-    armarPortafolio();
+    armarPortafolio(false);
     inicializarFiltros('port');
     limpiarFiltros('port');
     ponerNuevo('port', false);
+    // El botón "Lo nuevo" del portafolio solo aplica al cliente
+    document.getElementById('pfBtnNuevo').style.display = 'none';
     modoAdmin = true;
     document.getElementById('portTitulo').textContent = nombre;
     document.getElementById('portBackBtn').innerHTML = '&larr; Clientes';

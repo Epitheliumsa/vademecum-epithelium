@@ -1,5 +1,6 @@
 {
  "cliente": "Dermainnova S.A.S",
+ "zona": "Zona Sur",
  "productos": [
   {
    "Referencia Interna": "MP0569",
@@ -8,7 +9,7 @@
    "Categoría del Producto": "Despigmentantes",
    "Forma Farmacéutica": "Crema",
    "Presentación Farmacéutica": "Pote",
-   "Tamaño": "30",
+   "Tamaño": 30,
    "Masa": "g",
    "Componentes": "Acido Ferulico 4% + Arbutina 3% + Vitamina E 3%",
    "Indicación": "Crema despigmentante antioxidante.\n\nMelasma leve, hiperpigmentación postinflamatoria y fotoenvejecimiento, en esquema de mantenimiento o en pacientes con piel sensible. La arbutina inhibe la tirosinasa de forma suave y sostenida; el ácido ferúlico aporta acción antioxidante potente y protege frente al daño oxidativo inducido por radiación UV; la vitamina E complementa la protección antioxidante y aporta efecto emoliente.",

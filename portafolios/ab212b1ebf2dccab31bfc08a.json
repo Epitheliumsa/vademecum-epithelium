@@ -1,5 +1,6 @@
 {
  "cliente": "Cintia Lorena Gutierrez Cuyato",
+ "zona": "Zona Sur",
  "productos": [
   {
    "Referencia Interna": "MP0959",
@@ -8,7 +9,7 @@
    "Categoría del Producto": "Hidratantes - Antienvejecimiento - Antiestrias",
    "Forma Farmacéutica": "Serum",
    "Presentación Farmacéutica": "Gotero Ambar",
-   "Tamaño": "30",
+   "Tamaño": 30,
    "Masa": "ml",
    "Componentes": "Vitamina C 15%",
    "Indicación": "Emulgel/sérum antioxidante con vitamina C.\n\nFotoenvejecimiento, piel apagada sin luminosidad e hiperpigmentación leve. La vitamina C aporta acción antioxidante potente, es cofactor esencial en la síntesis de colágeno e inhibe la tirosinasa con efecto despigmentante suave.",

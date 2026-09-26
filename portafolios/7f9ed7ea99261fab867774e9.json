@@ -1,5 +1,6 @@
 {
  "cliente": "Natalia Ospina Daza",
+ "zona": "Zona Norte",
  "productos": [
   {
    "Referencia Interna": "MP0256",
@@ -8,7 +9,7 @@
    "Categoría del Producto": "Capilares",
    "Forma Farmacéutica": "Locion",
    "Presentación Farmacéutica": "Gotero",
-   "Tamaño": "120",
+   "Tamaño": 120,
    "Masa": "ml",
    "Componentes": "Acido Retinoico 0.015% + Beta Estradiol 0.02% + Clobetasol 0.015% + Minoxidil 5%",
    "Indicación": "Loción capilar para alopecia androgenética.\n\nAlopecia androgenética masculina y femenina. El minoxidil es el estimulante principal del crecimiento folicular; el beta estradiol modula receptores androgénicos locales del folículo; el clobetasol, a dosis baja, controla la inflamación de base; el ácido retinoico potencia la penetración del minoxidil.",

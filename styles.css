@@ -837,3 +837,28 @@ body {
     color: #7a2399;
     border-bottom-color: rgba(192, 46, 138, 0.25);
 }
+
+/* Lista de clientes (usuarios internos) */
+.clientes-subtitulo {
+    margin: 0 0 8px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #2f6fed;
+}
+
+.cliente-card h3 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.cliente-zona {
+    background: #e8eefc;
+    color: #2f6fed;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 10px;
+    white-space: nowrap;
+}
