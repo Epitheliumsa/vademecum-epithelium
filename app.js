@@ -1,4 +1,7 @@
 // CONFIGURACIÓN
+// Versión publicada: al cambiar, la app ofrece actualizarse (se genera junto con version.txt)
+const APP_VERSION = '202609270044';
+
 // Usuarios internos de Epithelium. Los que tienen "zona" son comerciales y solo
 // ven el portafolio de los clientes de esa zona; los que no tienen zona ven el
 // portafolio de clientes completo. El médico no ve portafolio de clientes.
@@ -555,3 +558,21 @@ window.onclick = function(event) {
         modal.classList.remove('active');
     }
 }
+
+// ACTUALIZACIÓN DE LA APP
+// Revisa si hay una versión nueva publicada y ofrece recargar (evita quedarse con la versión guardada en el celular)
+async function revisarVersion() {
+    try {
+        const resp = await fetch('version.txt?t=' + Date.now(), { cache: 'no-store' });
+        if (!resp.ok) return;
+        const publicada = (await resp.text()).trim();
+        if (publicada && publicada !== APP_VERSION) document.getElementById('avisoVersion').classList.add('visible');
+    } catch (e) { /* sin conexión: se revisa después */ }
+}
+
+function actualizarApp() {
+    location.replace(location.pathname + '?v=' + Date.now());
+}
+
+document.addEventListener('DOMContentLoaded', revisarVersion);
+document.addEventListener('visibilitychange', () => { if (!document.hidden) revisarVersion(); });

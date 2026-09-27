@@ -6,7 +6,7 @@
     <meta name="color-scheme" content="only light">
     <meta name="theme-color" content="#006b4f">
     <title>Vademecum Epithelium</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css?v=202609270044">
 
     <!-- Ícono y ajustes para instalar la app en la pantalla de inicio -->
     <link rel="manifest" href="manifest.json">
@@ -67,6 +67,7 @@
                     <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M18 5h12M20 5v13L9 38a3 3 0 0 0 2.6 4.5h24.8A3 3 0 0 0 39 38L28 18V5"/><path d="M14 30h20"/><circle cx="21" cy="36" r="1.6"/><circle cx="27" cy="33" r="1.2"/></svg>
                     <span class="home-btn-text"><strong>Vademécum Materias Primas</strong><small>Activos, usos y concentraciones</small></span>
                 </button>
+                <p class="version-app">Versión 27/09/2026 00:44</p>
             </div>
         </div>
 
@@ -171,6 +172,9 @@
         </div>
     </div>
 
-    <script src="app.js"></script>
+    <!-- AVISO DE VERSIÓN NUEVA -->
+    <div id="avisoVersion" class="aviso-version"><span>Hay una versión nueva de la app</span><button onclick="actualizarApp()">Actualizar</button></div>
+
+    <script src="app.js?v=202609270044"></script>
 </body>
 </html>
