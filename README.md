@@ -124,3 +124,22 @@ with open('data.json', 'w', encoding='utf-8') as f:
 ## Contacto
 
 Para reportar errores o sugerencias, abre un issue en GitHub.
+
+## Ruta Comercial (carpeta `visitas/`)
+
+App aparte para la fuerza de ventas, con el mismo estilo del Vademécum. Se abre en
+`https://epitheliumsa.github.io/vademecum-epithelium/visitas/` o desde el botón
+"Ruta Comercial" del inicio del Vademécum (comerciales y equipo).
+
+- **Agenda de visitas**: programar visitas por día y registrar cada una como
+  *Visitado* (gestión, quién atendió, productos, muestras, pedido y valor, compromisos)
+  o *No visitado* (motivo, reprogramar, observaciones).
+- **Actividades del mes**: el jefe (o el vendedor) programa actividades y el vendedor
+  las marca como realizadas con fecha y resultado.
+- **Panel del equipo** (solo jefes): cumplimiento por vendedor y motivos de no visita.
+- **Descargar informe**: Excel del mes (Resumen, Visitas, Actividades) sin líneas de cuadrícula.
+
+Los contactos salen de `visitas/contactos.json` (nombre, ciudad y etiqueta del CRM, por zona).
+Mientras `API_URL` en `visitas/app.js` esté vacía, los datos quedan en cada dispositivo.
+Para que el jefe vea en vivo a todo el equipo, se instala `visitas/backend/Codigo.gs`
+en una hoja de Google Sheets (instrucciones al inicio del archivo) y se pega su URL en `API_URL`.
