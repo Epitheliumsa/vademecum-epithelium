@@ -114,7 +114,26 @@ function buscarUsuarioInterno(usuario, clave) {
     return null;
 }
 
+// Acceso directo desde Ruta Comercial para el equipo interno: el enlace trae #acceso=<código>, que es
+// SHA-256 de "vademecum:usuario:clave" (en minúsculas). Solo sirve para los usuarios internos con nombre.
+async function accesoDesdeRutaComercial() {
+    const m = location.hash.match(/acceso=([0-9a-f]{64})/);
+    if (!m) return;
+    history.replaceState(null, '', location.pathname + location.search);   // el código no queda a la vista
+    for (const x of USUARIOS_INTERNOS.filter(u => u.usuario)) {
+        const bytes = new TextEncoder().encode(`vademecum:${x.usuario}:${x.clave}`.toLowerCase());
+        const hash = [...new Uint8Array(await crypto.subtle.digest('SHA-256', bytes))].map(b => b.toString(16).padStart(2, '0')).join('');
+        if (hash === m[1]) {
+            localStorage.setItem('vademecum_interno', JSON.stringify({ tipo: x.tipo, zona: x.zona || null }));
+            localStorage.removeItem('vademecum_cliente');
+            localStorage.setItem('vademecum_timestamp', new Date().toISOString());
+            return;
+        }
+    }
+}
+
 async function verificarAcceso() {
+    await accesoDesdeRutaComercial();
     const interno = localStorage.getItem('vademecum_interno');
     const clienteGuardado = localStorage.getItem('vademecum_cliente');
     if (interno) {
