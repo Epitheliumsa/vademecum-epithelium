@@ -262,7 +262,6 @@ function entrarApp() {
     const esCliente = modoUsuario === 'cliente';
     const veClientes = (modoUsuario === 'equipo' || modoUsuario === 'comercial') && indiceClientes.length > 0;
     document.getElementById('btnPortafolioClientes').style.display = veClientes ? '' : 'none';
-    document.getElementById('btnRutaComercial').style.display = (modoUsuario === 'equipo' || modoUsuario === 'comercial') ? '' : 'none';
     const totalNuevos = productos.filter(p => p['Etiquetas de producto'] === 'Nuevo').length;
     document.getElementById('loNuevoTexto').textContent = `${totalNuevos} productos nuevos de Epithelium`;
     document.getElementById('btnPortafolio').style.display = esCliente ? '' : 'none';
