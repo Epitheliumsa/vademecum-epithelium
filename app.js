@@ -1,6 +1,6 @@
 // CONFIGURACIÓN
 // Versión publicada: al cambiar, la app ofrece actualizarse (se genera junto con version.txt)
-const APP_VERSION = '202609281437';
+const APP_VERSION = '202609281445';
 
 // Usuarios internos de Epithelium. Los que tienen "zona" son comerciales y solo
 // ven el portafolio de los clientes de esa zona; los que no tienen zona ven el
@@ -91,6 +91,22 @@ function rgbaHex(hex, alfa) {
     const [r, g, b] = hexRgb(hex);
     return `rgba(${r}, ${g}, ${b}, ${alfa})`;
 }
+// Mezcla un color con blanco o negro (frac 0-1) y devuelve un rgb OPACO
+function mezclar(hex, hacia, frac) {
+    const [r, g, b] = hexRgb(hex);
+    const t = hacia === 'blanco' ? 255 : 0;
+    const m = v => Math.round(v + (t - v) * frac);
+    return `rgb(${m(r)}, ${m(g)}, ${m(b)})`;
+}
+// Versión clara opaca del color (para fondos que deben taparse) y oscura (para texto legible)
+const lavado = hex => mezclar(hex, 'blanco', 0.88);
+function textoLegible(hex) {
+    const [r, g, b] = hexRgb(hex);
+    const lum = 0.299 * r + 0.587 * g + 0.114 * b;   // qué tan claro es el color
+    return mezclar(hex, 'negro', lum > 150 ? 0.55 : 0.3);
+}
+// Fondo tenive OPACO para el detalle (claro arriba, blanco abajo)
+const fondoCategoria = hex => `linear-gradient(180deg, ${lavado(hex)} 0%, #ffffff 240px)`;
 
 // Color de cada categoría de materia prima (para las barras y el fondo tenue)
 function hexRgb(hex) {
@@ -563,7 +579,7 @@ function mostrarDetalle(producto, tema = '') {
     // Fondo tenue con el color de la categoría del producto
     const color = colorProductoCat(producto['Categoría del Producto']);
     if (color) {
-        document.querySelector('#modalDetail .modal-content').style.background = `linear-gradient(180deg, ${rgbaHex(color, 0.16)} 0%, #ffffff 220px)`;
+        document.querySelector('#modalDetail .modal-content').style.background = fondoCategoria(color);
     }
     content.innerHTML = `<h2>${producto['Nombre']}</h2>${producto.nombreEpithelium ? lineaEpithelium(producto.nombreEpithelium) : ''}${producto['Componentes'] ? `<strong>Componentes</strong><p>${producto['Componentes'].replace(/\n/g, '<br>')}</p>` : ''}<strong>Especificaciones</strong><p>${producto['Categoría del Producto'] ? `<strong>Categoría:</strong> ${producto['Categoría del Producto']}<br>` : ''}<strong>Forma:</strong> ${producto['Forma Farmacéutica']}<br><strong>Presentación:</strong> ${producto['Presentación Farmacéutica']}<br><strong>Tamaño:</strong> ${producto['Tamaño']} ${producto['Masa']}</p>${producto['Indicación'] ? `<strong>Indicación</strong><p>${producto['Indicación'].replace(/\n/g, '<br>')}</p>` : ''}${producto['Dosis Recomendada'] ? `<strong>Dosis Recomendada</strong><p>${producto['Dosis Recomendada'].replace(/\n/g, '<br>')}</p>` : ''}<strong>Referencia Interna</strong><p>${producto['Referencia Interna']}</p>${producto['Etiquetas de producto'] ? `<strong>Categorías</strong><p><span class="producto-label">${producto.nuevoEpithelium ? 'Nuevo Epithelium' : producto['Etiquetas de producto']}</span></p>` : ''}`;
     modal.classList.add('active');
@@ -622,7 +638,7 @@ function mostrarResultadosMP() {
         card.className = 'producto-card mp-card';
         card.onclick = () => mostrarDetalleMP(m);
         const uso = m['Uso Terapéutico y Cosmético'];
-        const cats = categoriasDe(m).map(c => `<span class="mp-chip" style="background:${rgbaCategoria(c, 0.18)};color:${colorCategoria(c)}">${c}</span>`).join('');
+        const cats = categoriasDe(m).map(c => `<span class="mp-chip" style="background:${rgbaCategoria(c, 0.2)};color:${textoLegible(colorCategoria(c))}">${c}</span>`).join('');
         card.innerHTML = `<span class="mp-barra" style="background:${barraCategorias(m)}"></span><h3>${m['Nombre']}</h3>${cats ? `<p class="mp-chips">${cats}</p>` : ''}${m['Concentración de Uso'] ? `<p><strong>Concentración:</strong> ${m['Concentración de Uso'].split('\n')[0]}</p>` : ''}${uso ? `<p style="font-size: 12px; color: #999; margin-top: 8px;">${uso.length > 100 ? uso.substring(0, 100) + '...' : uso}</p>` : ''}`;
         container.appendChild(card);
     });
@@ -634,12 +650,12 @@ function mostrarDetalleMP(m) {
     const content = document.getElementById('detailContent');
     // Fondo tenue con el color de la categoría principal
     const box = document.querySelector('#modalDetail .modal-content');
-    box.style.background = `linear-gradient(180deg, ${rgbaCategoria(m['Categoria Principal'], 0.16)} 0%, #ffffff 220px)`;
+    box.style.background = fondoCategoria(colorCategoria(m['Categoria Principal']));
     const bloque = (titulo, texto) => texto ? `<strong>${titulo}</strong><p>${texto.replace(/\n/g, '<br>')}</p>` : '';
     const cats = categoriasDe(m);
     const verRef = modoUsuario === 'equipo' || modoUsuario === 'comercial';
     // Categorías como etiquetas: al tocarlas se muestra su descripción
-    const chips = cats.map(c => `<button type="button" class="mp-chip mp-chip-btn" style="background:${rgbaCategoria(c, 0.18)};color:${colorCategoria(c)};border-color:${rgbaCategoria(c, 0.5)}" onclick="mostrarCatDesc('${c.replace(/'/g, "\\'")}')">${c}</button>`).join('');
+    const chips = cats.map(c => `<button type="button" class="mp-chip mp-chip-btn" style="background:${rgbaCategoria(c, 0.2)};color:${textoLegible(colorCategoria(c))};border-color:${rgbaCategoria(c, 0.5)}" onclick="mostrarCatDesc('${c.replace(/'/g, "\\'")}')">${c}</button>`).join('');
     content.innerHTML = `<h2>${m['Nombre']}</h2>${cats.length ? `<div class="mp-cats">${chips}</div><div id="mpDescBox" class="mp-desc" hidden></div>` : ''}${bloque('Identificación Técnica', m['Identificación Técnica'])}${bloque('Uso Terapéutico y Cosmético', m['Uso Terapéutico y Cosmético'])}${bloque('Concentración de Uso', m['Concentración de Uso'])}${verRef ? bloque('Referencia Interna', m['Referencia Interna']) : ''}`;
     modal.classList.add('active');
 }
@@ -655,7 +671,7 @@ function mostrarCatDesc(nombre) {
         box.dataset.cat = '';
         return;
     }
-    box.innerHTML = `<strong style="color:${colorCategoria(nombre)}">${nombre}</strong><p>${texto}</p>`;
+    box.innerHTML = `<strong style="color:${textoLegible(colorCategoria(nombre))}">${nombre}</strong><p>${texto}</p>`;
     box.style.borderColor = rgbaCategoria(nombre, 0.5);
     box.dataset.cat = nombre;
     box.hidden = false;
