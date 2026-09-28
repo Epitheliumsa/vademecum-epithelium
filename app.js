@@ -1,6 +1,6 @@
 // CONFIGURACIÓN
 // Versión publicada: al cambiar, la app ofrece actualizarse (se genera junto con version.txt)
-const APP_VERSION = '202609281158';
+const APP_VERSION = '202609281201';
 
 // Usuarios internos de Epithelium. Los que tienen "zona" son comerciales y solo
 // ven el portafolio de los clientes de esa zona; los que no tienen zona ven el
@@ -398,7 +398,9 @@ function inicializarFiltros(k = 'prod') {
     const cat = CATALOGOS[k];
     const datos = cat.datos();
     const categorias = [...new Set(datos.map(p => p['Categoría del Producto']).filter(p => p))];
-    const formas = [...new Set(datos.map(p => p['Forma Farmacéutica']).filter(p => p))];
+    // En el portafolio de cliente se ofrecen todas las formas que maneja la compañía
+    const fuenteFormas = k === 'port' ? [...productos, ...datos] : datos;
+    const formas = [...new Set(fuenteFormas.map(p => p['Forma Farmacéutica']).filter(p => p))];
     if (k === 'port') {
         categorias.sort();
         formas.sort();
