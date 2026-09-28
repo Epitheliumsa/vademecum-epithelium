@@ -1,6 +1,6 @@
 // CONFIGURACIÓN
 // Versión publicada: al cambiar, la app ofrece actualizarse (se genera junto con version.txt)
-const APP_VERSION = '202609281459';
+const APP_VERSION = '202609281502';
 
 // Usuarios internos de Epithelium. Los que tienen "zona" son comerciales y solo
 // ven el portafolio de los clientes de esa zona; los que no tienen zona ven el
@@ -569,6 +569,7 @@ function temaModal(tema) {
     const box = document.querySelector('#modalDetail .modal-content');
     box.classList.remove('theme-mp', 'theme-nuevo', 'theme-port');
     box.style.background = '';
+    box.style.borderTopColor = '';
     if (tema) box.classList.add(tema);
 }
 
@@ -579,7 +580,9 @@ function mostrarDetalle(producto, tema = '') {
     // Fondo tenue con el color de la categoría del producto
     const color = colorProductoCat(producto['Categoría del Producto']);
     if (color) {
-        document.querySelector('#modalDetail .modal-content').style.background = fondoCategoria(color);
+        const mc = document.querySelector('#modalDetail .modal-content');
+        mc.style.background = fondoCategoria(color);
+        mc.style.borderTopColor = color;
     }
     content.innerHTML = `<h2>${producto['Nombre']}</h2>${producto.nombreEpithelium ? lineaEpithelium(producto.nombreEpithelium) : ''}${producto['Componentes'] ? `<strong>Componentes</strong><p>${producto['Componentes'].replace(/\n/g, '<br>')}</p>` : ''}<strong>Especificaciones</strong><p>${producto['Categoría del Producto'] ? `<strong>Categoría:</strong> ${producto['Categoría del Producto']}<br>` : ''}<strong>Forma:</strong> ${producto['Forma Farmacéutica']}<br><strong>Presentación:</strong> ${producto['Presentación Farmacéutica']}<br><strong>Tamaño:</strong> ${producto['Tamaño']} ${producto['Masa']}</p>${producto['Indicación'] ? `<strong>Indicación</strong><p>${producto['Indicación'].replace(/\n/g, '<br>')}</p>` : ''}${producto['Dosis Recomendada'] ? `<strong>Dosis Recomendada</strong><p>${producto['Dosis Recomendada'].replace(/\n/g, '<br>')}</p>` : ''}<strong>Referencia Interna</strong><p>${producto['Referencia Interna']}</p>${producto['Etiquetas de producto'] ? `<strong>Categorías</strong><p><span class="producto-label">${producto.nuevoEpithelium ? 'Nuevo Epithelium' : producto['Etiquetas de producto']}</span></p>` : ''}`;
     modal.classList.add('active');
@@ -651,6 +654,7 @@ function mostrarDetalleMP(m) {
     // Fondo tenue con el color de la categoría principal
     const box = document.querySelector('#modalDetail .modal-content');
     box.style.background = fondoCategoria(colorCategoria(m['Categoria Principal']));
+    box.style.borderTopColor = colorCategoria(m['Categoria Principal']);
     const bloque = (titulo, texto) => texto ? `<strong>${titulo}</strong><p>${texto.replace(/\n/g, '<br>')}</p>` : '';
     const cats = categoriasDe(m);
     const verRef = modoUsuario === 'equipo' || modoUsuario === 'comercial';
