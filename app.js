@@ -1,4 +1,7 @@
 // CONFIGURACIÓN
+// Versión publicada: al cambiar, la app ofrece actualizarse (se genera junto con version.txt)
+const APP_VERSION = '202609281256';
+
 // Usuarios internos de Epithelium. Los que tienen "zona" son comerciales y solo
 // ven el portafolio de los clientes de esa zona; los que no tienen zona ven el
 // portafolio de clientes completo. El médico no ve portafolio de clientes.
@@ -236,7 +239,7 @@ function armarPortafolio(incluirNuevos = true) {
         p.nombreEpithelium = general && general.trim().toLowerCase() !== nombre(p) ? general : '';
     });
     const propios = new Set(portafolioPropio.map(nombre));
-    // Solo el cliente ve los nuevos de Epithelium sumados; el comercial ve el portafolio real
+    // Los nuevos de Epithelium se suman al final (al cliente y a la fuerza de ventas)
     const nuevosEpithelium = incluirNuevos ? productos
         .filter(p => p['Etiquetas de producto'] === 'Nuevo' && !propios.has(nombre(p)))
         .map(p => ({ ...p, nuevoEpithelium: true })) : [];
@@ -360,12 +363,11 @@ async function abrirPortafolioDeCliente(huella, nombre) {
     }
     clienteNombre = datos.cliente;
     portafolioPropio = datos.productos;
-    armarPortafolio(false);
+    armarPortafolio();
     inicializarFiltros('port');
     limpiarFiltros('port');
     ponerNuevo('port', false);
-    // El botón "Lo nuevo" del portafolio solo aplica al cliente
-    document.getElementById('pfBtnNuevo').style.display = 'none';
+    document.getElementById('pfBtnNuevo').style.display = '';
     modoAdmin = true;
     document.getElementById('portTitulo').textContent = nombre;
     document.getElementById('portBackBtn').innerHTML = '&larr; Clientes';
@@ -396,8 +398,10 @@ function llenarSelect(select, valores) {
 function inicializarFiltros(k = 'prod') {
     const cat = CATALOGOS[k];
     const datos = cat.datos();
-    const categorias = [...new Set(datos.map(p => p['Categoría del Producto']).filter(p => p))];
-    const formas = [...new Set(datos.map(p => p['Forma Farmacéutica']).filter(p => p))];
+    // En el portafolio de cliente se ofrecen todas las categorías y formas que maneja la compañía
+    const fuente = k === 'port' ? [...productos, ...datos] : datos;
+    const categorias = [...new Set(fuente.map(p => p['Categoría del Producto']).filter(p => p))];
+    const formas = [...new Set(fuente.map(p => p['Forma Farmacéutica']).filter(p => p))];
     if (k === 'port') {
         categorias.sort();
         formas.sort();
@@ -456,7 +460,16 @@ function mostrarResultados(k = 'prod') {
     if (cat.soloNuevos) {
         container.innerHTML = `<div class="aviso-nuevo">✨ Estás viendo lo nuevo · ${lista.length} ${lista.length === 1 ? 'producto' : 'productos'}</div>`;
     }
+    let separadorPuesto = false;
     lista.forEach(p => {
+        // En Mi Portafolio, separar los nuevos de Epithelium (que el cliente no tiene) con un encabezado
+        if (p.nuevoEpithelium && !separadorPuesto && !cat.soloNuevos) {
+            const sep = document.createElement('div');
+            sep.className = 'separador-nuevos';
+            sep.textContent = 'Productos Nuevos Epithelium';
+            container.appendChild(sep);
+            separadorPuesto = true;
+        }
         const esNuevo = p['Etiquetas de producto'] === 'Nuevo';
         const card = document.createElement('div');
         card.className = esNuevo ? 'producto-card es-nuevo' : 'producto-card';
@@ -556,3 +569,21 @@ window.onclick = function(event) {
         modal.classList.remove('active');
     }
 }
+
+// ACTUALIZACIÓN DE LA APP
+// Revisa si hay una versión nueva publicada y ofrece recargar (evita quedarse con la versión guardada en el celular)
+async function revisarVersion() {
+    try {
+        const resp = await fetch('version.txt?t=' + Date.now(), { cache: 'no-store' });
+        if (!resp.ok) return;
+        const publicada = (await resp.text()).trim();
+        if (publicada && publicada !== APP_VERSION) document.getElementById('avisoVersion').classList.add('visible');
+    } catch (e) { /* sin conexión: se revisa después */ }
+}
+
+function actualizarApp() {
+    location.replace(location.pathname + '?v=' + Date.now());
+}
+
+document.addEventListener('DOMContentLoaded', revisarVersion);
+document.addEventListener('visibilitychange', () => { if (!document.hidden) revisarVersion(); });

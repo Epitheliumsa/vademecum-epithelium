@@ -862,3 +862,61 @@ body {
     border-radius: 10px;
     white-space: nowrap;
 }
+
+/* Versión de la app y aviso de versión nueva */
+.version-app {
+    grid-column: 1 / -1;
+    text-align: center;
+    font-size: 11px;
+    color: #a3b1ac;
+    margin-top: -4px;
+}
+
+.aviso-version {
+    position: fixed;
+    left: 12px;
+    right: 12px;
+    bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+    z-index: 2150;
+    max-width: 520px;
+    margin: 0 auto;
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    background: #15302a;
+    color: white;
+    border-radius: 12px;
+    padding: 12px 12px 12px 16px;
+    font-size: 14px;
+    font-weight: 600;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .3);
+}
+
+.aviso-version.visible {
+    display: flex;
+}
+
+.aviso-version button {
+    background: #00A651;
+    color: white;
+    border: 0;
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-family: inherit;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+/* Separador de los nuevos de Epithelium en Mi Portafolio */
+.separador-nuevos {
+    grid-column: 1 / -1;
+    margin: 18px 0 4px;
+    padding: 8px 14px;
+    border-radius: 8px;
+    background: #fbeaf3;
+    color: #a01a6e;
+    font-weight: 700;
+    font-size: 14px;
+    border-left: 4px solid #d6248f;
+}
