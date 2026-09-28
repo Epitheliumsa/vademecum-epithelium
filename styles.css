@@ -907,3 +907,16 @@ body {
     font-weight: 700;
     cursor: pointer;
 }
+
+/* Separador de los nuevos de Epithelium en Mi Portafolio */
+.separador-nuevos {
+    grid-column: 1 / -1;
+    margin: 18px 0 4px;
+    padding: 8px 14px;
+    border-radius: 8px;
+    background: #fbeaf3;
+    color: #a01a6e;
+    font-weight: 700;
+    font-size: 14px;
+    border-left: 4px solid #d6248f;
+}
