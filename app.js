@@ -1,6 +1,6 @@
 // CONFIGURACIÓN
 // Versión publicada: al cambiar, la app ofrece actualizarse (se genera junto con version.txt)
-const APP_VERSION = '202609281256';
+const APP_VERSION = '202609281406';
 
 // Usuarios internos de Epithelium. Los que tienen "zona" son comerciales y solo
 // ven el portafolio de los clientes de esa zona; los que no tienen zona ven el
@@ -19,6 +19,7 @@ const URL_DATOS = 'https://raw.githubusercontent.com/nanorsf/vademecum-epitheliu
 
 let productos = [];
 let materiasPrimas = [];
+let categorias = {};
 let materiasPrimasFiltradas = [];
 let portafolio = [];
 let portafolioPropio = [];
@@ -75,7 +76,35 @@ async function cargarDatos() {
     console.log(`✅ ${productos.length} productos cargados`);
     materiasPrimas = await descargarJSON('materias-primas.json') || [];
     console.log(`✅ ${materiasPrimas.length} materias primas cargadas`);
+    categorias = await descargarJSON('categorias.json', d => d && typeof d === 'object') || {};
     indiceClientes = await descargarJSON('portafolios-index.json') || [];
+}
+
+// Color de cada categoría de materia prima (para las barras y el fondo tenue)
+function hexRgb(hex) {
+    hex = String(hex || '').replace('#', '');
+    if (hex.length === 3) hex = hex.split('').map(c => c + c).join('');
+    const n = parseInt(hex || '0', 16);
+    return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
+}
+function colorCategoria(nombre) {
+    return categorias[nombre] && categorias[nombre].color ? categorias[nombre].color : '#c9c9c9';
+}
+function rgbaCategoria(nombre, alfa) {
+    const [r, g, b] = hexRgb(colorCategoria(nombre));
+    return `rgba(${r}, ${g}, ${b}, ${alfa})`;
+}
+// Barra lateral: 70% categoría principal y 30% secundaria (si tiene), en tono tenue
+function barraCategorias(m) {
+    const p = rgbaCategoria(m['Categoria Principal'], 0.55);
+    const s = m['Categoria Secundaria'];
+    if (s && categorias[s]) {
+        return `linear-gradient(to bottom, ${p} 0 70%, ${rgbaCategoria(s, 0.55)} 70% 100%)`;
+    }
+    return p;
+}
+function categoriasDe(m) {
+    return [m['Categoria Principal'], m['Categoria Secundaria']].filter(c => c && categorias[c]);
 }
 
 async function reintentarCarga() {
@@ -509,6 +538,7 @@ function mostrarResultados(k = 'prod') {
 function temaModal(tema) {
     const box = document.querySelector('#modalDetail .modal-content');
     box.classList.remove('theme-mp', 'theme-nuevo', 'theme-port');
+    box.style.background = '';
     if (tema) box.classList.add(tema);
 }
 
@@ -531,9 +561,11 @@ function limpiarFiltrosMP() {
 function inicializarFiltrosMP() {
     const select = document.getElementById('mpFilterEtiqueta');
     select.length = 1;
-    const etiquetas = [...new Set(materiasPrimas.map(m => m['Etiqueta de Materia Prima']).filter(e => e))].sort();
+    // Categorías presentes en las materias primas (principal o secundaria), en orden alfabético
+    const cats = [...new Set(materiasPrimas.flatMap(m => [m['Categoria Principal'], m['Categoria Secundaria']]).filter(c => c && categorias[c]))]
+        .sort((a, b) => a.localeCompare(b, 'es', { sensitivity: 'base' }));
     llenarDatalist('dlUsos', opcionesUnicas(materiasPrimas.flatMap(usosDe)));
-    etiquetas.forEach(e => {
+    cats.forEach(e => {
         const option = document.createElement('option');
         option.value = e;
         option.textContent = e;
@@ -544,13 +576,13 @@ function inicializarFiltrosMP() {
 function filtrarMP() {
     const searchName = normalizar(document.getElementById('mpSearchName').value);
     const searchUso = normalizar(document.getElementById('mpSearchUso').value);
-    const filterEtiqueta = document.getElementById('mpFilterEtiqueta').value;
+    const filterCategoria = document.getElementById('mpFilterEtiqueta').value;
     materiasPrimasFiltradas = materiasPrimas.filter(m => {
         const matchName = normalizar(m['Nombre']).includes(searchName);
         const textoUso = normalizar(m['Uso Terapéutico y Cosmético'] + ' ' + m['Identificación Técnica']);
         const matchUso = !searchUso || textoUso.includes(searchUso);
-        const matchEtiqueta = !filterEtiqueta || m['Etiqueta de Materia Prima'] === filterEtiqueta;
-        return matchName && matchUso && matchEtiqueta;
+        const matchCategoria = !filterCategoria || m['Categoria Principal'] === filterCategoria || m['Categoria Secundaria'] === filterCategoria;
+        return matchName && matchUso && matchCategoria;
     });
     mostrarResultadosMP();
 }
@@ -568,10 +600,11 @@ function mostrarResultadosMP() {
     }
     materiasPrimasFiltradas.forEach(m => {
         const card = document.createElement('div');
-        card.className = 'producto-card';
+        card.className = 'producto-card mp-card';
         card.onclick = () => mostrarDetalleMP(m);
         const uso = m['Uso Terapéutico y Cosmético'];
-        card.innerHTML = `<h3>${m['Nombre']}</h3><p><strong>Categoría:</strong> ${m['Etiqueta de Materia Prima']}</p>${m['Concentración de Uso'] ? `<p><strong>Concentración:</strong> ${m['Concentración de Uso'].split('\n')[0]}</p>` : ''}${uso ? `<p style="font-size: 12px; color: #999; margin-top: 8px;">${uso.length > 100 ? uso.substring(0, 100) + '...' : uso}</p>` : ''}`;
+        const cats = categoriasDe(m).map(c => `<span class="mp-chip" style="background:${rgbaCategoria(c, 0.18)};color:${colorCategoria(c)}">${c}</span>`).join('');
+        card.innerHTML = `<span class="mp-barra" style="background:${barraCategorias(m)}"></span><h3>${m['Nombre']}</h3>${cats ? `<p class="mp-chips">${cats}</p>` : ''}${m['Concentración de Uso'] ? `<p><strong>Concentración:</strong> ${m['Concentración de Uso'].split('\n')[0]}</p>` : ''}${uso ? `<p style="font-size: 12px; color: #999; margin-top: 8px;">${uso.length > 100 ? uso.substring(0, 100) + '...' : uso}</p>` : ''}`;
         container.appendChild(card);
     });
 }
@@ -580,9 +613,33 @@ function mostrarDetalleMP(m) {
     temaModal('theme-mp');
     const modal = document.getElementById('modalDetail');
     const content = document.getElementById('detailContent');
+    // Fondo tenue con el color de la categoría principal
+    const box = document.querySelector('#modalDetail .modal-content');
+    box.style.background = `linear-gradient(180deg, ${rgbaCategoria(m['Categoria Principal'], 0.16)} 0%, #ffffff 220px)`;
     const bloque = (titulo, texto) => texto ? `<strong>${titulo}</strong><p>${texto.replace(/\n/g, '<br>')}</p>` : '';
-    content.innerHTML = `<h2>${m['Nombre']}</h2>${bloque('Identificación Técnica', m['Identificación Técnica'])}${bloque('Uso Terapéutico y Cosmético', m['Uso Terapéutico y Cosmético'])}${bloque('Concentración de Uso', m['Concentración de Uso'])}${bloque('Referencia Interna', m['Referencia Interna'])}${m['Etiqueta de Materia Prima'] ? `<strong>Categoría</strong><p><span class="producto-label">${m['Etiqueta de Materia Prima']}</span></p>` : ''}`;
+    const cats = categoriasDe(m);
+    const verRef = modoUsuario === 'equipo' || modoUsuario === 'comercial';
+    // Categorías como etiquetas: al tocarlas se muestra su descripción
+    const chips = cats.map(c => `<button type="button" class="mp-chip mp-chip-btn" style="background:${rgbaCategoria(c, 0.18)};color:${colorCategoria(c)};border-color:${rgbaCategoria(c, 0.5)}" onclick="mostrarCatDesc('${c.replace(/'/g, "\\'")}')">${c}</button>`).join('');
+    content.innerHTML = `<h2>${m['Nombre']}</h2>${cats.length ? `<div class="mp-cats">${chips}</div><div id="mpDescBox" class="mp-desc" hidden></div>` : ''}${bloque('Identificación Técnica', m['Identificación Técnica'])}${bloque('Uso Terapéutico y Cosmético', m['Uso Terapéutico y Cosmético'])}${bloque('Concentración de Uso', m['Concentración de Uso'])}${verRef ? bloque('Referencia Interna', m['Referencia Interna']) : ''}`;
     modal.classList.add('active');
+}
+
+// Muestra la descripción de una categoría al tocar su etiqueta en el detalle
+function mostrarCatDesc(nombre) {
+    const box = document.getElementById('mpDescBox');
+    if (!box) return;
+    const cat = categorias[nombre];
+    const texto = cat && cat.descripcion ? cat.descripcion : '';
+    if (box.dataset.cat === nombre && !box.hidden) {
+        box.hidden = true;
+        box.dataset.cat = '';
+        return;
+    }
+    box.innerHTML = `<strong style="color:${colorCategoria(nombre)}">${nombre}</strong><p>${texto}</p>`;
+    box.style.borderColor = rgbaCategoria(nombre, 0.5);
+    box.dataset.cat = nombre;
+    box.hidden = false;
 }
 
 function cerrarModal() {
