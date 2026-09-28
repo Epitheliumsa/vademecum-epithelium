@@ -1,6 +1,6 @@
 // CONFIGURACIÓN
 // Versión publicada: al cambiar, la app ofrece actualizarse (se genera junto con version.txt)
-const APP_VERSION = '202609270044';
+const APP_VERSION = '202609281158';
 
 // Usuarios internos de Epithelium. Los que tienen "zona" son comerciales y solo
 // ven el portafolio de los clientes de esa zona; los que no tienen zona ven el
@@ -239,7 +239,7 @@ function armarPortafolio(incluirNuevos = true) {
         p.nombreEpithelium = general && general.trim().toLowerCase() !== nombre(p) ? general : '';
     });
     const propios = new Set(portafolioPropio.map(nombre));
-    // Solo el cliente ve los nuevos de Epithelium sumados; el comercial ve el portafolio real
+    // Los nuevos de Epithelium se suman al final (al cliente y a la fuerza de ventas)
     const nuevosEpithelium = incluirNuevos ? productos
         .filter(p => p['Etiquetas de producto'] === 'Nuevo' && !propios.has(nombre(p)))
         .map(p => ({ ...p, nuevoEpithelium: true })) : [];
@@ -362,12 +362,11 @@ async function abrirPortafolioDeCliente(huella, nombre) {
     }
     clienteNombre = datos.cliente;
     portafolioPropio = datos.productos;
-    armarPortafolio(false);
+    armarPortafolio();
     inicializarFiltros('port');
     limpiarFiltros('port');
     ponerNuevo('port', false);
-    // El botón "Lo nuevo" del portafolio solo aplica al cliente
-    document.getElementById('pfBtnNuevo').style.display = 'none';
+    document.getElementById('pfBtnNuevo').style.display = '';
     modoAdmin = true;
     document.getElementById('portTitulo').textContent = nombre;
     document.getElementById('portBackBtn').innerHTML = '&larr; Clientes';
