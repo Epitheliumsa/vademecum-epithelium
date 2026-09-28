@@ -274,7 +274,7 @@
   "Nombre": "Acido Kojico Di Palmitatto",
   "Identificación Técnica": "INCI: Kojic Acid\nUSP: Sin monografía USP\nInhibidor de tirosinasa, despigmentante",
   "Uso Terapéutico y Cosmético": "Hiperpigmentación, melasma, manchas solares",
-  "Concentración de Uso": "Homologo de Acido Kojico; factor de equivalencia de formulacion x4 respecto al origen. Referencia dosis del origen: 1%-4%\nMáximo uso: 1% en UE (restricción regulatoria); hasta 4% en otras regiones",
+  "Concentración de Uso": "1%-4%\nMáximo uso: 1% en UE (restricción regulatoria); hasta 4% en otras regiones",
   "Categoria Principal": "Despigmentantes",
   "Categoria Secundaria": ""
  },
@@ -310,7 +310,7 @@
   "Nombre": "Acido Oleanolico",
   "Identificación Técnica": "Es una asociación de ácido oleanólico y ácido nordihidroguaiarético en un gel osmótico. Estéticamente, es utilizado en tónicos, emulsiones, geles, máscaras, bases de maquillaje ara la piel grasa y propensa al acné. Este producto combate \"acné\" al reducir hiperseborrea, hiperqueratosis, la inflamación y la proliferación bacteriana. AC.NET™ proporciona un tratamiento global para la piel grasosa y propensa al acné. El gel osmótico ayuda a controlar el crecimiento bacteriano.",
   "Uso Terapéutico y Cosmético": "Para seborrea de tipo facial y capilar",
-  "Concentración de Uso": "Homologo de Ac.Net; factor de equivalencia de formulacion x1 respecto al origen. Referencia dosis del origen:",
+  "Concentración de Uso": "",
   "Categoria Principal": "Acné",
   "Categoria Secundaria": "Capilares"
  },
@@ -400,7 +400,7 @@
   "Nombre": "Alfa Arbutina",
   "Identificación Técnica": "INCI: Arbutin\nUSP: Sin monografía USP\nInhibidor de tirosinasa, despigmentante",
   "Uso Terapéutico y Cosmético": "Hiperpigmentación, melasma, manchas solares",
-  "Concentración de Uso": "Homologo de Arbutina; factor de equivalencia de formulacion x1 respecto al origen. Referencia dosis del origen: 2%-7%\nMáximo uso: 7% (uso tópico cosmético habitual)",
+  "Concentración de Uso": "2%-7%\nMáximo uso: 7% (uso tópico cosmético habitual)",
   "Categoria Principal": "Despigmentantes",
   "Categoria Secundaria": ""
  },
@@ -427,7 +427,7 @@
   "Nombre": "Alistin",
   "Identificación Técnica": "INCI: Sodium Hyaluronate / Hyaluronic Acid\nUSP: Hyaluronic Acid\nHumectante, agente hidratante de alto peso molecular",
   "Uso Terapéutico y Cosmético": "Hidratación cutánea, mejora de elasticidad, antienvejecimiento",
-  "Concentración de Uso": "Homologo de Acido Hialuronico USP; factor de equivalencia de formulacion x1 respecto al origen. Referencia dosis del origen: 0.1%-2%\nMáximo uso: sin límite regulatorio estricto en uso tópico cosmético",
+  "Concentración de Uso": "0.1%-2%\nMáximo uso: sin límite regulatorio estricto en uso tópico cosmético",
   "Categoria Principal": "Hidratantes",
   "Categoria Secundaria": "Antienvejecimiento"
  },
@@ -544,7 +544,7 @@
   "Nombre": "Bifonazol",
   "Identificación Técnica": "USP: Terbinafine Hydrochloride\nAntifúngico (alilamina)",
   "Uso Terapéutico y Cosmético": "Micosis cutáneas, tiña, onicomicosis, pitiriasis versicolor",
-  "Concentración de Uso": "Homologo de Terbinafina; factor de equivalencia de formulacion x1 respecto al origen. Referencia dosis del origen: 1%\nMáximo uso: 1% (concentración estándar comercial)",
+  "Concentración de Uso": "1%\nMáximo uso: 1% (concentración estándar comercial)",
   "Categoria Principal": "Antiparasitarios",
   "Categoria Secundaria": ""
  },
@@ -706,7 +706,7 @@
   "Nombre": "Clobetasol Base",
   "Identificación Técnica": "USP: Clobetasol Propionate\nCorticosteroide tópico de muy alta potencia, antiinflamatorio",
   "Uso Terapéutico y Cosmético": "Psoriasis, dermatitis severa, liquen plano, alopecia areata",
-  "Concentración de Uso": "Homologo de Clobetasol; factor de equivalencia de formulacion x1 respecto al origen. Referencia dosis del origen: 0.05%\nMáximo uso: 0.05% (concentración estándar comercial; uso limitado en tiempo/superficie)",
+  "Concentración de Uso": "0.05%\nMáximo uso: 0.05% (concentración estándar comercial; uso limitado en tiempo/superficie)",
   "Categoria Principal": "Corticoides",
   "Categoria Secundaria": ""
  },
@@ -760,7 +760,7 @@
   "Nombre": "Colodión Flexible",
   "Identificación Técnica": "None",
   "Uso Terapéutico y Cosmético": "",
-  "Concentración de Uso": "Homologo de Base Esmalte; factor de equivalencia de formulacion x1 respecto al origen. Referencia dosis del origen:",
+  "Concentración de Uso": "",
   "Categoria Principal": "Ungueales",
   "Categoria Secundaria": ""
  },
@@ -778,7 +778,7 @@
   "Nombre": "D-Glucitol",
   "Identificación Técnica": "Es una asociación de ácido oleanólico y ácido nordihidroguaiarético en un gel osmótico. Estéticamente, es utilizado en tónicos, emulsiones, geles, máscaras, bases de maquillaje ara la piel grasa y propensa al acné. Este producto combate \"acné\" al reducir hiperseborrea, hiperqueratosis, la inflamación y la proliferación bacteriana. AC.NET™ proporciona un tratamiento global para la piel grasosa y propensa al acné. El gel osmótico ayuda a controlar el crecimiento bacteriano.",
   "Uso Terapéutico y Cosmético": "Para seborrea de tipo facial y capilar",
-  "Concentración de Uso": "Homologo de Ac.Net; factor de equivalencia de formulacion x1 respecto al origen. Referencia dosis del origen:",
+  "Concentración de Uso": "",
   "Categoria Principal": "Acné",
   "Categoria Secundaria": "Capilares"
  },
@@ -814,7 +814,7 @@
   "Nombre": "Dexametasona",
   "Identificación Técnica": "USP: Mometasone Furoate\nCorticosteroide tópico de mediana-alta potencia, antiinflamatorio",
   "Uso Terapéutico y Cosmético": "Dermatitis atópica, eccemas, psoriasis",
-  "Concentración de Uso": "Homologo de Furoato Mometasona; factor de equivalencia de formulacion x1 respecto al origen. Referencia dosis del origen: 0.1%\nMáximo uso: 0.1% (concentración estándar comercial)",
+  "Concentración de Uso": "0.1%\nMáximo uso: 0.1% (concentración estándar comercial)",
   "Categoria Principal": "Corticoides",
   "Categoria Secundaria": ""
  },
@@ -1102,7 +1102,7 @@
   "Nombre": "G-Glucitol",
   "Identificación Técnica": "Es una asociación de ácido oleanólico y ácido nordihidroguaiarético en un gel osmótico. Estéticamente, es utilizado en tónicos, emulsiones, geles, máscaras, bases de maquillaje ara la piel grasa y propensa al acné. Este producto combate \"acné\" al reducir hiperseborrea, hiperqueratosis, la inflamación y la proliferación bacteriana. AC.NET™ proporciona un tratamiento global para la piel grasosa y propensa al acné. El gel osmótico ayuda a controlar el crecimiento bacteriano.",
   "Uso Terapéutico y Cosmético": "Para seborrea de tipo facial y capilar",
-  "Concentración de Uso": "Homologo de Ac.Net; factor de equivalencia de formulacion x1 respecto al origen. Referencia dosis del origen:",
+  "Concentración de Uso": "",
   "Categoria Principal": "Acné",
   "Categoria Secundaria": "Capilares"
  },
@@ -1129,7 +1129,7 @@
   "Nombre": "Glucitol",
   "Identificación Técnica": "Es una asociación de ácido oleanólico y ácido nordihidroguaiarético en un gel osmótico. Estéticamente, es utilizado en tónicos, emulsiones, geles, máscaras, bases de maquillaje ara la piel grasa y propensa al acné. Este producto combate \"acné\" al reducir hiperseborrea, hiperqueratosis, la inflamación y la proliferación bacteriana. AC.NET™ proporciona un tratamiento global para la piel grasosa y propensa al acné. El gel osmótico ayuda a controlar el crecimiento bacteriano.",
   "Uso Terapéutico y Cosmético": "Para seborrea de tipo facial y capilar",
-  "Concentración de Uso": "Homologo de Ac.Net; factor de equivalencia de formulacion x1 respecto al origen. Referencia dosis del origen:",
+  "Concentración de Uso": "",
   "Categoria Principal": "Acné",
   "Categoria Secundaria": "Capilares"
  },
@@ -1147,7 +1147,7 @@
   "Nombre": "Hebeatol",
   "Identificación Técnica": "INCI: Triclosan\nUSP: Sin monografía USP\nAntimicrobiano/antiséptico (triclosán)",
   "Uso Terapéutico y Cosmético": "Antisepsia cutánea, control de acné leve (uso restringido en muchas jurisdicciones)",
-  "Concentración de Uso": "Homologo de Irgasan (Triclosan); factor de equivalencia de formulacion x1 respecto al origen. Referencia dosis del origen: 0.1%-0.3%\nMáximo uso: 0.3% (límite regulatorio en la mayoría de jurisdicciones; uso restringido/prohibido en algunas)",
+  "Concentración de Uso": "0.1%-0.3%\nMáximo uso: 0.3% (límite regulatorio en la mayoría de jurisdicciones; uso restringido/prohibido en algunas)",
   "Categoria Principal": "Acné",
   "Categoria Secundaria": ""
  },
@@ -1156,7 +1156,7 @@
   "Nombre": "Hebeatol Plus",
   "Identificación Técnica": "INCI: Triclosan\nUSP: Sin monografía USP\nAntimicrobiano/antiséptico (triclosán)",
   "Uso Terapéutico y Cosmético": "Antisepsia cutánea, control de acné leve (uso restringido en muchas jurisdicciones)",
-  "Concentración de Uso": "Homologo de Irgasan (Triclosan); factor de equivalencia de formulacion x2 respecto al origen. Referencia dosis del origen: 0.1%-0.3%\nMáximo uso: 0.3% (límite regulatorio en la mayoría de jurisdicciones; uso restringido/prohibido en algunas)",
+  "Concentración de Uso": "0.1%-0.3%\nMáximo uso: 0.3% (límite regulatorio en la mayoría de jurisdicciones; uso restringido/prohibido en algunas)",
   "Categoria Principal": "Acné",
   "Categoria Secundaria": ""
  },
@@ -1300,7 +1300,7 @@
   "Nombre": "Lactato de Amonio",
   "Identificación Técnica": "Alfa-hidroxiacido (AHA) humectante y queratolitico suave.",
   "Uso Terapéutico y Cosmético": "Xerosis, queratosis pilaris, ictiosis, hiperqueratosis palmoplantar; humectacion e integridad de la barrera cutanea",
-  "Concentración de Uso": "Homologo de Base Lactato de Amonio; factor de equivalencia de formulacion x3. Concentracion habitual de referencia: 12%",
+  "Concentración de Uso": "12%",
   "Categoria Principal": "Queratolíticos - Exfoliantes",
   "Categoria Secundaria": "Hidratantes"
  },
@@ -1309,7 +1309,7 @@
   "Nombre": "Latanoprost",
   "Identificación Técnica": "USP: Bimatoprost\nAnálogo de prostaglandina, estimulante del crecimiento de pestañas/cejas",
   "Uso Terapéutico y Cosmético": "Hipotricosis de pestañas, alopecia de cejas",
-  "Concentración de Uso": "Homologo de Bimatoprost; factor de equivalencia de formulacion x1 respecto al origen. Referencia dosis del origen: 0.01%-0.03%\nMáximo uso: 0.03% (concentración estándar comercial)",
+  "Concentración de Uso": "0.01%-0.03%\nMáximo uso: 0.03% (concentración estándar comercial)",
   "Categoria Principal": "Capilares",
   "Categoria Secundaria": ""
  },
@@ -1498,7 +1498,7 @@
   "Nombre": "OTZ",
   "Identificación Técnica": "INCI: SunCat MTA (nombre comercial; probable dioxido de titanio recubierto grado filtro solar, composicion exacta no confirmada con certeza)\nUSP: Sin monografia USP\nProbable filtro solar fisico recubierto",
   "Uso Terapéutico y Cosmético": "Fotoproteccion de amplio espectro (uso referencial, sin confirmacion completa de ficha tecnica)",
-  "Concentración de Uso": "Homologo de Suncat MTA; factor de equivalencia de formulacion x2 respecto al origen. Referencia dosis del origen: Informacion no disponible con certeza; verificar ficha tecnica del proveedor",
+  "Concentración de Uso": "Informacion no disponible con certeza; verificar ficha tecnica del proveedor",
   "Categoria Principal": "Protectores Solares",
   "Categoria Secundaria": ""
  },
@@ -1678,7 +1678,7 @@
   "Nombre": "Sebocityne",
   "Identificación Técnica": "Es una asociación de ácido oleanólico y ácido nordihidroguaiarético en un gel osmótico. Estéticamente, es utilizado en tónicos, emulsiones, geles, máscaras, bases de maquillaje ara la piel grasa y propensa al acné. Este producto combate \"acné\" al reducir hiperseborrea, hiperqueratosis, la inflamación y la proliferación bacteriana. AC.NET™ proporciona un tratamiento global para la piel grasosa y propensa al acné. El gel osmótico ayuda a controlar el crecimiento bacteriano.",
   "Uso Terapéutico y Cosmético": "Para seborrea de tipo facial y capilar",
-  "Concentración de Uso": "Homologo de Ac.Net; factor de equivalencia de formulacion x1 respecto al origen. Referencia dosis del origen:",
+  "Concentración de Uso": "",
   "Categoria Principal": "Acné",
   "Categoria Secundaria": "Capilares"
  },
@@ -1696,7 +1696,7 @@
   "Nombre": "Silicona",
   "Identificación Técnica": "INCI: Dimethicone\nUSP: Dimethicone\nEmoliente de silicona, protector cutaneo",
   "Uso Terapéutico y Cosmético": "Proteccion de barrera cutanea, dermatitis del panal (uso cosmetico/dermocosmetico)",
-  "Concentración de Uso": "Homologo de Dimeticona; factor de equivalencia de formulacion x1 respecto al origen. Referencia dosis del origen: 1%-30% segun formulacion",
+  "Concentración de Uso": "1%-30% segun formulacion",
   "Categoria Principal": "Hidratantes",
   "Categoria Secundaria": ""
  },
@@ -1723,7 +1723,7 @@
   "Nombre": "Symhair Force",
   "Identificación Técnica": "INCI: Vegetal Complex (mezcla comercial, sin INCI único)\nUSP: Sin monografia USP\nComplejo vegetal anticaida capilar (nombre comercial Solabia)",
   "Uso Terapéutico y Cosmético": "Alopecia, caida del cabello (uso cosmetico)",
-  "Concentración de Uso": "Homologo de Trichogen; factor de equivalencia de formulacion x1 respecto al origen. Referencia dosis del origen: 1%-3% segun ficha tecnica del proveedor",
+  "Concentración de Uso": "1%-3% segun ficha tecnica del proveedor",
   "Categoria Principal": "Capilares",
   "Categoria Secundaria": ""
  },
@@ -1732,7 +1732,7 @@
   "Nombre": "Symrelief",
   "Identificación Técnica": "INCI: Vegetal Complex (mezcla comercial, sin INCI único)\nUSP: Sin monografia USP\nComplejo vegetal anticaida capilar (nombre comercial Solabia)",
   "Uso Terapéutico y Cosmético": "Alopecia, caida del cabello (uso cosmetico)",
-  "Concentración de Uso": "Homologo de Trichogen; factor de equivalencia de formulacion x7 respecto al origen. Referencia dosis del origen: 1%-3% segun ficha tecnica del proveedor",
+  "Concentración de Uso": "1%-3% segun ficha tecnica del proveedor",
   "Categoria Principal": "Capilares",
   "Categoria Secundaria": ""
  },
@@ -1867,7 +1867,7 @@
   "Nombre": "Triamcinolona",
   "Identificación Técnica": "USP: Sin monografía USP\nCorticosteroide tópico de mediana-alta potencia, antiinflamatorio",
   "Uso Terapéutico y Cosmético": "Dermatitis atópica, eccemas, dermatitis de contacto, psoriasis",
-  "Concentración de Uso": "Homologo de Aceponato de Metilprednisolona; factor de equivalencia de formulacion x1 respecto al origen. Referencia dosis del origen: 0.1%\nMáximo uso: 0.1% (concentración estándar comercial)",
+  "Concentración de Uso": "0.1%\nMáximo uso: 0.1% (concentración estándar comercial)",
   "Categoria Principal": "Corticoides",
   "Categoria Secundaria": ""
  },
@@ -1993,7 +1993,7 @@
   "Nombre": "Zn Pca",
   "Identificación Técnica": "INCI: Zinc Oxide\nUSP: Zinc Oxide\nFiltro solar físico (UVA/UVB), protector cutáneo, antiinflamatorio leve",
   "Uso Terapéutico y Cosmético": "Fotoprotección de amplio espectro, protección de piel irritada (dermatitis del pañal)",
-  "Concentración de Uso": "Homologo de Oxido de Zinc Micronizado; factor de equivalencia de formulacion x4 respecto al origen. Referencia dosis del origen: 5%-25%\nMáximo uso: 25% (límite regulatorio FDA como filtro solar)",
+  "Concentración de Uso": "5%-25%\nMáximo uso: 25% (límite regulatorio FDA como filtro solar)",
   "Categoria Principal": "Protectores Solares",
   "Categoria Secundaria": ""
  }
