@@ -130,4 +130,3 @@ Para reportar errores o sugerencias, abre un issue en GitHub.
 
 La agenda de visitas de la fuerza de ventas es una app aparte, en el repositorio
 [Epitheliumsa/ruta-comercial](https://github.com/Epitheliumsa/ruta-comercial).
-El inicio del Vademécum tiene un botón "Ruta Comercial" (comerciales y equipo) que la abre.
