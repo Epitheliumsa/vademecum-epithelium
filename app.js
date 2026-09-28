@@ -1,6 +1,6 @@
 // CONFIGURACIÓN
 // Versión publicada: al cambiar, la app ofrece actualizarse (se genera junto con version.txt)
-const APP_VERSION = '202609281201';
+const APP_VERSION = '202609281254';
 
 // Usuarios internos de Epithelium. Los que tienen "zona" son comerciales y solo
 // ven el portafolio de los clientes de esa zona; los que no tienen zona ven el
@@ -397,10 +397,10 @@ function llenarSelect(select, valores) {
 function inicializarFiltros(k = 'prod') {
     const cat = CATALOGOS[k];
     const datos = cat.datos();
-    const categorias = [...new Set(datos.map(p => p['Categoría del Producto']).filter(p => p))];
-    // En el portafolio de cliente se ofrecen todas las formas que maneja la compañía
-    const fuenteFormas = k === 'port' ? [...productos, ...datos] : datos;
-    const formas = [...new Set(fuenteFormas.map(p => p['Forma Farmacéutica']).filter(p => p))];
+    // En el portafolio de cliente se ofrecen todas las categorías y formas que maneja la compañía
+    const fuente = k === 'port' ? [...productos, ...datos] : datos;
+    const categorias = [...new Set(fuente.map(p => p['Categoría del Producto']).filter(p => p))];
+    const formas = [...new Set(fuente.map(p => p['Forma Farmacéutica']).filter(p => p))];
     if (k === 'port') {
         categorias.sort();
         formas.sort();
@@ -459,7 +459,16 @@ function mostrarResultados(k = 'prod') {
     if (cat.soloNuevos) {
         container.innerHTML = `<div class="aviso-nuevo">✨ Estás viendo lo nuevo · ${lista.length} ${lista.length === 1 ? 'producto' : 'productos'}</div>`;
     }
+    let separadorPuesto = false;
     lista.forEach(p => {
+        // En Mi Portafolio, separar los nuevos de Epithelium (que el cliente no tiene) con un encabezado
+        if (p.nuevoEpithelium && !separadorPuesto && !cat.soloNuevos) {
+            const sep = document.createElement('div');
+            sep.className = 'separador-nuevos';
+            sep.textContent = 'Nuevos de Epithelium para ofrecer';
+            container.appendChild(sep);
+            separadorPuesto = true;
+        }
         const esNuevo = p['Etiquetas de producto'] === 'Nuevo';
         const card = document.createElement('div');
         card.className = esNuevo ? 'producto-card es-nuevo' : 'producto-card';
