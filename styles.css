@@ -920,3 +920,55 @@ body {
     font-size: 14px;
     border-left: 4px solid #d6248f;
 }
+
+/* Materias primas: barra de color por categoría y etiquetas */
+.mp-card {
+    position: relative;
+    overflow: hidden;
+    border-left: none;
+    padding-left: 20px;
+}
+.mp-barra {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 7px;
+}
+.mp-chips {
+    margin: 6px 0 !important;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+.mp-chip {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.4;
+}
+.mp-cats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 4px 0 14px;
+}
+.mp-chip-btn {
+    border: 1px solid transparent;
+    cursor: pointer;
+    font-family: inherit;
+}
+.mp-desc {
+    margin: 0 0 16px;
+    padding: 12px 14px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.75);
+    border: 1px solid #e3e3e3;
+    font-size: 13px;
+    line-height: 1.5;
+    color: #444;
+}
+.mp-desc strong { display: block; margin-bottom: 4px; font-size: 14px; }
+.mp-desc p { margin: 0; }
