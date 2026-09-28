@@ -12,7 +12,7 @@ const USUARIOS_INTERNOS = [
     { usuario: 'H.Reyes',     clave: 'HReyes',     tipo: 'equipo', zona: null },
     { usuario: 'L.Ramos',     clave: 'LRamos',     tipo: 'comercial', zona: 'Zona Norte' },
     { usuario: 'Y.Caballero', clave: 'YCaballero', tipo: 'comercial', zona: 'Zona Sur' },
-    { usuario: 'J.Herrera',   clave: 'JHerrera',   tipo: 'comercial', zona: 'Clientes Especiales' }
+    { usuario: 'J.Herrera',   clave: 'JHerrera',   tipo: 'equipo', zona: null }   // Jefe comercial: ve todas las zonas
 ];
 
 const URL_DATOS = 'https://raw.githubusercontent.com/nanorsf/vademecum-epithelium/main/';
@@ -262,6 +262,7 @@ function entrarApp() {
     const esCliente = modoUsuario === 'cliente';
     const veClientes = (modoUsuario === 'equipo' || modoUsuario === 'comercial') && indiceClientes.length > 0;
     document.getElementById('btnPortafolioClientes').style.display = veClientes ? '' : 'none';
+    document.getElementById('btnRutaComercial').style.display = (modoUsuario === 'equipo' || modoUsuario === 'comercial') ? '' : 'none';
     const totalNuevos = productos.filter(p => p['Etiquetas de producto'] === 'Nuevo').length;
     document.getElementById('loNuevoTexto').textContent = `${totalNuevos} productos nuevos de Epithelium`;
     document.getElementById('btnPortafolio').style.display = esCliente ? '' : 'none';
@@ -317,14 +318,22 @@ function clientesVisibles() {
 function abrirListaClientes() {
     clientesFiltrados = clientesVisibles();
     document.getElementById('clSearchName').value = '';
-    document.getElementById('clSubtitulo').textContent = modoUsuario === 'comercial' ? zonaUsuario : 'Todas las zonas';
+    const subtitulo = document.getElementById('clSubtitulo');
+    subtitulo.textContent = modoUsuario === 'comercial' ? zonaUsuario : '';
+    subtitulo.style.display = modoUsuario === 'comercial' ? '' : 'none';
+    // Quien ve todas las zonas puede filtrar por una
+    const selZona = document.getElementById('clZona');
+    selZona.style.display = modoUsuario === 'comercial' ? 'none' : '';
+    const zonas = [...new Set(indiceClientes.map(c => c.zona).filter(Boolean))].sort((a, b) => a.localeCompare(b, 'es'));
+    selZona.innerHTML = '<option value="">Todas las zonas</option>' + zonas.map(z => `<option>${z}</option>`).join('');
     mostrarListaClientes();
     mostrarPantalla('clientsListScreen');
 }
 
 function filtrarListaClientes() {
     const q = normalizar(document.getElementById('clSearchName').value);
-    clientesFiltrados = clientesVisibles().filter(c => normalizar(c.cliente).includes(q));
+    const zona = document.getElementById('clZona').value;
+    clientesFiltrados = clientesVisibles().filter(c => normalizar(c.cliente).includes(q) && (!zona || c.zona === zona));
     mostrarListaClientes();
 }
 
