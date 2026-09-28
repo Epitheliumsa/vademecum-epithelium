@@ -1,6 +1,6 @@
 // CONFIGURACIÓN
 // Versión publicada: al cambiar, la app ofrece actualizarse (se genera junto con version.txt)
-const APP_VERSION = '202609281406';
+const APP_VERSION = '202609281437';
 
 // Usuarios internos de Epithelium. Los que tienen "zona" son comerciales y solo
 // ven el portafolio de los clientes de esa zona; los que no tienen zona ven el
@@ -20,6 +20,7 @@ const URL_DATOS = 'https://raw.githubusercontent.com/nanorsf/vademecum-epitheliu
 let productos = [];
 let materiasPrimas = [];
 let categorias = {};
+let coloresProducto = {};
 let materiasPrimasFiltradas = [];
 let portafolio = [];
 let portafolioPropio = [];
@@ -78,6 +79,17 @@ async function cargarDatos() {
     console.log(`✅ ${materiasPrimas.length} materias primas cargadas`);
     categorias = await descargarJSON('categorias.json', d => d && typeof d === 'object') || {};
     indiceClientes = await descargarJSON('portafolios-index.json') || [];
+    coloresProducto = await descargarJSON('categorias-productos.json', d => d && typeof d === 'object') || {};
+}
+
+// Color de la categoría de un producto (una sola categoría por producto)
+function colorProductoCat(categoria) {
+    const c = (categoria || '').replace(/^Magistral de Pedido\s*\/\s*/, '').trim();
+    return coloresProducto[c] || null;
+}
+function rgbaHex(hex, alfa) {
+    const [r, g, b] = hexRgb(hex);
+    return `rgba(${r}, ${g}, ${b}, ${alfa})`;
 }
 
 // Color de cada categoría de materia prima (para las barras y el fondo tenue)
@@ -526,11 +538,13 @@ function mostrarResultados(k = 'prod') {
             separadorPuesto = true;
         }
         const esNuevo = p['Etiquetas de producto'] === 'Nuevo';
+        const color = colorProductoCat(p['Categoría del Producto']);
         const card = document.createElement('div');
-        card.className = esNuevo ? 'producto-card es-nuevo' : 'producto-card';
+        card.className = (esNuevo ? 'producto-card es-nuevo' : 'producto-card') + (color ? ' mp-card' : '');
         card.onclick = () => mostrarDetalle(p, cat.tema);
         const badge = p.nuevoEpithelium ? '<span class="badge-nuevo">NUEVO EPITHELIUM</span>' : (esNuevo ? '<span class="badge-nuevo">NUEVO</span>' : '');
-        card.innerHTML = `<h3>${p['Nombre']}${badge}</h3>${p.nombreEpithelium ? lineaEpithelium(p.nombreEpithelium) : ''}<p><strong>Componentes:</strong> ${p['Componentes']}</p><p><strong>Forma:</strong> ${p['Forma Farmacéutica']}</p>${p['Categoría del Producto'] ? `<p><strong>Categoría:</strong> ${p['Categoría del Producto']}</p>` : ''}${p['Indicación'] ? `<p style="font-size: 12px; color: #999; margin-top: 8px;">${p['Indicación'].substring(0, 100)}...</p>` : ''}`;
+        const barra = color ? `<span class="mp-barra" style="background:${rgbaHex(color, 0.55)}"></span>` : '';
+        card.innerHTML = `${barra}<h3>${p['Nombre']}${badge}</h3>${p.nombreEpithelium ? lineaEpithelium(p.nombreEpithelium) : ''}<p><strong>Componentes:</strong> ${p['Componentes']}</p><p><strong>Forma:</strong> ${p['Forma Farmacéutica']}</p>${p['Categoría del Producto'] ? `<p><strong>Categoría:</strong> ${p['Categoría del Producto']}</p>` : ''}${p['Indicación'] ? `<p style="font-size: 12px; color: #999; margin-top: 8px;">${p['Indicación'].substring(0, 100)}...</p>` : ''}`;
         container.appendChild(card);
     });
 }
@@ -546,6 +560,11 @@ function mostrarDetalle(producto, tema = '') {
     temaModal(producto['Etiquetas de producto'] === 'Nuevo' ? 'theme-nuevo' : tema);
     const modal = document.getElementById('modalDetail');
     const content = document.getElementById('detailContent');
+    // Fondo tenue con el color de la categoría del producto
+    const color = colorProductoCat(producto['Categoría del Producto']);
+    if (color) {
+        document.querySelector('#modalDetail .modal-content').style.background = `linear-gradient(180deg, ${rgbaHex(color, 0.16)} 0%, #ffffff 220px)`;
+    }
     content.innerHTML = `<h2>${producto['Nombre']}</h2>${producto.nombreEpithelium ? lineaEpithelium(producto.nombreEpithelium) : ''}${producto['Componentes'] ? `<strong>Componentes</strong><p>${producto['Componentes'].replace(/\n/g, '<br>')}</p>` : ''}<strong>Especificaciones</strong><p>${producto['Categoría del Producto'] ? `<strong>Categoría:</strong> ${producto['Categoría del Producto']}<br>` : ''}<strong>Forma:</strong> ${producto['Forma Farmacéutica']}<br><strong>Presentación:</strong> ${producto['Presentación Farmacéutica']}<br><strong>Tamaño:</strong> ${producto['Tamaño']} ${producto['Masa']}</p>${producto['Indicación'] ? `<strong>Indicación</strong><p>${producto['Indicación'].replace(/\n/g, '<br>')}</p>` : ''}${producto['Dosis Recomendada'] ? `<strong>Dosis Recomendada</strong><p>${producto['Dosis Recomendada'].replace(/\n/g, '<br>')}</p>` : ''}<strong>Referencia Interna</strong><p>${producto['Referencia Interna']}</p>${producto['Etiquetas de producto'] ? `<strong>Categorías</strong><p><span class="producto-label">${producto.nuevoEpithelium ? 'Nuevo Epithelium' : producto['Etiquetas de producto']}</span></p>` : ''}`;
     modal.classList.add('active');
 }
