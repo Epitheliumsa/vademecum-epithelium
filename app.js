@@ -1,6 +1,6 @@
 // CONFIGURACIÓN
 // Versión publicada: al cambiar, la app ofrece actualizarse (se genera junto con version.txt)
-const APP_VERSION = '202609281254';
+const APP_VERSION = '202609281256';
 
 // Usuarios internos de Epithelium. Los que tienen "zona" son comerciales y solo
 // ven el portafolio de los clientes de esa zona; los que no tienen zona ven el
@@ -465,7 +465,7 @@ function mostrarResultados(k = 'prod') {
         if (p.nuevoEpithelium && !separadorPuesto && !cat.soloNuevos) {
             const sep = document.createElement('div');
             sep.className = 'separador-nuevos';
-            sep.textContent = 'Nuevos de Epithelium para ofrecer';
+            sep.textContent = 'Productos Nuevos Epithelium';
             container.appendChild(sep);
             separadorPuesto = true;
         }
