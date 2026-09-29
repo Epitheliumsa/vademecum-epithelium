@@ -6,7 +6,7 @@
     <meta name="color-scheme" content="only light">
     <meta name="theme-color" content="#006b4f">
     <title>Vademecum Epithelium</title>
-    <link rel="stylesheet" href="styles.css?v=202609282049">
+    <link rel="stylesheet" href="styles.css?v=202609282127">
 
     <!-- Ícono y ajustes para instalar la app en la pantalla de inicio -->
     <link rel="manifest" href="manifest.json">
@@ -49,25 +49,25 @@
                 <p class="home-intro" id="homeIntro">¿Qué quieres consultar?</p>
                 <button class="home-btn" onclick="abrirProductos()">
                     <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M16 6h16v6H16zM13 12h22a3 3 0 0 1 3 3v24a3 3 0 0 1-3 3H13a3 3 0 0 1-3-3V15a3 3 0 0 1 3-3z"/><path d="M10 22h28M10 34h28"/><path d="M24 25.5c-2 2.6-2 4.5 0 4.5s2-1.9 0-4.5z"/></svg>
-                    <span class="home-btn-text"><strong>Vademécum Productos</strong><small>Fórmulas magistrales, componentes e indicaciones</small></span>
+                    <span class="home-btn-text"><strong>Vademécum Epithelium</strong><small>Fórmulas magistrales, componentes e indicaciones</small></span>
                 </button>
                 <button class="home-btn home-btn-port" id="btnPortafolio" onclick="abrirPortafolio()" style="display:none">
                     <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M8 16h32a3 3 0 0 1 3 3v19a3 3 0 0 1-3 3H8a3 3 0 0 1-3-3V19a3 3 0 0 1 3-3z"/><path d="M17 16v-4a3 3 0 0 1 3-3h8a3 3 0 0 1 3 3v4"/><path d="M5 26h38"/><path d="M21 26v4h6v-4"/></svg>
-                    <span class="home-btn-text"><strong>Mi Portafolio</strong><small>Los productos de tu vademécum propio</small></span>
+                    <span class="home-btn-text"><strong>Vademécum Cliente</strong><small>Los productos de tu vademécum propio</small></span>
                 </button>
                 <button class="home-btn home-btn-port" id="btnPortafolioClientes" onclick="abrirListaClientes()" style="display:none">
                     <svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="16" cy="15" r="6"/><circle cx="33" cy="17" r="5"/><path d="M5 40v-3a10 10 0 0 1 10-10h2a10 10 0 0 1 10 10v3"/><path d="M28 40v-2a9 9 0 0 1 9-9h0a9 9 0 0 1 9 9v2"/></svg>
-                    <span class="home-btn-text"><strong>Portafolio Clientes</strong><small>Consulta el portafolio de cualquier cliente</small></span>
-                </button>
-                <button class="home-btn home-btn-nuevo" onclick="abrirLoNuevo()">
-                    <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 5l4.5 11.5L40 21l-11.5 4.5L24 37l-4.5-11.5L8 21l11.5-4.5z"/><path d="M38 33l1.8 4.2L44 39l-4.2 1.8L38 45l-1.8-4.2L32 39l4.2-1.8z"/></svg>
-                    <span class="home-btn-text"><strong>Lo Nuevo</strong><small id="loNuevoTexto">Productos nuevos de Epithelium</small></span>
+                    <span class="home-btn-text"><strong>Vademécum Cliente</strong><small>Consulta el portafolio de cualquier cliente</small></span>
                 </button>
                 <button class="home-btn home-btn-mp" onclick="abrirMateriasPrimas()">
                     <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M18 5h12M20 5v13L9 38a3 3 0 0 0 2.6 4.5h24.8A3 3 0 0 0 39 38L28 18V5"/><path d="M14 30h20"/><circle cx="21" cy="36" r="1.6"/><circle cx="27" cy="33" r="1.2"/></svg>
                     <span class="home-btn-text"><strong>Vademécum Materias Primas</strong><small>Activos, usos y concentraciones</small></span>
                 </button>
-                <p class="version-app">Versión 28/09/2026 20:49</p>
+                <button class="home-btn home-btn-nuevo" onclick="abrirLoNuevo()">
+                    <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 5l4.5 11.5L40 21l-11.5 4.5L24 37l-4.5-11.5L8 21l11.5-4.5z"/><path d="M38 33l1.8 4.2L44 39l-4.2 1.8L38 45l-1.8-4.2L32 39l4.2-1.8z"/></svg>
+                    <span class="home-btn-text"><strong>Lo Nuevo</strong><small id="loNuevoTexto">Productos nuevos de Epithelium</small></span>
+                </button>
+                <p class="version-app">Versión 28/09/2026 21:27</p>
             </div>
         </div>
 
@@ -76,7 +76,7 @@
             <div class="header">
                 <div class="header-logo">
                     <img src="logo-blanco.png" alt="Epithelium" class="header-logo-img">
-                    <h1>Productos</h1>
+                    <h1>Vademécum Epithelium</h1>
                 </div>
                 <button class="logout-btn" onclick="irInicio()">&larr; Inicio</button>
             </div>
@@ -102,7 +102,7 @@
             <div class="header">
                 <div class="header-logo">
                     <img src="logo-blanco.png" alt="Epithelium" class="header-logo-img">
-                    <h1>Portafolio Clientes</h1>
+                    <h1>Vademécum Cliente</h1>
                 </div>
                 <button class="logout-btn" onclick="irInicio()">&larr; Inicio</button>
             </div>
@@ -121,7 +121,7 @@
             <div class="header">
                 <div class="header-logo">
                     <img src="logo-blanco.png" alt="Epithelium" class="header-logo-img">
-                    <h1 id="portTitulo">Mi Portafolio</h1>
+                    <h1 id="portTitulo">Vademécum Cliente</h1>
                 </div>
                 <button class="logout-btn" id="portBackBtn" onclick="irInicio()">&larr; Inicio</button>
             </div>
@@ -176,6 +176,6 @@
     <!-- AVISO DE VERSIÓN NUEVA -->
     <div id="avisoVersion" class="aviso-version"><span>Hay una versión nueva de la app</span><button onclick="actualizarApp()">Actualizar</button></div>
 
-    <script src="app.js?v=202609282049"></script>
+    <script src="app.js?v=202609282127"></script>
 </body>
 </html>
