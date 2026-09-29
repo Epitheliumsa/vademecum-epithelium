@@ -1,6 +1,6 @@
 // CONFIGURACIÓN
 // Versión publicada: al cambiar, la app ofrece actualizarse (se genera junto con version.txt)
-const APP_VERSION = '202609282049';
+const APP_VERSION = '202609282127';
 
 // Usuarios internos de Epithelium. Los que tienen "zona" son comerciales y solo
 // ven el portafolio de los clientes de esa zona; los que no tienen zona ven el
@@ -394,7 +394,7 @@ function abrirPortafolio() {
     limpiarFiltros('port');
     ponerNuevo('port', false);
     document.getElementById('pfBtnNuevo').style.display = '';
-    document.getElementById('portTitulo').textContent = 'Mi Portafolio';
+    document.getElementById('portTitulo').textContent = 'Vademécum Cliente';
     document.getElementById('portBackBtn').innerHTML = '&larr; Inicio';
     document.getElementById('portBackBtn').onclick = irInicio;
     mostrarPantalla('portScreen');
