@@ -278,6 +278,14 @@ body {
     margin-bottom: 4px;
 }
 
+.home-saludo small {
+    display: block;
+    color: #666;
+    font-size: 13px;
+    font-weight: 500;
+    margin-top: 2px;
+}
+
 /* Nombre del producto en el vademécum Epithelium (Mi Portafolio): símbolo del logo + nombre */
 .producto-card p.nombre-epithelium,
 #detailContent p.nombre-epithelium {

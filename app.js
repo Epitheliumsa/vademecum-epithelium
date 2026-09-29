@@ -8,12 +8,14 @@ const APP_VERSION = '202609281502';
 const USUARIOS_INTERNOS = [
     { clave: 'EPITHE-000', tipo: 'equipo', zona: null },   // General equipo (usuario vacío)
     { clave: 'EPITHE-001', tipo: 'medico', zona: null },   // Médico (usuario vacío)
-    { usuario: 'M.Castro',    clave: 'MCastro',    tipo: 'equipo', zona: null },
-    { usuario: 'H.Reyes',     clave: 'HReyes',     tipo: 'equipo', zona: null },
-    { usuario: 'L.Ramos',     clave: 'LRamos',     tipo: 'comercial', zona: 'Zona Norte' },
-    { usuario: 'Y.Caballero', clave: 'YCaballero', tipo: 'comercial', zona: 'Zona Sur' },
-    { usuario: 'J.Herrera',   clave: 'JHerrera',   tipo: 'equipo', zona: null }   // Jefe comercial: ve todas las zonas
+    // nombre, cargo y detalle: el saludo del inicio, igual que en Ruta Comercial
+    { usuario: 'M.Castro',    clave: 'MCastro',    tipo: 'equipo', zona: null, nombre: 'M. Castro', detalle: 'Zona por asignar' },
+    { usuario: 'H.Reyes',     clave: 'HReyes',     tipo: 'equipo', zona: null, nombre: 'Hernán Reyes', detalle: 'Administrador · todo el equipo' },
+    { usuario: 'L.Ramos',     clave: 'LRamos',     tipo: 'comercial', zona: 'Zona Norte', nombre: 'Lizeth Ramos', detalle: 'Zona Norte' },
+    { usuario: 'Y.Caballero', clave: 'YCaballero', tipo: 'comercial', zona: 'Zona Sur', nombre: 'Yunelis Caballero', detalle: 'Zona Sur' },
+    { usuario: 'J.Herrera',   clave: 'JHerrera',   tipo: 'equipo', zona: null, nombre: 'Jennifer Herrera', detalle: 'Jefe comercial · Clientes Especiales' }   // Jefe comercial: ve todas las zonas
 ];
+let usuarioInterno = null;   // usuario interno con nombre (para el saludo)
 
 const URL_DATOS = 'https://raw.githubusercontent.com/nanorsf/vademecum-epithelium/main/';
 
@@ -181,7 +183,7 @@ async function accesoDesdeRutaComercial() {
         const bytes = new TextEncoder().encode(`vademecum:${x.usuario}:${x.clave}`.toLowerCase());
         const hash = [...new Uint8Array(await crypto.subtle.digest('SHA-256', bytes))].map(b => b.toString(16).padStart(2, '0')).join('');
         if (hash === m[1]) {
-            localStorage.setItem('vademecum_interno', JSON.stringify({ tipo: x.tipo, zona: x.zona || null }));
+            localStorage.setItem('vademecum_interno', JSON.stringify({ tipo: x.tipo, zona: x.zona || null, usuario: x.usuario }));
             localStorage.removeItem('vademecum_cliente');
             localStorage.setItem('vademecum_timestamp', new Date().toISOString());
             return;
@@ -198,6 +200,7 @@ async function verificarAcceso() {
             const s = JSON.parse(interno);
             modoUsuario = s.tipo;
             zonaUsuario = s.zona || null;
+            usuarioInterno = USUARIOS_INTERNOS.find(x => x.usuario && x.usuario === s.usuario) || null;
             return entrarApp();
         } catch (e) { localStorage.removeItem('vademecum_interno'); }
     }
@@ -223,7 +226,8 @@ async function verificarCodigo() {
     if (interno) {
         modoUsuario = interno.tipo;
         zonaUsuario = interno.zona || null;
-        localStorage.setItem('vademecum_interno', JSON.stringify({ tipo: interno.tipo, zona: interno.zona || null }));
+        usuarioInterno = interno.usuario ? interno : null;
+        localStorage.setItem('vademecum_interno', JSON.stringify({ tipo: interno.tipo, zona: interno.zona || null, usuario: interno.usuario || null }));
         localStorage.removeItem('vademecum_cliente');
         localStorage.setItem('vademecum_timestamp', new Date().toISOString());
         errorMsg.textContent = '';
@@ -253,6 +257,7 @@ function cerrarSesion() {
         localStorage.removeItem('vademecum_timestamp');
         modoUsuario = 'cliente';
         zonaUsuario = null;
+        usuarioInterno = null;
         portafolio = [];
         portafolioPropio = [];
         clienteNombre = '';
@@ -342,6 +347,18 @@ function entrarApp() {
     document.getElementById('loNuevoTexto').textContent = `${totalNuevos} productos nuevos de Epithelium`;
     document.getElementById('btnPortafolio').style.display = esCliente ? '' : 'none';
     const intro = document.getElementById('homeIntro');
+    // Comerciales e internos con nombre: "Hola, <nombre>" y debajo su cargo o zona, igual que en Ruta Comercial
+    if (!esCliente && usuarioInterno) {
+        intro.textContent = '';
+        const saludo = document.createElement('span');
+        saludo.className = 'home-saludo';
+        saludo.textContent = `Hola, ${usuarioInterno.nombre}`;
+        const detalle = document.createElement('small');
+        detalle.textContent = usuarioInterno.detalle;
+        saludo.appendChild(detalle);
+        intro.appendChild(saludo);
+        return irInicio();
+    }
     intro.textContent = '¿Qué quieres consultar?';
     let saludoTexto = '';
     if (esCliente) saludoTexto = `Hola, ${clienteNombre}`;
