@@ -9,11 +9,11 @@ const USUARIOS_INTERNOS = [
     { clave: 'EPITHE-000', tipo: 'equipo', zona: null },   // General equipo (usuario vacío)
     { clave: 'EPITHE-001', tipo: 'medico', zona: null },   // Médico (usuario vacío)
     // nombre, cargo y detalle: el saludo del inicio, igual que en Ruta Comercial
-    { usuario: 'M.Castro',    clave: 'MCastro',    tipo: 'equipo', zona: null, nombre: 'M. Castro', detalle: 'Zona por asignar' },
-    { usuario: 'H.Reyes',     clave: 'HReyes',     tipo: 'equipo', zona: null, nombre: 'Hernán Reyes', detalle: 'Administrador · todo el equipo' },
-    { usuario: 'L.Ramos',     clave: 'LRamos',     tipo: 'comercial', zona: 'Zona Norte', nombre: 'Lizeth Ramos', detalle: 'Zona Norte' },
-    { usuario: 'Y.Caballero', clave: 'YCaballero', tipo: 'comercial', zona: 'Zona Sur', nombre: 'Yunelis Caballero', detalle: 'Zona Sur' },
-    { usuario: 'J.Herrera',   clave: 'JHerrera',   tipo: 'equipo', zona: null, nombre: 'Jennifer Herrera', detalle: 'Jefe comercial · Clientes Especiales' }   // Jefe comercial: ve todas las zonas
+    { usuario: 'M.Castro',    clave: 'MCastro',    tipo: 'equipo', zona: null, nombre: 'M. Castro', detalle: 'Visitador Médico Comercial · Zona por asignar' },
+    { usuario: 'H.Reyes',     clave: 'HReyes',     tipo: 'equipo', zona: null, nombre: 'Hernán Reyes', detalle: 'Gerente General' },
+    { usuario: 'L.Ramos',     clave: 'LRamos',     tipo: 'comercial', zona: 'Zona Norte', nombre: 'Lizeth Ramos', detalle: 'Visitador Médico Comercial · Zona Norte' },
+    { usuario: 'Y.Caballero', clave: 'YCaballero', tipo: 'comercial', zona: 'Zona Sur', nombre: 'Yunelis Caballero', detalle: 'Visitador Médico Comercial · Zona Sur' },
+    { usuario: 'J.Herrera',   clave: 'JHerrera',   tipo: 'equipo', zona: null, nombre: 'Jennifer Herrera', detalle: 'Coordinadora Comercial · Clientes Especiales' }   // Jefe comercial: ve todas las zonas
 ];
 let usuarioInterno = null;   // usuario interno con nombre (para el saludo)
 
