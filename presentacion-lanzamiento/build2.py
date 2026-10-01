@@ -1,7 +1,50 @@
-# "Lanzamiento aplicaciones Epithelium": 1. Guía de etiquetas · 2. Vademécum · 3. Visita Comercial · 4. Cotizador Epithelium
+# "Lanzamiento aplicaciones Epithelium": 1. Guía de etiquetas · 2. Reestructuración zonas · 3. Vademécum · 4. Visita Comercial · 5. Cotizador Epithelium
 from lib_deck import *
 
 VID_V, VID_R, VID_E, VID_C = VID1, VID2, VID3, VID4
+
+def duplicar_portada(src):
+    """Copia una portada con video (formas, fondo, animación de reproducción y transición) en una diapositiva nueva."""
+    s = prs.slides.add_slide(src.slide_layout)
+    for ph in list(s.placeholders): ph._element.getparent().remove(ph._element)
+    mapa = {}
+    for rId, rel in src.part.rels.items():
+        if rel.reltype in (RT.SLIDE_LAYOUT, RT.NOTES_SLIDE): continue
+        mapa[rId] = s.part.relate_to(rel._target, rel.reltype, rel.is_external)
+    nuevo = copy.deepcopy(src._element)
+    for node in nuevo.iter():
+        for att in list(node.attrib):
+            if att in (qn('r:embed'), qn('r:link'), qn('r:id')) and node.get(att) in mapa: node.set(att, mapa[node.get(att)])
+    # se cambia el contenido dentro del mismo spTree (python-pptx guarda referencias a él)
+    arbol = s.shapes._spTree
+    for ch in list(arbol): arbol.remove(ch)
+    for ch in nuevo.find(qn('p:cSld')).find(qn('p:spTree')): arbol.append(ch)
+    bg = nuevo.find(qn('p:cSld')).find(qn('p:bg'))
+    if bg is not None: s._element.find(qn('p:cSld')).insert(0, bg)
+    # resto en el orden del esquema: clrMapOvr, transición, timing, extLst
+    for ch in list(s._element):
+        if ch.tag != qn('p:cSld'): s._element.remove(ch)
+    for ch in nuevo:
+        if ch.tag != qn('p:cSld'): s._element.append(ch)
+    return s
+VID_Z = duplicar_portada(VID_E)
+
+# Video de fondo de cada portada según el tema (video_temas.py)
+from pptx.media import Video as _Video
+def poner_video(slide, tema):
+    mp4, jpg = f'{S}/vid_{tema}.mp4', f'{S}/vid_{tema}.jpg'
+    mpart = slide.part.package.get_or_add_media_part(_Video.from_path_or_file_like(mp4, 'video/mp4'))
+    ipart, _ = slide.part.get_or_add_image_part(jpg)
+    # primero se quitan las relaciones viejas y luego se crean las nuevas (así un rId nuevo no choca con uno viejo)
+    viejas = [(rId, rel.reltype) for rId, rel in list(slide.part.rels.items())
+              if rel.reltype in (RT.VIDEO, RT.MEDIA) or (rel.reltype == RT.IMAGE and rel.target_part.partname.endswith('.jpg'))]
+    for rId, _ in viejas: slide.part.rels.pop(rId)
+    cambio = {rId: slide.part.relate_to(ipart if rt == RT.IMAGE else mpart, rt) for rId, rt in viejas}
+    for node in slide._element.iter():
+        for att in (qn('r:embed'), qn('r:link'), qn('r:id')):
+            if node.get(att) in cambio: node.set(att, cambio[node.get(att)])
+for _s, _t in [(VID_E, 'etiquetas'), (VID_Z, 'zonas'), (VID_V, 'vademecum'), (VID_R, 'visita'), (VID_C, 'cotizador')]:
+    poner_video(_s, _t)
 URL_R, URL_V = URL_RUTA, URL_VADE
 
 # ---------------------------------------------------------------- marco de computador
@@ -120,7 +163,7 @@ for r in tf.paragraphs[0].runs[1:]: r.text = ''
 tf.paragraphs[0].runs[-1].text = 'EPITHELIUM'
 for r in tf.paragraphs[0].runs: r.font.size = Pt(44)
 sub = [x for x in PORTADA.placeholders if x.placeholder_format.idx == 1][0]
-sub.text_frame.paragraphs[0].runs[0].text = 'Guía de etiquetas · Vademécum · Visita Comercial · Cotizador'
+sub.text_frame.paragraphs[0].runs[0].text = 'Guía de etiquetas · Zonas · Vademécum · Visita Comercial · Cotizador'
 for r in sub.text_frame.paragraphs[0].runs[1:]: r.text = ''
 sub.text_frame.paragraphs[0].runs[0].font.size = Pt(22)
 p2 = sub.text_frame.add_paragraph(); r = p2.add_run(); r.text = f'Capacitación fuerza de ventas y jefes · {FECHA}'; r.font.size = Pt(18)
@@ -128,27 +171,28 @@ sub.left, sub.width = Inches(0.9), Inches(7.7)
 
 cont = [x for x in ORDEN.placeholders if x.placeholder_format.idx == 1][0]
 cont._element.getparent().remove(cont._element)
-puntos = ['Guía de etiquetas de producto.', 'Vademécum Epithelium.', 'Visita Comercial.', 'Cotizador Epithelium.']
-PASO_ORDEN, Y_ORDEN = 0.95, 2.1
-items_orden = [texto(ORDEN, 1.55, Y_ORDEN + i * PASO_ORDEN, 10.2, 0.6, [[(f'{i + 1}.  ', True), (t, False)]], size=30, color='000000',
+puntos = ['Guía de etiquetas de producto.', 'Reestructuración zonas.', 'Vademécum Epithelium.', 'Visita Comercial.', 'Cotizador Epithelium.']
+PASO_ORDEN, Y_ORDEN = 0.86, 1.85
+items_orden = [texto(ORDEN, 1.55, Y_ORDEN + i * PASO_ORDEN, 10.2, 0.6, [[(f'{i + 1}.  ', True), (t, False)]], size=28, color='000000',
                      anchor=MSO_ANCHOR.MIDDLE, espacio=0, nombre=f'Punto{i + 1}') for i, t in enumerate(puntos)]
 iconos = sorted([sh for sh in ORDEN.shapes if sh.shape_type == 13], key=lambda x: x.top)
-while len(iconos) < 4:
+while len(iconos) < len(puntos):
     el = copy.deepcopy(iconos[-1]._element)
     el.find('.//' + qn('p:cNvPr')).set('id', str(20 + len(iconos)))
     ORDEN.shapes._spTree.append(el)
     iconos = sorted([sh for sh in ORDEN.shapes if sh.shape_type == 13], key=lambda x: x.top)
-for extra_ic in iconos[4:]: extra_ic._element.getparent().remove(extra_ic._element)
-iconos = iconos[:4]
+for extra_ic in iconos[len(puntos):]: extra_ic._element.getparent().remove(extra_ic._element)
+iconos = iconos[:len(puntos)]
 for k, ic in enumerate(iconos):
     ic.left = Inches(0.86); ic.top = Inches(Y_ORDEN + k * PASO_ORDEN + 0.3) - ic.height // 2
-for ic, dest in zip(iconos, [VID_E, VID_V, VID_R, VID_C]): enlazar(ic, dest)
+for ic, dest in zip(iconos, [VID_E, VID_Z, VID_V, VID_R, VID_C]): enlazar(ic, dest)
 ao = Anim(ORDEN)
 for i, tb in enumerate(items_orden): ao.clics.append({'entra': [tb, iconos[i]]})
 ao.construir()
 
 for s_, t, sub_t in [(VID_V, 'Vademécum Epithelium', f'Fecha: {FECHA}'), (VID_R, 'Visita Comercial', f'Fecha: {FECHA}'),
-                     (VID_E, 'Guía de etiquetas de producto', f'Fecha: {FECHA}'), (VID_C, 'Cotizador Epithelium', 'Próximamente')]:
+                     (VID_E, 'Guía de etiquetas de producto', f'Fecha: {FECHA}'), (VID_Z, 'Reestructuración zonas', 'Vigente desde octubre 2026'),
+                     (VID_C, 'Cotizador Epithelium', 'Próximamente')]:
     s_.shapes.title.text_frame.paragraphs[0].runs[0].text = t
     sp = [x for x in s_.placeholders if x.placeholder_format.idx == 1][0]
     sp.text_frame.paragraphs[0].runs[0].text = sub_t; sp.width = Inches(4.4)
@@ -167,8 +211,8 @@ gf = tabla(s, 0.77, 2.35, 6.4, [1.4, 3.6], [
     ['Internet', 'Wi-Fi o datos para instalar y para sincronizar'], ['Usuario y clave', 'Los tuyos, personales (sirven en las dos apps)']], alto_fila=0.46, size=12.5)
 ic_v = s.shapes.add_picture('/tmp/vade_main/icons/icon-512.png', Inches(8.15), Inches(2.45), Inches(1.25), Inches(1.25))
 ic_r = s.shapes.add_picture('/home/user/ruta-comercial/icons/icon-512.png', Inches(10.35), Inches(2.45), Inches(1.25), Inches(1.25))
-t1 = texto(s, 7.65, 3.75, 2.25, 0.6, [[('Vademécum', True)], 'Punto 2'], size=12, align=PP_ALIGN.CENTER, color=VERDE_OSC, espacio=0)
-t2 = texto(s, 9.85, 3.75, 2.25, 0.6, [[('Visita Comercial', True)], 'Punto 3'], size=12, align=PP_ALIGN.CENTER, color=VERDE_OSC, espacio=0)
+t1 = texto(s, 7.65, 3.75, 2.25, 0.6, [[('Vademécum', True)], 'Punto 3'], size=12, align=PP_ALIGN.CENTER, color=VERDE_OSC, espacio=0)
+t2 = texto(s, 9.85, 3.75, 2.25, 0.6, [[('Visita Comercial', True)], 'Punto 4'], size=12, align=PP_ALIGN.CENTER, color=VERDE_OSC, espacio=0)
 tb = viñetas(s, 0.77, 4.95, 11.4, 1.9, [
     'Son aplicaciones web: se abren desde el navegador y quedan como un ícono en la pantalla de inicio, igual que una app.',
     'Vamos app por app: cada uno la instala en su celular mientras avanzamos y hace los ejercicios en vivo.',
@@ -565,12 +609,130 @@ diapo_etiquetas('Guía de etiquetas: mensaje comercial', 'mensaje',
     'Mensaje para usar con el médico o el cliente. Fuente: guía de etiquetas del catálogo de productos de Visita Comercial.')
 s_ = nuevas[-1]; icono_regreso(s_)
 
+
+# ================================================================ PUNTO 2 · REESTRUCTURACIÓN ZONAS
+import csv as _csv
+PUNTOZ_INI = len(nuevas)
+_CONT = json.load(open('/home/user/ruta-comercial/contactos.json'))
+_ANTES = json.loads(_sp.check_output(['git', '-C', '/home/user/ruta-comercial', 'show', '68a2e87^:contactos.json']).decode())
+_HIST = [r for r in _csv.DictReader(open('/home/user/ruta-comercial/datos/historial_maestra.csv')) if r['Cambio'] == 'cambio de zona']
+_IDX = {x['n']: x for l in _CONT.values() for x in l}
+_PORT = _col.Counter(c['zona'] for c in json.load(open('/tmp/vade_main/portafolios-index.json')))
+ZONAS = [('Clientes Especiales', 'Jennifer Herrera', '7C3AED'), ('Zona Norte', 'Lizeth Ramos', '2563EB'),
+         ('Zona Sur', 'Yunelis Caballero', 'EA580C'), ('Zona Desarrollo', 'Maryi Castro', '16A34A')]
+COLZ = {z: c for z, _, c in ZONAS}
+_tot = sum(len(l) for l in _CONT.values())
+def _tipo(e):
+    e = (e or '').lower()
+    return 'Puntos de venta' if 'punto' in e else 'Médicos' if 'medico' in e and 'cliente' not in e else 'Clientes' if 'cliente' in e else 'Otros'
+
+# --- 1. Así quedan las zonas
+s = nueva('Reestructuración zonas: así quedan'); nuevas.append(s); an = Anim(s)
+ks = [kpi(s, 0.77 + k * 2.0, 1.09, 1.88, 0.98, v, d, f'KPI{k}') for k, (v, d) in enumerate([
+    ('4 zonas', 'Antes eran 3'), (f'{_tot}', 'Contactos en la Maestra'), (f'{len(_CONT["Zona Desarrollo"])}', 'En Zona Desarrollo (nueva)'),
+    (f'{len(_HIST)}', 'Contactos cambian de zona')])]
+filas = [['Zona', 'Comercial', 'Antes', 'Ahora', 'Cambio']]
+for z, com, _ in ZONAS:
+    a, n = len(_ANTES.get(z, [])), len(_CONT.get(z, []))
+    filas.append([z, com, str(a) if a else '—', str(n), 'Nueva' if not a else ('Igual' if a == n else f'{n - a:+d}')])
+filas.append(['Total', '', str(sum(len(l) for l in _ANTES.values())), str(_tot), ''])
+gf = tabla(s, 0.77, 2.35, 7.85, [2.1, 2.2, 1.0, 1.0, 1.1], filas, alto_fila=0.5, size=13, centrar=(2, 3, 4))
+for i, (z, _, c) in enumerate(ZONAS, start=1):
+    cel = gf.table.cell(i, 0); cel.text_frame.paragraphs[0].runs[0].font.color.rgb = rgb(c); cel.text_frame.paragraphs[0].runs[0].font.bold = True
+hs = resaltar_filas(s, gf, range(1, len(ZONAS) + 1))
+pic, mapa, w = poner_celular(s, 'vc_maestra_zonas_top', 9.0, 2.7, 5.4 * 560 / 844, recorte=(0, 560), nombre='Cel_maestra_zonas')
+cj = CAJAS['vc_maestra_zonas_top']['items']
+n1 = llamada(s, 1, mapa(cj['barras']), 'izq', 'Ref1')
+fz = fuente(s, 'Vigente desde el 1 de octubre de 2026. A la derecha: Maestra Clientes de un jefe, agrupada por Zona.', y=6.95)
+an.auto = ks + [gf, pic, *n1, fz]
+for i, h in enumerate(hs): an.clics.append({'entra': [h], 'sale': [hs[i - 1]] if i else []})
+an.construir()
+
+# --- 2. Qué contactos cambian de zona
+s = nueva('Qué contactos cambian de zona'); nuevas.append(s); an = Anim(s)
+movs = _col.defaultdict(_col.Counter)
+for r in _HIST: movs[(r['Zona anterior'], r['Zona nueva'])][(_IDX.get(r['Contacto']) or {}).get('c') or 'Sin ciudad'] += 1
+orden_m = sorted(movs, key=lambda k: (k[1] != 'Zona Desarrollo', -sum(movs[k].values())))
+grupos = []
+for i, (a, b) in enumerate(orden_m):
+    y = 1.25 + i * 1.75; cnt = movs[(a, b)]; n = sum(cnt.values())
+    def caja(x, z, nom):
+        sh = s.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(x), Inches(y), Inches(2.1), Inches(0.8)); sh.name = nom
+        sh.adjustments[0] = 0.2; sh.fill.solid(); sh.fill.fore_color.rgb = rgb(COLZ[z]); sh.line.fill.background(); sh.shadow.inherit = False
+        tf = sh.text_frame; tf.vertical_anchor = MSO_ANCHOR.MIDDLE; p = tf.paragraphs[0]; p.alignment = PP_ALIGN.CENTER
+        r = p.add_run(); r.text = z; r.font.size = Pt(15); r.font.bold = True; r.font.color.rgb = rgb('FFFFFF')
+        return sh
+    c1 = caja(0.77, a, f'Desde{i}')
+    fl = s.shapes.add_shape(MSO_SHAPE.RIGHT_ARROW, Inches(2.95), Inches(y + 0.05), Inches(2.0), Inches(0.7)); fl.name = f'Flecha{i}'
+    fl.fill.solid(); fl.fill.fore_color.rgb = rgb('FFC000'); fl.line.fill.background(); fl.shadow.inherit = False
+    tf = fl.text_frame; p = tf.paragraphs[0]; p.alignment = PP_ALIGN.CENTER
+    r = p.add_run(); r.text = f'{n} contactos'; r.font.size = Pt(13); r.font.bold = True; r.font.color.rgb = rgb('1F2937')
+    c2 = caja(5.05, b, f'Hacia{i}')
+    top = cnt.most_common(); txt = ' · '.join(f'{c} {k}' for c, k in top[:6]) + (f' · y {len(top) - 6} ciudades más' if len(top) > 6 else '')
+    xt = 7.35; wt = (XMAX if y < 2.6 else 12.45) - xt
+    tt = texto(s, xt, y - 0.05, wt, 0.95, [[('Ciudades: ', True), (txt, False)]], size=12, color=GRIS, anchor=MSO_ANCHOR.MIDDLE, nombre=f'Ciudades{i}')
+    grupos.append([c1, fl, c2, tt])
+nota = texto(s, 0.77, 6.35, 11.6, 0.55, [[('Zona Desarrollo ', True), ('reúne contactos de Zona Norte y Zona Sur en ciudades por desarrollar; el Meta (Villavicencio) pasa de Zona Norte a Zona Sur.', False)]], size=13, color=VERDE_OSC)
+fz = fuente(s, 'Fuente: historial de cambios de la Maestra de Contactos (octubre 2026).', y=6.95)
+an.auto = [fz]
+for g in grupos: an.clics.append({'entra': g})
+an.clics.append({'entra': [nota]})
+an.construir()
+
+# --- 3. Las cuatro zonas por dentro
+s = nueva('Las cuatro zonas por dentro'); nuevas.append(s); an = Anim(s)
+cards = []
+W4 = (XMAX - 0.77 - 3 * 0.15) / 4   # sin pasar debajo del logo
+for k, (z, com, c) in enumerate(ZONAS):
+    x = 0.77 + k * (W4 + 0.15); y = 1.45
+    l = _CONT.get(z, []); tip = _col.Counter(_tipo(e.get('e')) for e in l); ciu = _col.Counter(e.get('c') for e in l).most_common(4)
+    cab = s.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(x), Inches(y), Inches(W4), Inches(0.75)); cab.name = f'Zona{k + 1}'
+    cab.adjustments[0] = 0.15; cab.fill.solid(); cab.fill.fore_color.rgb = rgb(c); cab.line.fill.background(); cab.shadow.inherit = False
+    tf = cab.text_frame; tf.vertical_anchor = MSO_ANCHOR.MIDDLE
+    p = tf.paragraphs[0]; p.alignment = PP_ALIGN.CENTER; r = p.add_run(); r.text = z; r.font.size = Pt(15); r.font.bold = True; r.font.color.rgb = rgb('FFFFFF')
+    p = tf.add_paragraph(); p.alignment = PP_ALIGN.CENTER; r = p.add_run(); r.text = com; r.font.size = Pt(11); r.font.color.rgb = rgb('FFFFFF')
+    cuerpo = s.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(x), Inches(y + 0.85), Inches(W4), Inches(4.35)); cuerpo.name = f'Datos{k + 1}'
+    cuerpo.adjustments[0] = 0.05; cuerpo.fill.solid(); cuerpo.fill.fore_color.rgb = rgb('FFFFFF'); cuerpo.line.color.rgb = rgb(c); cuerpo.line.width = Pt(1.5); cuerpo.shadow.inherit = False
+    tf = cuerpo.text_frame; tf.word_wrap = True; tf.vertical_anchor = MSO_ANCHOR.TOP
+    tf.margin_left = tf.margin_right = Inches(0.14); tf.margin_top = Inches(0.12)
+    def linea(t, v, primero=False, grande=False):
+        p = tf.paragraphs[0] if primero else tf.add_paragraph(); p.alignment = PP_ALIGN.LEFT; p.space_after = Pt(3)
+        r = p.add_run(); r.text = v; r.font.size = Pt(28 if grande else 14.5); r.font.bold = True; r.font.color.rgb = rgb(c if grande else '1F2937')
+        r = p.add_run(); r.text = ' ' + t; r.font.size = Pt(13.5); r.font.color.rgb = rgb(GRIS)
+    linea('contactos', str(len(l)), True, True)
+    linea('para facturar', str(sum(1 for e in l if e.get('f'))))
+    for t in ('Médicos', 'Clientes', 'Puntos de venta'):
+        if tip.get(t): linea(t.lower(), str(tip[t]))
+    linea('portafolios en el Vademécum', str(_PORT.get(z, 0)))
+    p = tf.add_paragraph(); p.space_before = Pt(6); r = p.add_run(); r.text = 'Ciudades principales'; r.font.size = Pt(14); r.font.bold = True; r.font.color.rgb = rgb(c)
+    for nom, n in ciu:
+        p = tf.add_paragraph(); r = p.add_run(); r.text = f'{nom} · {n}'; r.font.size = Pt(13); r.font.color.rgb = rgb(GRIS)
+    cards.append([cab, cuerpo])
+fz = fuente(s, 'Fuente: Maestra de Contactos de octubre 2026 (Visita Comercial) y portafolios del Vademécum Cliente.', y=6.95)
+an.auto = [fz]
+for g in cards: an.clics.append({'entra': g})
+an.construir()
+
+# --- 4. Qué cambia en las apps
+s = nueva('Reestructuración zonas: qué cambia en las apps'); nuevas.append(s); an = Anim(s)
+pic, mapa, w = poner_celular(s, 'vc_maestra_zonas_top', 0.77, 1.15, 5.4 * 560 / 844 * 1.45, recorte=(0, 560), nombre='Cel_zonas')
+n1 = llamada(s, 1, mapa(cj['dims']), 'der', 'Ref1'); n2 = llamada(s, 2, mapa(cj['barras']), 'der', 'Ref2')
+xb = 0.77 + w + 0.6
+tb = viñetas(s, xb, 1.2, XMAX - xb, 5.4, [
+    [('Visita Comercial: ', True), ('la Maestra, el Visiplan y Programar ya muestran cada cliente en su zona nueva.', False)],
+    [('Zona Desarrollo: ', True), ('Maryi Castro entra a las dos apps con su usuario como comercial de esa zona.', False)],
+    [('Vademécum Cliente: ', True), ('cada comercial ve los portafolios de su zona (13 pasan a Zona Desarrollo y 3 del Meta a Zona Sur).', False)],
+    [('Jefes: ', True), ('en Maestra Clientes, el botón "Zona" de la gráfica muestra cuántos clientes tiene cada zona (1) y (2).', False)],
+    [('Leads: ', True), ('las que se crearon sin zona quedan en la zona actual del vendedor.', False)]], size=15)
+an.auto = [pic, *n1, *n2]; clics_viñetas(an, tb, 5); an.construir()
+icono_regreso(s)
+
 # ================================================================ PUNTO 4 · COTIZADOR (solo portada)
 # ================================================================ CIERRE
 cierre = prs.slides.add_slide([l for l in prs.slide_layouts if l.part.partname.endswith('slideLayout3.xml')][0])
 for ph_ in list(cierre.placeholders): ph_._element.getparent().remove(ph_._element)
 
-orden = [PORTADA, ORDEN, VID_E] + nuevas[PUNTO3_INI:] + [nuevas[0], VID_V] + nuevas[1:PUNTO2_INI] + [VID_R] + nuevas[PUNTO2_INI:PUNTO3_INI] + [VID_C, cierre]
+orden = [PORTADA, ORDEN, VID_E] + nuevas[PUNTO3_INI:PUNTOZ_INI] + [VID_Z] + nuevas[PUNTOZ_INI:] + [nuevas[0], VID_V] + nuevas[1:PUNTO2_INI] + [VID_R] + nuevas[PUNTO2_INI:PUNTO3_INI] + [VID_C, cierre]
 lst = prs.slides._sldIdLst
 ids = {prs.part.related_part(e.rId): e for e in list(lst)}
 conservar = {s_.part for s_ in orden}
