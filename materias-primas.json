@@ -33,7 +33,7 @@
   "Uso Terapéutico y Cosmético": "Función cosmética: aporte antimicrobiano/antioxidante en formulaciones capilares",
   "Concentración de Uso": "0.5%-5%\nMáximo uso: 5% (uso tópico cosmético habitual, riesgo de irritación a mayor %)",
   "Categoria Principal": "Capilares",
-  "Categoria Secundaria": ""
+  "Categoria Secundaria": "Ungueales"
  },
  {
   "Referencia Interna": "MA0003",
@@ -42,7 +42,7 @@
   "Uso Terapéutico y Cosmético": "Función cosmética: hidratación y suavizado de piel y cabello",
   "Concentración de Uso": "1%-30% según formulación\nMáximo uso: sin límite regulatorio estricto en uso cosmético",
   "Categoria Principal": "Hidratantes",
-  "Categoria Secundaria": ""
+  "Categoria Secundaria": "Antienvejecimiento"
  },
  {
   "Referencia Interna": "MA0360",
@@ -59,7 +59,7 @@
   "Identificación Técnica": "INCI: Daucus Carota Sativa (Carrot) Oil\nUSP: Sin monografía USP\nAntioxidante, colorante natural, precursor de vitamina A",
   "Uso Terapéutico y Cosmético": "Función cosmética: antioxidante y aporte de color/tono en formulaciones",
   "Concentración de Uso": "0.1%-1%\nMáximo uso: 1% (uso tópico cosmético habitual)",
-  "Categoria Principal": "Antienvejecimiento",
+  "Categoria Principal": "Protectores Solares",
   "Categoria Secundaria": ""
  },
  {
@@ -69,7 +69,7 @@
   "Uso Terapéutico y Cosmético": "Función cosmética: hidratación y suavizado de piel y cabello",
   "Concentración de Uso": "1%-30% según formulación\nMáximo uso: sin límite regulatorio estricto en uso cosmético",
   "Categoria Principal": "Hidratantes",
-  "Categoria Secundaria": ""
+  "Categoria Secundaria": "Antienvejecimiento"
  },
  {
   "Referencia Interna": "MA0351",
@@ -87,7 +87,7 @@
   "Uso Terapéutico y Cosmético": "Función cosmética: hidratación y suavizado de la piel",
   "Concentración de Uso": "1%-20% según formulación\nMáximo uso: sin límite regulatorio estricto en uso cosmético",
   "Categoria Principal": "Hidratantes",
-  "Categoria Secundaria": ""
+  "Categoria Secundaria": "Antienvejecimiento"
  },
  {
   "Referencia Interna": "MA0006",
@@ -97,15 +97,6 @@
   "Concentración de Uso": "1%-20% según formulación\nMáximo uso: sin límite regulatorio estricto en uso cosmético",
   "Categoria Principal": "Hidratantes",
   "Categoria Secundaria": "Antienvejecimiento"
- },
- {
-  "Referencia Interna": "MA0328",
-  "Nombre": "Aceite de Massage",
-  "Identificación Técnica": "INCI: Sin nombre INCI único (mezcla comercial)\nUSP: Sin monografía USP\nEmoliente, base para masaje (mezcla de aceites)",
-  "Uso Terapéutico y Cosmético": "Función cosmética: lubricante/emoliente para masaje corporal",
-  "Concentración de Uso": "Uso puro o como base",
-  "Categoria Principal": "Hidratantes",
-  "Categoria Secundaria": ""
  },
  {
   "Referencia Interna": "MA0007",
@@ -123,7 +114,7 @@
   "Uso Terapéutico y Cosmético": "Función cosmética: hidratación, brillo capilar, base de formulaciones",
   "Concentración de Uso": "1%-30% según formulación\nMáximo uso: sin límite regulatorio estricto en uso cosmético",
   "Categoria Principal": "Hidratantes",
-  "Categoria Secundaria": "Capilares"
+  "Categoria Secundaria": "Antienvejecimiento"
  },
  {
   "Referencia Interna": "MA0369",
@@ -132,7 +123,7 @@
   "Uso Terapéutico y Cosmético": "Función cosmética: estimulante de microcirculación en cuero cabelludo, antioxidante",
   "Concentración de Uso": "0.5%-3%\nMáximo uso: 3% (uso tópico cosmético habitual, riesgo de irritación a mayor %)",
   "Categoria Principal": "Capilares",
-  "Categoria Secundaria": ""
+  "Categoria Secundaria": "Hidratantes"
  },
  {
   "Referencia Interna": "MA0009",
@@ -158,7 +149,7 @@
   "Identificación Técnica": "INCI: Daucus Carota Sativa (Carrot) Root Extract\nUSP: Sin monografía USP\nAntioxidante, colorante natural (aceite vegetal/extracto)",
   "Uso Terapéutico y Cosmético": "Función cosmética: antioxidante y aporte de tono en formulaciones",
   "Concentración de Uso": "0.5%-5%\nMáximo uso: 5% (uso tópico cosmético habitual)",
-  "Categoria Principal": "Antienvejecimiento",
+  "Categoria Principal": "Protectores Solares",
   "Categoria Secundaria": ""
  },
  {
@@ -168,7 +159,7 @@
   "Uso Terapéutico y Cosmético": "Función cosmética: hidratación, suavizado y protección de barrera cutánea",
   "Concentración de Uso": "1%-30% según formulación\nMáximo uso: sin límite regulatorio estricto en uso cosmético",
   "Categoria Principal": "Hidratantes",
-  "Categoria Secundaria": ""
+  "Categoria Secundaria": "Antienvejecimiento"
  },
  {
   "Referencia Interna": "MA0012",
@@ -184,9 +175,9 @@
   "Nombre": "Acetato de Zinc",
   "Identificación Técnica": "INCI: Zinc Acetate\nUSP: Sin monografia USP\nAstringente, antiseborreico",
   "Uso Terapéutico y Cosmético": "Caspa, piel grasa (uso cosmetico)",
-  "Concentración de Uso": "0.1%-1%\nMaximo uso: 1% (uso topico cosmetico habitual)",
-  "Categoria Principal": "Shampoo Magistrales",
-  "Categoria Secundaria": ""
+  "Concentración de Uso": "1%-3%\nMáximo uso: 3% (uso dermatológico)",
+  "Categoria Principal": "Acné",
+  "Categoria Secundaria": "Shampoo Magistrales"
  },
  {
   "Referencia Interna": "MA0015",
@@ -195,7 +186,7 @@
   "Uso Terapéutico y Cosmético": "Fotoenvejecimiento, protección antioxidante cutánea",
   "Concentración de Uso": "0.5%-5%\nMáximo uso: 5% (uso tópico cosmético habitual)",
   "Categoria Principal": "Antienvejecimiento",
-  "Categoria Secundaria": ""
+  "Categoria Secundaria": "Corticoides"
  },
  {
   "Referencia Interna": "MA0017",
@@ -205,6 +196,15 @@
   "Concentración de Uso": "10%-20%\nMáximo uso: 20% (uso tópico dermatológico estándar)",
   "Categoria Principal": "Acné",
   "Categoria Secundaria": "Despigmentantes"
+ },
+ {
+  "Referencia Interna": "MA0018",
+  "Nombre": "Acido Citrico",
+  "Identificación Técnica": "INCI: Citric Acid\nUSP: Citric Acid\nRegulador de pH, quelante, exfoliante suave (AHA)",
+  "Uso Terapéutico y Cosmético": "Ajuste de pH en formulaciones, exfoliación leve",
+  "Concentración de Uso": "0.1%-2% (regulador de pH)\nMáximo uso: sin límite regulatorio estricto en uso cosmético",
+  "Categoria Principal": "Despigmentantes",
+  "Categoria Secundaria": "Queratolíticos - Exfoliantes"
  },
  {
   "Referencia Interna": "MA0020",
@@ -221,8 +221,8 @@
   "Identificación Técnica": "INCI: Ferulic Acid\nUSP: Sin monografía USP\nAntioxidante, estabilizador de vitamina C",
   "Uso Terapéutico y Cosmético": "Fotoenvejecimiento, protección antioxidante cutánea",
   "Concentración de Uso": "0.5%-1%\nMáximo uso: 1% (uso tópico cosmético habitual)",
-  "Categoria Principal": "Antienvejecimiento",
-  "Categoria Secundaria": ""
+  "Categoria Principal": "Despigmentantes",
+  "Categoria Secundaria": "Antienvejecimiento"
  },
  {
   "Referencia Interna": "MA0022",
@@ -248,7 +248,7 @@
   "Identificación Técnica": "INCI: Glycolic Acid\nUSP: Sin monografía USP\nExfoliante químico (AHA), queratolítico",
   "Uso Terapéutico y Cosmético": "Fotoenvejecimiento, hiperpigmentación, acné, textura cutánea",
   "Concentración de Uso": "5%-20% (uso profesional hasta 70%)\nMáximo uso: 10% en productos de venta libre; hasta 70% en peelings profesionales supervisados",
-  "Categoria Principal": "Antienvejecimiento",
+  "Categoria Principal": "Despigmentantes",
   "Categoria Secundaria": "Queratolíticos - Exfoliantes"
  },
  {
@@ -267,7 +267,7 @@
   "Uso Terapéutico y Cosmético": "Hiperpigmentación, melasma, manchas solares",
   "Concentración de Uso": "1%-4%\nMáximo uso: 1% en UE (restricción regulatoria); hasta 4% en otras regiones",
   "Categoria Principal": "Despigmentantes",
-  "Categoria Secundaria": ""
+  "Categoria Secundaria": "Antienvejecimiento"
  },
  {
   "Referencia Interna": "MA0025H",
@@ -276,7 +276,7 @@
   "Uso Terapéutico y Cosmético": "Hiperpigmentación, melasma, manchas solares",
   "Concentración de Uso": "1%-4%\nMáximo uso: 1% en UE (restricción regulatoria); hasta 4% en otras regiones",
   "Categoria Principal": "Despigmentantes",
-  "Categoria Secundaria": ""
+  "Categoria Secundaria": "Antienvejecimiento"
  },
  {
   "Referencia Interna": "MA0026",
@@ -294,7 +294,7 @@
   "Uso Terapéutico y Cosmético": "Fotoenvejecimiento, piel sensible que requiere exfoliación suave",
   "Concentración de Uso": "3%-10%\nMáximo uso: 10% (uso tópico cosmético habitual)",
   "Categoria Principal": "Antienvejecimiento",
-  "Categoria Secundaria": "Queratolíticos - Exfoliantes"
+  "Categoria Secundaria": "Hidratantes"
  },
  {
   "Referencia Interna": "MA0028",
@@ -302,7 +302,7 @@
   "Identificación Técnica": "INCI: Mandelic Acid\nUSP: Sin monografía USP\nExfoliante químico (AHA), antibacteriano leve",
   "Uso Terapéutico y Cosmético": "Acné, fotoenvejecimiento, hiperpigmentación, piel sensible",
   "Concentración de Uso": "5%-20% (uso profesional hasta 40%)\nMáximo uso: 10% en productos de venta libre; hasta 40% en peelings profesionales",
-  "Categoria Principal": "Acné",
+  "Categoria Principal": "Despigmentantes",
   "Categoria Secundaria": "Queratolíticos - Exfoliantes"
  },
  {
@@ -348,7 +348,7 @@
   "Uso Terapéutico y Cosmético": "Verrugas, queratosis, peelings químicos profundos, cicatrices de acné",
   "Concentración de Uso": "10%-50% según profundidad de peeling deseada\nMáximo uso: 50% en uso profesional supervisado; concentraciones mayores requieren extrema precaución",
   "Categoria Principal": "Queratolíticos - Exfoliantes",
-  "Categoria Secundaria": "Cicatrizantes - Reparadores"
+  "Categoria Secundaria": "Antienvejecimiento"
  },
  {
   "Referencia Interna": "MA0033",
@@ -375,7 +375,7 @@
   "Uso Terapéutico y Cosmético": "Funcion cosmetica: tonificacion, sensacion refrescante y aroma",
   "Concentración de Uso": "Csp 100% o como fase acuosa de la formulacion",
   "Categoria Principal": "Hidratantes",
-  "Categoria Secundaria": ""
+  "Categoria Secundaria": "Capilares"
  },
  {
   "Referencia Interna": "MA0037",
@@ -384,7 +384,7 @@
   "Uso Terapéutico y Cosmético": "Piel irritada, dermatitis leve, cicatrizacion superficial",
   "Concentración de Uso": "0.1%-2%\nMaximo uso: 2% (limite regulatorio habitual)",
   "Categoria Principal": "Cicatrizantes - Reparadores",
-  "Categoria Secundaria": "Queratolíticos - Exfoliantes"
+  "Categoria Secundaria": "Hidratantes"
  },
  {
   "Referencia Interna": "MA0038",
@@ -393,7 +393,7 @@
   "Uso Terapéutico y Cosmético": "Dolor muscular localizado, prurito",
   "Concentración de Uso": "0.1%-11%\nMaximo uso: 11% (limite regulatorio FDA en productos de venta libre)",
   "Categoria Principal": "Anestésicos Tópicos",
-  "Categoria Secundaria": ""
+  "Categoria Secundaria": "Capilares"
  },
  {
   "Referencia Interna": "MA0054H",
@@ -402,7 +402,7 @@
   "Uso Terapéutico y Cosmético": "Hiperpigmentación, melasma, manchas solares",
   "Concentración de Uso": "2%-7%\nMáximo uso: 7% (uso tópico cosmético habitual)",
   "Categoria Principal": "Despigmentantes",
-  "Categoria Secundaria": ""
+  "Categoria Secundaria": "Antienvejecimiento"
  },
  {
   "Referencia Interna": "MA0045",
@@ -411,7 +411,7 @@
   "Uso Terapéutico y Cosmético": "Piel sensible, irritada, post-procedimiento",
   "Concentración de Uso": "0.5%-1%\nMáximo uso: 1% (uso tópico cosmético habitual)",
   "Categoria Principal": "Cicatrizantes - Reparadores",
-  "Categoria Secundaria": ""
+  "Categoria Secundaria": "Corticoides"
  },
  {
   "Referencia Interna": "MA0046",
@@ -420,7 +420,7 @@
   "Uso Terapéutico y Cosmético": "Alopecia androgenética (pérdida de cabello con patrón) en hombres y mujeres",
   "Concentración de Uso": "Máximo uso: no hay límite regulatorio estricto; habitual en uso tópico dermatológico",
   "Categoria Principal": "Capilares",
-  "Categoria Secundaria": "Acné"
+  "Categoria Secundaria": ""
  },
  {
   "Referencia Interna": "MA0181H",
@@ -447,7 +447,7 @@
   "Uso Terapéutico y Cosmético": "Hiperpigmentación, melasma, manchas solares",
   "Concentración de Uso": "2%-7%\nMáximo uso: 7% (uso tópico cosmético habitual)",
   "Categoria Principal": "Despigmentantes",
-  "Categoria Secundaria": ""
+  "Categoria Secundaria": "Antienvejecimiento"
  },
  {
   "Referencia Interna": "MA0306",
@@ -456,7 +456,7 @@
   "Uso Terapéutico y Cosmético": "Hidratación cutánea (uso cosmético, no farmacológico específico)",
   "Concentración de Uso": "0.1%-2%\nMáximo uso: sin límite regulatorio estricto en uso cosmético",
   "Categoria Principal": "Hidratantes",
-  "Categoria Secundaria": ""
+  "Categoria Secundaria": "Capilares"
  },
  {
   "Referencia Interna": "MA0055",
@@ -465,7 +465,7 @@
   "Uso Terapéutico y Cosmético": "Arrugas de expresion (lineas finas, patas de gallo)",
   "Concentración de Uso": "5%-10% (solucion al 10-50% del peptido)\nMaximo uso: sin limite regulatorio estricto en uso cosmetico",
   "Categoria Principal": "Antienvejecimiento",
-  "Categoria Secundaria": ""
+  "Categoria Secundaria": "Hidratantes"
  },
  {
   "Referencia Interna": "MA0058",
@@ -474,7 +474,7 @@
   "Uso Terapéutico y Cosmético": "Fotoenvejecimiento, hiperpigmentacion",
   "Concentración de Uso": "3%-10%\nMaximo uso: 10% (uso topico cosmetico habitual)",
   "Categoria Principal": "Vitaminas",
-  "Categoria Secundaria": "Despigmentantes"
+  "Categoria Secundaria": "Antienvejecimiento"
  },
  {
   "Referencia Interna": "MA0059",
@@ -483,7 +483,7 @@
   "Uso Terapéutico y Cosmético": "Piel/cuero cabelludo graso, caspa (uso referencial, sin confirmacion de ficha tecnica)",
   "Concentración de Uso": "Informacion no disponible con certeza; verificar ficha tecnica del proveedor",
   "Categoria Principal": "Shampoo Magistrales",
-  "Categoria Secundaria": ""
+  "Categoria Secundaria": "Acné"
  },
  {
   "Referencia Interna": "MA0061",
@@ -493,15 +493,6 @@
   "Concentración de Uso": "2%-10%\nMáximo uso: 10% (uso tópico dermatológico estándar)",
   "Categoria Principal": "Acné",
   "Categoria Secundaria": "Rosácea"
- },
- {
-  "Referencia Interna": "MA0062",
-  "Nombre": "Base Esmalte",
-  "Identificación Técnica": "",
-  "Uso Terapéutico y Cosmético": "",
-  "Concentración de Uso": "",
-  "Categoria Principal": "Ungueales",
-  "Categoria Secundaria": ""
  },
  {
   "Referencia Interna": "MA0063",
@@ -545,7 +536,7 @@
   "Identificación Técnica": "USP: Terbinafine Hydrochloride\nAntifúngico (alilamina)",
   "Uso Terapéutico y Cosmético": "Micosis cutáneas, tiña, onicomicosis, pitiriasis versicolor",
   "Concentración de Uso": "1%\nMáximo uso: 1% (concentración estándar comercial)",
-  "Categoria Principal": "Antiparasitarios",
+  "Categoria Principal": "Ungueales",
   "Categoria Secundaria": ""
  },
  {
@@ -563,8 +554,8 @@
   "Identificación Técnica": "Seborregulador",
   "Uso Terapéutico y Cosmético": "shampoo acne",
   "Concentración de Uso": "",
-  "Categoria Principal": "Shampoo Magistrales",
-  "Categoria Secundaria": "Acné"
+  "Categoria Principal": "Capilares",
+  "Categoria Secundaria": "Shampoo Magistrales"
  },
  {
   "Referencia Interna": "MA0070",
@@ -582,7 +573,7 @@
   "Uso Terapéutico y Cosmético": "Celulitis, ojeras, alopecia (estimulante folicular)",
   "Concentración de Uso": "1%-5%\nMáximo uso: 5% (uso tópico cosmético habitual)",
   "Categoria Principal": "Capilares",
-  "Categoria Secundaria": ""
+  "Categoria Secundaria": "Antienvejecimiento"
  },
  {
   "Referencia Interna": "MA0074",
@@ -591,7 +582,7 @@
   "Uso Terapéutico y Cosmético": "Piel sensible, irritada, rosacea leve (uso cosmetico)",
   "Concentración de Uso": "0.5%-5%\nMaximo uso: 5% (uso topico cosmetico habitual)",
   "Categoria Principal": "Rosácea",
-  "Categoria Secundaria": ""
+  "Categoria Secundaria": "Acné"
  },
  {
   "Referencia Interna": "MA0309",
@@ -600,7 +591,7 @@
   "Uso Terapéutico y Cosmético": "Piel sensible, inflamada, dolor localizado (uso tópico)",
   "Concentración de Uso": "0.1%-5%\nMáximo uso: sin límite regulatorio uniforme; varía según jurisdicción",
   "Categoria Principal": "Cicatrizantes - Reparadores",
-  "Categoria Secundaria": ""
+  "Categoria Secundaria": "Hidratantes"
  },
  {
   "Referencia Interna": "MA0075",
@@ -639,22 +630,13 @@
   "Categoria Secundaria": ""
  },
  {
-  "Referencia Interna": "MA0081",
-  "Nombre": "Carbon Activado",
-  "Identificación Técnica": "INCI: Charcoal Powder\nUSP: Activated Charcoal\nAdsorbente, purificante (uso cosmético en mascarillas)",
-  "Uso Terapéutico y Cosmético": "Piel grasa, poros obstruidos, purificación (uso cosmético)",
-  "Concentración de Uso": "1%-10%\nMáximo uso: sin límite regulatorio estricto en uso cosmético",
-  "Categoria Principal": "Acné",
-  "Categoria Secundaria": ""
- },
- {
   "Referencia Interna": "MA0343",
   "Nombre": "Celulas Madres (Lightwaves Defense)",
   "Identificación Técnica": "INCI: LightWaves Defense (nombre comercial, composicion exacta no confirmada con certeza; linea de celulas madre vegetales)\nUSP: Sin monografia USP\nProbable activo antioxidante/protector celular de origen vegetal",
   "Uso Terapéutico y Cosmético": "Piel sensible, proteccion antioxidante (uso referencial, sin confirmacion de ficha tecnica)",
   "Concentración de Uso": "Informacion no disponible con certeza; verificar ficha tecnica del proveedor",
   "Categoria Principal": "Antienvejecimiento",
-  "Categoria Secundaria": ""
+  "Categoria Secundaria": "Hidratantes"
  },
  {
   "Referencia Interna": "MA0345",
@@ -662,8 +644,8 @@
   "Identificación Técnica": "USP: Sin monografía USP\nAntihistamínico (uso oral habitual; uso tópico no estándar)",
   "Uso Terapéutico y Cosmético": "No aplica de forma estándar en uso tópico dermatológico (antihistamínico de uso sistémico)",
   "Concentración de Uso": "No aplica de forma estándar para uso tópico",
-  "Categoria Principal": "Cicatrizantes - Reparadores",
-  "Categoria Secundaria": ""
+  "Categoria Principal": "Capilares",
+  "Categoria Secundaria": "Corticoides"
  },
  {
   "Referencia Interna": "MA0090",
@@ -671,8 +653,8 @@
   "Identificación Técnica": "USP: Ciclopirox Olamine\nAntifúngico de amplio espectro",
   "Uso Terapéutico y Cosmético": "Micosis cutáneas, onicomicosis, caspa (dermatitis seborreica), pitiriasis versicolor",
   "Concentración de Uso": "0.77%-8% según forma farmacéutica\nMáximo uso: 8% (esmaltes para onicomicosis); 1-2% en champús/cremas",
-  "Categoria Principal": "Ungueales",
-  "Categoria Secundaria": "Shampoo Magistrales"
+  "Categoria Principal": "Shampoo Magistrales",
+  "Categoria Secundaria": "Ungueales"
  },
  {
   "Referencia Interna": "MA0092",
@@ -689,8 +671,8 @@
   "Identificación Técnica": "USP: Clindamycin Phosphate\nAntibiótico tópico (lincosamida)",
   "Uso Terapéutico y Cosmético": "Acné vulgar",
   "Concentración de Uso": "1%-2%\nMáximo uso: 2% (uso tópico dermatológico estándar)",
-  "Categoria Principal": "Acné",
-  "Categoria Secundaria": "Antibióticos Tópicos"
+  "Categoria Principal": "Antibióticos Tópicos",
+  "Categoria Secundaria": "Acné"
  },
  {
   "Referencia Interna": "MA0094",
@@ -753,16 +735,7 @@
   "Uso Terapéutico y Cosmético": "Funcion cosmetica: hidratacion y mejora de textura cutanea/capilar",
   "Concentración de Uso": "0.5%-5% segun formulacion",
   "Categoria Principal": "Hidratantes",
-  "Categoria Secundaria": ""
- },
- {
-  "Referencia Interna": "MA0062H",
-  "Nombre": "Colodión Flexible",
-  "Identificación Técnica": "None",
-  "Uso Terapéutico y Cosmético": "",
-  "Concentración de Uso": "",
-  "Categoria Principal": "Ungueales",
-  "Categoria Secundaria": ""
+  "Categoria Secundaria": "Capilares"
  },
  {
   "Referencia Interna": "MA0114",
@@ -790,15 +763,6 @@
   "Concentración de Uso": "1%-5%\nMaximo uso: 5% (uso topico cosmetico/dermatologico habitual)",
   "Categoria Principal": "Vitaminas",
   "Categoria Secundaria": "Cicatrizantes - Reparadores"
- },
- {
-  "Referencia Interna": "MA0115",
-  "Nombre": "Dehyton KB",
-  "Identificación Técnica": "INCI: Cocamidopropyl Betaine\nUSP: Sin monografia USP\nTensoactivo anfotero suave (cocamidopropil betaina, nombre comercial BASF)",
-  "Uso Terapéutico y Cosmético": "No aplica (tensoactivo limpiador suave, no principio activo)",
-  "Concentración de Uso": "5%-20% segun ficha tecnica del proveedor",
-  "Categoria Principal": "Limpiadores Magistrales",
-  "Categoria Secundaria": ""
  },
  {
   "Referencia Interna": "MA0116",
@@ -861,7 +825,7 @@
   "Uso Terapéutico y Cosmético": "Alopecia androgenética (uso off-label tópico)",
   "Concentración de Uso": "0.01%-0.1% tópico\nMáximo uso: sin límite regulatorio estricto establecido para uso tópico dermatológico",
   "Categoria Principal": "Capilares",
-  "Categoria Secundaria": "Acné"
+  "Categoria Secundaria": ""
  },
  {
   "Referencia Interna": "MA0129",
@@ -878,8 +842,8 @@
   "Identificación Técnica": "USP: Erythromycin\nAntibiótico tópico (macrólido)",
   "Uso Terapéutico y Cosmético": "Acné vulgar, infecciones bacterianas cutáneas leves",
   "Concentración de Uso": "2%-4%\nMáximo uso: 4% (uso tópico dermatológico estándar)",
-  "Categoria Principal": "Acné",
-  "Categoria Secundaria": "Antibióticos Tópicos"
+  "Categoria Principal": "Antibióticos Tópicos",
+  "Categoria Secundaria": "Acné"
  },
  {
   "Referencia Interna": "MA0134",
@@ -887,8 +851,8 @@
   "Identificación Técnica": "INCI: Eucalyptus Globulus Leaf Oil\nUSP: Sin monografía USP\nDescongestionante, antimicrobiano leve (aceite esencial)",
   "Uso Terapéutico y Cosmético": "Función cosmética: sensación refrescante, aporte aromático/antimicrobiano leve",
   "Concentración de Uso": "0.1%-2%\nMáximo uso: 2% (mayor concentración aumenta riesgo de irritación)",
-  "Categoria Principal": "Cicatrizantes - Reparadores",
-  "Categoria Secundaria": ""
+  "Categoria Principal": "Capilares",
+  "Categoria Secundaria": "Hidratantes"
  },
  {
   "Referencia Interna": "MA0139",
@@ -918,15 +882,6 @@
   "Categoria Secundaria": ""
  },
  {
-  "Referencia Interna": "MA0332",
-  "Nombre": "Eversoft YCS 30S",
-  "Identificación Técnica": "INCI: Sodium Cocoyl Glycinate\nUSP: Sin monografia USP\nTensoactivo anionico suave derivado de aminoacidos, limpiador de baja irritabilidad",
-  "Uso Terapéutico y Cosmético": "No aplica (tensoactivo limpiador suave, no principio activo)",
-  "Concentración de Uso": "5%-20% segun ficha tecnica del proveedor",
-  "Categoria Principal": "Limpiadores Magistrales",
-  "Categoria Secundaria": ""
- },
- {
   "Referencia Interna": "MA0146",
   "Nombre": "Extracto de Algas",
   "Identificación Técnica": "INCI: Algae Extract\nUSP: Sin monografía USP\nAntioxidante, remineralizante (extracto vegetal marino)",
@@ -942,7 +897,7 @@
   "Uso Terapéutico y Cosmético": "Función cosmética: aporte antioxidante, protección frente al fotoenvejecimiento",
   "Concentración de Uso": "0.5%-5%\nMáximo uso: 5% (uso tópico cosmético habitual)",
   "Categoria Principal": "Antienvejecimiento",
-  "Categoria Secundaria": ""
+  "Categoria Secundaria": "Hidratantes"
  },
  {
   "Referencia Interna": "MA0147",
@@ -951,7 +906,7 @@
   "Uso Terapéutico y Cosmético": "Hematomas, inflamación localizada, piel post-procedimiento (uso cosmético/coadyuvante)",
   "Concentración de Uso": "0.5%-5%\nMáximo uso: 5% (uso tópico cosmético habitual; no usar sobre piel lesionada sin diluir)",
   "Categoria Principal": "Cicatrizantes - Reparadores",
-  "Categoria Secundaria": ""
+  "Categoria Secundaria": "Antienvejecimiento"
  },
  {
   "Referencia Interna": "MA0372",
@@ -969,7 +924,7 @@
   "Uso Terapéutico y Cosmético": "Piel irritada, dermatitis leve, cicatrización de heridas superficiales (uso cosmético/coadyuvante)",
   "Concentración de Uso": "0.5%-5%\nMáximo uso: 5% (uso tópico cosmético habitual)",
   "Categoria Principal": "Cicatrizantes - Reparadores",
-  "Categoria Secundaria": ""
+  "Categoria Secundaria": "Hidratantes"
  },
  {
   "Referencia Interna": "MA0149",
@@ -978,7 +933,7 @@
   "Uso Terapéutico y Cosmético": "Piernas cansadas, edema leve, celulitis (uso cosmético)",
   "Concentración de Uso": "0.5%-5%\nMáximo uso: 5% (uso tópico cosmético habitual)",
   "Categoria Principal": "Antienvejecimiento",
-  "Categoria Secundaria": ""
+  "Categoria Secundaria": "Hidratantes"
  },
  {
   "Referencia Interna": "MA0308",
@@ -986,8 +941,8 @@
   "Identificación Técnica": "INCI: Allium Cepa (Onion) Bulb Extract\nUSP: Sin monografía USP\nAntiinflamatorio, antioxidante (extracto vegetal - quercetina)",
   "Uso Terapéutico y Cosmético": "Cicatrices hipertróficas, hiperpigmentación post-inflamatoria (uso cosmético/coadyuvante)",
   "Concentración de Uso": "1%-10%\nMáximo uso: 10% (uso tópico cosmético habitual)",
-  "Categoria Principal": "Cicatrizantes - Reparadores",
-  "Categoria Secundaria": "Despigmentantes"
+  "Categoria Principal": "Capilares",
+  "Categoria Secundaria": "Hidratantes"
  },
  {
   "Referencia Interna": "MA0145",
@@ -1004,8 +959,8 @@
   "Identificación Técnica": "INCI: Equisetum Arvense Extract\nUSP: Sin monografía USP\nAstringente, remineralizante (extracto vegetal - sílice)",
   "Uso Terapéutico y Cosmético": "Función cosmética: aporte de firmeza y minerales en formulaciones capilares/piel",
   "Concentración de Uso": "0.5%-5%\nMáximo uso: 5% (uso tópico cosmético habitual)",
-  "Categoria Principal": "Acné",
-  "Categoria Secundaria": "Capilares"
+  "Categoria Principal": "Cicatrizantes - Reparadores",
+  "Categoria Secundaria": "Hidratantes"
  },
  {
   "Referencia Interna": "MA0350",
@@ -1022,8 +977,8 @@
   "Identificación Técnica": "INCI: Hamamelis Virginiana (Witch Hazel) Extract\nUSP: Sin monografía USP\nAstringente, antiinflamatorio (extracto vegetal)",
   "Uso Terapéutico y Cosmético": "Piel grasa, rosácea leve, irritación cutánea (uso cosmético)",
   "Concentración de Uso": "0.5%-10%\nMáximo uso: 10% (uso tópico cosmético habitual)",
-  "Categoria Principal": "Acné",
-  "Categoria Secundaria": "Rosácea"
+  "Categoria Principal": "Cicatrizantes - Reparadores",
+  "Categoria Secundaria": "Hidratantes"
  },
  {
   "Referencia Interna": "MA0368",
@@ -1032,7 +987,7 @@
   "Uso Terapéutico y Cosmético": "Función cosmética: aporte de proteínas en formulaciones capilares",
   "Concentración de Uso": "0.5%-5%\nMáximo uso: 5% (uso tópico cosmético habitual)",
   "Categoria Principal": "Capilares",
-  "Categoria Secundaria": ""
+  "Categoria Secundaria": "Hidratantes"
  },
  {
   "Referencia Interna": "MA0073",
@@ -1041,7 +996,7 @@
   "Uso Terapéutico y Cosmético": "Piel sensible, irritada, dermatitis leve (uso cosmético/coadyuvante)",
   "Concentración de Uso": "0.5%-5%\nMáximo uso: 5% (uso tópico cosmético habitual)",
   "Categoria Principal": "Cicatrizantes - Reparadores",
-  "Categoria Secundaria": ""
+  "Categoria Secundaria": "Corticoides"
  },
  {
   "Referencia Interna": "MA0152",
@@ -1049,8 +1004,8 @@
   "Identificación Técnica": "INCI: Urtica Dioica (Nettle) Extract\nUSP: Sin monografía USP\nAstringente, antiinflamatorio, remineralizante (extracto vegetal)",
   "Uso Terapéutico y Cosmético": "Piel grasa, caspa, caída de cabello (uso cosmético)",
   "Concentración de Uso": "0.5%-5%\nMáximo uso: 5% (uso tópico cosmético habitual)",
-  "Categoria Principal": "Capilares",
-  "Categoria Secundaria": "Shampoo Magistrales"
+  "Categoria Principal": "Cicatrizantes - Reparadores",
+  "Categoria Secundaria": "Hidratantes"
  },
  {
   "Referencia Interna": "MA0153",
@@ -1058,8 +1013,8 @@
   "Identificación Técnica": "INCI: Cucumis Sativus (Cucumber) Fruit Extract\nUSP: Sin monografía USP\nCalmante, hidratante, descongestionante (extracto vegetal)",
   "Uso Terapéutico y Cosmético": "Piel irritada, ojeras, descongestión periocular (uso cosmético)",
   "Concentración de Uso": "0.5%-5%\nMáximo uso: 5% (uso tópico cosmético habitual)",
-  "Categoria Principal": "Hidratantes",
-  "Categoria Secundaria": ""
+  "Categoria Principal": "Cicatrizantes - Reparadores",
+  "Categoria Secundaria": "Hidratantes"
  },
  {
   "Referencia Interna": "MA0154",
@@ -1077,7 +1032,7 @@
   "Uso Terapéutico y Cosmético": "Alopecia androgenética (uso off-label tópico)",
   "Concentración de Uso": "0.01%-0.25% tópico\nMáximo uso: sin límite regulatorio estricto establecido para uso tópico dermatológico",
   "Categoria Principal": "Capilares",
-  "Categoria Secundaria": "Acné"
+  "Categoria Secundaria": ""
  },
  {
   "Referencia Interna": "MA0156",
@@ -1085,7 +1040,7 @@
   "Identificación Técnica": "USP: Flutamide\nAntiandrogénico no esteroideo (uso off-label tópico)",
   "Uso Terapéutico y Cosmético": "Hirsutismo, acné hormonal (uso off-label tópico)",
   "Concentración de Uso": "1%-2.5% tópico\nMáximo uso: sin límite regulatorio estricto establecido para uso tópico dermatológico",
-  "Categoria Principal": "Acné",
+  "Categoria Principal": "Capilares",
   "Categoria Secundaria": ""
  },
  {
@@ -1113,7 +1068,7 @@
   "Uso Terapéutico y Cosmético": "Infecciones bacterianas cutáneas",
   "Concentración de Uso": "0.1%\nMáximo uso: 0.1% (concentración estándar comercial)",
   "Categoria Principal": "Antibióticos Tópicos",
-  "Categoria Secundaria": ""
+  "Categoria Secundaria": "Acné"
  },
  {
   "Referencia Interna": "MA0170",
@@ -1122,7 +1077,25 @@
   "Uso Terapéutico y Cosmético": "Ojeras, circulación cutánea, antienvejecimiento (uso cosmético)",
   "Concentración de Uso": "0.5%-5%\nMáximo uso: sin límite regulatorio estricto en uso cosmético",
   "Categoria Principal": "Antienvejecimiento",
-  "Categoria Secundaria": ""
+  "Categoria Secundaria": "Hidratantes"
+ },
+ {
+  "Referencia Interna": "MA0171",
+  "Nombre": "Glicerina",
+  "Identificación Técnica": "INCI: Glycerin\nUSP: Glycerin\nHumectante, emoliente",
+  "Uso Terapéutico y Cosmético": "No aplica (excipiente humectante, no principio activo)",
+  "Concentración de Uso": "1%-20% según formulación\nMáximo uso: sin límite regulatorio estricto en uso cosmético",
+  "Categoria Principal": "Antienvejecimiento",
+  "Categoria Secundaria": "Hidratantes"
+ },
+ {
+  "Referencia Interna": "MA0172",
+  "Nombre": "Glucam E-20",
+  "Identificación Técnica": "INCI: Methyl Gluceth-20\nUSP: Sin monografia USP\nEmoliente/humectante (metil gluceth-20, nombre comercial Lubrizol)",
+  "Uso Terapéutico y Cosmético": "No aplica (excipiente humectante, no principio activo)",
+  "Concentración de Uso": "1%-10% segun ficha tecnica del proveedor",
+  "Categoria Principal": "Antienvejecimiento",
+  "Categoria Secundaria": "Hidratantes"
  },
  {
   "Referencia Interna": "MA0002H4",
@@ -1149,7 +1122,7 @@
   "Uso Terapéutico y Cosmético": "Antisepsia cutánea, control de acné leve (uso restringido en muchas jurisdicciones)",
   "Concentración de Uso": "0.1%-0.3%\nMáximo uso: 0.3% (límite regulatorio en la mayoría de jurisdicciones; uso restringido/prohibido en algunas)",
   "Categoria Principal": "Acné",
-  "Categoria Secundaria": ""
+  "Categoria Secundaria": "Antibióticos Tópicos"
  },
  {
   "Referencia Interna": "MA0185H",
@@ -1158,7 +1131,7 @@
   "Uso Terapéutico y Cosmético": "Antisepsia cutánea, control de acné leve (uso restringido en muchas jurisdicciones)",
   "Concentración de Uso": "0.1%-0.3%\nMáximo uso: 0.3% (límite regulatorio en la mayoría de jurisdicciones; uso restringido/prohibido en algunas)",
   "Categoria Principal": "Acné",
-  "Categoria Secundaria": ""
+  "Categoria Secundaria": "Antibióticos Tópicos"
  },
  {
   "Referencia Interna": "MA0175",
@@ -1176,6 +1149,15 @@
   "Uso Terapéutico y Cosmético": "Hiperpigmentación, melasma, manchas solares",
   "Concentración de Uso": "2%-4%\nMáximo uso: 4% (uso tópico dermatológico bajo supervisión; restringido/prohibido en cosmética de venta libre según jurisdicción)",
   "Categoria Principal": "Despigmentantes",
+  "Categoria Secundaria": "Antienvejecimiento"
+ },
+ {
+  "Referencia Interna": "MA0177",
+  "Nombre": "Hidroxido de Potasio",
+  "Identificación Técnica": "INCI: Potassium Hydroxide\nUSP: Potassium Hydroxide\nAgente alcalinizante fuerte (regulador de pH, saponificante)",
+  "Uso Terapéutico y Cosmético": "No aplica (excipiente técnico/regulador de pH, no principio activo dermatológico)",
+  "Concentración de Uso": "No aplica para uso dermatológico directo (uso en trazas como regulador de pH)",
+  "Categoria Principal": "Queratolíticos - Exfoliantes",
   "Categoria Secundaria": ""
  },
  {
@@ -1194,7 +1176,7 @@
   "Uso Terapéutico y Cosmético": "Acné, foliculitis, dermatitis inflamatoria",
   "Concentración de Uso": "2%-10%\nMáximo uso: 10% (uso tópico dermatológico habitual)",
   "Categoria Principal": "Acné",
-  "Categoria Secundaria": ""
+  "Categoria Secundaria": "Corticoides"
  },
  {
   "Referencia Interna": "MA0183",
@@ -1221,7 +1203,7 @@
   "Uso Terapéutico y Cosmético": "Antisepsia cutánea, control de acné leve (uso restringido en muchas jurisdicciones)",
   "Concentración de Uso": "0.1%-0.3%\nMáximo uso: 0.3% (límite regulatorio en la mayoría de jurisdicciones; uso restringido/prohibido en algunas)",
   "Categoria Principal": "Acné",
-  "Categoria Secundaria": ""
+  "Categoria Secundaria": "Antibióticos Tópicos"
  },
  {
   "Referencia Interna": "MA0318",
@@ -1292,8 +1274,8 @@
   "Identificación Técnica": "INCI: Phenylalanine\nUSP: Phenylalanine\nAminoacido (uso cosmetico como acondicionador/coadyuvante en despigmentantes)",
   "Uso Terapéutico y Cosmético": "Funcion cosmetica: coadyuvante en formulaciones despigmentantes/capilares",
   "Concentración de Uso": "0.1%-2% segun formulacion",
-  "Categoria Principal": "Capilares",
-  "Categoria Secundaria": "Despigmentantes"
+  "Categoria Principal": "Despigmentantes",
+  "Categoria Secundaria": "Capilares"
  },
  {
   "Referencia Interna": "BP0024H",
@@ -1305,21 +1287,21 @@
   "Categoria Secundaria": "Hidratantes"
  },
  {
+  "Referencia Interna": "MA0197",
+  "Nombre": "Lanolina",
+  "Identificación Técnica": "INCI: Lanolin\nUSP: Lanolin\nEmoliente, agente oclusivo",
+  "Uso Terapéutico y Cosmético": "No aplica (excipiente emoliente; puede usarse para piel muy seca/agrietada)",
+  "Concentración de Uso": "1%-20% según formulación\nMáximo uso: sin límite regulatorio estricto en uso cosmético",
+  "Categoria Principal": "Hidratantes",
+  "Categoria Secundaria": ""
+ },
+ {
   "Referencia Interna": "MA0373H",
   "Nombre": "Latanoprost",
   "Identificación Técnica": "USP: Bimatoprost\nAnálogo de prostaglandina, estimulante del crecimiento de pestañas/cejas",
   "Uso Terapéutico y Cosmético": "Hipotricosis de pestañas, alopecia de cejas",
   "Concentración de Uso": "0.01%-0.03%\nMáximo uso: 0.03% (concentración estándar comercial)",
   "Categoria Principal": "Capilares",
-  "Categoria Secundaria": ""
- },
- {
-  "Referencia Interna": "MA0198",
-  "Nombre": "Lauril Eter Sulfato de Sodio / Texapon V 95 G",
-  "Identificación Técnica": "INCI: Sodium Laureth Sulfate\nUSP: Sodium Laureth Sulfate\nTensoactivo anionico, agente limpiador/espumante",
-  "Uso Terapéutico y Cosmético": "No aplica (tensoactivo limpiador, no principio activo)",
-  "Concentración de Uso": "5%-25% segun formulacion",
-  "Categoria Principal": "Limpiadores Magistrales",
   "Categoria Secundaria": ""
  },
  {
@@ -1347,7 +1329,7 @@
   "Uso Terapéutico y Cosmético": "Arrugas, firmeza cutanea (uso referencial, sin confirmacion de ficha tecnica)",
   "Concentración de Uso": "Informacion no disponible con certeza; verificar ficha tecnica del proveedor",
   "Categoria Principal": "Antienvejecimiento",
-  "Categoria Secundaria": ""
+  "Categoria Secundaria": "Hidratantes"
  },
  {
   "Referencia Interna": "MA0202",
@@ -1356,7 +1338,7 @@
   "Uso Terapéutico y Cosmético": "Fotoenvejecimiento, proteccion antioxidante cutanea",
   "Concentración de Uso": "0.5%-3%\nMaximo uso: 3% (uso topico cosmetico habitual)",
   "Categoria Principal": "Antienvejecimiento",
-  "Categoria Secundaria": ""
+  "Categoria Secundaria": "Hidratantes"
  },
  {
   "Referencia Interna": "MA0203",
@@ -1365,7 +1347,7 @@
   "Uso Terapéutico y Cosmético": "Hiperpigmentacion, manchas oscuras, tono de piel desigual",
   "Concentración de Uso": "2%-5% segun ficha tecnica del proveedor",
   "Categoria Principal": "Despigmentantes",
-  "Categoria Secundaria": ""
+  "Categoria Secundaria": "Antienvejecimiento"
  },
  {
   "Referencia Interna": "MA0205",
@@ -1373,8 +1355,8 @@
   "Identificación Técnica": "INCI: Theobroma Cacao (Cocoa) Seed Butter\nUSP: Cocoa Butter\nEmoliente, agente oclusivo (manteca vegetal)",
   "Uso Terapéutico y Cosmético": "Función cosmética: hidratación intensa, prevención de estrías",
   "Concentración de Uso": "1%-30% según formulación\nMáximo uso: sin límite regulatorio estricto en uso cosmético",
-  "Categoria Principal": "Antiestrias",
-  "Categoria Secundaria": "Hidratantes"
+  "Categoria Principal": "Hidratantes",
+  "Categoria Secundaria": "Antienvejecimiento"
  },
  {
   "Referencia Interna": "MA0206",
@@ -1383,7 +1365,7 @@
   "Uso Terapéutico y Cosmético": "Función cosmética: hidratación intensa, protección de barrera cutánea",
   "Concentración de Uso": "1%-30% según formulación\nMáximo uso: sin límite regulatorio estricto en uso cosmético",
   "Categoria Principal": "Hidratantes",
-  "Categoria Secundaria": ""
+  "Categoria Secundaria": "Antienvejecimiento"
  },
  {
   "Referencia Interna": "MA0207",
@@ -1392,7 +1374,7 @@
   "Uso Terapéutico y Cosmético": "Fotoenvejecimiento, arrugas, estimulacion de colageno",
   "Concentración de Uso": "3%-5%\nMaximo uso: 5% (segun ficha tecnica del proveedor)",
   "Categoria Principal": "Antienvejecimiento",
-  "Categoria Secundaria": ""
+  "Categoria Secundaria": "Hidratantes"
  },
  {
   "Referencia Interna": "MA0208",
@@ -1401,7 +1383,7 @@
   "Uso Terapéutico y Cosmético": "Melasma, hiperpigmentacion",
   "Concentración de Uso": "2%-5%\nMaximo uso: 5% (segun ficha tecnica del proveedor)",
   "Categoria Principal": "Despigmentantes",
-  "Categoria Secundaria": ""
+  "Categoria Secundaria": "Antienvejecimiento"
  },
  {
   "Referencia Interna": "MA0209",
@@ -1436,7 +1418,7 @@
   "Identificación Técnica": "INCI: Sin nombre INCI único (depende del polímero base)\nUSP: Sin monografia USP\nAgente exfoliante mecanico/esteticc (microesferas)",
   "Uso Terapéutico y Cosmético": "No aplica (agente exfoliante/esteticc, no principio activo)",
   "Concentración de Uso": "1%-5% segun formulacion",
-  "Categoria Principal": "Queratolíticos - Exfoliantes",
+  "Categoria Principal": "Hidratantes",
   "Categoria Secundaria": ""
  },
  {
@@ -1472,7 +1454,7 @@
   "Identificación Técnica": "INCI: Niacinamide\nUSP: Niacinamide\nAntiinflamatorio, regulador de sebo, mejora de barrera cutánea, despigmentante leve",
   "Uso Terapéutico y Cosmético": "Acné, rosácea, hiperpigmentación, fotoenvejecimiento, barrera cutánea",
   "Concentración de Uso": "2%-10%\nMáximo uso: 10% (uso tópico cosmético/dermatológico habitual)",
-  "Categoria Principal": "Acné",
+  "Categoria Principal": "Vitaminas",
   "Categoria Secundaria": "Despigmentantes"
  },
  {
@@ -1491,7 +1473,7 @@
   "Uso Terapéutico y Cosmético": "Caspa, dermatitis seborreica",
   "Concentración de Uso": "0.5%-1%\nMáximo uso: 1% (uso tópico habitual en champús anticaspa)",
   "Categoria Principal": "Shampoo Magistrales",
-  "Categoria Secundaria": "Antiparasitarios"
+  "Categoria Secundaria": ""
  },
  {
   "Referencia Interna": "MA0276H",
@@ -1539,30 +1521,21 @@
   "Categoria Secundaria": ""
  },
  {
+  "Referencia Interna": "MA0234",
+  "Nombre": "Phytantriol",
+  "Identificación Técnica": "INCI: Phytantriol\nUSP: Sin monografia USP\nHumectante, emoliente, estabilizante",
+  "Uso Terapéutico y Cosmético": "No aplica (excipiente humectante/emoliente, no principio activo)",
+  "Concentración de Uso": "0.5%-3% segun formulacion",
+  "Categoria Principal": "Hidratantes",
+  "Categoria Secundaria": ""
+ },
+ {
   "Referencia Interna": "MA0235",
   "Nombre": "Piritionato de Zinc Nf 50%",
   "Identificación Técnica": "INCI: Zinc Pyrithione\nUSP: Zinc Pyrithione\nAntifúngico/antiseborreico",
   "Uso Terapéutico y Cosmético": "Caspa, dermatitis seborreica",
   "Concentración de Uso": "1%-2%\nMáximo uso: 2% (uso tópico habitual en champús anticaspa)",
   "Categoria Principal": "Shampoo Magistrales",
-  "Categoria Secundaria": "Antiparasitarios"
- },
- {
-  "Referencia Interna": "MA0237",
-  "Nombre": "Plantaren 1200",
-  "Identificación Técnica": "INCI: Lauryl Glucoside\nUSP: Sin monografia USP\nTensoactivo no ionico suave (alquil poliglucosido, nombre comercial BASF)",
-  "Uso Terapéutico y Cosmético": "No aplica (tensoactivo limpiador suave, no principio activo)",
-  "Concentración de Uso": "5%-20% segun ficha tecnica del proveedor",
-  "Categoria Principal": "Limpiadores Magistrales",
-  "Categoria Secundaria": ""
- },
- {
-  "Referencia Interna": "MA0238",
-  "Nombre": "Plantaren 2000",
-  "Identificación Técnica": "INCI: Decyl Glucoside\nUSP: Sin monografia USP\nTensoactivo no ionico suave (alquil poliglucosido, nombre comercial BASF)",
-  "Uso Terapéutico y Cosmético": "No aplica (tensoactivo limpiador suave, no principio activo)",
-  "Concentración de Uso": "5%-20% segun ficha tecnica del proveedor",
-  "Categoria Principal": "Limpiadores Magistrales",
   "Categoria Secundaria": ""
  },
  {
@@ -1572,7 +1545,7 @@
   "Uso Terapéutico y Cosmético": "Verrugas genitales (condilomas)",
   "Concentración de Uso": "10%-25%\nMáximo uso: 25% (uso profesional bajo supervisión médica)",
   "Categoria Principal": "Antivirales Dermatológicos",
-  "Categoria Secundaria": ""
+  "Categoria Secundaria": "Queratolíticos - Exfoliantes"
  },
  {
   "Referencia Interna": "MA0245",
@@ -1580,8 +1553,8 @@
   "Identificación Técnica": "INCI: Aqua (and) Butylene Glycol (and) Fomes Officinalis (Mushroom) Extract (Pore Reductyl NT, Cobiosa/MMP)\nUSP: Sin monografia USP\nAstringente natural (acido agarico), reduce y tensa poros, control de sebo, efecto antitranspirante suave sin sales de aluminio",
   "Uso Terapéutico y Cosmético": "Piel grasa/mixta, poros dilatados, exceso de sudoracion (antitranspirante natural)",
   "Concentración de Uso": "1%-3% segun ficha tecnica del proveedor",
-  "Categoria Principal": "Desodorantes - Antitranspirantes",
-  "Categoria Secundaria": "Acné"
+  "Categoria Principal": "Acné",
+  "Categoria Secundaria": ""
  },
  {
   "Referencia Interna": "MA0246",
@@ -1616,8 +1589,8 @@
   "Identificación Técnica": "INCI: Resorcinol\nUSP: Resorcinol\nQueratolítico, antiacné, agente peeling (resorcinol)",
   "Uso Terapéutico y Cosmético": "Acné, hiperqueratosis, peelings químicos",
   "Concentración de Uso": "1%-20%\nMáximo uso: 20% (uso profesional); 1-3% en cosmética de venta libre",
-  "Categoria Principal": "Acné",
-  "Categoria Secundaria": "Queratolíticos - Exfoliantes"
+  "Categoria Principal": "Queratolíticos - Exfoliantes",
+  "Categoria Secundaria": "Despigmentantes"
  },
  {
   "Referencia Interna": "MA0254",
@@ -1634,8 +1607,8 @@
   "Identificación Técnica": "INCI: Bidens Pilosa Extract (and) Elaeis Guineensis (Palm) Oil (and) Gossypium Herbaceum (Cotton) Seed Oil (and) Linum Usitatissimum (Linseed) Seed Oil\nUSP: Sin monografia USP\nComplejo vegetal antienvejecimiento/regenerador (composicion reportada por el proveedor, funcion especifica no confirmada con certeza)",
   "Uso Terapéutico y Cosmético": "Antienvejecimiento, regeneracion cutanea (uso referencial, sin confirmacion completa de ficha tecnica)",
   "Concentración de Uso": "Informacion no disponible con certeza; verificar ficha tecnica del proveedor",
-  "Categoria Principal": "Antienvejecimiento",
-  "Categoria Secundaria": ""
+  "Categoria Principal": "Despigmentantes",
+  "Categoria Secundaria": "Antienvejecimiento"
  },
  {
   "Referencia Interna": "MA0257",
@@ -1643,8 +1616,17 @@
   "Identificación Técnica": "INCI: Bis-Ethylhexyl Hydroxydimethoxy Benzylmalonate (RonaCare AP, Merck/Susonity)\nUSP: Sin monografia USP\nAntioxidante potente (equivalente a vitamina E), antiacne, regulador de sebo, estabilizante de filtros UV, antipolucion",
   "Uso Terapéutico y Cosmético": "Piel grasa/con tendencia acneica, proteccion antioxidante, fotoenvejecimiento, estabilizacion de protectores solares",
   "Concentración de Uso": "1%-2%\nMaximo uso: 2% (segun estudios clinicos publicados)",
-  "Categoria Principal": "Acné",
-  "Categoria Secundaria": "Antienvejecimiento"
+  "Categoria Principal": "Antienvejecimiento",
+  "Categoria Secundaria": "Protectores Solares"
+ },
+ {
+  "Referencia Interna": "MA0258",
+  "Nombre": "Ronaflair Ldp White",
+  "Identificación Técnica": "INCI: Sodium Potassium Aluminum Silicate (and) CI 77891 (Titanium Dioxide) (and) Silica\nUSP: Sin monografia USP\nPigmento de efecto optico difuminador (soft focus), disimula lineas finas y poros por dispersion de luz",
+  "Uso Terapéutico y Cosmético": "No aplica (agente estetico/optico en maquillaje y protectores, no principio activo)",
+  "Concentración de Uso": "Variable segun formulacion",
+  "Categoria Principal": "Protectores Solares",
+  "Categoria Secundaria": ""
  },
  {
   "Referencia Interna": "MA0260",
@@ -1671,7 +1653,7 @@
   "Uso Terapéutico y Cosmético": "Alopecia androgenética (uso tópico/oral coadyuvante)",
   "Concentración de Uso": "1%-5% tópico\nMáximo uso: sin límite regulatorio estricto en uso cosmético",
   "Categoria Principal": "Capilares",
-  "Categoria Secundaria": "Acné"
+  "Categoria Secundaria": ""
  },
  {
   "Referencia Interna": "MA0002H",
@@ -1701,9 +1683,18 @@
   "Categoria Secundaria": ""
  },
  {
+  "Referencia Interna": "MA0269",
+  "Nombre": "Simeticona",
+  "Identificación Técnica": "INCI: Simethicone\nUSP: Simethicone\nAgente antiespumante (uso cosmético como emoliente de silicona)",
+  "Uso Terapéutico y Cosmético": "No aplica de forma estándar en dermatología (uso principal antiflatulento oral; en cosmética como emoliente)",
+  "Concentración de Uso": "1%-5% (uso cosmético como emoliente)\nMáximo uso: sin límite regulatorio estricto en uso cosmético",
+  "Categoria Principal": "Hidratantes",
+  "Categoria Secundaria": ""
+ },
+ {
   "Referencia Interna": "MA0377",
   "Nombre": "Sulfato de Zinc Hidratato",
-  "Identificación Técnica": "",
+  "Identificación Técnica": null,
   "Uso Terapéutico y Cosmético": "",
   "Concentración de Uso": "",
   "Categoria Principal": "Acné",
@@ -1752,15 +1743,6 @@
   "Uso Terapéutico y Cosmético": "Dermatitis atópica, vitíligo (uso off-label)",
   "Concentración de Uso": "0.03%-0.1%\nMáximo uso: 0.1% (uso tópico dermatológico estándar)",
   "Categoria Principal": "Corticoides",
-  "Categoria Secundaria": "Despigmentantes"
- },
- {
-  "Referencia Interna": "MA0278",
-  "Nombre": "Talco Chino",
-  "Identificación Técnica": "INCI: Talc\nUSP: Talc\nAbsorbente, deslizante (mineral)",
-  "Uso Terapéutico y Cosmético": "Funcion cosmetica: absorcion de humedad, sensacion de deslizamiento",
-  "Concentración de Uso": "Variable segun formulacion (hasta 100% en talcos puros)",
-  "Categoria Principal": "Acné",
   "Categoria Secundaria": ""
  },
  {
@@ -1778,7 +1760,7 @@
   "Identificación Técnica": "USP: Terbinafine Hydrochloride\nAntifúngico (alilamina)",
   "Uso Terapéutico y Cosmético": "Micosis cutáneas, tiña, onicomicosis, pitiriasis versicolor",
   "Concentración de Uso": "1%\nMáximo uso: 1% (concentración estándar comercial)",
-  "Categoria Principal": "Antiparasitarios",
+  "Categoria Principal": "Ungueales",
   "Categoria Secundaria": ""
  },
  {
@@ -1806,33 +1788,6 @@
   "Uso Terapéutico y Cosmético": "Anestesia tópica previa a procedimientos dermatológicos",
   "Concentración de Uso": "0.5%-1%\nMáximo uso: 1% (uso tópico dermatológico estándar)",
   "Categoria Principal": "Anestésicos Tópicos",
-  "Categoria Secundaria": ""
- },
- {
-  "Referencia Interna": "MA0282",
-  "Nombre": "Texapon ASV 70 Spezial",
-  "Identificación Técnica": "INCI: Disodium Laureth Sulfosuccinate\nUSP: Sin monografia USP\nTensoactivo anionico suave (sulfosuccinato, nombre comercial BASF)",
-  "Uso Terapéutico y Cosmético": "No aplica (tensoactivo limpiador, no principio activo)",
-  "Concentración de Uso": "5%-20% segun ficha tecnica del proveedor",
-  "Categoria Principal": "Limpiadores Magistrales",
-  "Categoria Secundaria": ""
- },
- {
-  "Referencia Interna": "MA0283",
-  "Nombre": "Texapon N70",
-  "Identificación Técnica": "INCI: Sodium Laureth Sulfate\nUSP: Sodium Laureth Sulfate\nTensoactivo anionico, agente limpiador/espumante (nombre comercial BASF)",
-  "Uso Terapéutico y Cosmético": "No aplica (tensoactivo limpiador, no principio activo)",
-  "Concentración de Uso": "5%-25% segun formulacion",
-  "Categoria Principal": "Limpiadores Magistrales",
-  "Categoria Secundaria": ""
- },
- {
-  "Referencia Interna": "MA0284",
-  "Nombre": "Texapon Z",
-  "Identificación Técnica": "INCI: Sodium Lauryl Sulfate\nUSP: Sin monografia USP\nTensoactivo anionico (sulfato, nombre comercial BASF)",
-  "Uso Terapéutico y Cosmético": "No aplica (tensoactivo limpiador, no principio activo)",
-  "Concentración de Uso": "5%-20% segun ficha tecnica del proveedor",
-  "Categoria Principal": "Limpiadores Magistrales",
   "Categoria Secundaria": ""
  },
  {
@@ -1931,8 +1886,8 @@
   "Identificación Técnica": "INCI: Petrolatum\nUSP: Petrolatum\nEmoliente, agente oclusivo, protector cutáneo",
   "Uso Terapéutico y Cosmético": "Xerosis, protección de barrera cutánea, cicatrización de heridas superficiales",
   "Concentración de Uso": "Uso puro o como base (hasta 100%)\nMáximo uso: sin límite regulatorio estricto en uso cosmético/dermatológico",
-  "Categoria Principal": "Cicatrizantes - Reparadores",
-  "Categoria Secundaria": "Hidratantes"
+  "Categoria Principal": "Hidratantes",
+  "Categoria Secundaria": ""
  },
  {
   "Referencia Interna": "MA0179",
@@ -1977,7 +1932,7 @@
   "Uso Terapéutico y Cosmético": "Ojeras, hematomas post-procedimiento, rosácea (uso cosmético)",
   "Concentración de Uso": "0.5%-2%\nMáximo uso: 2% (uso tópico cosmético habitual)",
   "Categoria Principal": "Vitaminas",
-  "Categoria Secundaria": "Rosácea"
+  "Categoria Secundaria": "Corticoides"
  },
  {
   "Referencia Interna": "MA0186",
