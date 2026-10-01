@@ -425,15 +425,27 @@ diapo('Maestra: Portafolio del cliente', [
     anchos=(0.3, 1.1, 2.3), fila_h=0.44, size=9.5,
     nota=[[b('Portafolio exclusivo: '), 'productos con etiqueta Cliente y categoría con el nombre del cliente.']])
 # ---- Leads e informe
-diapo('Leads e informe del mes', [
-        {'img': 'vc_lead_form', 'alto': 4.9, 'refs': ['nombre', 'ciudad', 'clasif']},
-        {'img': 'vc_leads', 'alto': 4.9, 'refs': [[232, 30, 128, 34], 'tarjeta', 'programar']},
-        {'img': 'vc_descarga', 'alto': 4.9, 'refs': ['mes', 'boton']}],
+diapo('Leads', [
+        {'img': 'vc_lead_form', 'alto': 5.4, 'recorte': (0, 844), 'refs': ['nombre', 'ciudad', 'clasif']},
+        {'img': 'vc_leads2', 'alto': 5.4 * 600 / 844, 'recorte': (0, 600), 'refs': ['crear', 'buscar', 'estado', 'programar', 'perdida', 'solicitud']}],
     [('Crear Lead', 'Nombre, tipo, ciudad y teléfono.'), ('Ciudad', 'Se escoge de la lista.'), ('Clasificación', 'Del cliente, si ya se sabe.'),
-     ('+ Crear Lead', 'Desde la lista de Leads.'), ('Lead', 'Seguimiento: días, visitas y próxima.'),
-     ('Programar visita', 'Agenda su visita. Luego: Editar o Solicitud de creación.'),
-     ('Mes', 'Mes del informe.'), ('Descargar Excel', 'Visitas y actividades del mes.')],
-    anchos=(0.3, 1.1, 2.3), fila_h=0.5, size=10)
+     ('+ Crear Lead', 'Desde la lista de Leads.'), ('Buscar', 'Lead, contacto, ciudad o teléfono.'), ('Filtros', 'Estado (activas, ganadas, perdidas…) y tipo.'),
+     ('Programar visita', 'Agenda su próxima visita.'), ('Perdida', 'Si no se dio, con motivo. Se puede reactivar.'),
+     ('Solicitud de creación', 'Cuando se vuelve cliente (siguiente diapositiva).')],
+    anchos=(0.3, 1.2, 2.4), fila_h=0.46, size=10)
+diapo('Leads: solicitud de creación', [
+        {'img': 'vc_sol_form', 'alto': 5.4, 'recorte': (60, 1060), 'refs': ['quien', 'clasif', 'descargar', 'formato', 'enviar']},
+        {'img': 'vc_sol_pdf', 'alto': 5.4, 'recorte': (230, 830), 'refs': ['firmas', 'pdf', 'transicion']}],
+    [('A quién le llega', 'Coordinadora Comercial; en clasificaciones de gerencia, también a Gerencia.'),
+     ('Clasificación', 'Obligatoria: define quién aprueba.'), ('Descargar formato', 'FTO-CME-002-1: diligéncialo con el cliente.'),
+     ('Formato diligenciado', 'Súbelo en Excel.'), ('Enviar solicitud', 'La Lead queda "Ganada · por aprobar".'),
+     ('Firmas', 'Quién aprobó y cuándo.'), ('PDF aprobado', 'Descárgalo y envíalo a creación del cliente.'),
+     ('En creación', 'Queda en transición hasta la Maestra nueva.')],
+    anchos=(0.3, 1.25, 2.6), fila_h=0.5, size=10)
+diapo('Informe del mes', [
+        {'img': 'vc_descarga', 'alto': 5.4, 'refs': ['mes', 'boton']}],
+    [('Mes', 'Elige el mes del informe.'), ('Descargar Excel', 'Visitas y actividades del mes en Excel.')],
+    fila_h=0.7, size=12, nota=[[b('En pruebas: '), 'el formato del informe todavía se está ajustando.']])
 # ---- Jefes
 diapo('Jefes: Panel del equipo', [
         {'pc': True, 'img': 'pc_panel', 'ancho': 8.6, 'y': 1.2, 'refs': ['mes', 'filtros', 'kpis', 'dias', 'tipos', 'objetivos']}],
@@ -446,6 +458,14 @@ diapo('Jefes: plan de trabajo del equipo', [
     [('Vendedores', 'Uno o varios (Ctrl + clic).'), ('Fecha', 'Día que estás viendo.'),
      ('Botones', 'Hoy, fecha, buscar, mes y programar.'), ('Indicadores', 'Día, semana y mes.'), ('Tarjetas', 'Visitas del equipo y su estado.')],
     anchos=(0.3, 1.05, 2.0), tabla_x=9.45, tabla_y=2.65, tabla_w=3.0, fila_h=0.6, size=10)
+diapo('Jefes: aprobar solicitudes de creación', [
+        {'img': 'vc_sol_inicio', 'alto': 5.4, 'recorte': (560, 1160), 'refs': ['boton']},
+        {'img': 'vc_sol_bandeja', 'alto': 5.4, 'recorte': (180, 1120), 'refs': [[30, 201, 330, 60], 'formato', 'rechazar', 'aprobar']},
+        {'img': 'vc_sol_firmada', 'alto': 5.4 * 200 / 844, 'y': 3.0, 'recorte': (400, 600), 'refs': ['firmas']}],
+    [('Solicitudes', 'En el inicio: cuántas tienes por aprobar.'), ('Solicitud', 'Lead, vendedor y clasificación.'),
+     ('Formato', 'Revísalo dentro de la app.'), ('Rechazar', 'Con motivo: vuelve a Lead.'), ('Aprobar', 'Tu firma queda en el Excel.'),
+     ('Firmas', 'Completas: PDF para el vendedor.')],
+    anchos=(0.3, 1.05, 2.15), fila_h=0.5, size=10)
 diapo('Mantén Visita Comercial al día', [
         {'img': 'r_version', 'alto': 5.4, 'refs': [('aviso', 'arriba')]},
         {'img': 'r_home_alto', 'alto': 5.4 * (1060 - 258) / 844, 'recorte': (258, 1060), 'refs': ['sync', ('version', 'izq')]}],

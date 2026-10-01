@@ -6,7 +6,7 @@ const CJ = OUT + 'cajas.json';
 const cajas = fs.existsSync(CJ) ? JSON.parse(fs.readFileSync(CJ)) : {};
 const IDX = JSON.parse(fs.readFileSync('/tmp/vade_main/portafolios-index.json'));
 const CONT = JSON.parse(fs.readFileSync('/home/user/ruta-comercial/contactos.json'));
-const NOMBRES = ['Lizeth Ramos', 'Yunelis Caballero', 'Jennifer Herrera', 'Hernán Reyes', 'M. Castro',
+const NOMBRES = ['Lizeth Ramos', 'Yunelis Caballero', 'Jennifer Herrera', 'Hernán Reyes', 'M. Castro', 'Maryi Castro',
   ...IDX.map(c => c.cliente), ...Object.values(CONT).flat().map(c => c.n)].filter(n => n && n.length > 3).sort((a, b) => b.length - a.length);
 
 async function tapar(p, extra = []) {

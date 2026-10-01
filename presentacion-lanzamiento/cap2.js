@@ -7,7 +7,7 @@ fs.mkdirSync(OUT, { recursive: true });
 const cajas = fs.existsSync(OUT + 'cajas.json') ? JSON.parse(fs.readFileSync(OUT + 'cajas.json')) : {};
 
 // Nombres reales que se tapan (vendedores y jefes)
-const NOMBRES = ['Lizeth Ramos', 'Yunelis Caballero', 'Jennifer Herrera', 'Hernán Reyes', 'M. Castro'];
+const NOMBRES = ['Lizeth Ramos', 'Yunelis Caballero', 'Jennifer Herrera', 'Hernán Reyes', 'M. Castro', 'Maryi Castro'];
 
 async function tapar(p, extraSel = []) {
   await p.evaluate(({ NOMBRES, extraSel }) => {

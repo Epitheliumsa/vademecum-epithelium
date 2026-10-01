@@ -5,7 +5,7 @@ const OUT = __dirname + '/cap/';
 const CJ = OUT + 'cajas.json';
 const cajas = fs.existsSync(CJ) ? JSON.parse(fs.readFileSync(CJ)) : {};
 const CONT = JSON.parse(fs.readFileSync('/home/user/ruta-comercial/contactos.json'));
-const NOMBRES = ['Lizeth Ramos', 'Yunelis Caballero', 'Jennifer Herrera', 'Hernán Reyes', 'M. Castro',
+const NOMBRES = ['Lizeth Ramos', 'Yunelis Caballero', 'Jennifer Herrera', 'Hernán Reyes', 'M. Castro', 'Maryi Castro',
   ...Object.values(CONT).flat().map(c => c.n), ...Object.values(CONT).flat().map(c => c.n.split(',')[0])].filter(n => n && n.length > 3).sort((a, b) => b.length - a.length);
 global.window = {}; eval(fs.readFileSync('/home/user/ruta-comercial/portafolios.js', 'utf8'));
 NOMBRES.push(...Object.keys(window.PORTAFOLIOS.portafolios)); NOMBRES.sort((a, b) => b.length - a.length);
