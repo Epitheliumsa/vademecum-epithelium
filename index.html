@@ -91,6 +91,9 @@
                 <select id="filterFormula" onchange="filtrar()">
                     <option value="">Todas las formas</option>
                 </select>
+                <select id="filterEtiqueta" onchange="filtrar()" style="display:none">
+                    <option value="">Todas las etiquetas</option>
+                </select>
                 <button type="button" id="btnNuevo" class="btn-nuevo" onclick="toggleNuevo()">&#10024; Lo nuevo</button>
             </div>
 
@@ -135,6 +138,9 @@
                 </select>
                 <select id="pfFilterFormula" onchange="filtrar('port')">
                     <option value="">Todas las formas</option>
+                </select>
+                <select id="pfFilterEtiqueta" onchange="filtrar('port')" style="display:none">
+                    <option value="">Todas las etiquetas</option>
                 </select>
                 <button type="button" id="pfBtnNuevo" class="btn-nuevo" onclick="toggleNuevo('port')">&#10024; Lo nuevo</button>
             </div>
