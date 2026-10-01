@@ -38,10 +38,10 @@ const safariBar = (focoShare) => `<div style="position:absolute;left:0;right:0;b
 
 const icono = (src, nombre, foco) => `<div style="width:80px;text-align:center"><img src="${src}" class="${foco ? 'foco' : ''}" style="width:62px;height:62px;border-radius:15px;box-shadow:0 2px 6px rgba(0,0,0,.3)"><div style="color:#fff;font-size:12px;margin-top:5px;text-shadow:0 1px 2px #000">${nombre}</div></div>`;
 const otros = ['#4285f4', '#ea4335', '#fbbc05', '#34a853', '#7e57c2', '#26a69a', '#ef6c00', '#5c6bc0'].map(c => `<div style="width:80px;text-align:center"><div style="width:62px;height:62px;border-radius:15px;background:${c};opacity:.85;margin:auto"></div><div style="color:#fff;font-size:12px;margin-top:5px;opacity:.8">·····</div></div>`);
-const inicio = (android) => `<div style="position:absolute;inset:0;background:linear-gradient(160deg,#1f5f3a,#79A02F 60%,#c6d97c)"></div>
+const inicio = (android, solo) => `<div style="position:absolute;inset:0;background:linear-gradient(160deg,#1f5f3a,#79A02F 60%,#c6d97c)"></div>
  <div class="estado" style="position:relative;color:#fff"><span>9:41</span><span>▂▄▆ 🔋</span></div>
  <div style="position:relative;display:flex;flex-wrap:wrap;gap:22px 10px;justify-content:space-around;padding:40px 12px">
-  ${otros.join('')}${icono(ICO_R, 'Visita Comercial', true)}${icono(ICO_V, 'Vademécum', true)}</div>
+  ${otros.join('')}${solo ? icono(ICO_V, 'Vademécum', true) : icono(ICO_R, 'Visita Comercial', true) + icono(ICO_V, 'Vademécum', true)}</div>
  ${android ? '' : '<div style="position:absolute;left:14px;right:14px;bottom:26px;height:92px;border-radius:30px;background:rgba(255,255,255,.3)"></div>'}`;
 
 const MOCKS = {
@@ -85,7 +85,9 @@ const MOCKS = {
     <img src="${ICO}" style="width:60px;height:60px;border-radius:14px"><div style="flex:1"><div style="font-size:17px;border-bottom:1px solid #e5e5ea;padding-bottom:8px">${NOMBRE_APP}</div>
     <div style="font-size:13px;color:#888;padding-top:8px">https://${URL}/</div></div></div>
    <div style="position:relative;margin:0 20px;font-size:13px;color:#6d6d72">Se agregará un ícono a tu pantalla de inicio para acceder rápidamente a este sitio web.</div>`,
-  m_inicio_iphone: inicio(false)
+  m_inicio_iphone: inicio(false),
+  m_inicio_android_solo: inicio(true, true),
+  m_inicio_iphone_solo: inicio(false, true)
 };
 
 (async () => {

@@ -46,6 +46,9 @@ def poner_transicion(slide, i=None):
     for ch in list(el):
         if ch.tag.endswith('AlternateContent') or ch.tag == qn('p:transition'): el.remove(ch)
     x = etree.fromstring(TRANS[i] if i is not None else random.choice(TRANS))
+    # Algunas transiciones de la plantilla traen "no avanzar con clic": aquí todas avanzan con clic (salvo bloquear_avance)
+    for t in x.iter(qn('p:transition')):
+        t.attrib.pop('advClick', None)
     # la transición va después de clrMapOvr y antes de timing
     clr = el.find(qn('p:clrMapOvr'))
     clr.addnext(x)
@@ -205,21 +208,24 @@ def circulo_num(slide, n, x, y, d=0.36):
 def fuente(slide, t, y=7.0):
     return texto(slide, 0.77, y, 10.6, 0.36, t, size=10, color='7F7F7F')
 
-# ---- ícono de regreso al índice (copiado de la última diapositiva de la Junta)
-FIN_PIC = [sh for sh in FIN_SRC.shapes if sh.name == 'Gráfico 25'][0]
+# ---- regreso al índice: logo de Epithelium en negro abajo a la derecha (donde estaba la mano de la Junta).
+# Esas diapositivas no avanzan con clic: solo se sale tocando el logo (ver bloquear_avance).
+LOGO_NEGRO = S + '/logo_negro.png'
+REGRESOS = []
 def icono_regreso(slide):
-    el = copy.deepcopy(FIN_PIC._element)
-    for node in el.iter():
-        for att in list(node.attrib):
-            if att in (qn('r:embed'), qn('r:link'), qn('r:id')):
-                old = node.get(att)
-                rel = FIN_SRC.part.rels[old]
-                if rel.reltype == RT.SLIDE:
-                    node.set(att, slide.part.relate_to(ORDEN.part, RT.SLIDE))
-                else:
-                    node.set(att, slide.part.relate_to(rel.target_part, rel.reltype))
-    el.find('.//' + qn('p:cNvPr')).set('id', str(900 + len(slide.shapes)))
-    slide.shapes._spTree.append(el)
+    from PIL import Image as _Im
+    w0, h0 = _Im.open(LOGO_NEGRO).size
+    ancho = 0.7; alto = ancho * h0 / w0
+    cx, cy = 12.88, 7.0   # donde estaba la mano de la Junta, sin salirse del borde
+    pic = slide.shapes.add_picture(LOGO_NEGRO, Inches(cx - ancho / 2), Inches(cy - alto / 2), Inches(ancho), Inches(alto))
+    pic.name = 'Regresar al orden del día'
+    pic.click_action.target_slide = ORDEN
+    REGRESOS.append(slide)
+
+def bloquear_avance(slide):
+    """Quita "Al hacer clic con el mouse" de la transición: la diapositiva solo se deja con el hipervínculo."""
+    for t in slide._element.iter(qn('p:transition')):
+        t.set('advClick', '0')
 
 def enlazar(shape, destino):
     shape.click_action.target_slide = destino

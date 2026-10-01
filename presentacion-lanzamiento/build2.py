@@ -1,4 +1,4 @@
-# "Lanzamiento aplicaciones Epithelium": 1. Vademécum · 2. Visita Comercial · 3. Cotizador Epithelium
+# "Lanzamiento aplicaciones Epithelium": 1. Guía de etiquetas · 2. Vademécum · 3. Visita Comercial · 4. Cotizador Epithelium
 from lib_deck import *
 
 VID_V, VID_R, VID_E, VID_C = VID1, VID2, VID3, VID4
@@ -76,6 +76,43 @@ def diapo(titulo_t, pantallas, filas, encabezado=('#', 'Elemento', 'Qué haces')
 
 def b(t): return (t, True)
 
+
+# ---------------------------------------------------------------- categorías con su color (magistrales y materias primas)
+def diapo_categorias(titulo_t, items, pie, cols=4, nota=None):
+    """items: (nombre, color hex, cantidad). Tarjetas con barra de color, ordenadas como en la app."""
+    s = nueva(titulo_t); nuevas.append(s); an = Anim(s)
+    filas = (len(items) + cols - 1) // cols
+    y0 = 1.1 + (0.75 if nota else 0)
+    W, gx, gy = (XMAX - 0.7 - (cols - 1) * 0.12) / cols, 0.12, 0.1
+    Hc = min(0.9, (6.75 - y0 - (filas - 1) * gy) / filas)
+    tarjetas = []
+    if nota:
+        tarjetas.append(texto(s, 0.7, 1.05, XMAX - 0.7, 0.65, nota, size=13, color=GRIS, espacio=2))
+    for k, (nom, color, n) in enumerate(items):
+        x = 0.7 + (k % cols) * (W + gx); y = y0 + (k // cols) * (Hc + gy)
+        sh = s.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(x), Inches(y), Inches(W), Inches(Hc)); sh.name = f'Categoria{k + 1}'
+        sh.adjustments[0] = 0.12; sh.fill.solid(); sh.fill.fore_color.rgb = rgb('FFFFFF'); sh.line.color.rgb = rgb(color.lstrip('#')); sh.line.width = Pt(2.25); sh.shadow.inherit = False
+        tf = sh.text_frame; tf.word_wrap = True; tf.vertical_anchor = MSO_ANCHOR.MIDDLE
+        tf.margin_left = Inches(0.42); tf.margin_right = Inches(0.08); tf.margin_top = tf.margin_bottom = Inches(0.03)
+        p = tf.paragraphs[0]; p.alignment = PP_ALIGN.LEFT; r = p.add_run(); r.text = nom; r.font.size = Pt(11.5); r.font.bold = True; r.font.color.rgb = rgb('1F2937')
+        p = tf.add_paragraph(); p.alignment = PP_ALIGN.LEFT; r = p.add_run(); r.text = f'{n}'; r.font.size = Pt(10); r.font.color.rgb = rgb(GRIS)
+        pto = s.shapes.add_shape(MSO_SHAPE.OVAL, Inches(x + 0.12), Inches(y + Hc / 2 - 0.11), Inches(0.22), Inches(0.22)); pto.name = f'Color{k + 1}'
+        pto.fill.solid(); pto.fill.fore_color.rgb = rgb(color.lstrip('#')); pto.line.fill.background(); pto.shadow.inherit = False
+        tarjetas += [sh, pto]
+    pie_tb = fuente(s, pie, y=6.95)
+    an.auto = tarjetas + [pie_tb]; an.construir()
+    return s
+
+import collections as _col
+_DATA = json.load(open('/tmp/vade_main/data.json'))
+_CATP = json.load(open('/tmp/vade_main/categorias-productos.json'))
+_np = _col.Counter(x['Categoría del Producto'].split(' / ', 1)[-1] for x in _DATA)
+CATS_MAGISTRALES = [(k, v, f'{_np[k]} producto' + ('' if _np[k] == 1 else 's')) for k, v in _CATP.items() if _np[k]]
+_MP = json.load(open('/tmp/vade_main/materias-primas.json'))
+_CATM = json.load(open('/tmp/vade_main/categorias.json'))
+_nm = _col.Counter(c for m in _MP for c in {m['Categoria Principal'], m['Categoria Secundaria']} if c)
+CATS_MP = [(k, v['color'], f'{_nm[k]} materia' + ('' if _nm[k] == 1 else 's') + ' prima' + ('' if _nm[k] == 1 else 's')) for k, v in _CATM.items() if _nm[k]]
+
 # ================================================================ PORTADA Y ORDEN
 ph = PORTADA.shapes.title; tf = ph.text_frame
 tf.paragraphs[0].runs[0].text = 'LANZAMIENTO APLICACIONES'
@@ -83,7 +120,7 @@ for r in tf.paragraphs[0].runs[1:]: r.text = ''
 tf.paragraphs[0].runs[-1].text = 'EPITHELIUM'
 for r in tf.paragraphs[0].runs: r.font.size = Pt(44)
 sub = [x for x in PORTADA.placeholders if x.placeholder_format.idx == 1][0]
-sub.text_frame.paragraphs[0].runs[0].text = 'Vademécum · Visita Comercial · Cotizador'
+sub.text_frame.paragraphs[0].runs[0].text = 'Guía de etiquetas · Vademécum · Visita Comercial · Cotizador'
 for r in sub.text_frame.paragraphs[0].runs[1:]: r.text = ''
 sub.text_frame.paragraphs[0].runs[0].font.size = Pt(22)
 p2 = sub.text_frame.add_paragraph(); r = p2.add_run(); r.text = f'Capacitación fuerza de ventas y jefes · {FECHA}'; r.font.size = Pt(18)
@@ -91,7 +128,7 @@ sub.left, sub.width = Inches(0.9), Inches(7.7)
 
 cont = [x for x in ORDEN.placeholders if x.placeholder_format.idx == 1][0]
 cont._element.getparent().remove(cont._element)
-puntos = ['Vademécum Epithelium.', 'Visita Comercial.', 'Guía de etiquetas de producto.', 'Cotizador Epithelium.']
+puntos = ['Guía de etiquetas de producto.', 'Vademécum Epithelium.', 'Visita Comercial.', 'Cotizador Epithelium.']
 PASO_ORDEN, Y_ORDEN = 0.95, 2.1
 items_orden = [texto(ORDEN, 1.55, Y_ORDEN + i * PASO_ORDEN, 10.2, 0.6, [[(f'{i + 1}.  ', True), (t, False)]], size=30, color='000000',
                      anchor=MSO_ANCHOR.MIDDLE, espacio=0, nombre=f'Punto{i + 1}') for i, t in enumerate(puntos)]
@@ -105,7 +142,7 @@ for extra_ic in iconos[4:]: extra_ic._element.getparent().remove(extra_ic._eleme
 iconos = iconos[:4]
 for k, ic in enumerate(iconos):
     ic.left = Inches(0.86); ic.top = Inches(Y_ORDEN + k * PASO_ORDEN + 0.3) - ic.height // 2
-for ic, dest in zip(iconos, [VID_V, VID_R, VID_E, VID_C]): enlazar(ic, dest)
+for ic, dest in zip(iconos, [VID_E, VID_V, VID_R, VID_C]): enlazar(ic, dest)
 ao = Anim(ORDEN)
 for i, tb in enumerate(items_orden): ao.clics.append({'entra': [tb, iconos[i]]})
 ao.construir()
@@ -130,8 +167,8 @@ gf = tabla(s, 0.77, 2.35, 6.4, [1.4, 3.6], [
     ['Internet', 'Wi-Fi o datos para instalar y para sincronizar'], ['Usuario y clave', 'Los tuyos, personales (sirven en las dos apps)']], alto_fila=0.46, size=12.5)
 ic_v = s.shapes.add_picture('/tmp/vade_main/icons/icon-512.png', Inches(8.15), Inches(2.45), Inches(1.25), Inches(1.25))
 ic_r = s.shapes.add_picture('/home/user/ruta-comercial/icons/icon-512.png', Inches(10.35), Inches(2.45), Inches(1.25), Inches(1.25))
-t1 = texto(s, 7.65, 3.75, 2.25, 0.6, [[('Vademécum', True)], 'Punto 1'], size=12, align=PP_ALIGN.CENTER, color=VERDE_OSC, espacio=0)
-t2 = texto(s, 9.85, 3.75, 2.25, 0.6, [[('Visita Comercial', True)], 'Punto 2'], size=12, align=PP_ALIGN.CENTER, color=VERDE_OSC, espacio=0)
+t1 = texto(s, 7.65, 3.75, 2.25, 0.6, [[('Vademécum', True)], 'Punto 2'], size=12, align=PP_ALIGN.CENTER, color=VERDE_OSC, espacio=0)
+t2 = texto(s, 9.85, 3.75, 2.25, 0.6, [[('Visita Comercial', True)], 'Punto 3'], size=12, align=PP_ALIGN.CENTER, color=VERDE_OSC, espacio=0)
 tb = viñetas(s, 0.77, 4.95, 11.4, 1.9, [
     'Son aplicaciones web: se abren desde el navegador y quedan como un ícono en la pantalla de inicio, igual que una app.',
     'Vamos app por app: cada uno la instala en su celular mientras avanzamos y hace los ejercicios en vivo.',
@@ -226,6 +263,23 @@ diapo_qr('Paso 1 · Descarga el Vademécum', '202609QR Vademecum.png', '/tmp/vad
          'Vademécum Epithelium: productos, portafolio por cliente, materias primas y lo nuevo.', URL_V,
          [[b('Tip: '), 'si el QR no abre, escribe el enlace en Chrome o Safari. No lo abras desde WhatsApp ni desde el navegador de Facebook: ahí no aparece la opción de instalar.']])
 bloque_instalacion('v', 'el Vademécum', 'Vademécum')
+# Instructivo para entregar a clientes y médicos (hoja carta con el QR)
+s = nueva('Instructivo para clientes y médicos'); nuevas.append(s); an = Anim(s)
+INS = S + '/202610Instructivo Vademecum Clientes y Medicos.png'
+hoja = s.shapes.add_picture(INS, Inches(0.77), Inches(1.05), height=Inches(6.0)); hoja.name = 'Instructivo'
+hoja.line.color.rgb = rgb('BFBFBF'); hoja.line.width = Pt(0.75)
+x2 = 0.77 + hoja.width / 914400 + 0.4
+gf = tabla(s, x2, 2.65, 12.45 - x2, [1.35, 4.0], [['Para quién', 'Cómo entra'],
+    ['Médico', 'Usuario en blanco y la clave de médicos. Ve productos, Lo Nuevo y materias primas.'],
+    ['Cliente', 'Su usuario y clave personales. Además ve su portafolio de productos.']], alto_fila=0.62, size=12)
+tb = viñetas(s, x2, 4.75, 12.45 - x2, 2.0, [
+    'Entrégalo impreso o envía el PDF por WhatsApp o correo.',
+    'Escribe a mano usuario y clave, y tu nombre y teléfono al pie.',
+    'Acompaña la instalación la primera vez: QR, instalar y Acceder.'], size=14)
+tt = texto(s, x2, 1.1, XMAX - x2, 1.3, [[('Hoja lista para entregar', True)], 'Una página con el QR del Vademécum, la instalación en Android, iPhone y computador, y cómo ingresar.'],
+    size=13, color=GRIS, espacio=3)
+tt.text_frame.paragraphs[0].runs[0].font.size = Pt(18); tt.text_frame.paragraphs[0].runs[0].font.color.rgb = rgb(VERDE_OSC)
+an.auto = [hoja, tt, gf]; clics_viñetas(an, tb, 3); an.construir()
 diapo('Paso 3 · Ingresa al Vademécum', [
         {'img': 'v_login', 'alto': 5.4, 'refs': ['usuario', 'clave', 'acceder']},
         {'img': 'v_home', 'alto': 5.4, 'refs': ['saludo', 'b1', 'b2', 'b3', 'b4', ('salir', 'izq')]}],
@@ -234,6 +288,9 @@ diapo('Paso 3 · Ingresa al Vademécum', [
      ('Vademécum Cliente', 'Portafolio de cada cliente de tu zona.'), ('Materias Primas', 'Activos, usos y concentraciones.'),
      ('Lo Nuevo', 'Productos nuevos de Epithelium.'), ('Salir', 'Cierra la sesión (solo si prestas el celular).')],
     fila_h=0.44, size=10.5, nota=[[b('Sin internet también funciona: '), 'después del primer ingreso, los productos quedan guardados en el celular.']])
+diapo_categorias('Vademécum: categorías de magistrales (actualizadas)', CATS_MAGISTRALES,
+    f'{len(_DATA)} productos del Vademécum en {len(CATS_MAGISTRALES)} categorías. Se filtran con "Categoría" y el color es el borde de cada tarjeta.',
+    nota=[[b('Nuevo: '), 'cada categoría tiene su color. Lo ves en el borde de la tarjeta del producto y en el filtro de categorías.']])
 diapo('Vademécum Epithelium: buscar productos', [
         {'img': 'v_prod', 'alto': 5.5, 'refs': ['nombre', 'comp', 'cat', 'forma', 'nuevo', 'card', ('volver', 'izq')]},
         {'img': 'v_prod_filtro', 'alto': 5.5, 'refs': []}],
@@ -276,6 +333,9 @@ diapo('Portafolio: oportunidades con productos nuevos', [
      ('NUEVO EPITHELIUM', 'Etiqueta de cada producto nuevo que puedes ofrecerle.'),
      ('Ficha', 'Tócala para ver componentes, indicación y dosis.'), ('Nombre Epithelium', 'Equivalencia entre el producto del cliente y el de Epithelium.')],
     fila_h=0.6, size=11.5, nota=[[b('Idea para la visita: '), 'los productos de esta sección son oportunidades concretas de venta para ese cliente.']])
+diapo_categorias('Materias primas: categorías actualizadas', CATS_MP,
+    f'{len(_MP)} materias primas activas. Una materia puede estar en dos categorías (principal y secundaria); por eso la suma es mayor.',
+    nota=[[b('Revisión del jefe de desarrollo: '), f'{len(CATS_MP)} categorías con color y descripción, {len(_MP)} materias primas activas (las que pasaron a excipientes salen del vademécum) y literatura corregida.']])
 diapo('Materias Primas: buscar activos', [
         {'img': 'v_mp', 'alto': 5.5, 'refs': ['nombre', 'uso', 'cat', 'chip', 'card', ('barra', 'izq')]},
         {'img': 'v_mp_filtro', 'alto': 5.5, 'refs': []}],
@@ -364,7 +424,7 @@ diapo('Cierre: pedido, productos por etiqueta y guía', [
     [('Pedido', 'Con Colocación: marca la categoría y escribe el número de 6 cifras (OV / OVI).'),
      ('Productos pedidos', 'Se eligen por etiqueta de producto.'),
      ('Etiquetas', 'Nuevo, Foco y Transición-Impulso se despliegan para elegir productos; Portafolio, Cliente y Consultorio se marcan con un toque.'),
-     ('ⓘ', 'Abre la guía de esa etiqueta.'), ('Guía', 'Concepto estratégico y mensaje comercial (punto 3).'),
+     ('ⓘ', 'Abre la guía de esa etiqueta.'), ('Guía', 'Concepto estratégico y mensaje comercial (punto 1).'),
      ('Elegidos', 'Productos marcados, con su código.')],
     fila_h=0.6, size=10.5)
 diapo('Cierre de visita: No visitado', [
@@ -510,7 +570,7 @@ s_ = nuevas[-1]; icono_regreso(s_)
 cierre = prs.slides.add_slide([l for l in prs.slide_layouts if l.part.partname.endswith('slideLayout3.xml')][0])
 for ph_ in list(cierre.placeholders): ph_._element.getparent().remove(ph_._element)
 
-orden = [PORTADA, ORDEN, nuevas[0], VID_V] + nuevas[1:PUNTO2_INI] + [VID_R] + nuevas[PUNTO2_INI:PUNTO3_INI] + [VID_E] + nuevas[PUNTO3_INI:] + [VID_C, cierre]
+orden = [PORTADA, ORDEN, VID_E] + nuevas[PUNTO3_INI:] + [nuevas[0], VID_V] + nuevas[1:PUNTO2_INI] + [VID_R] + nuevas[PUNTO2_INI:PUNTO3_INI] + [VID_C, cierre]
 lst = prs.slides._sldIdLst
 ids = {prs.part.related_part(e.rId): e for e in list(lst)}
 conservar = {s_.part for s_ in orden}
@@ -532,5 +592,6 @@ vp._blob = etree.tostring(vx, xml_declaration=True, encoding='UTF-8', standalone
 for rId, rel in list(vp.rels.items()):
     if rel.reltype == RT.SLIDE: vp.rels.pop(rId)
 for sl in nuevas + [ORDEN, cierre]: poner_transicion(sl)
+for sl in REGRESOS: bloquear_avance(sl)
 prs.save(OUT)
 print('ok', len(orden), 'diapositivas')
