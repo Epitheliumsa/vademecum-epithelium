@@ -312,7 +312,7 @@ diapo('Pantalla de inicio: los módulos', [
         {'img': 'r_home', 'alto': 5.4, 'refs': ['plan', 'visiplan', 'act', 'maestra']},
         {'img': 'r_home_alto', 'alto': 5.4 * (1060 - 258) / 844, 'recorte': (258, 1060), 'refs': ['vade', 'proy', 'desc', 'sync']}],
     [('Plan de Trabajo', 'Programar y cerrar las visitas del día.'), ('Visiplan del mes', 'Marcar qué días visitas a cada cliente.'),
-     ('Actividades-Circulares', 'Circulares vigentes y tareas del mes.'), ('Maestra Clientes', 'Tus clientes y su historial.'),
+     ('Actividades-Circulares', 'Circulares vigentes y tareas del mes.'), ('Maestra Clientes', 'Tus clientes, su historial y su portafolio.'),
      ('Vademécum Epithelium', 'Abre el Vademécum sin clave.'), ('Leads', 'Contactos nuevos y su seguimiento.'),
      ('Descargar informe', 'Excel del mes.'), ('Sincronización', 'Hora de la última actualización y cambios por subir.')],
     anchos=(0.3, 1.45, 2.9), fila_h=0.5, size=10.5,
@@ -413,6 +413,17 @@ diapo('Maestra Clientes', [
      ('Agrupar por', 'Cambia la gráfica: etiqueta, clasificación, ciudad…'), ('Barras', 'Toca una o varias para filtrar la lista.'),
      ('Historial', 'Toca un cliente: visitas, efectivas, última y próxima, con el detalle de cada una.')],
     fila_h=0.62, size=11)
+# ---- Portafolio del cliente
+diapo('Maestra: Portafolio del cliente', [
+        {'img': 'vc_maestra_portafolio', 'alto': 4.9, 'refs': ['fila', 'enlace']},
+        {'img': 'vc_portafolio', 'alto': 4.9, 'refs': ['sub', 'buscar', 'prod']},
+        {'img': 'vc_portafolio_ficha', 'alto': 4.9 * 800 / 844, 'recorte': (150, 950), 'refs': ['comp', 'ind', 'dosis']}],
+    [('Cliente', 'Solo los clientes con portafolio exclusivo.'), ('Portafolio del cliente', 'Tócalo: el número es cuántos productos tiene.'),
+     ('Cliente y total', 'Nombre del cliente y sus productos exclusivos.'), ('Buscar', 'Por código, nombre o componente.'),
+     ('Producto', 'Código y nombre. Tócalo para desplegar la ficha.'),
+     ('Componentes', 'Fórmula del producto.'), ('Indicación', 'Para qué se usa.'), ('Dosis', 'Cómo se aplica (del Vademécum).')],
+    anchos=(0.3, 1.1, 2.3), fila_h=0.44, size=9.5,
+    nota=[[b('Portafolio exclusivo: '), 'productos con etiqueta Cliente y categoría con el nombre del cliente.']])
 # ---- Leads e informe
 diapo('Leads e informe del mes', [
         {'img': 'vc_lead_form', 'alto': 4.9, 'refs': ['nombre', 'ciudad', 'clasif']},
