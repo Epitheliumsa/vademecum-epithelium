@@ -98,7 +98,7 @@ async function programar(p, { tipo, contacto, hora, objs = 2, texto, fotoAntes, 
     await p.locator('#fContacto').dispatchEvent('input');
     await p.locator('#fContacto').dispatchEvent('change'); await p.waitForTimeout(300);
   }
-  if (nuevo) { await p.fill('#pCiudad', 'Bogotá'); await p.fill('#pTel', '300 555 1234'); await p.fill('#pPersona', 'Asistente'); }
+  if (nuevo) { await p.fill('#pCiudad', await ciudadValida(p, '#pCiudad')); await p.fill('#pTel', '300 555 1234'); await p.fill('#pPersona', 'Asistente'); }
   if (hora) await p.fill('#fHora', hora);
   const nObj = await p.locator('#fObjetivos input.obj').count();
   for (let i = 0; i < Math.min(objs, nObj); i++) { try { await p.locator('#fObjetivos input.obj').nth(i).check({ timeout: 1500 }); } catch (e) { console.log('obj', i, e.message.split('\n')[0]); } await p.waitForTimeout(150); }
@@ -112,6 +112,26 @@ async function programar(p, { tipo, contacto, hora, objs = 2, texto, fotoAntes, 
   await p.waitForTimeout(300);
 }
 
+const ciudadValida = (p, sel) => p.evaluate(() => (typeof CIUDADES !== 'undefined' && (CIUDADES.find(c => /^Bogot/i.test(c)) || CIUDADES[0])) || 'Bogotá');
+// Cierre completo: objetivos que pidan (regex), pedido, muestras y productos por etiqueta
+async function cierreCompleto(p, re) {
+  await p.evaluate(re => {
+    const R = new RegExp(re);
+    document.querySelectorAll('#rCumplidos input.obj').forEach(i => { if (R.test(i.value) && !i.checked) { i.checked = true; abrirSubs(i); } });
+    document.querySelectorAll('#rCumplidos .obj-item').forEach(it => { const o = it.querySelector('input.obj'); if (o && o.checked) { const s = it.querySelector('.subs input'); if (s && !s.checked) s.checked = true; } });
+    actualizarCierreVisita();
+    const fila = document.querySelector('#cajaPedido .fila-pedido'); if (fila && !document.getElementById('cajaPedido').hidden) { const c = fila.querySelector('.p-cat'); c.checked = true; c.dataset.tocada = 1; }
+    actualizarCierreVisita();
+    document.querySelectorAll('#cajaPedido .p-nums:not([hidden])').forEach((f, k) => { f.querySelector('.n-pedido').value = ['000860', '002555', '000003'][k] || '000100'; });
+    document.querySelectorAll('#cajaMuestras .bloque-muestra:not([hidden]) .fila-muestra').forEach(f => { f.querySelector('.m-prod').value = nombreProducto(CATALOGO.productos.find(x => x.e.includes('Foco')).c); f.querySelector('.m-cant').value = 2; });
+    ['rProdPresentados', 'rProdPedidos'].forEach(id => { const caja = document.getElementById(id); if (!caja || caja.closest('[hidden]')) return;
+      caja.querySelectorAll('.dd-panel').forEach(panel => { [...panel.querySelectorAll('.sel-ops input')].slice(0, 1).forEach(i => { i.checked = true; }); });
+      caja.querySelectorAll('input.cat').forEach((i, k) => { if (k === 0) i.checked = true; });
+      pintarSelProductos(caja); });
+    actualizarCierreVisita();
+  }, re);
+  await p.waitForTimeout(300);
+}
 const idDe = (p, contacto) => p.evaluate(c => Object.values(registros).find(r => r.clase === 'visita' && r.contacto === c && r.estado === 'pendiente')?.id, contacto);
 
 (async () => {
@@ -154,6 +174,33 @@ const idDe = (p, contacto) => p.evaluate(c => Object.values(registros).find(r =>
   for (let i = 0; i < 2; i++) { try { await p.locator('#rCumplidos input.obj').nth(i).check({ timeout: 1500 }); } catch (e) {} await p.waitForTimeout(150); }
   for (let i = 0; i < 2; i++) { try { await p.locator('#rCumplidos .obj-item.abierto .subs input').nth(i).check({ timeout: 1500 }); } catch (e) {} await p.waitForTimeout(150); }
   await p.evaluate(() => actualizarCierreVisita());
+  // Cierre completo como en la vida real: colocación con pedido, muestras y productos presentados/pedidos por etiqueta
+  await p.evaluate(() => {
+    document.querySelectorAll('#rCumplidos input.obj').forEach(i => { if (/^(Colocación|Entrega de Muestras|Productos Nuevos)$/.test(i.value) && !i.checked) { i.checked = true; abrirSubs(i); } });
+    document.querySelectorAll('#rCumplidos .obj-item').forEach(it => { const o = it.querySelector('input.obj'); if (o && /^(Colocación|Entrega de Muestras|Productos Nuevos)$/.test(o.value)) { const s = it.querySelector('.subs input'); if (s && !s.checked) s.checked = true; } });
+    actualizarCierreVisita();
+  });
+  await p.waitForTimeout(300);
+  await p.evaluate(() => {
+    const fila = document.querySelector('#cajaPedido .fila-pedido'); if (fila) { const c = fila.querySelector('.p-cat'); c.checked = true; c.dataset.tocada = 1; }
+    actualizarCierreVisita();
+    document.querySelectorAll('#cajaPedido .p-nums:not([hidden]) .n-pedido').forEach((i, k) => { i.value = k ? '' : '000860'; });
+    document.querySelectorAll('#cajaMuestras .bloque-muestra:not([hidden]) .fila-muestra').forEach(f => { f.querySelector('.m-prod').value = nombreProducto(CATALOGO.productos.find(x => x.e.includes('Foco')).c); f.querySelector('.m-cant').value = 2; });
+    ['rProdPresentados', 'rProdPedidos'].forEach(id => { const caja = document.getElementById(id); if (!caja) return;
+      caja.querySelectorAll('.dd-panel').forEach(panel => { [...panel.querySelectorAll('.sel-ops input')].slice(0, 1).forEach(i => { i.checked = true; }); });
+      caja.querySelectorAll('input.cat').forEach((i, k) => { if (k === 0) i.checked = true; });
+      pintarSelProductos(caja); });
+    actualizarCierreVisita();
+  });
+  await p.waitForTimeout(300);
+  // guía de la etiqueta (ⓘ) abierta sobre "Foco"
+  const info = p.locator('#rProdPresentados .con-guia .info-etq').nth(1);
+  if (await info.count()) {
+    await info.scrollIntoViewIfNeeded(); await info.click(); await p.waitForTimeout(300);
+    await p.evaluate(() => { const g = document.querySelector('#rProdPresentados .con-guia.ver'); g && g.scrollIntoView({ block: 'center' }); });
+    await foto(p, 'vc_guia_etiqueta', { etiquetas: '#rProdPresentados .sel-etqs', info: '#rProdPresentados .con-guia.ver .info-etq', guia: '#rProdPresentados .con-guia.ver .guia-etq', elegidos: '#rProdPresentados .dd-elegidos' });
+    await info.click(); await p.waitForTimeout(200);
+  } else console.log('sin ⓘ de etiquetas');
   await p.fill('#rCompromisos', 'Volver en 15 días con la lista de precios'); await p.locator('#rCompromisos').dispatchEvent('input');
   await p.fill('#rProxima', '2026-10-21');
   await foto(p, 'vc_cierre_lleno', { plazo: '#modalContenido .aviso-hora', atendio: '#rAtendio', modalidad: '#modalContenido .modalidad', cumplidos: '#rCumplidos', presentados: '#cajaProdPresentados', compromisos: '#rCompromisos', proxima: '#rProxima', boton: '#modalContenido .btn-primario' }, { alto: 2000 });
@@ -167,6 +214,18 @@ const idDe = (p, contacto) => p.evaluate(c => Object.values(registros).find(r =>
     quedo = await p.evaluate(id => registros[id].estado, v1);
   }
   console.log('v1 quedó', quedo);
+  // Cliente: cierre con colocación y pedido (para el historial)
+  const vc = await idDe(p, cliente.n);
+  if (vc) {
+    await p.evaluate(id => abrirRegistro(id, 'ok'), vc); await p.waitForTimeout(400);
+    await p.fill('#rAtendio', 'Administradora del punto');
+    await cierreCompleto(p, '^(Colocación|Exhibición|Productos Nuevos|Entrega de Muestras|Administración de Cartera)$');
+    await foto(p, 'vc_cierre_pedido', { pedido: '#cajaPedido', pedidos: '#cajaProdPedidos' }, { alto: 2400 });
+    await p.fill('#rCompromisos', 'Seguimiento a la rotación del pedido'); await p.locator('#rCompromisos').dispatchEvent('input');
+    await p.fill('#rProxima', '2026-10-21');
+    await p.click('#modalContenido .btn-primario'); await p.waitForTimeout(500); await cerrarDialogo(p);
+    console.log('cliente quedó', await p.evaluate(id => registros[id].estado, vc));
+  }
   // No visitado
   const v2 = await idDe(p, cliente2.n);
   await p.evaluate(id => abrirRegistro(id, 'no'), v2); await p.waitForTimeout(400);
@@ -206,10 +265,15 @@ const idDe = (p, contacto) => p.evaluate(c => Object.values(registros).find(r =>
   await p.evaluate(() => abrirMaestra()); await p.waitForTimeout(700);
   await foto(p, 'vc_maestra', { buscar: '#mcBusca', filtros: '#mcFiltrosMulti', grafica: '.mc-grafica', dims: '#mcDims', lista: '#mcLista' });
   await foto(p, 'vc_maestra_alto', {}, { completo: true });
-  await p.evaluate(n => verCliente(n), doctor.n); await p.waitForTimeout(500);
-  await foto(p, 'vc_historial', { resumen: '.hist-resumen' });
+  await p.evaluate(n => verCliente(n), cliente.n); await p.waitForTimeout(500);
+  await foto(p, 'vc_historial', { cab: '#modalContenido h2', filtros: '#histMeses', resumen: '.hist-resumen', pendiente: '#modalContenido .historial .reporte >> nth=0', visita: '#modalContenido .historial .reporte >> nth=1' }, { alto: 1700 });
   await p.evaluate(() => cerrarModal());
   // ---- Leads
+  await p.evaluate(() => crearLead()); await p.waitForTimeout(400);
+  await p.fill('#lNombre', 'Centro Dermatológico Demo'); await p.selectOption('#lTipo', 'Cliente');
+  await p.fill('#lCiudad', await ciudadValida(p, '#lCiudad')); await p.fill('#lPersona', 'Coordinadora de compras'); await p.fill('#lTel', '300 555 9876');
+  await foto(p, 'vc_lead_form', { nombre: '#lNombre', tipo: '#lTipo', ciudad: '#lCiudad', clasif: '#lClasif', persona: '#lPersona', tel: '#lTel', boton: '#modalContenido .btn-primario' }, { alto: 1000 });
+  await p.click('#modalContenido .btn-primario'); await p.waitForTimeout(500);
   await p.evaluate(() => abrirProyectos()); await p.waitForTimeout(500);
   await foto(p, 'vc_leads');
   await p.evaluate(() => cerrarModal());

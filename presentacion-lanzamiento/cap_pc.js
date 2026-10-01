@@ -124,7 +124,10 @@ const idDe = (p, contacto) => p.evaluate(c => Object.values(registros).find(r =>
   await p.evaluate(() => moverMesPlan(1)); await p.waitForTimeout(900);
   await foto(p, 'pc_visiplan', { vends: '#vpVendedores', mes: '.vp-banner .nav-fecha', periodo: '#vpPeriodo', filtros: '.vp-filtros', conv: '.vp-conv', excel: '.vp-excel', kpis: '#vpKpis', tabla: '#vpTabla thead', celda: '#vpTabla tbody .vp-x.on' });
   await p.evaluate(() => abrirAgenda()); await p.waitForTimeout(700);
-  await foto(p, 'pc_agenda', { vends: '#agVendedores', nav: '#agendaScreen .nav-fecha', semana: '#agSemana', botones: '#agendaScreen .fila-botones', anillo: '#agAnillo', lista: '#agLista .producto-card' });
+  console.log(await p.evaluate(() => [...document.querySelectorAll('#agAnillo > *, #agAnillo > * > *')].map(e => e.tagName + '.' + e.className).join(' | ')));
+  console.log(await p.evaluate(() => document.getElementById('agResumen').innerHTML.slice(0, 300)));
+  await foto(p, 'pc_agenda', { vends: '#agVendedores', nav: '#agendaScreen .nav-fecha', semana: '#agSemana', botones: '#agendaScreen .fila-botones', anillo: '#agAnillo', lista: '#agLista .producto-card',
+    dia: '#agAnillo .anillo-dia >> nth=0', semanaA: '#agAnillo .anillo-dia >> nth=1', mesA: '#agAnillo .anillo-dia >> nth=2', resumen: '#agResumen .chip >> nth=0' });
   await ctx.close();
   ({ ctx, p } = await nuevoContexto(browser, { width: 390, height: 844 }, '2026-09-30T10:00:00-05:00'));
   await entrar(p, 'lramos'); await p.waitForTimeout(800);

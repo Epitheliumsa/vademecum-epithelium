@@ -1,7 +1,7 @@
 # "Lanzamiento aplicaciones Epithelium": 1. Vademécum · 2. Visita Comercial · 3. Cotizador Epithelium
 from lib_deck import *
 
-VID_V, VID_R, VID_C = VID1, VID2, VID3
+VID_V, VID_R, VID_E, VID_C = VID1, VID2, VID3, VID4
 URL_R, URL_V = URL_RUTA, URL_VADE
 
 # ---------------------------------------------------------------- marco de computador
@@ -91,27 +91,27 @@ sub.left, sub.width = Inches(0.9), Inches(7.7)
 
 cont = [x for x in ORDEN.placeholders if x.placeholder_format.idx == 1][0]
 cont._element.getparent().remove(cont._element)
-puntos = ['Vademécum Epithelium.', 'Visita Comercial.', 'Cotizador Epithelium.']
-PASO_ORDEN, Y_ORDEN = 1.05, 2.3
+puntos = ['Vademécum Epithelium.', 'Visita Comercial.', 'Guía de etiquetas de producto.', 'Cotizador Epithelium.']
+PASO_ORDEN, Y_ORDEN = 0.95, 2.1
 items_orden = [texto(ORDEN, 1.55, Y_ORDEN + i * PASO_ORDEN, 10.2, 0.6, [[(f'{i + 1}.  ', True), (t, False)]], size=30, color='000000',
                      anchor=MSO_ANCHOR.MIDDLE, espacio=0, nombre=f'Punto{i + 1}') for i, t in enumerate(puntos)]
 iconos = sorted([sh for sh in ORDEN.shapes if sh.shape_type == 13], key=lambda x: x.top)
-while len(iconos) < 3:
+while len(iconos) < 4:
     el = copy.deepcopy(iconos[-1]._element)
     el.find('.//' + qn('p:cNvPr')).set('id', str(20 + len(iconos)))
     ORDEN.shapes._spTree.append(el)
     iconos = sorted([sh for sh in ORDEN.shapes if sh.shape_type == 13], key=lambda x: x.top)
-for extra_ic in iconos[3:]: extra_ic._element.getparent().remove(extra_ic._element)
-iconos = iconos[:3]
+for extra_ic in iconos[4:]: extra_ic._element.getparent().remove(extra_ic._element)
+iconos = iconos[:4]
 for k, ic in enumerate(iconos):
     ic.left = Inches(0.86); ic.top = Inches(Y_ORDEN + k * PASO_ORDEN + 0.3) - ic.height // 2
-for ic, dest in zip(iconos, [VID_V, VID_R, VID_C]): enlazar(ic, dest)
+for ic, dest in zip(iconos, [VID_V, VID_R, VID_E, VID_C]): enlazar(ic, dest)
 ao = Anim(ORDEN)
 for i, tb in enumerate(items_orden): ao.clics.append({'entra': [tb, iconos[i]]})
 ao.construir()
 
 for s_, t, sub_t in [(VID_V, 'Vademécum Epithelium', f'Fecha: {FECHA}'), (VID_R, 'Visita Comercial', f'Fecha: {FECHA}'),
-                     (VID_C, 'Cotizador Epithelium', 'Próximamente')]:
+                     (VID_E, 'Guía de etiquetas de producto', f'Fecha: {FECHA}'), (VID_C, 'Cotizador Epithelium', 'Próximamente')]:
     s_.shapes.title.text_frame.paragraphs[0].runs[0].text = t
     sp = [x for x in s_.placeholders if x.placeholder_format.idx == 1][0]
     sp.text_frame.paragraphs[0].runs[0].text = sub_t; sp.width = Inches(4.4)
@@ -326,20 +326,27 @@ diapo('Plan de Trabajo: tu día', [
      ('+ Programar', 'Agrega una visita, trabajo interno, contacto nuevo o novedad.'), ('Buscar', 'Busca un cliente en el día.'),
      ('Indicadores', 'Visitadas, pendientes y no visitadas del día, semana y mes.'), ('Tarjeta de visita', 'Cada visita programada con su estado.')],
     fila_h=0.5, size=10.5, nota=[[b('Regla: '), 'lo que se programa antes de las 8:00 a. m. del día cuenta como programado; después queda como NO programado.']])
+diapo('Plan de Trabajo: indicadores del día, la semana y el mes', [
+        {'pc': True, 'img': 'pc_agenda', 'ancho': 8.6, 'y': 1.2, 'refs': ['dia', 'semanaA', 'mesA', 'resumen']}],
+    [('Día', 'Visitas del día: visitadas (verde), pendientes (naranja) y no visitadas (rojo), con su %.'),
+     ('Semana', 'Acumulado de lunes a hoy.'), ('Mes', 'Acumulado del mes hasta hoy.'),
+     ('No programadas', 'Visitas creadas después de las 8:00 a. m. del día. Tócalo para verlas.')],
+    anchos=(0.3, 1.0, 2.1), tabla_x=9.45, tabla_y=2.65, tabla_w=3.0, fila_h=0.75, size=10,
+    nota=[[b('El centro del anillo '), 'es el total de visitas; el % se calcula sobre ese total. En el celular se cambia con Día · Semana · Mes.']])
 diapo('Programar una visita', [
         {'img': 'vc_prog_lleno', 'alto': 5.6, 'recorte': (0, 700), 'refs': ['fecha', ('hora', 'izq'), 'que', 'contacto', 'modalidad', 'objetivos']},
         {'img': 'vc_prog_lleno', 'alto': 5.6, 'recorte': (690, 1370), 'refs': ['notas', 'boton']}],
     [('Fecha', 'Día de la visita.'), ('Cita fija', 'Opcional: la app avisa 15 minutos antes.'),
-     ('¿Qué vas a programar?', 'Visita Médica, Visita Cliente, Punto de Venta, trabajo interno, contacto nuevo o novedad.'),
+     ('¿Qué vas a programar?', 'Visita Médica, Visita Cliente, Punto de Venta, trabajo interno, Lead o novedad.'),
      ('Cliente', 'Búscalo en la Maestra. Debajo sale su clasificación.'), ('Modalidad', 'Presencial, virtual o WhatsApp/llamada.'),
      ('Objetivos', 'Marca uno o varios; al marcar se abren sus subcategorías (circulares, productos…).'),
      ('¿Qué vas a hacer?', 'Obligatorio, máximo 100 caracteres.'), ('Programar', 'Guarda la visita en tu plan.')],
     fila_h=0.5, size=10.5)
-diapo('Contacto nuevo y novedades', [
+diapo('Lead (contacto nuevo) y novedades', [
         {'img': 'vc_prog_nuevo', 'alto': 5.0, 'recorte': (0, 780), 'refs': ['que', 'contacto']},
         {'img': 'vc_novedad', 'alto': 4.9, 'refs': ['que', 'desde', 'hasta']},
         {'img': 'dlg_1', 'alto': 4.9, 'refs': []}],
-    [('Contacto nuevo', 'Médico o cliente que no está en la Maestra.'), ('Datos', 'Nombre, tipo, ciudad y teléfono. Queda como Lead.'),
+    [('Lead', 'Médico o cliente que no está en la Maestra.'), ('Datos', 'Tipo, ciudad (de la lista), clasificación, contacto y teléfono.'),
      ('Novedad', 'Vacaciones, incapacidad, permiso, cita médica o cumpleaños.'), ('Desde', 'Primer día.'), ('Hasta', 'Último día.')],
     anchos=(0.3, 1.1, 2.3), fila_h=0.55, size=10.5,
     nota=[[b('Festivos: '), 'salen en gris en el calendario; la app pide confirmar antes de programar en festivo o con novedad.']])
@@ -351,6 +358,15 @@ diapo('Cierre de visita: Visitado', [
      ('Compromisos', 'Próximos pasos u observaciones. Obligatorio.'), ('Próxima visita', 'Opcional: queda programada en ese día y en el Visiplan.'),
      ('Guardar visita', 'Después de guardar, el reporte no se puede modificar.')],
     fila_h=0.55, size=10.5)
+diapo('Cierre: pedido, productos por etiqueta y guía', [
+        {'img': 'vc_cierre_pedido', 'alto': 5.6, 'recorte': (1560, 2240), 'refs': ['pedido', 'pedidos']},
+        {'img': 'vc_guia_etiqueta', 'alto': 5.4, 'refs': ['etiquetas', ('info', 'izq'), ('guia', 'izq'), 'elegidos']}],
+    [('Pedido', 'Con Colocación: marca la categoría y escribe el número de 6 cifras (OV / OVI).'),
+     ('Productos pedidos', 'Se eligen por etiqueta de producto.'),
+     ('Etiquetas', 'Nuevo, Foco y Transición-Impulso se despliegan para elegir productos; Portafolio, Cliente y Consultorio se marcan con un toque.'),
+     ('ⓘ', 'Abre la guía de esa etiqueta.'), ('Guía', 'Concepto estratégico y mensaje comercial (punto 3).'),
+     ('Elegidos', 'Productos marcados, con su código.')],
+    fila_h=0.6, size=10.5)
 diapo('Cierre de visita: No visitado', [
         {'img': 'vc_no_visitado', 'alto': 5.4, 'refs': ['motivo', 'repro', 'obs', 'boton']},
         {'img': 'vc_agenda_cerrada', 'alto': 5.4, 'refs': ['resumen', 'tarjeta1']}],
@@ -364,6 +380,14 @@ diapo('Calendario del mes', [
     [('Mes', 'Cambia de mes con las flechas.'), ('Día con visitas', 'Muestra cuántas visitas tiene; tócalo para ir a ese día.'),
      ('Domingos y festivos', 'En rojo o gris, con el nombre del festivo.')],
     fila_h=0.65, size=12, nota=[[b('Novedades: '), 'las vacaciones, incapacidades y permisos también quedan marcados en los días del calendario.']])
+diapo('Historial del cliente', [
+        {'img': 'vc_historial', 'alto': 5.6, 'recorte': (0, 700), 'refs': ['cab', 'filtros', 'resumen', [30, 282, 330, 160]]},
+        {'img': 'vc_historial', 'alto': 5.6, 'recorte': (430, 1010), 'refs': [[30, 452, 330, 520]]}],
+    [('Cliente', 'Nombre, tipo, ciudad y clasificación.'), ('Fechas', 'Filtro en cascada: año › semestre › trimestre › mes.'),
+     ('Resumen', 'Visitas, efectivas, última y próxima. Toca uno para filtrar.'), ('Programadas', 'Visitas pendientes con su plan.'),
+     ('Visita realizada', 'Atendió, objetivos, pedido, productos por etiqueta, muestras y compromisos.')],
+    fila_h=0.68, size=11,
+    nota=[[b('Dónde se abre: '), 'en Maestra Clientes tocando el cliente, o desde la tarjeta de la visita.']])
 # ---- Visiplan
 diapo('Visiplan del mes', [
         {'pc': True, 'img': 'pc_visiplan', 'ancho': 8.6, 'y': 1.2, 'refs': ['vends', 'mes', 'periodo', 'filtros', 'conv', 'excel', 'celda']}],
@@ -391,12 +415,14 @@ diapo('Maestra Clientes', [
     fila_h=0.62, size=11)
 # ---- Leads e informe
 diapo('Leads e informe del mes', [
-        {'img': 'vc_leads', 'alto': 5.4, 'refs': ['tarjeta', 'programar', ('solicitud', 'izq')]},
-        {'img': 'vc_descarga', 'alto': 5.4, 'refs': ['mes', 'boton']}],
-    [('Lead', 'Contacto nuevo con su tipo, ciudad, teléfono y seguimiento.'), ('Programar visita', 'Agenda la siguiente visita al lead.'),
-     ('Solicitud de creación', 'Cuando ya es cliente, pide crearlo en la Maestra.'), ('Mes', 'Elige el mes del informe.'),
-     ('Descargar Excel', 'Resumen, visitas y actividades del mes.')],
-    fila_h=0.62, size=11)
+        {'img': 'vc_lead_form', 'alto': 4.9, 'refs': ['nombre', 'ciudad', 'clasif']},
+        {'img': 'vc_leads', 'alto': 4.9, 'refs': [[232, 30, 128, 34], 'tarjeta', 'programar']},
+        {'img': 'vc_descarga', 'alto': 4.9, 'refs': ['mes', 'boton']}],
+    [('Crear Lead', 'Nombre, tipo, ciudad y teléfono.'), ('Ciudad', 'Se escoge de la lista.'), ('Clasificación', 'Del cliente, si ya se sabe.'),
+     ('+ Crear Lead', 'Desde la lista de Leads.'), ('Lead', 'Seguimiento: días, visitas y próxima.'),
+     ('Programar visita', 'Agenda su visita. Luego: Editar o Solicitud de creación.'),
+     ('Mes', 'Mes del informe.'), ('Descargar Excel', 'Visitas y actividades del mes.')],
+    anchos=(0.3, 1.1, 2.3), fila_h=0.5, size=10)
 # ---- Jefes
 diapo('Jefes: Panel del equipo', [
         {'pc': True, 'img': 'pc_panel', 'ancho': 8.6, 'y': 1.2, 'refs': ['mes', 'filtros', 'kpis', 'dias', 'tipos', 'objetivos']}],
@@ -418,12 +444,42 @@ diapo('Mantén Visita Comercial al día', [
     fila_h=0.75, size=11.5, regreso=True,
     nota=[[b('Sin señal también puedes registrar: '), 'se guarda en el celular y sube cuando vuelva la conexión. No borres los datos del navegador si hay cambios por subir.']])
 
-# ================================================================ PUNTO 3 · COTIZADOR (solo portada)
+# ================================================================ PUNTO 3 · GUÍA DE ETIQUETAS
+import subprocess as _sp
+GUIA = json.loads(_sp.check_output(['node', '-e', "global.window={}; require('/home/user/ruta-comercial/productos.js'); const c=window.CATALOGO; const n={}; c.productos.forEach(p=>p.e.forEach(e=>n[e]=(n[e]||0)+1)); console.log(JSON.stringify({guia:c.guia, n, total:c.productos.length}))"]).decode())
+PUNTO3_INI = len(nuevas)
+def diapo_etiquetas(titulo_t, campo, pie):
+    s = nueva(titulo_t); nuevas.append(s); an = Anim(s)
+    etqs = list(GUIA['guia'].keys())
+    W, Hc, gx, gy = 2.55, 2.72, 0.15, 0.15
+    tarjetas = []
+    for k, e in enumerate(etqs):
+        x = 0.7 + (k % 4) * (W + gx); y = 1.1 + (k // 4) * (Hc + gy)
+        sh = s.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(x), Inches(y), Inches(W), Inches(Hc)); sh.name = f'Etiqueta{k + 1}'
+        sh.adjustments[0] = 0.05; sh.fill.solid(); sh.fill.fore_color.rgb = rgb(KPI_BG); sh.line.color.rgb = rgb(VERDE); sh.line.width = Pt(1); sh.shadow.inherit = False
+        tf = sh.text_frame; tf.word_wrap = True; tf.vertical_anchor = MSO_ANCHOR.TOP
+        tf.margin_left = tf.margin_right = Inches(0.1); tf.margin_top = Inches(0.08); tf.margin_bottom = Inches(0.05)
+        n = GUIA['n'].get(e, 0)
+        p = tf.paragraphs[0]; p.alignment = PP_ALIGN.LEFT; r = p.add_run(); r.text = e; r.font.size = Pt(14); r.font.bold = True; r.font.color.rgb = rgb(VERDE_OSC)
+        p = tf.add_paragraph(); p.alignment = PP_ALIGN.LEFT; r = p.add_run(); r.text = f'{n} producto' + ('' if n == 1 else 's'); r.font.size = Pt(11); r.font.bold = True; r.font.color.rgb = rgb('B07F00')
+        p.space_after = Pt(4)
+        p = tf.add_paragraph(); p.alignment = PP_ALIGN.LEFT; r = p.add_run(); r.text = GUIA['guia'][e].get(campo, ''); r.font.size = Pt(10.5 if campo == 'concepto' else 10); r.font.color.rgb = rgb(GRIS)
+        tarjetas.append(sh)
+    pie_tb = fuente(s, pie, y=6.95)
+    an.auto = tarjetas + [pie_tb]; an.construir()
+    return s
+diapo_etiquetas('Guía de etiquetas: concepto estratégico', 'concepto',
+    f'Número de productos del catálogo de Visita Comercial ({GUIA["total"]} productos; uno puede tener varias etiquetas). En la app, el botón ⓘ junto a cada etiqueta muestra esta guía.')
+diapo_etiquetas('Guía de etiquetas: mensaje comercial', 'mensaje',
+    'Mensaje para usar con el médico o el cliente. Fuente: guía de etiquetas del catálogo de productos de Visita Comercial.')
+s_ = nuevas[-1]; icono_regreso(s_)
+
+# ================================================================ PUNTO 4 · COTIZADOR (solo portada)
 # ================================================================ CIERRE
 cierre = prs.slides.add_slide([l for l in prs.slide_layouts if l.part.partname.endswith('slideLayout3.xml')][0])
 for ph_ in list(cierre.placeholders): ph_._element.getparent().remove(ph_._element)
 
-orden = [PORTADA, ORDEN, nuevas[0], VID_V] + nuevas[1:PUNTO2_INI] + [VID_R] + nuevas[PUNTO2_INI:] + [VID_C, cierre]
+orden = [PORTADA, ORDEN, nuevas[0], VID_V] + nuevas[1:PUNTO2_INI] + [VID_R] + nuevas[PUNTO2_INI:PUNTO3_INI] + [VID_E] + nuevas[PUNTO3_INI:] + [VID_C, cierre]
 lst = prs.slides._sldIdLst
 ids = {prs.part.related_part(e.rId): e for e in list(lst)}
 conservar = {s_.part for s_ in orden}
