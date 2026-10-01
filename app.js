@@ -37,12 +37,12 @@ let zonaUsuario = null;        // zona del comercial (null = ve todas)
 const CATALOGOS = {
     prod: {
         pantalla: 'mainScreen', tema: '',
-        ids: { nombre: 'searchName', componentes: 'searchComponents', categoria: 'filterCategory', forma: 'filterFormula', nuevo: 'btnNuevo', resultados: 'resultados' },
+        ids: { nombre: 'searchName', componentes: 'searchComponents', categoria: 'filterCategory', forma: 'filterFormula', etiqueta: 'filterEtiqueta', nuevo: 'btnNuevo', resultados: 'resultados' },
         datos: () => productos, filtrados: [], soloNuevos: false
     },
     port: {
         pantalla: 'portScreen', tema: 'theme-port',
-        ids: { nombre: 'pfSearchName', componentes: 'pfSearchComponents', categoria: 'pfFilterCategory', forma: 'pfFilterFormula', nuevo: 'pfBtnNuevo', resultados: 'pfResultados' },
+        ids: { nombre: 'pfSearchName', componentes: 'pfSearchComponents', categoria: 'pfFilterCategory', forma: 'pfFilterFormula', etiqueta: 'pfFilterEtiqueta', nuevo: 'pfBtnNuevo', resultados: 'pfResultados' },
         datos: () => portafolio, filtrados: [], soloNuevos: false
     }
 };
@@ -343,6 +343,10 @@ function entrarApp() {
     const esCliente = modoUsuario === 'cliente';
     const veClientes = (modoUsuario === 'equipo' || modoUsuario === 'comercial') && indiceClientes.length > 0;
     document.getElementById('btnPortafolioClientes').style.display = veClientes ? '' : 'none';
+    // El filtro de Etiqueta solo lo ven el equipo y los comerciales
+    const verEtiqueta = modoUsuario === 'equipo' || modoUsuario === 'comercial';
+    document.getElementById('filterEtiqueta').style.display = verEtiqueta ? '' : 'none';
+    document.getElementById('pfFilterEtiqueta').style.display = verEtiqueta ? '' : 'none';
     const totalNuevos = productos.filter(p => p['Etiquetas de producto'] === 'Nuevo').length;
     document.getElementById('loNuevoTexto').textContent = `${totalNuevos} productos nuevos de Epithelium`;
     document.getElementById('btnPortafolio').style.display = esCliente ? '' : 'none';
@@ -450,7 +454,7 @@ function mostrarListaClientes() {
 // Deja en blanco la búsqueda y los filtros de un catálogo
 function limpiarFiltros(k) {
     const ids = CATALOGOS[k].ids;
-    ['nombre', 'componentes', 'categoria', 'forma'].forEach(campo => {
+    ['nombre', 'componentes', 'categoria', 'forma', 'etiqueta'].forEach(campo => {
         document.getElementById(ids[campo]).value = '';
     });
 }
@@ -506,7 +510,11 @@ function inicializarFiltros(k = 'prod') {
         categorias.sort();
         formas.sort();
     }
+    // Etiquetas presentes en los datos del catálogo (solo visible para equipo y comerciales)
+    const etiquetas = [...new Set(datos.map(p => p['Etiquetas de producto']).filter(e => e))]
+        .sort((a, b) => a.localeCompare(b, 'es', { sensitivity: 'base' }));
     llenarSelect(document.getElementById(cat.ids.categoria), categorias);
+    llenarSelect(document.getElementById(cat.ids.etiqueta), etiquetas);
     llenarDatalist(k === 'port' ? 'pfDlComponentes' : 'dlComponentes', opcionesUnicas(datos.flatMap(componentesDe)));
     llenarSelect(document.getElementById(cat.ids.forma), formas);
 }
@@ -530,13 +538,15 @@ function filtrar(k = 'prod') {
     const searchComponents = normalizar(valor('componentes'));
     const filterCategory = valor('categoria');
     const filterFormula = valor('forma');
+    const filterEtiqueta = valor('etiqueta');
     cat.filtrados = cat.datos().filter(p => {
         const matchName = normalizar(p['Nombre']).includes(searchName) || normalizar(p.nombreEpithelium).includes(searchName);
         const matchComponents = !searchComponents || normalizar(p['Componentes']).includes(searchComponents);
         const matchCategory = !filterCategory || p['Categoría del Producto'] === filterCategory;
         const matchFormula = !filterFormula || p['Forma Farmacéutica'] === filterFormula;
+        const matchEtiqueta = !filterEtiqueta || p['Etiquetas de producto'] === filterEtiqueta;
         const matchNuevo = !cat.soloNuevos || p['Etiquetas de producto'] === 'Nuevo';
-        return matchName && matchComponents && matchCategory && matchFormula && matchNuevo;
+        return matchName && matchComponents && matchCategory && matchFormula && matchEtiqueta && matchNuevo;
     });
     mostrarResultados(k);
 }
@@ -595,13 +605,14 @@ function mostrarDetalle(producto, tema = '') {
     const modal = document.getElementById('modalDetail');
     const content = document.getElementById('detailContent');
     // Fondo tenue con el color de la categoría del producto
+    const verEtiqueta = modoUsuario === 'equipo' || modoUsuario === 'comercial';
     const color = colorProductoCat(producto['Categoría del Producto']);
     if (color) {
         const mc = document.querySelector('#modalDetail .modal-content');
         mc.style.background = fondoCategoria(color);
         mc.style.borderTopColor = color;
     }
-    content.innerHTML = `<h2>${producto['Nombre']}</h2>${producto.nombreEpithelium ? lineaEpithelium(producto.nombreEpithelium) : ''}${producto['Componentes'] ? `<strong>Componentes</strong><p>${producto['Componentes'].replace(/\n/g, '<br>')}</p>` : ''}<strong>Especificaciones</strong><p>${producto['Categoría del Producto'] ? `<strong>Categoría:</strong> ${producto['Categoría del Producto']}<br>` : ''}<strong>Forma:</strong> ${producto['Forma Farmacéutica']}<br><strong>Presentación:</strong> ${producto['Presentación Farmacéutica']}<br><strong>Tamaño:</strong> ${producto['Tamaño']} ${producto['Masa']}</p>${producto['Indicación'] ? `<strong>Indicación</strong><p>${producto['Indicación'].replace(/\n/g, '<br>')}</p>` : ''}${producto['Dosis Recomendada'] ? `<strong>Dosis Recomendada</strong><p>${producto['Dosis Recomendada'].replace(/\n/g, '<br>')}</p>` : ''}<strong>Referencia Interna</strong><p>${producto['Referencia Interna']}</p>${producto['Etiquetas de producto'] ? `<strong>Categorías</strong><p><span class="producto-label">${producto.nuevoEpithelium ? 'Nuevo Epithelium' : producto['Etiquetas de producto']}</span></p>` : ''}`;
+    content.innerHTML = `<h2>${producto['Nombre']}</h2>${producto.nombreEpithelium ? lineaEpithelium(producto.nombreEpithelium) : ''}${producto['Componentes'] ? `<strong>Componentes</strong><p>${producto['Componentes'].replace(/\n/g, '<br>')}</p>` : ''}<strong>Especificaciones</strong><p>${producto['Categoría del Producto'] ? `<strong>Categoría:</strong> ${producto['Categoría del Producto']}<br>` : ''}<strong>Forma:</strong> ${producto['Forma Farmacéutica']}<br><strong>Presentación:</strong> ${producto['Presentación Farmacéutica']}<br><strong>Tamaño:</strong> ${producto['Tamaño']} ${producto['Masa']}</p>${producto['Indicación'] ? `<strong>Indicación</strong><p>${producto['Indicación'].replace(/\n/g, '<br>')}</p>` : ''}${producto['Dosis Recomendada'] ? `<strong>Dosis Recomendada</strong><p>${producto['Dosis Recomendada'].replace(/\n/g, '<br>')}</p>` : ''}<strong>Referencia Interna</strong><p>${producto['Referencia Interna']}</p>${(verEtiqueta && producto['Etiquetas de producto']) ? `<strong>Etiqueta</strong><p><span class="producto-label">${producto.nuevoEpithelium ? 'Nuevo Epithelium' : producto['Etiquetas de producto']}</span></p>` : ''}`;
     modal.classList.add('active');
 }
 
