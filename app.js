@@ -1,6 +1,6 @@
 // CONFIGURACIÓN
 // Versión publicada: al cambiar, la app ofrece actualizarse (se genera junto con version.txt)
-const APP_VERSION = '202610010123';
+const APP_VERSION = '202610011912';
 
 // Usuarios internos de Epithelium. Los que tienen "zona" son comerciales y solo
 // ven el portafolio de los clientes de esa zona; los que no tienen zona ven el
@@ -731,8 +731,20 @@ async function revisarVersion() {
     } catch (e) { /* sin conexión: se revisa después */ }
 }
 
-function actualizarApp() {
+async function actualizarApp() {
+    // Fuerza a buscar el service worker nuevo antes de recargar, para no quedarse pegado en la versión vieja
+    if ('serviceWorker' in navigator) {
+        try {
+            const reg = await navigator.serviceWorker.getRegistration();
+            if (reg) await reg.update();
+        } catch (e) { /* sin conexión: recarga normal */ }
+    }
     location.replace(location.pathname + '?v=' + Date.now());
+}
+
+// Registra el service worker para que la app funcione sin conexión (guarda app + datos; portafolios no)
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
 }
 
 document.addEventListener('DOMContentLoaded', revisarVersion);
