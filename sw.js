@@ -4,7 +4,7 @@
 // se guarda, para que el aviso de "versión nueva" siga siendo exacto.
 // La VERSION la actualiza actualizar-version.sh en cada publicación: al cambiar, se
 // borra la caché vieja y la app nunca se queda pegada en una versión anterior.
-const VERSION = '202610011912';
+const VERSION = '202610021349';
 const CACHE = 'vademecum-' + VERSION;
 
 // Archivos de la app (se guardan al instalar)

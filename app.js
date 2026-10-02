@@ -1,6 +1,6 @@
 // CONFIGURACIÓN
 // Versión publicada: al cambiar, la app ofrece actualizarse (se genera junto con version.txt)
-const APP_VERSION = '202610011912';
+const APP_VERSION = '202610021349';
 
 // Usuarios internos de Epithelium. Los que tienen "zona" son comerciales y solo
 // ven el portafolio de los clientes de esa zona; los que no tienen zona ven el
@@ -510,8 +510,9 @@ function inicializarFiltros(k = 'prod') {
         categorias.sort();
         formas.sort();
     }
-    // Etiquetas presentes en los datos del catálogo (solo visible para equipo y comerciales)
-    const etiquetas = [...new Set(datos.map(p => p['Etiquetas de producto']).filter(e => e))]
+    // Etiquetas (solo visibles para equipo y comerciales). En el portafolio se ofrecen todas
+    // las etiquetas vigentes de la compañía (del maestro) más "Cliente", no solo las del cliente.
+    const etiquetas = [...new Set(fuente.map(p => p['Etiquetas de producto']).filter(e => e))]
         .sort((a, b) => a.localeCompare(b, 'es', { sensitivity: 'base' }));
     llenarSelect(document.getElementById(cat.ids.categoria), categorias);
     llenarSelect(document.getElementById(cat.ids.etiqueta), etiquetas);
