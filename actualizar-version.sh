@@ -6,5 +6,6 @@ F=$(TZ=America/Bogota date "+%d/%m/%Y %H:%M")
 echo "$V" > version.txt
 sed -i -E "s/\?v=[0-9]{12}/?v=$V/g" index.html
 sed -i -E "s/const APP_VERSION = '[0-9]{12}'/const APP_VERSION = '$V'/" app.js
+sed -i -E "s/const VERSION = '[0-9]{12}'/const VERSION = '$V'/" sw.js
 sed -i -E "s#Versión [0-9/]+ [0-9:]+( UTC)?#Versión $F#" index.html
 echo "Versión $V"
