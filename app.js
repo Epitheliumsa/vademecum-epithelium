@@ -13,7 +13,11 @@ const USUARIOS_INTERNOS = [
     { usuario: 'H.Reyes',     clave: 'HR75',     tipo: 'equipo', zona: null, nombre: 'Hernán Reyes', detalle: 'Gerente General' },
     { usuario: 'L.Ramos',     clave: 'LR73',     tipo: 'comercial', zona: 'Zona Norte', nombre: 'Lizeth Ramos', detalle: 'Visitador Médico Comercial · Zona Norte' },
     { usuario: 'Y.Caballero', clave: 'YC11', tipo: 'comercial', zona: 'Zona Sur', nombre: 'Yunelis Caballero', detalle: 'Visitador Médico Comercial · Zona Sur' },
-    { usuario: 'J.Herrera',   clave: 'JH38',   tipo: 'equipo', zona: null, nombre: 'Jennifer Herrera', detalle: 'Coordinadora Comercial · Clientes Especiales' }   // Jefe comercial: ve todas las zonas
+    { usuario: 'J.Herrera',   clave: 'JH38',   tipo: 'equipo', zona: null, nombre: 'Jennifer Herrera', detalle: 'Coordinadora Comercial · Clientes Especiales' },   // Jefe comercial: ve todas las zonas
+    // Logística: entran solo desde Ruta Comercial. Se guarda únicamente el código de acceso (SHA-256), no su clave
+    { usuario: 'J.Arjona',  acceso: '87c883cb1dc60eeeb1f44b8cd783395d72f7c390593a9a97dfed9cff029711b0', tipo: 'equipo', zona: null, nombre: 'Javier Arjona', detalle: 'Coordinador Logístico' },
+    { usuario: 'E.Ovalle',  acceso: 'ce7f5ae557bb5d72633b63e7366573b914d1967646bfdeb3b22e851d1cc060ad', tipo: 'equipo', zona: null, nombre: 'Eric Ovalle', detalle: 'Auxiliar de Domicilios y Mensajería' },
+    { usuario: 'D.Barrero', acceso: '0db57b165dd9406abd8a3740e969fe9a0a4baa8651d8d290966003f0ff131349', tipo: 'equipo', zona: null, nombre: 'Deelan Barrero', detalle: 'Auxiliar de Domicilios y Mensajería' }
 ];
 let usuarioInterno = null;   // usuario interno con nombre (para el saludo)
 
@@ -163,6 +167,7 @@ function buscarUsuarioInterno(usuario, clave) {
     const u = usuario.trim().toLowerCase();
     const c = clave.trim();
     for (const x of USUARIOS_INTERNOS) {
+        if (!x.clave) continue;   // los que tienen solo "acceso" entran desde Ruta Comercial
         if (x.usuario) {
             if (u === x.usuario.toLowerCase() && c.toLowerCase() === x.clave.toLowerCase()) return x;
         } else {
@@ -181,7 +186,7 @@ async function accesoDesdeRutaComercial() {
     history.replaceState(null, '', location.pathname + location.search);   // el código no queda a la vista
     for (const x of USUARIOS_INTERNOS.filter(u => u.usuario)) {
         const bytes = new TextEncoder().encode(`vademecum:${x.usuario}:${x.clave}`.toLowerCase());
-        const hash = [...new Uint8Array(await crypto.subtle.digest('SHA-256', bytes))].map(b => b.toString(16).padStart(2, '0')).join('');
+        const hash = x.acceso || [...new Uint8Array(await crypto.subtle.digest('SHA-256', bytes))].map(b => b.toString(16).padStart(2, '0')).join('');
         if (hash === m[1]) {
             localStorage.setItem('vademecum_interno', JSON.stringify({ tipo: x.tipo, zona: x.zona || null, usuario: x.usuario }));
             localStorage.removeItem('vademecum_cliente');
