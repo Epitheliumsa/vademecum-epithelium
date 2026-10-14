@@ -1,6 +1,6 @@
 // CONFIGURACIÓN
 // Versión publicada: al cambiar, la app ofrece actualizarse (se genera junto con version.txt)
-const APP_VERSION = '202610071748';
+const APP_VERSION = '202610141152';
 
 // Usuarios internos de Epithelium. Los que tienen "zona" son comerciales y solo
 // ven el portafolio de los clientes de esa zona; los que no tienen zona ven el
@@ -352,6 +352,10 @@ function entrarApp() {
     const verEtiqueta = modoUsuario === 'equipo' || modoUsuario === 'comercial';
     document.getElementById('filterEtiqueta').style.display = verEtiqueta ? '' : 'none';
     document.getElementById('pfFilterEtiqueta').style.display = verEtiqueta ? '' : 'none';
+    // Solo el personal interno puede buscar también por código (Referencia Interna)
+    const textoBusqueda = verEtiqueta ? 'Buscar por nombre o código...' : 'Buscar por nombre...';
+    document.getElementById('searchName').placeholder = textoBusqueda;
+    document.getElementById('pfSearchName').placeholder = textoBusqueda;
     const totalNuevos = productos.filter(p => p['Etiquetas de producto'] === 'Nuevo').length;
     document.getElementById('loNuevoTexto').textContent = `${totalNuevos} productos nuevos de Epithelium`;
     document.getElementById('btnPortafolio').style.display = esCliente ? '' : 'none';
@@ -545,8 +549,11 @@ function filtrar(k = 'prod') {
     const filterCategory = valor('categoria');
     const filterFormula = valor('forma');
     const filterEtiqueta = valor('etiqueta');
+    const esInterno = modoUsuario === 'equipo' || modoUsuario === 'comercial';
     cat.filtrados = cat.datos().filter(p => {
-        const matchName = normalizar(p['Nombre']).includes(searchName) || normalizar(p.nombreEpithelium).includes(searchName);
+        // El personal interno (equipo y comerciales) también puede buscar por código (Referencia Interna)
+        const matchName = normalizar(p['Nombre']).includes(searchName) || normalizar(p.nombreEpithelium).includes(searchName)
+            || (esInterno && normalizar(p['Referencia Interna']).includes(searchName));
         const matchComponents = !searchComponents || normalizar(p['Componentes']).includes(searchComponents);
         const matchCategory = !filterCategory || p['Categoría del Producto'] === filterCategory;
         const matchFormula = !filterFormula || p['Forma Farmacéutica'] === filterFormula;
