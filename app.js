@@ -1,6 +1,6 @@
 // CONFIGURACIÓN
 // Versión publicada: al cambiar, la app ofrece actualizarse (se genera junto con version.txt)
-const APP_VERSION = '202610141652';
+const APP_VERSION = '202610141656';
 
 // Usuarios internos de Epithelium. Los que tienen "zona" son comerciales y solo
 // ven el portafolio de los clientes de esa zona; los que no tienen zona ven el
@@ -429,7 +429,7 @@ function abrirListaClientes() {
     // Quien ve todas las zonas puede filtrar por una
     const selZona = document.getElementById('clZona');
     selZona.style.display = modoUsuario === 'comercial' ? 'none' : '';
-    const zonas = [...new Set(indiceClientes.map(c => c.zona).filter(Boolean))].sort((a, b) => a.localeCompare(b, 'es'));
+    const zonas = [...new Set(indiceClientes.map(c => c.zona).filter(Boolean))].sort((a, b) => a.localeCompare(b, 'es', { sensitivity: 'base' }));
     selZona.innerHTML = '<option value="">Todas las zonas</option>' + zonas.map(z => `<option>${z}</option>`).join('');
     mostrarListaClientes();
     mostrarPantalla('clientsListScreen');
@@ -500,7 +500,8 @@ function mostrarPantalla(screenId) {
 
 function llenarSelect(select, valores) {
     select.length = 1;
-    valores.forEach(v => {
+    // Siempre en orden alfabético (la opción "Todas..." queda de primera)
+    [...valores].sort((x, y) => x.localeCompare(y, 'es', { sensitivity: 'base' })).forEach(v => {
         const option = document.createElement('option');
         option.value = v;
         option.textContent = v;
