@@ -715,6 +715,20 @@
       "Indicación": "Ungüento de tacrolimus, concentración estándar para adultos.\n\nVitíligo, especialmente en cara y cuello, donde el tacrolimus es de elección frente a corticoides por no producir atrofia cutánea con el uso prolongado que estas zonas requieren. También indicado en dermatitis atópica moderada a severa en adultos, como alternativa a corticoides tópicos. El tacrolimus, en su concentración comercial máxima de referencia, es un inhibidor de la calcineurina que modula la respuesta inmune local, favoreciendo la repigmentación de las máculas de vitíligo y controlando la inflamación en dermatitis atópica.",
       "Dosis Recomendada": "APLICACIÓN: sobre las máculas de vitíligo o la zona con dermatitis, en piel limpia y seca\nCANTIDAD: capa fina cubriendo exclusivamente el área afectada\nFRECUENCIA: 2 veces al día\nDuración estimada del tratamiento: tratamiento prolongado de varios meses; la repigmentación del vitíligo es gradual y puede tardar 6 meses o más en evidenciarse\nEs normal sentir ardor o calor leve en las primeras aplicaciones; suele disminuir con el uso continuado.\n\nPRECAUCIONES\nPuede producir sensación de ardor, calor o prurito transitorio al inicio del tratamiento. La FDA incluye una advertencia (\"caja negra\") sobre un riesgo teórico de malignidad a largo plazo con inhibidores de calcineurina tópicos, basada en casos aislados y datos de estudios en animales con dosis altas; la evidencia clínica acumulada en humanos no ha confirmado este riesgo, pero se recomienda minimizar la exposición solar de la zona tratada. No usar bajo oclusión. Evitar en infecciones cutáneas activas no tratadas en la zona. Esta concentración (0.1%) es exclusiva para adultos; no usar en niños, para quienes se reserva la concentración 0.03%.",
       "Etiquetas de producto": "Portafolio"
+    },
+    {
+      "Referencia Interna": "MP0023",
+      "Nombre": "GP - 33 Locion x 120 ml",
+      "Grupo de Producto": "Magistral de Pedido",
+      "Categoría del Producto": "Queratolíticos",
+      "Forma Farmacéutica": "Locion",
+      "Presentación Farmacéutica": "Frasco",
+      "Tamaño": 120,
+      "Masa": "ml",
+      "Componentes": "Acido Salicilico 6% + Lactato de Amonio 12%",
+      "Indicación": "Loción queratolítica e hidratante para hiperqueratosis y xerosis severa.\n\nHiperqueratosis, xerosis severa, ictiosis vulgar, queratosis pilar y piel descamativa o engrosada (talones, codos, rodillas, placas de psoriasis). El ácido salicílico es un queratolítico que desprende el exceso de capa córnea; el lactato de amonio hidrata y exfolia suavemente, mejorando la barrera cutánea y la textura de la piel.",
+      "Dosis Recomendada": "APLICACIÓN: sobre piel limpia y seca, en las zonas afectadas, preferiblemente en la noche\nCANTIDAD: capa fina sobre las zonas afectadas, masajeando suavemente hasta absorción\nFRECUENCIA: inicial: 1 vez al día, en la noche, durante 1 a 2 semanas para evaluar tolerancia; luego 1 a 2 veces al día; mantenimiento: 2 a 3 veces por semana\nDuración estimada del tratamiento: 4 a 8 semanas; mantenimiento según control médico\nNo aplicar sobre superficies corporales extensas de una sola vez.\nLavar las manos después de aplicar, salvo que sean la zona a tratar.\n\nPRECAUCIONES\nPuede causar ardor, enrojecimiento, resequedad o descamación transitoria, sobre todo en piel fisurada o recién depilada. El ácido salicílico aplicado en áreas extensas, por tiempo prolongado o bajo oclusión puede absorberse y causar salicilismo (zumbido en oídos, náuseas, mareo); usar con especial cuidado en niños y en pacientes con insuficiencia renal o hepática. Los alfahidroxiácidos aumentan la sensibilidad al sol: la fotoprotección (Protección Solar) es obligatoria durante el tratamiento. No aplicar en cara, mucosas, genitales, pliegues ni sobre piel lesionada, heridas abiertas o infectadas. Evitar el uso simultáneo con otros exfoliantes o irritantes (retinoides, peróxido de benzoilo, peelings). Contraindicado en hipersensibilidad a salicilatos o AINE; en embarazo y lactancia usar solo bajo indicación médica.",
+      "Etiquetas de producto": "Cliente"
     }
   ]
 }
