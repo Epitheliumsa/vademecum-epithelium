@@ -24,7 +24,11 @@
 - Objetivo: evitar que los portafolios queden con datos viejos (desfase) respecto al maestro.
 
 ## Accesos de invitado (clientes externos con vencimiento)
-- Viven en `INVITADOS` de `app.js`: perfil Médico, con fecha de vencimiento (`vence`) y marca de agua tipo sello redondo (muy tenue, con su nombre) y pie fijo de protección de datos.
+- Viven en `INVITADOS` de `app.js`: perfil Médico, con fecha de vencimiento (`vence`) y marca de agua tipo sello redondo (muy tenue, con su nombre) (el invitado lo lleva en todas las pantallas).
+- El pie fijo de protección de datos (© Epithelium S.A.) se muestra a **todos** los usuarios en todos los vademécums.
+- Los vademécums de cliente (portafolios) llevan el mismo sello con el **nombre del cliente**, tanto cuando el cliente entra a
+  su vademécum como cuando el equipo o un comercial abre su portafolio; al salir de esa pantalla desaparece.
+- En el inicio, "Lo Nuevo" va siempre de primero, para todos los tipos de usuario.
 - El repositorio es público: **solo se guarda la huella** PBKDF2-SHA256 (lenta, con sal e iteraciones propias de cada
   fila) de `usuario:clave`. La clave es aleatoria de 8 caracteres y se compara sin importar mayúsculas. El cifrado lento es
   lo que protege una clave corta. **Nunca** escribir la clave ni un código que funcione como llave en el código.
