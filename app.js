@@ -1,6 +1,6 @@
 // CONFIGURACIÓN
 // Versión publicada: al cambiar, la app ofrece actualizarse (se genera junto con version.txt)
-const APP_VERSION = '202610151316';
+const APP_VERSION = '202610151320';
 
 // Usuarios internos de Epithelium. Los que tienen "zona" son comerciales y solo
 // ven el portafolio de los clientes de esa zona; los que no tienen zona ven el
@@ -239,6 +239,13 @@ function ponerMarcaAgua(x) {
     el.style.backgroundImage = `url("data:image/svg+xml,${encodeURIComponent(svg)}")`;
 }
 
+// Mide el pie de protección de datos para dejar espacio al final de las pantallas
+function ajustarPie() {
+    const pie = document.getElementById('avisoLegal');
+    if (!pie.hidden) document.documentElement.style.setProperty('--pie-alto', pie.offsetHeight + 'px');
+}
+window.addEventListener('resize', ajustarPie);
+
 // Cierra la sesión del invitado si su acceso venció mientras la app estaba abierta
 function revisarVencimiento() {
     if (usuarioInterno && usuarioInterno.vence && !invitadoVigente(usuarioInterno)) {
@@ -441,6 +448,10 @@ function entrarApp() {
     ponerMarcaAgua(esInvitado ? usuarioInterno : null);
     document.getElementById('avisoLegal').hidden = !esInvitado;
     document.body.classList.toggle('con-aviso-legal', esInvitado);
+    if (esInvitado) {
+        document.getElementById('anioLegal').textContent = new Date().getFullYear();
+        ajustarPie();
+    }
     armarPortafolio();
     Object.keys(CATALOGOS).forEach(k => {
         const cat = CATALOGOS[k];
