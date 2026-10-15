@@ -22,3 +22,11 @@
 - Etiquetas vigentes = las que existan en `data.json`. La etiqueta `Estrategico` quedó **obsoleta**
   (se reemplazó por Transición-Impulso / Foco / Portafolio según el maestro); no debe reaparecer.
 - Objetivo: evitar que los portafolios queden con datos viejos (desfase) respecto al maestro.
+
+## Accesos de invitado (clientes externos con vencimiento)
+- Viven en `INVITADOS` de `app.js`: perfil Médico, con fecha de vencimiento (`vence`) y marca de agua con su nombre.
+- El repositorio es público: **solo se guarda la huella** SHA-256 de `invitado:usuario:clave` (clave larga y aleatoria,
+  sin guiones ni mayúsculas al comparar). **Nunca** escribir la clave ni un código que funcione como llave en el código.
+- Entran por enlace `#invitado=usuario:clave` o escribiendo usuario y clave. Para retirar un acceso, se borra su fila.
+- La clave en claro solo se entrega al cliente y se anota en el maestro de accesos que recibe el usuario.
+- Límites conocidos: no hay control de equipos ni de cuántas veces se usa (la app es estática); el vencimiento usa el reloj del dispositivo.

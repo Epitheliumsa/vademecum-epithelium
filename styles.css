@@ -980,3 +980,6 @@ body {
 }
 .mp-desc strong { display: block; margin-bottom: 4px; font-size: 14px; }
 .mp-desc p { margin: 0; }
+
+/* Marca de agua del invitado (nombre del cliente sobre todas las pantallas) */
+#marcaAgua { position: fixed; inset: 0; pointer-events: none; z-index: 99999; background-repeat: repeat; }
