@@ -1,6 +1,6 @@
 // CONFIGURACIÓN
 // Versión publicada: al cambiar, la app ofrece actualizarse (se genera junto con version.txt)
-const APP_VERSION = '202610151406';
+const APP_VERSION = '202610151407';
 
 // Usuarios internos de Epithelium. Los que tienen "zona" son comerciales y solo
 // ven el portafolio de los clientes de esa zona; los que no tienen zona ven el
@@ -259,14 +259,13 @@ function ponerMarcaAgua(x) {
     el.style.backgroundImage = `url("data:image/svg+xml,${encodeURIComponent(svg)}")`;
     ajustarMarca();
 }
-// Sello de seguridad. Externos (invitado, cliente y médico) lo llevan en todas las pantallas; el equipo y los
-// comerciales solo al abrir el portafolio de un cliente, con el nombre de ese cliente
+// Sello de seguridad: solo los usuarios externos (invitado, cliente y médico general) lo llevan, en todas las pantallas.
+// El equipo y los comerciales (internos) nunca lo llevan, ni siquiera al abrir el portafolio de un cliente.
 function actualizarMarca(pantalla) {
     if (pantalla === 'loginScreen') return ponerMarcaAgua(null);
     if (usuarioInterno && usuarioInterno.vence) return ponerMarcaAgua(usuarioInterno);          // invitado
     if (modoUsuario === 'cliente' && clienteNombre) return ponerMarcaAgua({ nombre: clienteNombre });
     if (modoUsuario === 'medico') return ponerMarcaAgua({ nombre: 'Acceso médico autorizado' });
-    if (pantalla === 'portScreen' && clienteNombre) return ponerMarcaAgua({ nombre: clienteNombre });
     ponerMarcaAgua(null);
 }
 // Sellos más espaciados: más grandes en pantallas amplias, más pequeños en celulares
