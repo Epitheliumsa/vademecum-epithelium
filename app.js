@@ -1,6 +1,6 @@
 // CONFIGURACIÓN
 // Versión publicada: al cambiar, la app ofrece actualizarse (se genera junto con version.txt)
-const APP_VERSION = '202610151312';
+const APP_VERSION = '202610151316';
 
 // Usuarios internos de Epithelium. Los que tienen "zona" son comerciales y solo
 // ven el portafolio de los clientes de esa zona; los que no tienen zona ven el
@@ -364,6 +364,7 @@ function limpiarSesion() {
     clienteNombre = '';
     ponerMarcaAgua(null);
     document.getElementById('avisoLegal').hidden = true;
+    document.body.classList.remove('con-aviso-legal');
     document.getElementById('modalDetail').classList.remove('active');
     mostrarPantalla('loginScreen');
     document.getElementById('accessUser').value = '';
@@ -439,6 +440,7 @@ function entrarApp() {
     const esInvitado = !!(usuarioInterno && usuarioInterno.vence);
     ponerMarcaAgua(esInvitado ? usuarioInterno : null);
     document.getElementById('avisoLegal').hidden = !esInvitado;
+    document.body.classList.toggle('con-aviso-legal', esInvitado);
     armarPortafolio();
     Object.keys(CATALOGOS).forEach(k => {
         const cat = CATALOGOS[k];

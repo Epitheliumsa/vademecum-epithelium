@@ -983,4 +983,21 @@ body {
 
 /* Marca de agua del invitado (nombre del cliente sobre todas las pantallas) */
 #marcaAgua { position: fixed; inset: 0; pointer-events: none; z-index: 99999; background-repeat: repeat; }
-.aviso-legal { margin: 14px 4px 0; font-size: 11px; line-height: 1.45; color: #6a7f78; text-align: center; }
+.aviso-legal {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 900;
+    margin: 0;
+    padding: 8px 14px calc(8px + env(safe-area-inset-bottom, 0px));
+    background: rgba(255, 255, 255, .96);
+    border-top: 1px solid #d7e5e0;
+    font-size: 10.5px;
+    line-height: 1.4;
+    color: #5a6f68;
+    text-align: center;
+}
+.aviso-legal[hidden] { display: none; }
+/* Deja espacio para que la protección de datos no tape el final de las pantallas */
+body.con-aviso-legal .screen { padding-bottom: 76px; }
