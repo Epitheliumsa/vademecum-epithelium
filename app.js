@@ -1,6 +1,6 @@
 // CONFIGURACIÓN
 // Versión publicada: al cambiar, la app ofrece actualizarse (se genera junto con version.txt)
-const APP_VERSION = '202610151320';
+const APP_VERSION = '202610151328';
 
 // Usuarios internos de Epithelium. Los que tienen "zona" son comerciales y solo
 // ven el portafolio de los clientes de esa zona; los que no tienen zona ven el
@@ -228,16 +228,38 @@ async function accesoInvitadoPorEnlace() {
     iniciarSesionInvitado(x);
 }
 
-// Marca de agua con el nombre del invitado sobre todas las pantallas (disuade copias y capturas)
+// Marca de agua tipo sello redondo, muy tenue, con el nombre del invitado (disuade copias y permite rastrear capturas)
+function lineasSello(nombre) {
+    const lineas = [];
+    let actual = '';
+    nombre.split(/\s+/).forEach(p => {
+        if (actual && (actual + ' ' + p).length > 18) { lineas.push(actual); actual = p; }
+        else actual = actual ? actual + ' ' + p : p;
+    });
+    if (actual) lineas.push(actual);
+    return lineas.slice(0, 4);
+}
 function ponerMarcaAgua(x) {
     let el = document.getElementById('marcaAgua');
     if (!x) { if (el) el.remove(); return; }
     if (!el) { el = document.createElement('div'); el.id = 'marcaAgua'; document.body.appendChild(el); }
     const esc = t => String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;');
-    const sub = '© Epithelium S.A. · Información de uso exclusivo';
-    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="480" height="270"><g transform="rotate(-28 240 135)" font-family="Arial,sans-serif" text-anchor="middle" fill="rgba(0,0,0,0.10)"><text x="240" y="128" font-size="15" font-weight="bold">${esc(x.nombre)}</text><text x="240" y="150" font-size="12">${esc(sub)}</text></g></svg>`;
+    const A = 0.07;   // intensidad del sello
+    const lineas = lineasSello(x.nombre);
+    const y0 = 171 - (lineas.length - 1) * 6.5;
+    const texto = lineas.map((l, k) => `<text x="170" y="${y0 + k * 13}" font-size="9.5" font-weight="bold">${esc(l)}</text>`).join('');
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="340" height="340" viewBox="0 0 340 340"><g transform="rotate(-18 170 170)" fill="rgba(0,107,79,${A})" stroke="rgba(0,107,79,${A})" font-family="Arial,Helvetica,sans-serif" text-anchor="middle"><defs><path id="c" d="M170,170 m-76,0 a76,76 0 1,1 152,0 a76,76 0 1,1 -152,0"/></defs><circle cx="170" cy="170" r="108" fill="none" stroke-width="3.2"/><circle cx="170" cy="170" r="102" fill="none" stroke-width="1"/><circle cx="170" cy="170" r="56" fill="none" stroke-width="1.6"/><g stroke="none"><text font-size="12" font-weight="bold" letter-spacing="1.2" word-spacing="3"><textPath href="#c" startOffset="50%">EPITHELIUM S.A. • USO EXCLUSIVO • CONFIDENCIAL •</textPath></text>${texto}<text x="170" y="${y0 + lineas.length * 13 + 4}" font-size="7" letter-spacing="0.4">© Epithelium S.A.</text></g></g></svg>`;
     el.style.backgroundImage = `url("data:image/svg+xml,${encodeURIComponent(svg)}")`;
+    ajustarMarca();
 }
+// Sellos más espaciados: más grandes en pantallas amplias, más pequeños en celulares
+function ajustarMarca() {
+    const el = document.getElementById('marcaAgua');
+    if (!el) return;
+    const lado = window.innerWidth >= 700 ? 400 : 300;
+    el.style.backgroundSize = `${lado}px ${lado}px`;
+}
+window.addEventListener('resize', ajustarMarca);
 
 // Mide el pie de protección de datos para dejar espacio al final de las pantallas
 function ajustarPie() {

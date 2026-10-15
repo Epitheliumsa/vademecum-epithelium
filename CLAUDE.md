@@ -24,7 +24,7 @@
 - Objetivo: evitar que los portafolios queden con datos viejos (desfase) respecto al maestro.
 
 ## Accesos de invitado (clientes externos con vencimiento)
-- Viven en `INVITADOS` de `app.js`: perfil Médico, con fecha de vencimiento (`vence`) y marca de agua con su nombre.
+- Viven en `INVITADOS` de `app.js`: perfil Médico, con fecha de vencimiento (`vence`) y marca de agua tipo sello redondo (muy tenue, con su nombre) y pie fijo de protección de datos.
 - El repositorio es público: **solo se guarda la huella** PBKDF2-SHA256 (lenta, con sal e iteraciones propias de cada
   fila) de `usuario:clave`. La clave es aleatoria de 8 caracteres y se compara sin importar mayúsculas. El cifrado lento es
   lo que protege una clave corta. **Nunca** escribir la clave ni un código que funcione como llave en el código.
