@@ -36,3 +36,15 @@
 - Entran por enlace `#invitado=usuario:clave` o escribiendo usuario y clave. Para retirar un acceso, se borra su fila.
 - La clave en claro solo se entrega al cliente y se anota en el maestro de accesos que recibe el usuario.
 - Límites conocidos: no hay control de equipos ni de cuántas veces se usa (la app es estática); el vencimiento usa el reloj del dispositivo.
+
+## Archivos para externos (PDF y Excel): sello y aviso de derechos
+- Todo **PDF o Excel que se entregue a un usuario externo** (cliente, médico o invitado) pasa antes por
+  `python3 herramientas/marca_externos.py ARCHIVO "Nombre del cliente" [--salida RUTA] [--sin-pie]`.
+  Los internos (equipo y comerciales) no llevan sello.
+- PDF: sello redondo tenue (el mismo de la app, con el nombre del cliente) en todas las páginas y el aviso de derechos al pie
+  (`--sin-pie` si el documento ya trae el aviso escrito). Excel: hoja "Aviso legal" al inicio, franja con el nombre del cliente sobre la
+  tabla de cada hoja, encabezado y pie de impresión con el aviso, y propiedades del archivo. Sin líneas de cuadrícula.
+- Requisitos: `pip install pymupdf` (no usar `pypdf`: en este entorno choca con una librería del sistema), openpyxl y playwright con Chromium.
+- Límites: el sello del PDF es una capa visual (se puede recortar de una captura parcial, pero no se quita con "copiar texto");
+  en Excel la franja y el aviso se pueden borrar a mano, quedan como disuasivo y rastro del nombre del cliente.
+
