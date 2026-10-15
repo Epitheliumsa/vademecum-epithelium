@@ -1,6 +1,6 @@
 // CONFIGURACIÓN
 // Versión publicada: al cambiar, la app ofrece actualizarse (se genera junto con version.txt)
-const APP_VERSION = '202610141810';
+const APP_VERSION = '202610151328';
 
 // Usuarios internos de Epithelium. Los que tienen "zona" son comerciales y solo
 // ven el portafolio de los clientes de esa zona; los que no tienen zona ven el
@@ -19,7 +19,15 @@ const USUARIOS_INTERNOS = [
     { usuario: 'E.Ovalle',  acceso: 'ce7f5ae557bb5d72633b63e7366573b914d1967646bfdeb3b22e851d1cc060ad', tipo: 'equipo', zona: null, nombre: 'Eric Ovalle', detalle: 'Auxiliar de Domicilios y Mensajería' },
     { usuario: 'D.Barrero', acceso: '0db57b165dd9406abd8a3740e969fe9a0a4baa8651d8d290966003f0ff131349', tipo: 'equipo', zona: null, nombre: 'Deelan Barrero', detalle: 'Auxiliar de Domicilios y Mensajería' }
 ];
+// Invitados: clientes externos con acceso al perfil Médico, con vencimiento y marca de agua con su nombre.
+// El repositorio es público: aquí solo va la huella (PBKDF2-SHA256 lento y con sal de "usuario:clave"), nunca la clave.
+// La clave es aleatoria de 8 caracteres (se escribe sin importar mayúsculas). Para retirar un acceso, se borra su fila.
+const INVITADOS = [
+    { usuario: 'dermaplast', sal: '1684fd48ba2a42c2d5b5a13bab8b3443', iter: 300000, huella: 'ccd8c24740608f439a9c2ea40642d3195fbacf34e45c62e0589c81fbcdceabb3', tipo: 'medico', zona: null,
+      nombre: 'Centro Medico de Especialistas Dermaplast S.A.S.', detalle: 'Acceso personal', vence: '2026-11-30' }
+];
 let usuarioInterno = null;   // usuario interno con nombre (para el saludo)
+let avisoLogin = '';         // mensaje que se muestra en el login (p. ej. acceso vencido)
 
 const URL_DATOS = 'https://raw.githubusercontent.com/nanorsf/vademecum-epithelium/main/';
 
@@ -178,6 +186,97 @@ function buscarUsuarioInterno(usuario, clave) {
     return null;
 }
 
+// Huella lenta (PBKDF2-SHA256 con sal): hace inviable adivinar la clave a partir de la huella publicada
+async function derivarClave(texto, salHex, iteraciones) {
+    const base = await crypto.subtle.importKey('raw', new TextEncoder().encode(texto), 'PBKDF2', false, ['deriveBits']);
+    const sal = new Uint8Array(salHex.match(/../g).map(h => parseInt(h, 16)));
+    const bits = await crypto.subtle.deriveBits({ name: 'PBKDF2', hash: 'SHA-256', salt: sal, iterations: iteraciones }, base, 256);
+    return [...new Uint8Array(bits)].map(b => b.toString(16).padStart(2, '0')).join('');
+}
+// El acceso es válido hasta el final del día de vencimiento
+const invitadoVigente = x => !x.vence || Date.now() <= new Date(x.vence + 'T23:59:59').getTime();
+const TEXTO_ACCESO_FINALIZADO = 'Tu acceso ha finalizado. Para renovar o cambiar tu clave, comunícate con tu proveedor Epithelium.';
+const textoVencido = () => TEXTO_ACCESO_FINALIZADO;
+
+// Invitado por usuario + clave (la clave se compara sin guiones, espacios ni mayúsculas)
+async function buscarInvitado(usuario, clave) {
+    const u = String(usuario || '').trim().toLowerCase();
+    const c = String(clave || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+    if (!u || !c) return null;
+    const x = INVITADOS.find(i => i.usuario === u);
+    if (!x) return null;
+    return (await derivarClave(`${u}:${c}`, x.sal, x.iter)) === x.huella ? x : null;
+}
+
+function iniciarSesionInvitado(x) {
+    modoUsuario = x.tipo;
+    zonaUsuario = null;
+    usuarioInterno = x;
+    localStorage.setItem('vademecum_interno', JSON.stringify({ tipo: x.tipo, zona: null, usuario: x.usuario, invitado: true }));
+    localStorage.removeItem('vademecum_cliente');
+    localStorage.setItem('vademecum_timestamp', new Date().toISOString());
+}
+
+// Enlace directo para invitados: #invitado=usuario:clave (se borra de la barra de direcciones al entrar)
+async function accesoInvitadoPorEnlace() {
+    const m = location.hash.match(/invitado=([A-Za-z0-9_.-]+):([A-Za-z0-9-]+)/);
+    if (!m) return;
+    history.replaceState(null, '', location.pathname + location.search);
+    const x = await buscarInvitado(m[1], m[2]);
+    if (!x) { avisoLogin = '❌ Enlace no válido. Comunícate con tu proveedor Epithelium.'; return; }
+    if (!invitadoVigente(x)) { avisoLogin = textoVencido(x); return; }
+    iniciarSesionInvitado(x);
+}
+
+// Marca de agua tipo sello redondo, muy tenue, con el nombre del invitado (disuade copias y permite rastrear capturas)
+function lineasSello(nombre) {
+    const lineas = [];
+    let actual = '';
+    nombre.split(/\s+/).forEach(p => {
+        if (actual && (actual + ' ' + p).length > 18) { lineas.push(actual); actual = p; }
+        else actual = actual ? actual + ' ' + p : p;
+    });
+    if (actual) lineas.push(actual);
+    return lineas.slice(0, 4);
+}
+function ponerMarcaAgua(x) {
+    let el = document.getElementById('marcaAgua');
+    if (!x) { if (el) el.remove(); return; }
+    if (!el) { el = document.createElement('div'); el.id = 'marcaAgua'; document.body.appendChild(el); }
+    const esc = t => String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;');
+    const A = 0.07;   // intensidad del sello
+    const lineas = lineasSello(x.nombre);
+    const y0 = 171 - (lineas.length - 1) * 6.5;
+    const texto = lineas.map((l, k) => `<text x="170" y="${y0 + k * 13}" font-size="9.5" font-weight="bold">${esc(l)}</text>`).join('');
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="340" height="340" viewBox="0 0 340 340"><g transform="rotate(-18 170 170)" fill="rgba(0,107,79,${A})" stroke="rgba(0,107,79,${A})" font-family="Arial,Helvetica,sans-serif" text-anchor="middle"><defs><path id="c" d="M170,170 m-76,0 a76,76 0 1,1 152,0 a76,76 0 1,1 -152,0"/></defs><circle cx="170" cy="170" r="108" fill="none" stroke-width="3.2"/><circle cx="170" cy="170" r="102" fill="none" stroke-width="1"/><circle cx="170" cy="170" r="56" fill="none" stroke-width="1.6"/><g stroke="none"><text font-size="12" font-weight="bold" letter-spacing="1.2" word-spacing="3"><textPath href="#c" startOffset="50%">EPITHELIUM S.A. • USO EXCLUSIVO • CONFIDENCIAL •</textPath></text>${texto}<text x="170" y="${y0 + lineas.length * 13 + 4}" font-size="7" letter-spacing="0.4">© Epithelium S.A.</text></g></g></svg>`;
+    el.style.backgroundImage = `url("data:image/svg+xml,${encodeURIComponent(svg)}")`;
+    ajustarMarca();
+}
+// Sellos más espaciados: más grandes en pantallas amplias, más pequeños en celulares
+function ajustarMarca() {
+    const el = document.getElementById('marcaAgua');
+    if (!el) return;
+    const lado = window.innerWidth >= 700 ? 400 : 300;
+    el.style.backgroundSize = `${lado}px ${lado}px`;
+}
+window.addEventListener('resize', ajustarMarca);
+
+// Mide el pie de protección de datos para dejar espacio al final de las pantallas
+function ajustarPie() {
+    const pie = document.getElementById('avisoLegal');
+    if (!pie.hidden) document.documentElement.style.setProperty('--pie-alto', pie.offsetHeight + 'px');
+}
+window.addEventListener('resize', ajustarPie);
+
+// Cierra la sesión del invitado si su acceso venció mientras la app estaba abierta
+function revisarVencimiento() {
+    if (usuarioInterno && usuarioInterno.vence && !invitadoVigente(usuarioInterno)) {
+        avisoLogin = textoVencido(usuarioInterno);
+        limpiarSesion();
+        document.getElementById('errorMsg').textContent = avisoLogin;
+    }
+}
+
 // Acceso directo desde Ruta Comercial para el equipo interno: el enlace trae #acceso=<código>, que es
 // SHA-256 de "vademecum:usuario:clave" (en minúsculas). Solo sirve para los usuarios internos con nombre.
 async function accesoDesdeRutaComercial() {
@@ -198,15 +297,27 @@ async function accesoDesdeRutaComercial() {
 
 async function verificarAcceso() {
     await accesoDesdeRutaComercial();
+    await accesoInvitadoPorEnlace();
     const interno = localStorage.getItem('vademecum_interno');
     const clienteGuardado = localStorage.getItem('vademecum_cliente');
     if (interno) {
         try {
             const s = JSON.parse(interno);
-            modoUsuario = s.tipo;
-            zonaUsuario = s.zona || null;
-            usuarioInterno = USUARIOS_INTERNOS.find(x => x.usuario && x.usuario === s.usuario) || null;
-            return entrarApp();
+            if (s.invitado) {
+                const inv = INVITADOS.find(x => x.usuario === s.usuario);
+                if (inv && invitadoVigente(inv)) {
+                    modoUsuario = inv.tipo;
+                    zonaUsuario = null;
+                    usuarioInterno = inv;
+                    return entrarApp();
+                }
+                avisoLogin = TEXTO_ACCESO_FINALIZADO;
+            } else {
+                modoUsuario = s.tipo;
+                zonaUsuario = s.zona || null;
+                usuarioInterno = USUARIOS_INTERNOS.find(x => x.usuario && x.usuario === s.usuario) || null;
+                return entrarApp();
+            }
         } catch (e) { localStorage.removeItem('vademecum_interno'); }
     }
     if (clienteGuardado && await cargarPortafolio(clienteGuardado)) {
@@ -216,6 +327,7 @@ async function verificarAcceso() {
     mostrarPantalla('loginScreen');
     localStorage.removeItem('vademecum_interno');
     localStorage.removeItem('vademecum_cliente');
+    if (avisoLogin) document.getElementById('errorMsg').textContent = avisoLogin;
 }
 
 async function verificarCodigo() {
@@ -238,6 +350,20 @@ async function verificarCodigo() {
         errorMsg.textContent = '';
         return entrarApp();
     }
+    // Invitados: usuario + clave larga (con vencimiento)
+    if (usuario && clave) {
+        const inv = await buscarInvitado(usuario, clave);
+        if (inv) {
+            if (!invitadoVigente(inv)) {
+                errorMsg.textContent = textoVencido(inv);
+                document.getElementById('accessCode').value = '';
+                return;
+            }
+            iniciarSesionInvitado(inv);
+            errorMsg.textContent = '';
+            return entrarApp();
+        }
+    }
     // Clientes: usuario + clave (iniciales en mayúscula + dos números, ej: AO84; da igual si la escriben en minúscula)
     if (usuario && /^[A-Za-z]{2}\d{2}$/.test(clave)) {
         errorMsg.textContent = 'Verificando...';
@@ -255,22 +381,28 @@ async function verificarCodigo() {
     document.getElementById('accessCode').value = '';
 }
 
+function limpiarSesion() {
+    localStorage.removeItem('vademecum_interno');
+    localStorage.removeItem('vademecum_cliente');
+    localStorage.removeItem('vademecum_timestamp');
+    modoUsuario = 'cliente';
+    zonaUsuario = null;
+    usuarioInterno = null;
+    portafolio = [];
+    portafolioPropio = [];
+    clienteNombre = '';
+    ponerMarcaAgua(null);
+    document.getElementById('avisoLegal').hidden = true;
+    document.body.classList.remove('con-aviso-legal');
+    document.getElementById('modalDetail').classList.remove('active');
+    mostrarPantalla('loginScreen');
+    document.getElementById('accessUser').value = '';
+    document.getElementById('accessCode').value = '';
+    document.getElementById('errorMsg').textContent = '';
+}
+
 function cerrarSesion() {
-    if (confirm('¿Cerrar sesión?')) {
-        localStorage.removeItem('vademecum_interno');
-        localStorage.removeItem('vademecum_cliente');
-        localStorage.removeItem('vademecum_timestamp');
-        modoUsuario = 'cliente';
-        zonaUsuario = null;
-        usuarioInterno = null;
-        portafolio = [];
-        portafolioPropio = [];
-        clienteNombre = '';
-        mostrarPantalla('loginScreen');
-        document.getElementById('accessUser').value = '';
-        document.getElementById('accessCode').value = '';
-        document.getElementById('errorMsg').textContent = '';
-    }
+    if (confirm('¿Cerrar sesión?')) limpiarSesion();
 }
 
 // Búsqueda sin distinguir mayúsculas ni tildes
@@ -334,6 +466,14 @@ function armarPortafolio(incluirNuevos = true) {
 }
 
 function entrarApp() {
+    const esInvitado = !!(usuarioInterno && usuarioInterno.vence);
+    ponerMarcaAgua(esInvitado ? usuarioInterno : null);
+    document.getElementById('avisoLegal').hidden = !esInvitado;
+    document.body.classList.toggle('con-aviso-legal', esInvitado);
+    if (esInvitado) {
+        document.getElementById('anioLegal').textContent = new Date().getFullYear();
+        ajustarPie();
+    }
     armarPortafolio();
     Object.keys(CATALOGOS).forEach(k => {
         const cat = CATALOGOS[k];
@@ -762,4 +902,5 @@ if ('serviceWorker' in navigator) {
 }
 
 document.addEventListener('DOMContentLoaded', revisarVersion);
-document.addEventListener('visibilitychange', () => { if (!document.hidden) revisarVersion(); });
+document.addEventListener('visibilitychange', () => { if (!document.hidden) { revisarVersion(); revisarVencimiento(); } });
+setInterval(revisarVencimiento, 5 * 60 * 1000);
