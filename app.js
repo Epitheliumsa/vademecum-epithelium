@@ -1,6 +1,6 @@
 // CONFIGURACIÓN
 // Versión publicada: al cambiar, la app ofrece actualizarse (se genera junto con version.txt)
-const APP_VERSION = '202610151328';
+const APP_VERSION = '202610151407';
 
 // Usuarios internos de Epithelium. Los que tienen "zona" son comerciales y solo
 // ven el portafolio de los clientes de esa zona; los que no tienen zona ven el
@@ -230,14 +230,21 @@ async function accesoInvitadoPorEnlace() {
 
 // Marca de agua tipo sello redondo, muy tenue, con el nombre del invitado (disuade copias y permite rastrear capturas)
 function lineasSello(nombre) {
-    const lineas = [];
-    let actual = '';
-    nombre.split(/\s+/).forEach(p => {
-        if (actual && (actual + ' ' + p).length > 18) { lineas.push(actual); actual = p; }
-        else actual = actual ? actual + ' ' + p : p;
-    });
-    if (actual) lineas.push(actual);
-    return lineas.slice(0, 4);
+    // Reparte el nombre en líneas; si es muy largo, usa letra más pequeña y recorta con "…"
+    const partir = max => {
+        const out = [];
+        let actual = '';
+        nombre.split(/\s+/).forEach(p => {
+            if (actual && (actual + ' ' + p).length > max) { out.push(actual); actual = p; }
+            else actual = actual ? actual + ' ' + p : p;
+        });
+        if (actual) out.push(actual);
+        return out;
+    };
+    let lineas = partir(18), tam = 9.5, paso = 13;
+    if (lineas.length > 4) { lineas = partir(25); tam = 7.6; paso = 10.5; }
+    if (lineas.length > 5) { lineas = lineas.slice(0, 5); lineas[4] = lineas[4].replace(/.{0,3}$/, '') + '…'; }
+    return { lineas, tam, paso };
 }
 function ponerMarcaAgua(x) {
     let el = document.getElementById('marcaAgua');
@@ -245,12 +252,21 @@ function ponerMarcaAgua(x) {
     if (!el) { el = document.createElement('div'); el.id = 'marcaAgua'; document.body.appendChild(el); }
     const esc = t => String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;');
     const A = 0.07;   // intensidad del sello
-    const lineas = lineasSello(x.nombre);
-    const y0 = 171 - (lineas.length - 1) * 6.5;
-    const texto = lineas.map((l, k) => `<text x="170" y="${y0 + k * 13}" font-size="9.5" font-weight="bold">${esc(l)}</text>`).join('');
-    const svg = `<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="340" height="340" viewBox="0 0 340 340"><g transform="rotate(-18 170 170)" fill="rgba(0,107,79,${A})" stroke="rgba(0,107,79,${A})" font-family="Arial,Helvetica,sans-serif" text-anchor="middle"><defs><path id="c" d="M170,170 m-76,0 a76,76 0 1,1 152,0 a76,76 0 1,1 -152,0"/></defs><circle cx="170" cy="170" r="108" fill="none" stroke-width="3.2"/><circle cx="170" cy="170" r="102" fill="none" stroke-width="1"/><circle cx="170" cy="170" r="56" fill="none" stroke-width="1.6"/><g stroke="none"><text font-size="12" font-weight="bold" letter-spacing="1.2" word-spacing="3"><textPath href="#c" startOffset="50%">EPITHELIUM S.A. • USO EXCLUSIVO • CONFIDENCIAL •</textPath></text>${texto}<text x="170" y="${y0 + lineas.length * 13 + 4}" font-size="7" letter-spacing="0.4">© Epithelium S.A.</text></g></g></svg>`;
+    const { lineas, tam, paso } = lineasSello(x.nombre);
+    const y0 = 171 - (lineas.length - 1) * paso / 2;
+    const texto = lineas.map((l, k) => `<text x="170" y="${y0 + k * paso}" font-size="${tam}" font-weight="bold">${esc(l)}</text>`).join('');
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="340" height="340" viewBox="0 0 340 340"><g transform="rotate(-18 170 170)" fill="rgba(0,107,79,${A})" stroke="rgba(0,107,79,${A})" font-family="Arial,Helvetica,sans-serif" text-anchor="middle"><defs><path id="c" d="M170,170 m-76,0 a76,76 0 1,1 152,0 a76,76 0 1,1 -152,0"/></defs><circle cx="170" cy="170" r="108" fill="none" stroke-width="3.2"/><circle cx="170" cy="170" r="102" fill="none" stroke-width="1"/><circle cx="170" cy="170" r="56" fill="none" stroke-width="1.6"/><g stroke="none"><text font-size="12" font-weight="bold" letter-spacing="1.2" word-spacing="3"><textPath href="#c" startOffset="50%">EPITHELIUM S.A. • USO EXCLUSIVO • CONFIDENCIAL •</textPath></text>${texto}<text x="170" y="${y0 + lineas.length * paso + 4}" font-size="7" letter-spacing="0.4">© Epithelium S.A.</text></g></g></svg>`;
     el.style.backgroundImage = `url("data:image/svg+xml,${encodeURIComponent(svg)}")`;
     ajustarMarca();
+}
+// Sello de seguridad: solo los usuarios externos (invitado, cliente y médico general) lo llevan, en todas las pantallas.
+// El equipo y los comerciales (internos) nunca lo llevan, ni siquiera al abrir el portafolio de un cliente.
+function actualizarMarca(pantalla) {
+    if (pantalla === 'loginScreen') return ponerMarcaAgua(null);
+    if (usuarioInterno && usuarioInterno.vence) return ponerMarcaAgua(usuarioInterno);          // invitado
+    if (modoUsuario === 'cliente' && clienteNombre) return ponerMarcaAgua({ nombre: clienteNombre });
+    if (modoUsuario === 'medico') return ponerMarcaAgua({ nombre: 'Acceso médico autorizado' });
+    ponerMarcaAgua(null);
 }
 // Sellos más espaciados: más grandes en pantallas amplias, más pequeños en celulares
 function ajustarMarca() {
@@ -467,13 +483,12 @@ function armarPortafolio(incluirNuevos = true) {
 
 function entrarApp() {
     const esInvitado = !!(usuarioInterno && usuarioInterno.vence);
-    ponerMarcaAgua(esInvitado ? usuarioInterno : null);
-    document.getElementById('avisoLegal').hidden = !esInvitado;
-    document.body.classList.toggle('con-aviso-legal', esInvitado);
-    if (esInvitado) {
-        document.getElementById('anioLegal').textContent = new Date().getFullYear();
-        ajustarPie();
-    }
+    ponerMarcaAgua(esInvitado ? usuarioInterno : null);   // el sello solo lo lleva el invitado
+    // Protección de datos: pie fijo para todos los usuarios, en todos los vademécums
+    document.getElementById('avisoLegal').hidden = false;
+    document.body.classList.add('con-aviso-legal');
+    document.getElementById('anioLegal').textContent = new Date().getFullYear();
+    ajustarPie();
     armarPortafolio();
     Object.keys(CATALOGOS).forEach(k => {
         const cat = CATALOGOS[k];
@@ -634,6 +649,7 @@ function abrirMateriasPrimas() {
 }
 
 function mostrarPantalla(screenId) {
+    if (document.getElementById('app')) actualizarMarca(screenId);
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
     document.getElementById(screenId).classList.add('active');
 }
