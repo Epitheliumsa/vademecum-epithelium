@@ -1,6 +1,6 @@
 // CONFIGURACIÓN
 // Versión publicada: al cambiar, la app ofrece actualizarse (se genera junto con version.txt)
-const APP_VERSION = '202610151251';
+const APP_VERSION = '202610151312';
 
 // Usuarios internos de Epithelium. Los que tienen "zona" son comerciales y solo
 // ven el portafolio de los clientes de esa zona; los que no tienen zona ven el
@@ -20,10 +20,10 @@ const USUARIOS_INTERNOS = [
     { usuario: 'D.Barrero', acceso: '0db57b165dd9406abd8a3740e969fe9a0a4baa8651d8d290966003f0ff131349', tipo: 'equipo', zona: null, nombre: 'Deelan Barrero', detalle: 'Auxiliar de Domicilios y Mensajería' }
 ];
 // Invitados: clientes externos con acceso al perfil Médico, con vencimiento y marca de agua con su nombre.
-// El repositorio es público: aquí solo va la huella (SHA-256 de "invitado:usuario:clave"), nunca la clave.
-// La clave es larga y aleatoria (se escribe sin guiones ni mayúsculas). Para retirar un acceso, se borra su fila.
+// El repositorio es público: aquí solo va la huella (PBKDF2-SHA256 lento y con sal de "usuario:clave"), nunca la clave.
+// La clave es aleatoria de 8 caracteres (se escribe sin importar mayúsculas). Para retirar un acceso, se borra su fila.
 const INVITADOS = [
-    { usuario: 'dermaplast', huella: '02e75bfbd39f688035423db56cc4a6bbd655908777f1048e2ed1cd2b89ff8fd0', tipo: 'medico', zona: null,
+    { usuario: 'dermaplast', sal: '1684fd48ba2a42c2d5b5a13bab8b3443', iter: 300000, huella: 'ccd8c24740608f439a9c2ea40642d3195fbacf34e45c62e0589c81fbcdceabb3', tipo: 'medico', zona: null,
       nombre: 'Centro Medico de Especialistas Dermaplast S.A.S.', detalle: 'Acceso personal', vence: '2026-11-30' }
 ];
 let usuarioInterno = null;   // usuario interno con nombre (para el saludo)
@@ -186,9 +186,12 @@ function buscarUsuarioInterno(usuario, clave) {
     return null;
 }
 
-async function sha256Hex(texto) {
-    const h = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(texto));
-    return [...new Uint8Array(h)].map(b => b.toString(16).padStart(2, '0')).join('');
+// Huella lenta (PBKDF2-SHA256 con sal): hace inviable adivinar la clave a partir de la huella publicada
+async function derivarClave(texto, salHex, iteraciones) {
+    const base = await crypto.subtle.importKey('raw', new TextEncoder().encode(texto), 'PBKDF2', false, ['deriveBits']);
+    const sal = new Uint8Array(salHex.match(/../g).map(h => parseInt(h, 16)));
+    const bits = await crypto.subtle.deriveBits({ name: 'PBKDF2', hash: 'SHA-256', salt: sal, iterations: iteraciones }, base, 256);
+    return [...new Uint8Array(bits)].map(b => b.toString(16).padStart(2, '0')).join('');
 }
 // El acceso es válido hasta el final del día de vencimiento
 const invitadoVigente = x => !x.vence || Date.now() <= new Date(x.vence + 'T23:59:59').getTime();
@@ -200,8 +203,9 @@ async function buscarInvitado(usuario, clave) {
     const u = String(usuario || '').trim().toLowerCase();
     const c = String(clave || '').toLowerCase().replace(/[^a-z0-9]/g, '');
     if (!u || !c) return null;
-    const h = await sha256Hex(`invitado:${u}:${c}`);
-    return INVITADOS.find(x => x.usuario === u && x.huella === h) || null;
+    const x = INVITADOS.find(i => i.usuario === u);
+    if (!x) return null;
+    return (await derivarClave(`${u}:${c}`, x.sal, x.iter)) === x.huella ? x : null;
 }
 
 function iniciarSesionInvitado(x) {
