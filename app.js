@@ -1,6 +1,6 @@
 // CONFIGURACIÓN
 // Versión publicada: al cambiar, la app ofrece actualizarse (se genera junto con version.txt)
-const APP_VERSION = '202610151241';
+const APP_VERSION = '202610151251';
 
 // Usuarios internos de Epithelium. Los que tienen "zona" son comerciales y solo
 // ven el portafolio de los clientes de esa zona; los que no tienen zona ven el
@@ -24,7 +24,7 @@ const USUARIOS_INTERNOS = [
 // La clave es larga y aleatoria (se escribe sin guiones ni mayúsculas). Para retirar un acceso, se borra su fila.
 const INVITADOS = [
     { usuario: 'dermaplast', huella: '02e75bfbd39f688035423db56cc4a6bbd655908777f1048e2ed1cd2b89ff8fd0', tipo: 'medico', zona: null,
-      nombre: 'Centro Medico de Especialistas Dermaplast S.A.S.', detalle: 'Acceso hasta el 30 de noviembre de 2026', vence: '2026-11-30' }
+      nombre: 'Centro Medico de Especialistas Dermaplast S.A.S.', detalle: 'Acceso personal', vence: '2026-11-30' }
 ];
 let usuarioInterno = null;   // usuario interno con nombre (para el saludo)
 let avisoLogin = '';         // mensaje que se muestra en el login (p. ej. acceso vencido)
@@ -190,10 +190,10 @@ async function sha256Hex(texto) {
     const h = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(texto));
     return [...new Uint8Array(h)].map(b => b.toString(16).padStart(2, '0')).join('');
 }
-const fechaLarga = f => new Date(f + 'T12:00:00').toLocaleDateString('es-CO', { day: 'numeric', month: 'long', year: 'numeric' });
 // El acceso es válido hasta el final del día de vencimiento
 const invitadoVigente = x => !x.vence || Date.now() <= new Date(x.vence + 'T23:59:59').getTime();
-const textoVencido = x => `Tu acceso venció el ${fechaLarga(x.vence)}. Solicita uno nuevo.`;
+const TEXTO_ACCESO_FINALIZADO = 'Tu acceso ha finalizado. Para renovar o cambiar tu clave, comunícate con tu proveedor Epithelium.';
+const textoVencido = () => TEXTO_ACCESO_FINALIZADO;
 
 // Invitado por usuario + clave (la clave se compara sin guiones, espacios ni mayúsculas)
 async function buscarInvitado(usuario, clave) {
@@ -219,7 +219,7 @@ async function accesoInvitadoPorEnlace() {
     if (!m) return;
     history.replaceState(null, '', location.pathname + location.search);
     const x = await buscarInvitado(m[1], m[2]);
-    if (!x) { avisoLogin = '❌ Enlace no válido. Solicita uno nuevo.'; return; }
+    if (!x) { avisoLogin = '❌ Enlace no válido. Comunícate con tu proveedor Epithelium.'; return; }
     if (!invitadoVigente(x)) { avisoLogin = textoVencido(x); return; }
     iniciarSesionInvitado(x);
 }
@@ -230,7 +230,7 @@ function ponerMarcaAgua(x) {
     if (!x) { if (el) el.remove(); return; }
     if (!el) { el = document.createElement('div'); el.id = 'marcaAgua'; document.body.appendChild(el); }
     const esc = t => String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;');
-    const sub = x.vence ? `Acceso personal · hasta ${new Date(x.vence + 'T12:00:00').toLocaleDateString('es-CO')}` : 'Acceso personal';
+    const sub = '© Epithelium S.A. · Información de uso exclusivo';
     const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="480" height="270"><g transform="rotate(-28 240 135)" font-family="Arial,sans-serif" text-anchor="middle" fill="rgba(0,0,0,0.10)"><text x="240" y="128" font-size="15" font-weight="bold">${esc(x.nombre)}</text><text x="240" y="150" font-size="12">${esc(sub)}</text></g></svg>`;
     el.style.backgroundImage = `url("data:image/svg+xml,${encodeURIComponent(svg)}")`;
 }
@@ -278,7 +278,7 @@ async function verificarAcceso() {
                     usuarioInterno = inv;
                     return entrarApp();
                 }
-                avisoLogin = inv ? textoVencido(inv) : 'Tu acceso ya no está disponible.';
+                avisoLogin = TEXTO_ACCESO_FINALIZADO;
             } else {
                 modoUsuario = s.tipo;
                 zonaUsuario = s.zona || null;
@@ -359,6 +359,7 @@ function limpiarSesion() {
     portafolioPropio = [];
     clienteNombre = '';
     ponerMarcaAgua(null);
+    document.getElementById('avisoLegal').hidden = true;
     document.getElementById('modalDetail').classList.remove('active');
     mostrarPantalla('loginScreen');
     document.getElementById('accessUser').value = '';
@@ -431,7 +432,9 @@ function armarPortafolio(incluirNuevos = true) {
 }
 
 function entrarApp() {
-    ponerMarcaAgua(usuarioInterno && usuarioInterno.vence ? usuarioInterno : null);
+    const esInvitado = !!(usuarioInterno && usuarioInterno.vence);
+    ponerMarcaAgua(esInvitado ? usuarioInterno : null);
+    document.getElementById('avisoLegal').hidden = !esInvitado;
     armarPortafolio();
     Object.keys(CATALOGOS).forEach(k => {
         const cat = CATALOGOS[k];

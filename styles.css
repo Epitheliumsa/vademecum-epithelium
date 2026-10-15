@@ -983,3 +983,4 @@ body {
 
 /* Marca de agua del invitado (nombre del cliente sobre todas las pantallas) */
 #marcaAgua { position: fixed; inset: 0; pointer-events: none; z-index: 99999; background-repeat: repeat; }
+.aviso-legal { margin: 14px 4px 0; font-size: 11px; line-height: 1.45; color: #6a7f78; text-align: center; }
