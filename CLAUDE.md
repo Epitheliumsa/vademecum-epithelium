@@ -26,8 +26,9 @@
 ## Accesos de invitado (clientes externos con vencimiento)
 - Viven en `INVITADOS` de `app.js`: perfil Médico, con fecha de vencimiento (`vence`) y marca de agua tipo sello redondo (muy tenue, con su nombre) (el invitado lo lleva en todas las pantallas).
 - El pie fijo de protección de datos (© Epithelium S.A.) se muestra a **todos** los usuarios en todos los vademécums.
-- Los vademécums de cliente (portafolios) llevan el mismo sello con el **nombre del cliente**, tanto cuando el cliente entra a
-  su vademécum como cuando el equipo o un comercial abre su portafolio; al salir de esa pantalla desaparece.
+- Sello de seguridad: los **externos** (invitado, cliente y médico general) lo llevan en **todas** las pantallas (nombre del
+  invitado, nombre del cliente, o "Acceso médico autorizado"). El equipo y los comerciales solo lo ven al abrir el portafolio
+  de un cliente, con el nombre de ese cliente; al salir de esa pantalla desaparece.
 - En el inicio, "Lo Nuevo" va siempre de primero, para todos los tipos de usuario.
 - El repositorio es público: **solo se guarda la huella** PBKDF2-SHA256 (lenta, con sal e iteraciones propias de cada
   fila) de `usuario:clave`. La clave es aleatoria de 8 caracteres y se compara sin importar mayúsculas. El cifrado lento es
