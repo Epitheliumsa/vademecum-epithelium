@@ -26,7 +26,7 @@
       "Tamaño": 30,
       "Masa": "g",
       "Componentes": "Adapalene 0.1% + Clindamicina 2%",
-      "Indicación": "Gel para acné vulgar con acción antibacteriana.\n\nAcné vulgar inflamatorio y comedoniano, leve a moderado. El adapaleno, en su concentración comercial de referencia, normaliza la queratinización folicular, previniendo comedones; la clindamicina actúa como antibiótico frente a Cutibacterium acnes, reduciendo la inflamación.",
+      "Indicación": "Gel para acné vulgar con acción antibacteriana.\n\nAcné vulgar inflamatorio y comedoniano, leve a moderado. El adapaleno normaliza la queratinización folicular, previniendo comedones; la clindamicina actúa como antibiótico frente a Cutibacterium acnes, reduciendo la inflamación.",
       "Dosis Recomendada": "APLICACIÓN: de noche, sobre piel limpia y seca\nCANTIDAD: capa fina cubriendo toda la zona afectada, no solo las lesiones puntuales\nFRECUENCIA: inicial 1 vez cada 2-3 días la primera semana para evaluar tolerancia; luego 1 vez al día\nDuración estimada del tratamiento: resultados visibles a partir de 8-12 semanas; no prolongar la antibioticoterapia tópica más allá de 12 semanas sin reevaluación\nEvitar párpados, comisuras labiales y mucosas.\nFotoprotección (Protección Solar) FPS 50+ obligatoria durante el día, sin excepción.\n\nPRECAUCIONES\nEs esperable irritación, eritema y descamación leve durante las primeras semanas (efecto retinoide). El uso prolongado de clindamicina tópica en monoterapia favorece la resistencia bacteriana. Contraindicado en embarazo y lactancia. Evitar exposición solar sin protección adecuada.",
       "Etiquetas de producto": "Cliente"
     },
@@ -82,8 +82,8 @@
       "Tamaño": 120,
       "Masa": "ml",
       "Componentes": "Acido Retinoico 4% + Beta Estradiol 0.01% + D-Pantenol 1% + Desonida 0.015% + Irgasan (Triclosan) 0.6% + Ketoconazol 1% + Minoxidil 5% + Phytantriol 0.6% + Vitamina E 1%",
-      "Indicación": "Loción capilar — VERIFICAR CONCENTRACIÓN DE ÁCIDO RETINOICO.\n\nSEGÚN CRITERIO MÉDICO por concentración de uno o varios de sus componentes.\n\nFórmula capilar múltiple (minoxidil, ketoconazol, beta estradiol, desonida, irgasán, phytantriol, vitamina E) donde el ácido retinoico potenciaría la penetración de los demás activos. La concentración de ácido retinoico registrada (4%) es atípica y requiere verificación antes de confirmar la indicación completa.",
-      "Dosis Recomendada": "SEGÚN CRITERIO MÉDICO por concentración de uno o varios de sus componentes.\n\nAPLICACIÓN: no aplicar hasta confirmar la concentración de ácido retinoico con el área de desarrollo\nCANTIDAD: no aplicar hasta confirmar la concentración de ácido retinoico con el área de desarrollo\nFRECUENCIA: no aplicar hasta confirmar la concentración de ácido retinoico con el área de desarrollo\nDuración estimada del tratamiento: no aplicar hasta confirmar la concentración de ácido retinoico con el área de desarrollo\n\nPRECAUCIONES\nIMPORTANTE: la concentración de ácido retinoico registrada (4%) es 40 veces superior al máximo de referencia (0.1%). Se recomienda verificar este dato contra la fórmula real antes de generar cualquier indicación o dispensar el producto — podría tratarse de un error de captura (ej. 0.04%). Adicionalmente, el irgasán (triclosán) está por encima de su concentración máxima de referencia (0.6% vs. 0.3%), lo que también depende de la valoración médica que se realice y de la experiencia del médico tratante.",
+      "Indicación": "Loción capilar.\n\nSEGÚN CRITERIO MÉDICO por concentración de uno o varios de sus componentes.\n\nFórmula capilar múltiple (minoxidil, ketoconazol, beta estradiol, desonida, irgasán, phytantriol, vitamina E) donde el ácido retinoico potenciaría la penetración de los demás activos.",
+      "Dosis Recomendada": "SEGÚN CRITERIO MÉDICO por concentración de uno o varios de sus componentes.",
       "Etiquetas de producto": "Cliente"
     },
     {
@@ -250,7 +250,7 @@
       "Tamaño": 30,
       "Masa": "g",
       "Componentes": "Adapalene 0.1%",
-      "Indicación": "Gel para acné vulgar, concentración estándar.\n\nAcné vulgar comedoniano e inflamatorio, leve a moderado. El adapaleno, en su concentración comercial de referencia, normaliza la queratinización folicular y previene la formación de comedones, con buen perfil de tolerancia.",
+      "Indicación": "Gel para acné vulgar, concentración estándar.\n\nAcné vulgar comedoniano e inflamatorio, leve a moderado. El adapaleno normaliza la queratinización folicular y previene la formación de comedones, con buen perfil de tolerancia.",
       "Dosis Recomendada": "APLICACIÓN: de noche, sobre piel limpia y seca\nCANTIDAD: capa fina cubriendo toda la zona afectada, no solo las lesiones puntuales\nFRECUENCIA: inicial 1 vez cada 2-3 días la primera semana para evaluar tolerancia; luego 1 vez al día\nDuración estimada del tratamiento: resultados visibles a partir de 8-12 semanas; reevaluar antes de continuar\nEvitar párpados, comisuras labiales y mucosas.\nFotoprotección (Protección Solar) FPS 50+ obligatoria durante el día, sin excepción.\n\nPRECAUCIONES\nEs esperable irritación, eritema y descamación leve durante las primeras semanas (efecto retinoide). Contraindicado en embarazo y lactancia. Evitar exposición solar sin protección adecuada. No combinar con otros exfoliantes o retinoides en el mismo régimen.",
       "Etiquetas de producto": "Portafolio"
     },
@@ -264,7 +264,7 @@
       "Tamaño": 30,
       "Masa": "g",
       "Componentes": "Adapelene 0.3%",
-      "Indicación": "Gel con retinoide de concentración máxima comercial.\n\nAcné vulgar resistente, en pacientes con tolerancia previa demostrada a retinoides tópicos. El adapaleno, en su concentración comercial máxima de referencia (0.3%), normaliza de forma intensiva la queratinización folicular y previene la formación de comedones.",
+      "Indicación": "Gel con retinoide de concentración máxima comercial.\n\nAcné vulgar resistente, en pacientes con tolerancia previa demostrada a retinoides tópicos. El adapaleno normaliza de forma intensiva la queratinización folicular y previene la formación de comedones.",
       "Dosis Recomendada": "APLICACIÓN: de noche, sobre piel limpia y seca\nCANTIDAD: capa fina cubriendo toda la zona afectada, no solo las lesiones puntuales\nFRECUENCIA: inicial 1-2 veces por semana las primeras 2 semanas para evaluar tolerancia; aumentar de forma muy progresiva según respuesta\nDuración estimada del tratamiento: resultados visibles a partir de 8-12 semanas; reevaluar antes de continuar\nEvitar párpados, comisuras labiales y mucosas.\nFotoprotección (Protección Solar) FPS 30-50 durante el día.\n\nPRECAUCIONES\nEs esperable irritación, eritema y descamación leve durante las primeras semanas (efecto retinoide). No recomendado como primera experiencia con retinoides, por ser la concentración más alta disponible. Contraindicado en embarazo y lactancia. Evitar exposición solar sin protección adecuada. No combinar con otros exfoliantes o retinoides en el mismo régimen.",
       "Etiquetas de producto": "Cliente"
     },
@@ -362,7 +362,7 @@
       "Tamaño": 30,
       "Masa": "g",
       "Componentes": "Terbinafina 1%",
-      "Indicación": "Crema antifúngica tópica, concentración estándar.\n\nInfecciones fúngicas cutáneas superficiales: tiña corporal, tiña pedis, tiña cruris, candidiasis cutánea y pitiriasis versicolor. La terbinafina, en su concentración comercial de referencia, actúa como fungicida al inhibir la síntesis de ergosterol en la membrana del hongo.",
+      "Indicación": "Crema antifúngica tópica, concentración estándar.\n\nInfecciones fúngicas cutáneas superficiales: tiña corporal, tiña pedis, tiña cruris, candidiasis cutánea y pitiriasis versicolor. La terbinafina actúa como fungicida al inhibir la síntesis de ergosterol en la membrana del hongo.",
       "Dosis Recomendada": "APLICACIÓN: sobre piel limpia y seca\nCANTIDAD: capa fina cubriendo la zona afectada y bordes adyacentes\nFRECUENCIA: 1-2 veces al día\nDuración estimada del tratamiento: 1-2 semanas en tiñas cutáneas; hasta 4 semanas en tiña pedis\nContinuar unos días después de la resolución visible de lesiones para evitar recaída.\n\nPRECAUCIONES\nPuede causar irritación local leve. Evitar contacto con mucosas y ojos.",
       "Etiquetas de producto": "Portafolio"
     },
@@ -530,7 +530,7 @@
       "Tamaño": 30,
       "Masa": "g",
       "Componentes": "Tacrolimus 0.1%",
-      "Indicación": "Ungüento de tacrolimus, concentración estándar para adultos.\n\nVitíligo, especialmente en cara y cuello, donde el tacrolimus es de elección frente a corticoides por no producir atrofia cutánea con el uso prolongado que estas zonas requieren. También indicado en dermatitis atópica moderada a severa en adultos, como alternativa a corticoides tópicos. El tacrolimus, en su concentración comercial máxima de referencia, es un inhibidor de la calcineurina que modula la respuesta inmune local, favoreciendo la repigmentación de las máculas de vitíligo y controlando la inflamación en dermatitis atópica.",
+      "Indicación": "Ungüento de tacrolimus, concentración estándar para adultos.\n\nVitíligo, especialmente en cara y cuello, donde el tacrolimus es de elección frente a corticoides por no producir atrofia cutánea con el uso prolongado que estas zonas requieren. También indicado en dermatitis atópica moderada a severa en adultos, como alternativa a corticoides tópicos. El tacrolimus es un inhibidor de la calcineurina que modula la respuesta inmune local, favoreciendo la repigmentación de las máculas de vitíligo y controlando la inflamación en dermatitis atópica.",
       "Dosis Recomendada": "APLICACIÓN: sobre las máculas de vitíligo o la zona con dermatitis, en piel limpia y seca\nCANTIDAD: capa fina cubriendo exclusivamente el área afectada\nFRECUENCIA: 2 veces al día\nDuración estimada del tratamiento: tratamiento prolongado de varios meses; la repigmentación del vitíligo es gradual y puede tardar 6 meses o más en evidenciarse\nEs normal sentir ardor o calor leve en las primeras aplicaciones; suele disminuir con el uso continuado.\n\nPRECAUCIONES\nPuede producir sensación de ardor, calor o prurito transitorio al inicio del tratamiento. La FDA incluye una advertencia (\"caja negra\") sobre un riesgo teórico de malignidad a largo plazo con inhibidores de calcineurina tópicos, basada en casos aislados y datos de estudios en animales con dosis altas; la evidencia clínica acumulada en humanos no ha confirmado este riesgo, pero se recomienda minimizar la exposición solar de la zona tratada. No usar bajo oclusión. Evitar en infecciones cutáneas activas no tratadas en la zona. Esta concentración (0.1%) es exclusiva para adultos; no usar en niños, para quienes se reserva la concentración 0.03%.",
       "Etiquetas de producto": "Portafolio"
     }
