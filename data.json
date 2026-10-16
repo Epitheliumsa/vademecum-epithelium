@@ -135,7 +135,7 @@
   "Tamaño": 30,
   "Masa": "g",
   "Componentes": "Adapalene 0.1% + Clindamicina 2%",
-  "Indicación": "Gel para acné vulgar con acción antibacteriana.\n\nAcné vulgar inflamatorio y comedoniano, leve a moderado. El adapaleno, en su concentración comercial de referencia, normaliza la queratinización folicular, previniendo comedones; la clindamicina actúa como antibiótico frente a Cutibacterium acnes, reduciendo la inflamación.",
+  "Indicación": "Gel para acné vulgar con acción antibacteriana.\n\nAcné vulgar inflamatorio y comedoniano, leve a moderado. El adapaleno normaliza la queratinización folicular, previniendo comedones; la clindamicina actúa como antibiótico frente a Cutibacterium acnes, reduciendo la inflamación.",
   "Dosis Recomendada": "APLICACIÓN: de noche, sobre piel limpia y seca\nCANTIDAD: capa fina cubriendo toda la zona afectada, no solo las lesiones puntuales\nFRECUENCIA: inicial 1 vez cada 2-3 días la primera semana para evaluar tolerancia; luego 1 vez al día\nDuración estimada del tratamiento: resultados visibles a partir de 8-12 semanas; no prolongar la antibioticoterapia tópica más allá de 12 semanas sin reevaluación\nEvitar párpados, comisuras labiales y mucosas.\nFotoprotección FPS 50+ obligatoria durante el día, sin excepción.\n\nPRECAUCIONES\nEs esperable irritación, eritema y descamación leve durante las primeras semanas (efecto retinoide). El uso prolongado de clindamicina tópica en monoterapia favorece la resistencia bacteriana. Contraindicado en embarazo y lactancia. Evitar exposición solar sin protección adecuada.",
   "Etiquetas de producto": "Foco"
  },
@@ -430,7 +430,7 @@
   "Masa": "g",
   "Componentes": "Acido Fusidico 2.5%",
   "Indicación": "Crema antibacteriana tópica.\n\nSEGÚN CRITERIO MÉDICO por concentración de uno o varios de sus componentes.\n\nInfecciones cutáneas superficiales por bacterias grampositivas: impétigo, foliculitis, forunculosis, eritrasma, heridas y quemaduras superficiales sobreinfectadas. El ácido fusídico inhibe la síntesis proteica bacteriana y es especialmente activo frente a Staphylococcus aureus, incluidas cepas resistentes a otros antibióticos tópicos.",
-  "Dosis Recomendada": "SEGÚN CRITERIO MÉDICO por concentración de uno o varios de sus componentes.\n\nAPLICACIÓN: sobre piel limpia y seca, retirando previamente costras si las hay\nCANTIDAD: capa fina cubriendo la lesión y un margen de piel sana alrededor\nFRECUENCIA: 2-3 veces al día\nDuración estimada del tratamiento: 7-10 días; no prolongar más allá de este periodo sin reevaluación\nPuede cubrirse con apósito si la localización lo requiere.\n\nPRECAUCIONES\nEl ácido fusídico está por encima de su concentración comercial estándar (2.5% vs. 2%), sin evidencia establecida de mayor eficacia clínica. Su uso en este porcentaje depende de la valoración médica que se realice y de la experiencia del médico tratante. El uso prolongado o repetido de ácido fusídico tópico es un factor conocido de resistencia de Staphylococcus aureus, por lo que deben respetarse tratamientos cortos y evitarse el uso profiláctico. Suspender ante reacción de hipersensibilidad. Uso tópico externo únicamente; evitar contacto con ojos.",
+  "Dosis Recomendada": "SEGÚN CRITERIO MÉDICO por concentración de uno o varios de sus componentes.\n\nAPLICACIÓN: sobre piel limpia y seca, retirando previamente costras si las hay\nCANTIDAD: capa fina cubriendo la lesión y un margen de piel sana alrededor\nFRECUENCIA: 2-3 veces al día\nDuración estimada del tratamiento: 7-10 días; no prolongar más allá de este periodo sin reevaluación\nPuede cubrirse con apósito si la localización lo requiere.\n\nPRECAUCIONES\nSu uso en este porcentaje depende de la valoración médica que se realice y de la experiencia del médico tratante. El uso prolongado o repetido de ácido fusídico tópico es un factor conocido de resistencia de Staphylococcus aureus, por lo que deben respetarse tratamientos cortos y evitarse el uso profiláctico. Suspender ante reacción de hipersensibilidad. Uso tópico externo únicamente; evitar contacto con ojos.",
   "Etiquetas de producto": "Portafolio"
  },
  {
@@ -1591,7 +1591,7 @@
   "Tamaño": 30,
   "Masa": "g",
   "Componentes": "Adapalene 0.1%",
-  "Indicación": "Gel para acné vulgar, concentración estándar.\n\nAcné vulgar comedoniano e inflamatorio, leve a moderado. El adapaleno, en su concentración comercial de referencia, normaliza la queratinización folicular y previene la formación de comedones, con buen perfil de tolerancia.",
+  "Indicación": "Gel para acné vulgar, concentración estándar.\n\nAcné vulgar comedoniano e inflamatorio, leve a moderado. El adapaleno normaliza la queratinización folicular y previene la formación de comedones, con buen perfil de tolerancia.",
   "Dosis Recomendada": "APLICACIÓN: de noche, sobre piel limpia y seca\nCANTIDAD: capa fina cubriendo toda la zona afectada, no solo las lesiones puntuales\nFRECUENCIA: inicial 1 vez cada 2-3 días la primera semana para evaluar tolerancia; luego 1 vez al día\nDuración estimada del tratamiento: resultados visibles a partir de 8-12 semanas; reevaluar antes de continuar\nEvitar párpados, comisuras labiales y mucosas.\nFotoprotección FPS 50+ obligatoria durante el día, sin excepción.\n\nPRECAUCIONES\nEs esperable irritación, eritema y descamación leve durante las primeras semanas (efecto retinoide). Contraindicado en embarazo y lactancia. Evitar exposición solar sin protección adecuada. No combinar con otros exfoliantes o retinoides en el mismo régimen.",
   "Etiquetas de producto": "Portafolio"
  },
@@ -1634,7 +1634,7 @@
   "Masa": "ml",
   "Componentes": "Ciclopiroxolamina 10%",
   "Indicación": "Esmalte antimicótico de concentración reforzada.\n\nSEGÚN CRITERIO MÉDICO por concentración de uno o varios de sus componentes.\n\nOnicomicosis (infección fúngica de las uñas) leve a moderada, sin afectación de la matriz ungueal. La ciclopiroxolamina al 10% penetra la lámina ungueal ejerciendo acción antifúngica de amplio espectro.",
-  "Dosis Recomendada": "SEGÚN CRITERIO MÉDICO por concentración de uno o varios de sus componentes.\n\nAPLICACIÓN: sobre la uña afectada, limpia, seca y limada previamente\nCANTIDAD: una capa fina cubriendo toda la superficie de la uña\nFRECUENCIA: 1 vez al día (idealmente por la noche)\nDuración estimada del tratamiento: tratamiento prolongado de 6-12 meses según el crecimiento de la uña\nLimar la superficie de la uña una vez por semana antes de la aplicación.\nRetirar con quitaesmalte cada 7 días y reiniciar la aplicación.\n\nPRECAUCIONES\nLa concentración registrada (10%) está por encima de la referencia comercial estándar para esmaltes de ciclopirox (8%), sin evidencia clara de mayor eficacia por encima de ese nivel. Su uso en este porcentaje depende de la valoración médica que se realice y de la experiencia del médico tratante. Puede causar irritación leve del reborde periungueal.",
+  "Dosis Recomendada": "SEGÚN CRITERIO MÉDICO por concentración de uno o varios de sus componentes.\n\nAPLICACIÓN: sobre la uña afectada, limpia, seca y limada previamente\nCANTIDAD: una capa fina cubriendo toda la superficie de la uña\nFRECUENCIA: 1 vez al día (idealmente por la noche)\nDuración estimada del tratamiento: tratamiento prolongado de 6-12 meses según el crecimiento de la uña\nLimar la superficie de la uña una vez por semana antes de la aplicación.\nRetirar con quitaesmalte cada 7 días y reiniciar la aplicación.\n\nPRECAUCIONES\nSu uso en este porcentaje depende de la valoración médica que se realice y de la experiencia del médico tratante. Puede causar irritación leve del reborde periungueal.",
   "Etiquetas de producto": "Portafolio"
  },
  {
@@ -1648,7 +1648,7 @@
   "Masa": "ml",
   "Componentes": "Ciclopiroxolamina 10%",
   "Indicación": "Esmalte antimicótico de concentración reforzada.\n\nSEGÚN CRITERIO MÉDICO por concentración de uno o varios de sus componentes.\n\nOnicomicosis (infección fúngica de las uñas) leve a moderada, sin afectación de la matriz ungueal. La ciclopiroxolamina al 10% penetra la lámina ungueal ejerciendo acción antifúngica de amplio espectro.",
-  "Dosis Recomendada": "SEGÚN CRITERIO MÉDICO por concentración de uno o varios de sus componentes.\n\nAPLICACIÓN: sobre la uña afectada, limpia, seca y limada previamente\nCANTIDAD: una capa fina cubriendo toda la superficie de la uña\nFRECUENCIA: 1 vez al día (idealmente por la noche)\nDuración estimada del tratamiento: tratamiento prolongado de 6-12 meses según el crecimiento de la uña\nLimar la superficie de la uña una vez por semana antes de la aplicación.\nRetirar con quitaesmalte cada 7 días y reiniciar la aplicación.\n\nPRECAUCIONES\nLa concentración registrada (10%) está por encima de la referencia comercial estándar para esmaltes de ciclopirox (8%), sin evidencia clara de mayor eficacia por encima de ese nivel. Su uso en este porcentaje depende de la valoración médica que se realice y de la experiencia del médico tratante. Puede causar irritación leve del reborde periungueal.",
+  "Dosis Recomendada": "SEGÚN CRITERIO MÉDICO por concentración de uno o varios de sus componentes.\n\nAPLICACIÓN: sobre la uña afectada, limpia, seca y limada previamente\nCANTIDAD: una capa fina cubriendo toda la superficie de la uña\nFRECUENCIA: 1 vez al día (idealmente por la noche)\nDuración estimada del tratamiento: tratamiento prolongado de 6-12 meses según el crecimiento de la uña\nLimar la superficie de la uña una vez por semana antes de la aplicación.\nRetirar con quitaesmalte cada 7 días y reiniciar la aplicación.\n\nPRECAUCIONES\nSu uso en este porcentaje depende de la valoración médica que se realice y de la experiencia del médico tratante. Puede causar irritación leve del reborde periungueal.",
   "Etiquetas de producto": "Portafolio"
  },
  {
@@ -1661,7 +1661,7 @@
   "Tamaño": 15,
   "Masa": "ml",
   "Componentes": "Ciclopiroxolamina 8%",
-  "Indicación": "Esmalte antimicótico, concentración estándar.\n\nOnicomicosis (infección fúngica de las uñas) leve a moderada, sin afectación de la matriz ungueal. La ciclopiroxolamina, en su concentración comercial de referencia, penetra la lámina ungueal ejerciendo acción antifúngica de amplio espectro.",
+  "Indicación": "Esmalte antimicótico, concentración estándar.\n\nOnicomicosis (infección fúngica de las uñas) leve a moderada, sin afectación de la matriz ungueal. La ciclopiroxolamina penetra la lámina ungueal ejerciendo acción antifúngica de amplio espectro.",
   "Dosis Recomendada": "APLICACIÓN: sobre la uña afectada, limpia, seca y limada previamente\nCANTIDAD: una capa fina cubriendo toda la superficie de la uña\nFRECUENCIA: 1 vez al día (idealmente por la noche)\nDuración estimada del tratamiento: tratamiento prolongado de 6-12 meses según el crecimiento de la uña\nLimar la superficie de la uña una vez por semana antes de la aplicación.\nRetirar con quitaesmalte cada 7 días y reiniciar la aplicación.\n\nPRECAUCIONES\nPuede causar irritación leve del reborde periungueal. Suspender si aparece reacción de hipersensibilidad.",
   "Etiquetas de producto": "Foco"
  },
@@ -1675,7 +1675,7 @@
   "Tamaño": 5,
   "Masa": "ml",
   "Componentes": "Ciclopiroxolamina 8%",
-  "Indicación": "Esmalte antimicótico, concentración estándar.\n\nOnicomicosis (infección fúngica de las uñas) leve a moderada, sin afectación de la matriz ungueal. La ciclopiroxolamina, en su concentración comercial de referencia, penetra la lámina ungueal ejerciendo acción antifúngica de amplio espectro.",
+  "Indicación": "Esmalte antimicótico, concentración estándar.\n\nOnicomicosis (infección fúngica de las uñas) leve a moderada, sin afectación de la matriz ungueal. La ciclopiroxolamina penetra la lámina ungueal ejerciendo acción antifúngica de amplio espectro.",
   "Dosis Recomendada": "APLICACIÓN: sobre la uña afectada, limpia, seca y limada previamente\nCANTIDAD: una capa fina cubriendo toda la superficie de la uña\nFRECUENCIA: 1 vez al día (idealmente por la noche)\nDuración estimada del tratamiento: tratamiento prolongado de 6-12 meses según el crecimiento de la uña\nLimar la superficie de la uña una vez por semana antes de la aplicación.\nRetirar con quitaesmalte cada 7 días y reiniciar la aplicación.\n\nPRECAUCIONES\nPuede causar irritación leve del reborde periungueal. Suspender si aparece reacción de hipersensibilidad.",
   "Etiquetas de producto": "Portafolio"
  },
@@ -1690,7 +1690,7 @@
   "Masa": "ml",
   "Componentes": "Ciclopiroxolamina 8%",
   "Indicación": "Loción antimicótica de alta concentración — confirmar zona de aplicación.\n\nOnicomicosis o dermatofitosis de zonas de piel gruesa (palmas, plantas), donde puede requerirse una concentración de antifúngico mayor que en piel fina. La ciclopiroxolamina aporta acción antifúngica de amplio espectro.",
-  "Dosis Recomendada": "APLICACIÓN: sobre la zona afectada, limpia y seca\nCANTIDAD: capa fina cubriendo la zona afectada y bordes adyacentes\nFRECUENCIA: 1-2 veces al día\nDuración estimada del tratamiento: 2-4 semanas en piel; hasta varios meses si la intención es tratamiento ungueal\n\nPRECAUCIONES\nEsta concentración (8%) coincide con la referencia comercial para esmaltes de uña, pero aquí está formulada como loción; se recomienda confirmar si la aplicación prevista es sobre piel (donde 8% sería considerablemente más alto que la concentración cutánea habitual de 0.77%-1%, con mayor riesgo de irritación) o específicamente sobre la uña/reborde periungueal.",
+  "Dosis Recomendada": "APLICACIÓN: sobre la zona afectada, limpia y seca\nCANTIDAD: capa fina cubriendo la zona afectada y bordes adyacentes\nFRECUENCIA: 1-2 veces al día\nDuración estimada del tratamiento: 2-4 semanas en piel; hasta varios meses si la intención es tratamiento ungueal\n\nPRECAUCIONES\nSobre piel, esta concentración (8%) tiene mayor riesgo de irritación.",
   "Etiquetas de producto": "Portafolio"
  },
  {
@@ -2123,7 +2123,7 @@
   "Tamaño": 30,
   "Masa": "ml",
   "Componentes": "Mometasona Furoato 0.1%",
-  "Indicación": "Emulsión antiinflamatoria de potencia media, concentración estándar.\n\nDermatosis inflamatorias que responden a corticoides de potencia media: dermatitis atópica, dermatitis de contacto y eccema. El furoato de mometasona, en su concentración comercial de referencia, controla la inflamación, el prurito y la hiperproliferación cutánea.",
+  "Indicación": "Emulsión antiinflamatoria de potencia media, concentración estándar.\n\nDermatosis inflamatorias que responden a corticoides de potencia media: dermatitis atópica, dermatitis de contacto y eccema. El furoato de mometasona controla la inflamación, el prurito y la hiperproliferación cutánea.",
   "Dosis Recomendada": "APLICACIÓN: sobre piel limpia y seca\nCANTIDAD: capa fina cubriendo la zona afectada, sin oclusión salvo indicación médica expresa\nFRECUENCIA: 1 vez al día\nDuración estimada del tratamiento: no más de 2-4 semanas continuas; reevaluar antes de repetir ciclo\n\nPRECAUCIONES\nEl uso continuo prolongado o en grandes superficies puede causar atrofia cutánea y telangiectasias, especialmente en cara y pliegues. Contraindicado en infecciones cutáneas virales o micóticas no tratadas. Evitar en embarazo y lactancia sin indicación médica.",
   "Etiquetas de producto": "Portafolio"
  },
@@ -2221,7 +2221,7 @@
   "Tamaño": 15,
   "Masa": "g",
   "Componentes": "Terbinafina 1%",
-  "Indicación": "Crema antifúngica tópica, concentración estándar.\n\nInfecciones fúngicas cutáneas superficiales: tiña corporal, tiña pedis, tiña cruris, candidiasis cutánea y pitiriasis versicolor. La terbinafina, en su concentración comercial de referencia, actúa como fungicida al inhibir la síntesis de ergosterol en la membrana del hongo.",
+  "Indicación": "Crema antifúngica tópica, concentración estándar.\n\nInfecciones fúngicas cutáneas superficiales: tiña corporal, tiña pedis, tiña cruris, candidiasis cutánea y pitiriasis versicolor. La terbinafina actúa como fungicida al inhibir la síntesis de ergosterol en la membrana del hongo.",
   "Dosis Recomendada": "APLICACIÓN: sobre piel limpia y seca\nCANTIDAD: capa fina cubriendo la zona afectada y bordes adyacentes\nFRECUENCIA: 1-2 veces al día\nDuración estimada del tratamiento: 1-2 semanas en tiñas cutáneas; hasta 4 semanas en tiña pedis\nContinuar unos días después de la resolución visible de lesiones para evitar recaída.\n\nPRECAUCIONES\nPuede causar irritación local leve. Evitar contacto con mucosas y ojos.",
   "Etiquetas de producto": "Portafolio"
  },
@@ -2235,7 +2235,7 @@
   "Tamaño": 30,
   "Masa": "g",
   "Componentes": "Terbinafina 1%",
-  "Indicación": "Crema antifúngica tópica, concentración estándar.\n\nInfecciones fúngicas cutáneas superficiales: tiña corporal, tiña pedis, tiña cruris, candidiasis cutánea y pitiriasis versicolor. La terbinafina, en su concentración comercial de referencia, actúa como fungicida al inhibir la síntesis de ergosterol en la membrana del hongo.",
+  "Indicación": "Crema antifúngica tópica, concentración estándar.\n\nInfecciones fúngicas cutáneas superficiales: tiña corporal, tiña pedis, tiña cruris, candidiasis cutánea y pitiriasis versicolor. La terbinafina actúa como fungicida al inhibir la síntesis de ergosterol en la membrana del hongo.",
   "Dosis Recomendada": "APLICACIÓN: sobre piel limpia y seca\nCANTIDAD: capa fina cubriendo la zona afectada y bordes adyacentes\nFRECUENCIA: 1-2 veces al día\nDuración estimada del tratamiento: 1-2 semanas en tiñas cutáneas; hasta 4 semanas en tiña pedis\nContinuar unos días después de la resolución visible de lesiones para evitar recaída.\n\nPRECAUCIONES\nPuede causar irritación local leve. Evitar contacto con mucosas y ojos.",
   "Etiquetas de producto": "Portafolio"
  },
@@ -2278,7 +2278,7 @@
   "Masa": "g",
   "Componentes": "Terbinafina 5%",
   "Indicación": "Crema antifúngica tópica, concentración muy reforzada.\n\nSEGÚN CRITERIO MÉDICO por concentración de uno o varios de sus componentes.\n\nInfecciones fúngicas cutáneas superficiales resistentes: tiña corporal, tiña pedis, tiña cruris, candidiasis cutánea y pitiriasis versicolor. La terbinafina actúa como fungicida al inhibir la síntesis de ergosterol en la membrana del hongo.",
-  "Dosis Recomendada": "SEGÚN CRITERIO MÉDICO por concentración de uno o varios de sus componentes.\n\nAPLICACIÓN: sobre piel limpia y seca\nCANTIDAD: capa fina cubriendo la zona afectada y bordes adyacentes\nFRECUENCIA: 1-2 veces al día\nDuración estimada del tratamiento: 1-2 semanas en tiñas cutáneas; hasta 4 semanas en tiña pedis\nContinuar unos días después de la resolución visible de lesiones para evitar recaída.\n\nPRECAUCIONES\nLa terbinafina está 5 veces por encima de su concentración comercial estándar (5% vs. 1%) — no hay evidencia clínica que respalde mayor eficacia a esta concentración, y sí mayor riesgo de irritación local, dermatitis de contacto o sensibilización cutánea. Su uso en este porcentaje depende de la valoración médica que se realice y de la experiencia del médico tratante. Evitar contacto con mucosas y ojos. Uso tópico externo únicamente.",
+  "Dosis Recomendada": "SEGÚN CRITERIO MÉDICO por concentración de uno o varios de sus componentes.\n\nAPLICACIÓN: sobre piel limpia y seca\nCANTIDAD: capa fina cubriendo la zona afectada y bordes adyacentes\nFRECUENCIA: 1-2 veces al día\nDuración estimada del tratamiento: 1-2 semanas en tiñas cutáneas; hasta 4 semanas en tiña pedis\nContinuar unos días después de la resolución visible de lesiones para evitar recaída.\n\nPRECAUCIONES\nMayor riesgo de irritación local, dermatitis de contacto o sensibilización cutánea. Su uso en este porcentaje depende de la valoración médica que se realice y de la experiencia del médico tratante. Evitar contacto con mucosas y ojos. Uso tópico externo únicamente.",
   "Etiquetas de producto": "Portafolio"
  },
  {
@@ -3580,7 +3580,7 @@
   "Masa": "ml",
   "Componentes": "Clobetasol 0.05% + Minoxidil 5% + Acido Retinoico 0.025",
   "Indicación": "Loción capilar para alopecia androgenética.\n\nAlopecia androgenética con componente inflamatorio del cuero cabelludo. El minoxidil es el estimulante principal del crecimiento folicular; el clobetasol controla la inflamación de base; el ácido retinoico potencia la penetración del minoxidil.",
-  "Dosis Recomendada": "APLICACIÓN: de noche, sobre cuero cabelludo seco\nCANTIDAD: 1 ml (aprox. 1 gotero o pulverización) por aplicación, distribuido en las zonas de mayor caída/miniaturización\nFRECUENCIA: 1 vez al día\nDuración estimada del tratamiento: resultados visibles a partir de 3-4 meses; uso continuo mientras se busque mantener el efecto\nNo enjuagar tras la aplicación; dejar actuar toda la noche.\n\nPRECAUCIONES\nEl clobetasol está en su concentración de referencia (0.05%): aunque no excede el límite, por ser corticoide de clase I el uso continuo prolongado puede causar atrofia cutánea o foliculitis. Es esperable irritación o descamación leve del cuero cabelludo por el ácido retinoico. El minoxidil puede causar hipertricosis facial por contacto accidental. Contraindicado en embarazo y lactancia.",
+  "Dosis Recomendada": "APLICACIÓN: de noche, sobre cuero cabelludo seco\nCANTIDAD: 1 ml (aprox. 1 gotero o pulverización) por aplicación, distribuido en las zonas de mayor caída/miniaturización\nFRECUENCIA: 1 vez al día\nDuración estimada del tratamiento: resultados visibles a partir de 3-4 meses; uso continuo mientras se busque mantener el efecto\nNo enjuagar tras la aplicación; dejar actuar toda la noche.\n\nPRECAUCIONES\nEs esperable irritación o descamación leve del cuero cabelludo por el ácido retinoico. El minoxidil puede causar hipertricosis facial por contacto accidental. Contraindicado en embarazo y lactancia.",
   "Etiquetas de producto": "Transición-Impulso"
  },
  {
@@ -3677,7 +3677,7 @@
   "Tamaño": 30,
   "Masa": "g",
   "Componentes": "Metronidazol 1%",
-  "Indicación": "Gel/crema para rosácea.\n\nRosácea papulopustulosa y dermatitis perioral. El metronidazol, en su concentración comercial de referencia, reduce las pápulas y pústulas inflamatorias por su acción antiinflamatoria e inmunomoduladora.",
+  "Indicación": "Gel/crema para rosácea.\n\nRosácea papulopustulosa y dermatitis perioral. El metronidazol reduce las pápulas y pústulas inflamatorias por su acción antiinflamatoria e inmunomoduladora.",
   "Dosis Recomendada": "APLICACIÓN: sobre piel limpia y seca\nCANTIDAD: capa fina cubriendo toda la zona afectada\nFRECUENCIA: 1 vez al día\nDuración estimada del tratamiento: resultados visibles a partir de 3-4 semanas; el tratamiento de mantenimiento suele prolongarse varios meses\nEvitar los desencadenantes conocidos de la rosácea: sol, calor, alcohol, comidas picantes y cambios bruscos de temperatura.\n\nPRECAUCIONES\nPuede causar sequedad, ardor o prurito leve al inicio. La rosácea es una enfermedad crónica: la suspensión del tratamiento suele asociarse a recaída.",
   "Etiquetas de producto": "Portafolio"
  },
@@ -4055,7 +4055,7 @@
   "Tamaño": 120,
   "Masa": "ml",
   "Componentes": "Filtro UVA - UVB + Pantalla Solar + Resistente al Agua",
-  "Indicación": "Emulsión fotoprotectora SPF 50+ resistente al agua.\n\nFotoprotección de amplio espectro UVA/UVB en actividades con exposición a agua o sudoración intensa (natación, deporte al aire libre). La fórmula está descrita como sistema de filtro UVA-UVB con pantalla solar resistente al agua; no se detallan los filtros específicos en la composición registrada.",
+  "Indicación": "Emulsión fotoprotectora SPF 50+ resistente al agua.\n\nFotoprotección de amplio espectro UVA/UVB en actividades con exposición a agua o sudoración intensa (natación, deporte al aire libre).",
   "Dosis Recomendada": "APLICACIÓN: de día, sobre piel limpia y seca, 15-30 minutos antes de la exposición solar o el contacto con agua\nCANTIDAD: cantidad generosa y uniforme; como referencia, 2 mg/cm² (aprox. 1/4 de cucharadita para el rostro)\nFRECUENCIA: reaplicar cada 2 horas, y siempre después de nadar, sudar profusamente o secarse con toalla\nDuración estimada del tratamiento: uso continuo durante toda la actividad con exposición solar\n\"Resistente al agua\" no significa \"a prueba de agua\": siempre reaplicar después de nadar o secarse.\n\nPRECAUCIONES\nPuede causar reacción de hipersensibilidad a los filtros orgánicos. Evitar contacto con los ojos.",
   "Etiquetas de producto": "Portafolio"
  },
@@ -5105,7 +5105,7 @@
   "Tamaño": 30,
   "Masa": "g",
   "Componentes": "Ivermectina 1%",
-  "Indicación": "Crema/gel para rosácea.\n\nRosácea papulopustulosa. La ivermectina, en su concentración de referencia, reduce las pápulas y pústulas inflamatorias por su actividad frente a Demodex folliculorum (implicado en la fisiopatología de la rosácea) y por su acción antiinflamatoria directa.",
+  "Indicación": "Crema/gel para rosácea.\n\nRosácea papulopustulosa. La ivermectina reduce las pápulas y pústulas inflamatorias por su actividad frente a Demodex folliculorum (implicado en la fisiopatología de la rosácea) y por su acción antiinflamatoria directa.",
   "Dosis Recomendada": "APLICACIÓN: sobre piel limpia y seca\nCANTIDAD: capa fina cubriendo toda la zona afectada\nFRECUENCIA: 1 vez al día\nDuración estimada del tratamiento: resultados visibles a partir de 4 semanas; tratamiento de mantenimiento habitualmente 4 meses o más según respuesta\n\nPRECAUCIONES\nPuede causar sensación de ardor o sequedad leve al inicio. La rosácea es una enfermedad crónica: la suspensión del tratamiento suele asociarse a recaída. Evitar contacto con ojos y mucosas.",
   "Etiquetas de producto": "Portafolio"
  },
@@ -5119,7 +5119,7 @@
   "Tamaño": 30,
   "Masa": "g",
   "Componentes": "Ivermectina 1%",
-  "Indicación": "Crema/gel para rosácea.\n\nRosácea papulopustulosa. La ivermectina, en su concentración de referencia, reduce las pápulas y pústulas inflamatorias por su actividad frente a Demodex folliculorum (implicado en la fisiopatología de la rosácea) y por su acción antiinflamatoria directa.",
+  "Indicación": "Crema/gel para rosácea.\n\nRosácea papulopustulosa. La ivermectina reduce las pápulas y pústulas inflamatorias por su actividad frente a Demodex folliculorum (implicado en la fisiopatología de la rosácea) y por su acción antiinflamatoria directa.",
   "Dosis Recomendada": "APLICACIÓN: sobre piel limpia y seca\nCANTIDAD: capa fina cubriendo toda la zona afectada\nFRECUENCIA: 1 vez al día\nDuración estimada del tratamiento: resultados visibles a partir de 4 semanas; tratamiento de mantenimiento habitualmente 4 meses o más según respuesta\n\nPRECAUCIONES\nPuede causar sensación de ardor o sequedad leve al inicio. La rosácea es una enfermedad crónica: la suspensión del tratamiento suele asociarse a recaída. Evitar contacto con ojos y mucosas.",
   "Etiquetas de producto": "Portafolio"
  },
@@ -5315,7 +5315,7 @@
   "Tamaño": 30,
   "Masa": "g",
   "Componentes": "Tacrolimus 0.1%",
-  "Indicación": "Ungüento de tacrolimus, concentración estándar para adultos.\n\nVitíligo, especialmente en cara y cuello, donde el tacrolimus es de elección frente a corticoides por no producir atrofia cutánea con el uso prolongado que estas zonas requieren. También indicado en dermatitis atópica moderada a severa en adultos, como alternativa a corticoides tópicos. El tacrolimus, en su concentración comercial máxima de referencia, es un inhibidor de la calcineurina que modula la respuesta inmune local, favoreciendo la repigmentación de las máculas de vitíligo y controlando la inflamación en dermatitis atópica.",
+  "Indicación": "Ungüento de tacrolimus, concentración estándar para adultos.\n\nVitíligo, especialmente en cara y cuello, donde el tacrolimus es de elección frente a corticoides por no producir atrofia cutánea con el uso prolongado que estas zonas requieren. También indicado en dermatitis atópica moderada a severa en adultos, como alternativa a corticoides tópicos. El tacrolimus es un inhibidor de la calcineurina que modula la respuesta inmune local, favoreciendo la repigmentación de las máculas de vitíligo y controlando la inflamación en dermatitis atópica.",
   "Dosis Recomendada": "APLICACIÓN: sobre las máculas de vitíligo o la zona con dermatitis, en piel limpia y seca\nCANTIDAD: capa fina cubriendo exclusivamente el área afectada\nFRECUENCIA: 2 veces al día\nDuración estimada del tratamiento: tratamiento prolongado de varios meses; la repigmentación del vitíligo es gradual y puede tardar 6 meses o más en evidenciarse\nEs normal sentir ardor o calor leve en las primeras aplicaciones; suele disminuir con el uso continuado.\n\nPRECAUCIONES\nPuede producir sensación de ardor, calor o prurito transitorio al inicio del tratamiento. La FDA incluye una advertencia (\"caja negra\") sobre un riesgo teórico de malignidad a largo plazo con inhibidores de calcineurina tópicos, basada en casos aislados y datos de estudios en animales con dosis altas; la evidencia clínica acumulada en humanos no ha confirmado este riesgo, pero se recomienda minimizar la exposición solar de la zona tratada. No usar bajo oclusión. Evitar en infecciones cutáneas activas no tratadas en la zona. Esta concentración (0.1%) es exclusiva para adultos; no usar en niños, para quienes se reserva la concentración 0.03%.",
   "Etiquetas de producto": "Portafolio"
  },
@@ -5329,7 +5329,7 @@
   "Tamaño": 30,
   "Masa": "g",
   "Componentes": "Tacrolimus 0.1%",
-  "Indicación": "Ungüento de tacrolimus, concentración estándar para adultos.\n\nVitíligo, especialmente en cara y cuello, donde el tacrolimus es de elección frente a corticoides por no producir atrofia cutánea con el uso prolongado que estas zonas requieren. También indicado en dermatitis atópica moderada a severa en adultos, como alternativa a corticoides tópicos. El tacrolimus, en su concentración comercial máxima de referencia, es un inhibidor de la calcineurina que modula la respuesta inmune local, favoreciendo la repigmentación de las máculas de vitíligo y controlando la inflamación en dermatitis atópica.",
+  "Indicación": "Ungüento de tacrolimus, concentración estándar para adultos.\n\nVitíligo, especialmente en cara y cuello, donde el tacrolimus es de elección frente a corticoides por no producir atrofia cutánea con el uso prolongado que estas zonas requieren. También indicado en dermatitis atópica moderada a severa en adultos, como alternativa a corticoides tópicos. El tacrolimus es un inhibidor de la calcineurina que modula la respuesta inmune local, favoreciendo la repigmentación de las máculas de vitíligo y controlando la inflamación en dermatitis atópica.",
   "Dosis Recomendada": "APLICACIÓN: sobre las máculas de vitíligo o la zona con dermatitis, en piel limpia y seca\nCANTIDAD: capa fina cubriendo exclusivamente el área afectada\nFRECUENCIA: 2 veces al día\nDuración estimada del tratamiento: tratamiento prolongado de varios meses; la repigmentación del vitíligo es gradual y puede tardar 6 meses o más en evidenciarse\nEs normal sentir ardor o calor leve en las primeras aplicaciones; suele disminuir con el uso continuado.\n\nPRECAUCIONES\nPuede producir sensación de ardor, calor o prurito transitorio al inicio del tratamiento. La FDA incluye una advertencia (\"caja negra\") sobre un riesgo teórico de malignidad a largo plazo con inhibidores de calcineurina tópicos, basada en casos aislados y datos de estudios en animales con dosis altas; la evidencia clínica acumulada en humanos no ha confirmado este riesgo, pero se recomienda minimizar la exposición solar de la zona tratada. No usar bajo oclusión. Evitar en infecciones cutáneas activas no tratadas en la zona. Esta concentración (0.1%) es exclusiva para adultos; no usar en niños, para quienes se reserva la concentración 0.03%.",
   "Etiquetas de producto": "Portafolio"
  }
