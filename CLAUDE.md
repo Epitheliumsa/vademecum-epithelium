@@ -48,3 +48,7 @@
 - Límites: el sello del PDF es una capa visual (se puede recortar de una captura parcial, pero no se quita con "copiar texto");
   en Excel la franja y el aviso se pueden borrar a mano, quedan como disuasivo y rastro del nombre del cliente.
 
+## Origen de los datos (servidor de Ruta Comercial)
+- El administrador sube Vademecum_Epithelium y Vademecum_clientes desde **Bases de datos** en Ruta Comercial. El Vademécum pide primero
+  ahí los productos y el portafolio de cada cliente (`desdeServidor` en `app.js`) y, si no responde o no hay nada subido, usa
+  `data.json` y `portafolios/<huella>.json` publicados. Los clientes nuevos siguen necesitando su huella en `portafolios-index.json`.

@@ -34,6 +34,10 @@ let avisoLogin = '';         // mensaje que se muestra en el login (p. ej. acces
 
 const URL_DATOS = 'https://raw.githubusercontent.com/nanorsf/vademecum-epithelium/main/';
 
+// Los productos y los portafolios los sube el administrador desde "Bases de datos" de Ruta Comercial (servidor de Google).
+// Se piden primero allá; si no responde o no hay nada subido, se usan los archivos publicados con la app.
+const URL_SERVIDOR = 'https://script.google.com/macros/s/AKfycbwji7WhPpF2VhCRQETWXNFhF2PTAL8JP8z9SW-stsKdnjbyBa-KVucGCvm6seoTFLfl3Q/exec';
+
 let productos = [];
 let materiasPrimas = [];
 let categorias = {};
@@ -85,8 +89,23 @@ async function descargarJSON(archivo, esValido = d => Array.isArray(d) && d.leng
     return null;
 }
 
+async function desdeServidor(cuerpo, campo, esValido) {
+    const corte = new AbortController(), reloj = setTimeout(() => corte.abort(), 12000);
+    try {
+        const resp = await fetch(URL_SERVIDOR, { method: 'POST', signal: corte.signal, headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(cuerpo) });
+        const r = await resp.json();
+        if (r.ok && esValido(r[campo])) return r[campo];
+    } catch (error) {
+        console.warn('No se pudo traer del servidor:', error);
+    } finally { clearTimeout(reloj); }
+    return null;
+}
+const esPortafolio = d => d && Array.isArray(d.productos) && d.productos.length > 0;
+const datosPortafolio = async huella => await desdeServidor({ accion: 'vademecumPortafolio', huella }, 'portafolio', esPortafolio)
+    || await descargarJSON(`portafolios/${huella}.json`, d => d && Array.isArray(d.productos));
+
 async function cargarDatos() {
-    productos = await descargarJSON('data.json') || [];
+    productos = await desdeServidor({ accion: 'vademecumMaestro' }, 'productos', d => Array.isArray(d) && d.length > 100) || await descargarJSON('data.json') || [];
     productos.forEach(p => {
         p['Categoría del Producto'] = (p['Categoría del Producto'] || '').replace(/^Magistral de Pedido\s*\/\s*/, '');
     });
@@ -166,7 +185,7 @@ async function huellaCliente(usuario, clave) {
 }
 
 async function cargarPortafolio(huella) {
-    const datos = await descargarJSON(`portafolios/${huella}.json`, d => d && Array.isArray(d.productos));
+    const datos = await datosPortafolio(huella);
     if (!datos) return false;
     clienteNombre = datos.cliente;
     portafolioPropio = datos.productos;
@@ -634,7 +653,7 @@ function limpiarFiltros(k) {
 }
 
 async function abrirPortafolioDeCliente(huella, nombre) {
-    const datos = await descargarJSON(`portafolios/${huella}.json`, d => d && Array.isArray(d.productos));
+    const datos = await datosPortafolio(huella);
     if (!datos) {
         alert('No se pudo cargar el portafolio de este cliente. Revisa tu conexión e intenta de nuevo.');
         return;
