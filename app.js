@@ -1,6 +1,6 @@
 // CONFIGURACIÓN
 // Versión publicada: al cambiar, la app ofrece actualizarse (se genera junto con version.txt)
-const APP_VERSION = '202610152111';
+const APP_VERSION = '202610161929';
 
 // Usuarios internos de Epithelium. Los que tienen "zona" son comerciales y solo
 // ven el portafolio de los clientes de esa zona; los que no tienen zona ven el
@@ -24,7 +24,9 @@ const USUARIOS_INTERNOS = [
 // La clave es aleatoria de 8 caracteres (se escribe sin importar mayúsculas). Para retirar un acceso, se borra su fila.
 const INVITADOS = [
     { usuario: 'dermaplast', sal: '1684fd48ba2a42c2d5b5a13bab8b3443', iter: 300000, huella: 'ccd8c24740608f439a9c2ea40642d3195fbacf34e45c62e0589c81fbcdceabb3', tipo: 'medico', zona: null,
-      nombre: 'Centro Medico de Especialistas Dermaplast S.A.S.', detalle: 'Acceso personal', vence: '2026-11-30' }
+      nombre: 'Centro Medico de Especialistas Dermaplast S.A.S.', detalle: 'Acceso personal', vence: '2026-11-30' },
+    { usuario: 'scerquera', sal: '1fd166bba7c7cd33cad1e75a661c8b3e', iter: 300000, huella: 'b7734fb7e12138e5804883a695e1bdd690643948e243b5f2297bb03b18479314', tipo: 'medico', zona: null,
+      nombre: 'Sandra Janeth Cerquera', detalle: 'Acceso personal', vence: '2026-11-30' }
 ];
 let usuarioInterno = null;   // usuario interno con nombre (para el saludo)
 let avisoLogin = '';         // mensaje que se muestra en el login (p. ej. acceso vencido)
