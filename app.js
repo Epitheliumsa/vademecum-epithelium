@@ -1,6 +1,6 @@
 // CONFIGURACIÓN
 // Versión publicada: al cambiar, la app ofrece actualizarse (se genera junto con version.txt)
-const APP_VERSION = '202610161929';
+const APP_VERSION = '202610161938';
 
 // Usuarios internos de Epithelium. Los que tienen "zona" son comerciales y solo
 // ven el portafolio de los clientes de esa zona; los que no tienen zona ven el
@@ -22,11 +22,12 @@ const USUARIOS_INTERNOS = [
 // Invitados: clientes externos con acceso al perfil Médico, con vencimiento y marca de agua con su nombre.
 // El repositorio es público: aquí solo va la huella (PBKDF2-SHA256 lento y con sal de "usuario:clave"), nunca la clave.
 // La clave es aleatoria de 8 caracteres (se escribe sin importar mayúsculas). Para retirar un acceso, se borra su fila.
+// Si el invitado también es cliente, `portafolio` es la huella de su vademécum de cliente (portafolios/<huella>.json).
 const INVITADOS = [
     { usuario: 'dermaplast', sal: '1684fd48ba2a42c2d5b5a13bab8b3443', iter: 300000, huella: 'ccd8c24740608f439a9c2ea40642d3195fbacf34e45c62e0589c81fbcdceabb3', tipo: 'medico', zona: null,
       nombre: 'Centro Medico de Especialistas Dermaplast S.A.S.', detalle: 'Acceso personal', vence: '2026-11-30' },
     { usuario: 'scerquera', sal: '1fd166bba7c7cd33cad1e75a661c8b3e', iter: 300000, huella: 'b7734fb7e12138e5804883a695e1bdd690643948e243b5f2297bb03b18479314', tipo: 'medico', zona: null,
-      nombre: 'Sandra Janeth Cerquera', detalle: 'Acceso personal', vence: '2026-11-30' }
+      nombre: 'Sandra Janeth Cerquera', detalle: 'Acceso personal', vence: '2026-11-30', portafolio: '0adc1cc18e15aa88522b6480' }
 ];
 let usuarioInterno = null;   // usuario interno con nombre (para el saludo)
 let avisoLogin = '';         // mensaje que se muestra en el login (p. ej. acceso vencido)
@@ -210,6 +211,11 @@ async function buscarInvitado(usuario, clave) {
     return (await derivarClave(`${u}:${c}`, x.sal, x.iter)) === x.huella ? x : null;
 }
 
+// Invitado que además es cliente: se carga su vademécum de cliente para mostrarle ese botón en el inicio
+async function cargarPortafolioInvitado(x) {
+    if (x.portafolio) await cargarPortafolio(x.portafolio);
+}
+
 function iniciarSesionInvitado(x) {
     modoUsuario = x.tipo;
     zonaUsuario = null;
@@ -327,6 +333,7 @@ async function verificarAcceso() {
                     modoUsuario = inv.tipo;
                     zonaUsuario = null;
                     usuarioInterno = inv;
+                    await cargarPortafolioInvitado(inv);
                     return entrarApp();
                 }
                 avisoLogin = TEXTO_ACCESO_FINALIZADO;
@@ -378,6 +385,7 @@ async function verificarCodigo() {
                 return;
             }
             iniciarSesionInvitado(inv);
+            await cargarPortafolioInvitado(inv);
             errorMsg.textContent = '';
             return entrarApp();
         }
@@ -515,7 +523,7 @@ function entrarApp() {
     document.getElementById('pfSearchName').placeholder = textoBusqueda;
     const totalNuevos = productos.filter(p => p['Etiquetas de producto'] === 'Nuevo').length;
     document.getElementById('loNuevoTexto').textContent = `${totalNuevos} productos nuevos de Epithelium`;
-    document.getElementById('btnPortafolio').style.display = esCliente ? '' : 'none';
+    document.getElementById('btnPortafolio').style.display = (esCliente || (usuarioInterno && usuarioInterno.portafolio && portafolioPropio.length)) ? '' : 'none';
     const intro = document.getElementById('homeIntro');
     // Comerciales e internos con nombre: "Hola, <nombre>" y debajo su cargo o zona, igual que en Ruta Comercial
     if (!esCliente && usuarioInterno) {
