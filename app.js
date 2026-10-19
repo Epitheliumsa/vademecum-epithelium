@@ -17,7 +17,9 @@ const USUARIOS_INTERNOS = [
     // Logística: entran solo desde Ruta Comercial. Se guarda únicamente el código de acceso (SHA-256), no su clave
     { usuario: 'J.Arjona',  acceso: '87c883cb1dc60eeeb1f44b8cd783395d72f7c390593a9a97dfed9cff029711b0', tipo: 'equipo', zona: null, nombre: 'Javier Arjona', detalle: 'Coordinador Logístico' },
     { usuario: 'E.Ovalle',  acceso: 'ce7f5ae557bb5d72633b63e7366573b914d1967646bfdeb3b22e851d1cc060ad', tipo: 'equipo', zona: null, nombre: 'Eric Ovalle', detalle: 'Auxiliar de Domicilios y Mensajería' },
-    { usuario: 'D.Barrero', acceso: '0db57b165dd9406abd8a3740e969fe9a0a4baa8651d8d290966003f0ff131349', tipo: 'equipo', zona: null, nombre: 'Deelan Barrero', detalle: 'Auxiliar de Domicilios y Mensajería' }
+    { usuario: 'D.Barrero', acceso: '0db57b165dd9406abd8a3740e969fe9a0a4baa8651d8d290966003f0ff131349', tipo: 'equipo', zona: null, nombre: 'Deelan Barrero', detalle: 'Auxiliar de Domicilios y Mensajería' },
+    // Mercadeo: entra desde Ruta Comercial y ve todos los portafolios
+    { usuario: 'E.Rodriguez', acceso: 'edca2b16a4495d803a3ef65b27f3d729505bb7233d4eab5b76db54f28c61146e', tipo: 'equipo', zona: null, nombre: 'Erika Elena Rodriguez', detalle: 'Jefe de RRHH y Mercadeo' }
 ];
 // Invitados: clientes externos con acceso al perfil Médico, con vencimiento y marca de agua con su nombre.
 // El repositorio es público: aquí solo va la huella (PBKDF2-SHA256 lento y con sal de "usuario:clave"), nunca la clave.
