@@ -1,6 +1,6 @@
 // CONFIGURACIÓN
 // Versión publicada: al cambiar, la app ofrece actualizarse (se genera junto con version.txt)
-const APP_VERSION = '202610202021';
+const APP_VERSION = '202610231448';
 
 // Usuarios internos de Epithelium. Los que tienen "zona" son comerciales y solo
 // ven el portafolio de los clientes de esa zona; los que no tienen zona ven el
@@ -29,7 +29,9 @@ const INVITADOS = [
     { usuario: 'dermaplast', sal: '1684fd48ba2a42c2d5b5a13bab8b3443', iter: 300000, huella: 'ccd8c24740608f439a9c2ea40642d3195fbacf34e45c62e0589c81fbcdceabb3', tipo: 'medico', zona: null,
       nombre: 'Centro Medico de Especialistas Dermaplast S.A.S.', detalle: 'Acceso personal', vence: '2026-11-30' },
     { usuario: 'scerquera', sal: '1fd166bba7c7cd33cad1e75a661c8b3e', iter: 300000, huella: 'b7734fb7e12138e5804883a695e1bdd690643948e243b5f2297bb03b18479314', tipo: 'medico', zona: null,
-      nombre: 'Sandra Janeth Cerquera', detalle: 'Acceso personal', vence: '2026-11-30', portafolio: '0adc1cc18e15aa88522b6480' }
+      nombre: 'Sandra Janeth Cerquera', detalle: 'Acceso personal', vence: '2026-11-30', portafolio: '0adc1cc18e15aa88522b6480' },
+    { usuario: 'ecossio', sal: '7994d53cb2a7f19d18796b058b0d238f', iter: 300000, huella: '0c6030d0b6622cc20d2c7d2eaeea3ba7d22248872cd18cae5794fa982713e515', tipo: 'medico', zona: null,
+      nombre: 'Edgar Yarleyson Cossio Contrera', detalle: 'Acceso personal', vence: '2026-11-30', portafolio: 'd1121d754bb41f832b564089' }
 ];
 let usuarioInterno = null;   // usuario interno con nombre (para el saludo)
 let avisoLogin = '';         // mensaje que se muestra en el login (p. ej. acceso vencido)
