@@ -1,6 +1,6 @@
 // CONFIGURACIÓN
 // Versión publicada: al cambiar, la app ofrece actualizarse (se genera junto con version.txt)
-const APP_VERSION = '202610281232';
+const APP_VERSION = '202610281759';
 
 // Usuarios internos de Epithelium. Los que tienen "zona" son comerciales y solo
 // ven el portafolio de los clientes de esa zona; los que no tienen zona ven el
@@ -59,11 +59,14 @@ let modoUsuario = 'cliente';   // 'cliente' | 'medico' | 'equipo' | 'comercial'
 let zonaUsuario = null;        // zona del comercial (null = ve todas)
 
 // Vademécum de productos: el general de Epithelium y el portafolio propio de cada cliente
+// Las muestras (etiqueta "Muestras") solo las ven el equipo y los comerciales: ni clientes, ni médicos, ni invitados
+const productosVisibles = () => (modoUsuario === 'equipo' || modoUsuario === 'comercial') ? productos
+    : productos.filter(p => p['Etiquetas de producto'] !== 'Muestras');
 const CATALOGOS = {
     prod: {
         pantalla: 'mainScreen', tema: '',
         ids: { nombre: 'searchName', componentes: 'searchComponents', categoria: 'filterCategory', forma: 'filterFormula', etiqueta: 'filterEtiqueta', nuevo: 'btnNuevo', resultados: 'resultados' },
-        datos: () => productos, filtrados: [], soloNuevos: false
+        datos: () => productosVisibles(), filtrados: [], soloNuevos: false
     },
     port: {
         pantalla: 'portScreen', tema: 'theme-port',
