@@ -1,6 +1,6 @@
 // CONFIGURACIÓN
 // Versión publicada: al cambiar, la app ofrece actualizarse (se genera junto con version.txt)
-const APP_VERSION = '202610281759';
+const APP_VERSION = '202610281831';
 
 // Usuarios internos de Epithelium. Los que tienen "zona" son comerciales y solo
 // ven el portafolio de los clientes de esa zona; los que no tienen zona ven el
@@ -789,9 +789,10 @@ function mostrarResultados(k = 'prod') {
             separadorPuesto = true;
         }
         const esNuevo = p['Etiquetas de producto'] === 'Nuevo';
-        const color = colorProductoCat(p['Categoría del Producto']);
+        const esMuestra = p['Etiquetas de producto'] === 'Muestras';
+        const color = esMuestra ? null : colorProductoCat(p['Categoría del Producto']);   // las muestras llevan su propio color, sea cual sea su categoría
         const card = document.createElement('div');
-        card.className = (esNuevo ? 'producto-card es-nuevo' : 'producto-card') + (color ? ' mp-card' : '');
+        card.className = (esNuevo ? 'producto-card es-nuevo' : 'producto-card') + (esMuestra ? ' es-muestra' : '') + (color ? ' mp-card' : '');
         card.onclick = () => mostrarDetalle(p, cat.tema);
         const badge = p.nuevoEpithelium ? '<span class="badge-nuevo">NUEVO EPITHELIUM</span>' : (esNuevo ? '<span class="badge-nuevo">NUEVO</span>' : '');
         const barra = color ? `<span class="mp-barra" style="background:${rgbaHex(color, 0.55)}"></span>` : '';
@@ -802,19 +803,20 @@ function mostrarResultados(k = 'prod') {
 
 function temaModal(tema) {
     const box = document.querySelector('#modalDetail .modal-content');
-    box.classList.remove('theme-mp', 'theme-nuevo', 'theme-port');
+    box.classList.remove('theme-mp', 'theme-nuevo', 'theme-port', 'theme-muestra');
     box.style.background = '';
     box.style.borderTopColor = '';
     if (tema) box.classList.add(tema);
 }
 
 function mostrarDetalle(producto, tema = '') {
-    temaModal(producto['Etiquetas de producto'] === 'Nuevo' ? 'theme-nuevo' : tema);
+    const esMuestra = producto['Etiquetas de producto'] === 'Muestras';
+    temaModal(esMuestra ? 'theme-muestra' : producto['Etiquetas de producto'] === 'Nuevo' ? 'theme-nuevo' : tema);
     const modal = document.getElementById('modalDetail');
     const content = document.getElementById('detailContent');
     // Fondo tenue con el color de la categoría del producto
     const verEtiqueta = modoUsuario === 'equipo' || modoUsuario === 'comercial';
-    const color = colorProductoCat(producto['Categoría del Producto']);
+    const color = esMuestra ? null : colorProductoCat(producto['Categoría del Producto']);
     if (color) {
         const mc = document.querySelector('#modalDetail .modal-content');
         mc.style.background = fondoCategoria(color);
