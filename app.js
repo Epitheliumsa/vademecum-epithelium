@@ -1,6 +1,6 @@
 // CONFIGURACIÓN
 // Versión publicada: al cambiar, la app ofrece actualizarse (se genera junto con version.txt)
-const APP_VERSION = '202610302119';
+const APP_VERSION = '202610302121';
 
 // Usuarios internos de Epithelium. Los que tienen "zona" son comerciales y solo
 // ven el portafolio de los clientes de esa zona; los que no tienen zona ven el
@@ -35,7 +35,10 @@ const INVITADOS = [
     { usuario: 'farmaciainst', sal: '3a87b7d54c2e7b1f36ca5b647c15de0c', iter: 300000, huella: 'ac89560ae2638db01e6bdb30b7d3819072b1a9aca253e5717d36b102c9fe1b58', tipo: 'medico', zona: null,
       nombre: 'Farmacia Institucional', detalle: 'Acceso institucional', vence: '2026-11-30' },
     { usuario: 'npena', sal: '401b79d044df827bfe4a1259d721d05b', iter: 300000, huella: 'ae77f90be7c4567e4f239acd3e2a9a38803c8f201ef39e2f36d50ead3a321e9e', tipo: 'medico', zona: null,
-      nombre: 'Dr. Néstor Peña Rodriguez', detalle: 'Acceso personal', vence: '2026-11-30', portafolio: 'b37fbc991b082c7467ed88b8' }
+      nombre: 'Dr. Néstor Peña Rodriguez', detalle: 'Acceso personal', vence: '2026-11-30', portafolio: 'b37fbc991b082c7467ed88b8' },
+    // Con varias tiendas: `portafolios` (lista de huellas); en el inicio entra por la lista de sus clientes
+    { usuario: 'nhernandez', sal: '272a1d54c6784cca03989563b8d2fcad', iter: 300000, huella: '461a0e2d2bb8a4368296ab86cc6671a3d2e11dd14ca4a1636b89dd025b372ec5', tipo: 'medico', zona: null,
+      nombre: 'Dra. Natalia Hernandez Mantilla', detalle: 'Acceso personal', vence: '2026-11-30', portafolios: ['ebf1dcc8f814705f9180970c', 'e4d0056914bd30e3ac9916fe'] }
 ];
 let usuarioInterno = null;   // usuario interno con nombre (para el saludo)
 let avisoLogin = '';         // mensaje que se muestra en el login (p. ej. acceso vencido)
@@ -569,8 +572,10 @@ function entrarApp() {
     inicializarFiltrosMP();
     filtrarMP();
     const esCliente = modoUsuario === 'cliente';
-    const veClientes = (modoUsuario === 'equipo' || modoUsuario === 'comercial') && indiceClientes.length > 0;
+    const varias = !!(usuarioInterno && usuarioInterno.portafolios && usuarioInterno.portafolios.length);
+    const veClientes = ((modoUsuario === 'equipo' || modoUsuario === 'comercial') || varias) && indiceClientes.length > 0;
     document.getElementById('btnPortafolioClientes').style.display = veClientes ? '' : 'none';
+    document.getElementById('btnPortClientesTexto').textContent = varias ? 'Los vademécum de tus tiendas' : 'Consulta el portafolio de cualquier cliente';
     // El filtro de Etiqueta solo lo ven el equipo y los comerciales
     const verEtiqueta = modoUsuario === 'equipo' || modoUsuario === 'comercial';
     document.getElementById('filterEtiqueta').style.display = verEtiqueta ? '' : 'none';
@@ -659,6 +664,7 @@ function abrirPortafolio() {
 
 // Clientes que puede ver el usuario: el comercial solo los de su zona; el equipo, todos
 function clientesVisibles() {
+    if (modoUsuario === 'medico' && usuarioInterno && usuarioInterno.portafolios) return indiceClientes.filter(c => usuarioInterno.portafolios.includes(c.huella));
     return modoUsuario === 'comercial'
         ? indiceClientes.filter(c => c.zona === zonaUsuario)
         : indiceClientes;
@@ -672,7 +678,7 @@ function abrirListaClientes() {
     subtitulo.style.display = modoUsuario === 'comercial' ? '' : 'none';
     // Quien ve todas las zonas puede filtrar por una
     const selZona = document.getElementById('clZona');
-    selZona.style.display = modoUsuario === 'comercial' ? 'none' : '';
+    selZona.style.display = modoUsuario === 'equipo' ? '' : 'none';
     const zonas = [...new Set(indiceClientes.map(c => c.zona).filter(Boolean))].sort((a, b) => a.localeCompare(b, 'es', { sensitivity: 'base' }));
     selZona.innerHTML = '<option value="">Todas las zonas</option>' + zonas.map(z => `<option>${z}</option>`).join('');
     mostrarListaClientes();
