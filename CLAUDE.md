@@ -36,6 +36,16 @@
 - Entran por enlace `#invitado=usuario:clave` o escribiendo usuario y clave. Para retirar un acceso, se borra su fila.
 - La clave en claro solo se entrega al cliente y se anota en el maestro de accesos que recibe el usuario.
 - Límites conocidos: no hay control de equipos ni de cuántas veces se usa (la app es estática); el vencimiento usa el reloj del dispositivo.
+- **Crear un acceso (o cambiar su clave)**: `python3 herramientas/nuevo_invitado.py USUARIO "Nombre" [--portafolio HUELLA ...] [--vence AAAA-MM-DD] [--clave X]`.
+  Agrega o reemplaza la fila en `INVITADOS`, genera la clave y arma el instructivo PDF (con sello, sin fecha de vencimiento) y el
+  enlace con el mensaje de WhatsApp en `~/entregas`. Después: `sh actualizar-version.sh`, probar (enlace, usuario+clave, clave mala, vencido)
+  y publicar solo con el "sí" del usuario. Si ya se entregó una clave, usar `--clave` para conservarla (en `main` solo queda la huella).
+- Vademécum de cliente del invitado: `portafolio` (una tienda) o `portafolios` (varias). En ambos casos "Vademécum Cliente" entra **directo** al
+  portafolio (con varias, junta los productos de todas) y cada producto muestra **arriba a la derecha la tienda** a la que pertenece
+  (tarjeta y detalle); los nuevos de Epithelium no llevan etiqueta. Los clientes con usuario y clave propios no llevan esa etiqueta.
+- Accesos de invitado creados (todos vencen 2026-11-30, perfil Médico): dermaplast, scerquera (+ portafolio propio), ecossio (+ propio),
+  farmaciainst, npena (MD Support Ltda), nhernandez (Natalia Hernandez Mantilla + Bella Piel S.A.S.). Las claves en claro solo las tiene
+  el usuario y su archivo de enlace; el entorno de la sesión se reinicia y `~/entregas` se pierde: entregar los archivos con SendUserFile.
 
 ## Archivos para externos (PDF y Excel): sello y aviso de derechos
 - Todo **PDF o Excel que se entregue a un usuario externo** (cliente, médico o invitado) pasa antes por
@@ -52,3 +62,26 @@
 - El administrador sube Producto Terminado y Magistrales (juntos) y, aparte, las Materias primas desde **Bases de datos** en Ruta Comercial. El Vademécum pide primero
   ahí los productos y el portafolio de cada cliente (`desdeServidor` en `app.js`) y, si no responde o no hay nada subido, usa
   `data.json` y `portafolios/<huella>.json` publicados (materias primas: `materias-primas.json`). Los clientes nuevos siguen necesitando su huella en `portafolios-index.json`.
+
+## Textos visibles al cliente (Indicación y Dosis Recomendada)
+- No deben llevar notas internas: "verificar con desarrollo", "no se especificaron los porcentajes", "posible error de captura" ni
+  comparaciones con la concentración comercial ("está por encima de su concentración comercial estándar…"). Si una oración mezcla la
+  comparación con una advertencia de seguridad, se deja solo la advertencia. Decisiones ya tomadas: el encabezado "SEGÚN CRITERIO MÉDICO por
+  concentración…" y "Su uso en este porcentaje depende de la valoración médica…" se dejan; MP0005, MP0009 y MP0999 quedan con sus notas.
+- Al cambiar productos: propagar al maestro y a los portafolios (regla de arriba) y regenerar los Excel de carga.
+
+## Muestras (etiqueta "Muestras")
+- Productos con etiqueta `Muestras` (ej. MU0048 Minobit Z Cap): los ven **solo el equipo y los comerciales** (no médicos, clientes ni invitados),
+  van solo en el maestro (nunca en portafolios de clientes), con color amarillo propio y marca de agua oblicua "MUESTRA MÉDICA".
+  En Ruta Comercial salen en Entrega de Muestras > Muestra Médica (`EXTRAS` de `herramientas/productos.py` de ese repositorio).
+
+## Búsquedas con varios valores
+- Productos (nombre/código, solo equipo y comerciales): varios separados por coma (o por espacio si son códigos): "MP1107, MP1108".
+- Componente: varios separados por coma = productos que tienen **todos**. Materias primas: varios nombres por coma (cualquiera) y varios usos
+  por coma (todos). Tras la coma, la lista de sugerencias vuelve a salir.
+
+## Cargas a Odoo y al servidor
+- Plantilla de actualización de Odoo: columnas `id`, `default_code`, `name`, `indication`, `recommended_dosage`. El `id` se exporta de Odoo
+  (`__export__.product_template_…`); **nunca** importar con el id vacío (crea duplicados).
+- Los Excel `Vademecum_Epithelium.xlsx` (12 columnas) y `Vademecum_clientes.xlsx` (Cliente + 12 + Zona de Vendedor) se suben en Ruta Comercial >
+  Bases de datos: el servidor manda sobre `data.json`/`portafolios/`, así que un cambio de datos solo se ve cuando se sube el Excel.
