@@ -85,3 +85,12 @@
   (`__export__.product_template_…`); **nunca** importar con el id vacío (crea duplicados).
 - Los Excel `Vademecum_Epithelium.xlsx` (12 columnas) y `Vademecum_clientes.xlsx` (Cliente + 12 + Zona de Vendedor) se suben en Ruta Comercial >
   Bases de datos: el servidor manda sobre `data.json`/`portafolios/`, así que un cambio de datos solo se ve cuando se sube el Excel.
+
+## Vista previa antes de publicar (carpeta `pruebas/`)
+- Para que el usuario vea un cambio **antes** de publicarlo: `python3 herramientas/vista_previa.py [rama] [--servidor]` copia esa rama a `pruebas/` (franja naranja
+  "VISTA PREVIA", sin service worker, sesiones aparte `vp_vademecum_*`, botones para entrar como Equipo, Médico y Comercial). Se ve en
+  https://epitheliumsa.github.io/vademecum-epithelium/pruebas/ cuando `pruebas/` se sube a `main`.
+- Por defecto usa los datos de la rama (no los del servidor de Ruta Comercial); con `--servidor` lee los reales.
+- Subir `pruebas/` a `main` toca **solo `pruebas/`** (y la herramienta): la app oficial de la raíz no cambia hasta el "sí, publica". Pedir confirmación como siempre.
+- `sw.js` ignora `/pruebas/` (no cachea ni mezcla la vista previa con la app oficial).
+- Flujo: trabajar en una rama → `vista_previa.py` → (con su confirmación) subir **solo** `pruebas/` → el usuario revisa → ajustes (se repite) → con su "sí, publica" se publica la rama.

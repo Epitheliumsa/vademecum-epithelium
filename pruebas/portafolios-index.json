@@ -1,0 +1,362 @@
+[
+ {
+  "cliente": "Aesthetic One S.A.S.",
+  "huella": "7fe53d1d6e0c3cb3a45335c9",
+  "zona": "Zona Desarrollo"
+ },
+ {
+  "cliente": "Bella Piel S.A.S.",
+  "huella": "e4d0056914bd30e3ac9916fe",
+  "zona": "Clientes Especiales"
+ },
+ {
+  "cliente": "Boston Medical Group de Colombia S.A.S.",
+  "huella": "9ff5cc7e3da951d0a4cfb95c",
+  "zona": "Zona Desarrollo"
+ },
+ {
+  "cliente": "Boutique de la Piel - Giovanny German Avila Camacho",
+  "huella": "b5037d0aa5137f8b46d3c086",
+  "zona": "Zona Norte"
+ },
+ {
+  "cliente": "Cintia Lorena Gutierrez Cuyato",
+  "huella": "e939e8be7f72bab0f86692e0",
+  "zona": "Zona Desarrollo"
+ },
+ {
+  "cliente": "Ciruderma S.A.S.",
+  "huella": "4cfab82968ef71e41b0e4d6b",
+  "zona": "Zona Norte"
+ },
+ {
+  "cliente": "Consulterapia Integral S.A.S",
+  "huella": "503a2af6f0a32278da1efa3c",
+  "zona": "Zona Norte"
+ },
+ {
+  "cliente": "Consultorio Medical Care, Edinson Andres Sanchez Preciado",
+  "huella": "d0b723309988f4729e20928b",
+  "zona": "Zona Desarrollo"
+ },
+ {
+  "cliente": "Darwin Alejandro Lazo",
+  "huella": "9f980e6e20c508e643b3a32e",
+  "zona": "Zona Sur"
+ },
+ {
+  "cliente": "Derm@pharmacy S.A.S.",
+  "huella": "4902bfc6b5c59641c3503d51",
+  "zona": "Zona Sur"
+ },
+ {
+  "cliente": "Dermainnova S.A.S",
+  "huella": "e2939b2cdd272f778847e4ac",
+  "zona": "Zona Sur"
+ },
+ {
+  "cliente": "Dermaskin Cuidado para La Piel - Dra Claudia Milena Arango",
+  "huella": "dc9c7f5454840faf44f4ca4d",
+  "zona": "Zona Sur"
+ },
+ {
+  "cliente": "Dermatologia y Medicina Estetica- Dra. Erika Molina/Deladieth Serrano Rincon",
+  "huella": "a5c8efb0c158d9f68e3b4c50",
+  "zona": "Zona Norte"
+ },
+ {
+  "cliente": "Dermatology S.A.S.",
+  "huella": "27f84ee9e3e7996c8398c962",
+  "zona": "Zona Sur"
+ },
+ {
+  "cliente": "Dermavitta S.A.S.",
+  "huella": "1cfd3057e9536029f95d44ac",
+  "zona": "Zona Desarrollo"
+ },
+ {
+  "cliente": "Dermocosmeticos de Santander S.A.S.",
+  "huella": "55c3c3246fbf4212faa74967",
+  "zona": "Zona Norte"
+ },
+ {
+  "cliente": "Dermoestetica Dra. Claudia Figueroa",
+  "huella": "771aa884c4f4233914fe44e1",
+  "zona": "Zona Sur"
+ },
+ {
+  "cliente": "Dermomedic Health, Carlos David Garcia Gomez",
+  "huella": "dbbc3f099f4f4a874a338c75",
+  "zona": "Zona Sur"
+ },
+ {
+  "cliente": "Dermoscience Group S.A.S",
+  "huella": "8b23314884cb9b4b8b08e642",
+  "zona": "Zona Norte"
+ },
+ {
+  "cliente": "Dr. Carlos Fernando Quintero",
+  "huella": "343f18984000c406717961cd",
+  "zona": "Zona Sur"
+ },
+ {
+  "cliente": "Dr. Felix Duran Gonzalez",
+  "huella": "02f2233adca146c172abad2f",
+  "zona": "Zona Norte"
+ },
+ {
+  "cliente": "Dr. Juan Sebastian Suarez",
+  "huella": "42b0bfd98ef84038fac0a404",
+  "zona": "Zona Norte"
+ },
+ {
+  "cliente": "Dra. Carol Mesa Dermatologa",
+  "huella": "bbea6c4b3b9f4166f45b0f9a",
+  "zona": "Zona Norte"
+ },
+ {
+  "cliente": "Dra. Diana Elizabeth Reyes Bocanegra",
+  "huella": "3b0b1b56164f497ede259bf2",
+  "zona": "Zona Norte"
+ },
+ {
+  "cliente": "Dra. Natalia Hernandez Mantilla",
+  "huella": "ebf1dcc8f814705f9180970c",
+  "zona": "Zona Norte"
+ },
+ {
+  "cliente": "Dra. Tatiana Leal S.A.S.",
+  "huella": "4105bb62c6c1c7f172be5193",
+  "zona": "Zona Norte"
+ },
+ {
+  "cliente": "Drogueria Dermatos - Dr. Andres Mauricio Ardila",
+  "huella": "cc620287db5bc42e79e818e0",
+  "zona": "Zona Sur"
+ },
+ {
+  "cliente": "Drogueria Farmapiel",
+  "huella": "def562e1c8d8b60db8ba9502",
+  "zona": "Zona Sur"
+ },
+ {
+  "cliente": "Drogueria Mary Helena, Diana Milena Gonzalez Navarrete",
+  "huella": "9b6da66c7f49cc746663349e",
+  "zona": "Zona Norte"
+ },
+ {
+  "cliente": "Edgar Yarleyson Cossio Contrera",
+  "huella": "d1121d754bb41f832b564089",
+  "zona": "Zona Desarrollo"
+ },
+ {
+  "cliente": "Epidermica S.A.S.- Dra. Alejandra Zuluaga",
+  "huella": "9ae6334cba820118b54d0ecf",
+  "zona": "Zona Norte"
+ },
+ {
+  "cliente": "Es Vital S.A.S.",
+  "huella": "0d8d66a916a048ea4d6e85f8",
+  "zona": "Zona Norte"
+ },
+ {
+  "cliente": "FQ Glow - Francy Milena Quiceno Jimenez",
+  "huella": "ed0951cacffbf459b6475750",
+  "zona": "Zona Norte"
+ },
+ {
+  "cliente": "Farmadescuentos Co S.A.S",
+  "huella": "f4f434dcef93d550833adadc",
+  "zona": "Zona Desarrollo"
+ },
+ {
+  "cliente": "Farmapiel Garzon - Carolina Andrea Murcia Alvarez",
+  "huella": "6121db2d1c77c670f0c72bd8",
+  "zona": "Zona Sur"
+ },
+ {
+  "cliente": "Francy Carolina Aponte Vega",
+  "huella": "eab50189586109627228b451",
+  "zona": "Zona Sur"
+ },
+ {
+  "cliente": "GG & Piel S.A.S.",
+  "huella": "7d820ca4203a4fc3f429cb40",
+  "zona": "Zona Norte"
+ },
+ {
+  "cliente": "Gema Clinic - Dra. Lizeth Daniela Caro Suarez",
+  "huella": "0e3ec927da566f15f93cd876",
+  "zona": "Zona Norte"
+ },
+ {
+  "cliente": "Grupo Filoderm S.A.S.",
+  "huella": "74c798bba0b28bd97b043530",
+  "zona": "Zona Norte"
+ },
+ {
+  "cliente": "Guapa Glow - Sandra Carolina Moreno",
+  "huella": "be61d39a7f42917773b50a6a",
+  "zona": "Zona Norte"
+ },
+ {
+  "cliente": "Hair and Skin Evolution - Carolina Palacio S.A.S.",
+  "huella": "58a6646b45d040b5c95f9c04",
+  "zona": "Zona Norte"
+ },
+ {
+  "cliente": "Hernandez Pardo O D J D S en C",
+  "huella": "af8916493ed1f9ba54e2a3b6",
+  "zona": "Zona Norte"
+ },
+ {
+  "cliente": "Isis Gyo By Dra. Karen Acosta",
+  "huella": "342bb3c130dd1dd24e102016",
+  "zona": "Zona Norte"
+ },
+ {
+  "cliente": "John Alexander Alarcon Mejia",
+  "huella": "8ef70f90b2e197d749da6b05",
+  "zona": "Zona Norte"
+ },
+ {
+  "cliente": "Kaili S.A.S.",
+  "huella": "2c42a4dc251349de04082b09",
+  "zona": "Clientes Especiales"
+ },
+ {
+  "cliente": "Koa Depil IPS Esthetic S.A.S.",
+  "huella": "3cb9f38484ae405e17182894",
+  "zona": "Zona Norte"
+ },
+ {
+  "cliente": "La Piel del Maestro S.A.S.",
+  "huella": "f4717a211ad102d419946dac",
+  "zona": "Zona Sur"
+ },
+ {
+  "cliente": "Laskin S.A.",
+  "huella": "90914185da5df7f3b089e75b",
+  "zona": "Zona Sur"
+ },
+ {
+  "cliente": "Luz Angela Quiñonez Sanchez",
+  "huella": "f76cf8150efad7aa7385cb3d",
+  "zona": "Zona Desarrollo"
+ },
+ {
+  "cliente": "L´Essence Clinique S.A.S.",
+  "huella": "ec2d4a55df27c0616532038c",
+  "zona": "Zona Desarrollo"
+ },
+ {
+  "cliente": "MD Support Ltda",
+  "huella": "b37fbc991b082c7467ed88b8",
+  "zona": "Clientes Especiales"
+ },
+ {
+  "cliente": "Magispiel, Carlos Felipe Palacio Alba",
+  "huella": "a6c0bba94c86764fb8c0e6bd",
+  "zona": "Zona Desarrollo"
+ },
+ {
+  "cliente": "Mas Piel LTDA",
+  "huella": "fa69814410786a1da4f4fc8d",
+  "zona": "Zona Sur"
+ },
+ {
+  "cliente": "Natalia Ospina Daza",
+  "huella": "1ee240f1b9d58d8a170fe525",
+  "zona": "Zona Norte"
+ },
+ {
+  "cliente": "Niks Leip - Maria de Jesus Acosta Correa",
+  "huella": "fa333dc69a1d8ad1da9afe25",
+  "zona": "Zona Norte"
+ },
+ {
+  "cliente": "Nova lup, Karen Viviana Rojas Chala",
+  "huella": "e4bd322db7f7a0b6382ab1ff",
+  "zona": "Zona Desarrollo"
+ },
+ {
+  "cliente": "Oner Daniel Dorado Fuentes",
+  "huella": "123c815ad086d8fa96aab623",
+  "zona": "Zona Sur"
+ },
+ {
+  "cliente": "Paola Andrea Alvarez Escobar",
+  "huella": "5f5fb0330f480658c9d5c115",
+  "zona": "Zona Sur"
+ },
+ {
+  "cliente": "Paola Morales Medicina y Laser S.A.S.",
+  "huella": "51c47de59d1d3d2167eceee0",
+  "zona": "Zona Norte"
+ },
+ {
+  "cliente": "PielMedic Cabello y Piel - Antony Adrian Aguilar Erazo",
+  "huella": "61ba66c5b210491539613392",
+  "zona": "Zona Sur"
+ },
+ {
+  "cliente": "Plenufarma - Dr. Jesus Enrique Vasquez",
+  "huella": "edf62aab41f27887d1fae027",
+  "zona": "Zona Sur"
+ },
+ {
+  "cliente": "Plenusalud S.A.S.",
+  "huella": "feb0389ddadc2792cc1885ac",
+  "zona": "Zona Sur"
+ },
+ {
+  "cliente": "Productos Neodermis S.A.S.",
+  "huella": "600b9c730401c64010c48f9e",
+  "zona": "Zona Sur"
+ },
+ {
+  "cliente": "RYA Group S.A.S",
+  "huella": "00e2021a78b58b63a78e91d3",
+  "zona": "Zona Norte"
+ },
+ {
+  "cliente": "Sandra Janeth Cerquera",
+  "huella": "0adc1cc18e15aa88522b6480",
+  "zona": "Zona Desarrollo"
+ },
+ {
+  "cliente": "Suad Helena Quessep Alcove",
+  "huella": "3b382193b065195325f53187",
+  "zona": "Zona Norte"
+ },
+ {
+  "cliente": "Tienda Dermocosmetica Bella Piel- Juanita Ceron Delgado",
+  "huella": "8b7e55e7a0565558617351c9",
+  "zona": "Zona Sur"
+ },
+ {
+  "cliente": "Tuderma S.A.S.",
+  "huella": "dfb58366b171ad65249c9c3a",
+  "zona": "Zona Sur"
+ },
+ {
+  "cliente": "Vitalderma S.A.S.",
+  "huella": "39d67dc85d24e516e4503bbb",
+  "zona": "Zona Sur"
+ },
+ {
+  "cliente": "Yelenca Ortega Zamora",
+  "huella": "bd43778d19ff0dcbbcab61e1",
+  "zona": "Zona Desarrollo"
+ },
+ {
+  "cliente": "Yesica Mireya Ayala Huertas",
+  "huella": "3d34773517337a7c301fbfb4",
+  "zona": "Zona Norte"
+ },
+ {
+  "cliente": "Yleana del Valle Alford Gavidia",
+  "huella": "8ee100a576bf68936ef4d349",
+  "zona": "Zona Sur"
+ }
+]
