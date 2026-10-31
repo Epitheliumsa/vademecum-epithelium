@@ -1,6 +1,6 @@
 // CONFIGURACIÓN
 // Versión publicada: al cambiar, la app ofrece actualizarse (se genera junto con version.txt)
-const APP_VERSION = '202610302115';
+const APP_VERSION = '202610302119';
 
 // Usuarios internos de Epithelium. Los que tienen "zona" son comerciales y solo
 // ven el portafolio de los clientes de esa zona; los que no tienen zona ven el
@@ -35,7 +35,7 @@ const INVITADOS = [
     { usuario: 'farmaciainst', sal: '3a87b7d54c2e7b1f36ca5b647c15de0c', iter: 300000, huella: 'ac89560ae2638db01e6bdb30b7d3819072b1a9aca253e5717d36b102c9fe1b58', tipo: 'medico', zona: null,
       nombre: 'Farmacia Institucional', detalle: 'Acceso institucional', vence: '2026-11-30' },
     { usuario: 'npena', sal: '401b79d044df827bfe4a1259d721d05b', iter: 300000, huella: 'ae77f90be7c4567e4f239acd3e2a9a38803c8f201ef39e2f36d50ead3a321e9e', tipo: 'medico', zona: null,
-      nombre: 'Dr. Néstor Peña Rodriguez', detalle: 'Acceso personal', vence: '2026-11-30' }
+      nombre: 'Dr. Néstor Peña Rodriguez', detalle: 'Acceso personal', vence: '2026-11-30', portafolio: 'b37fbc991b082c7467ed88b8' }
 ];
 let usuarioInterno = null;   // usuario interno con nombre (para el saludo)
 let avisoLogin = '';         // mensaje que se muestra en el login (p. ej. acceso vencido)
