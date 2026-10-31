@@ -1,6 +1,6 @@
 // CONFIGURACIÓN
 // Versión publicada: al cambiar, la app ofrece actualizarse (se genera junto con version.txt)
-const APP_VERSION = '202610302205';
+const APP_VERSION = '202610302206';
 
 // Usuarios internos de Epithelium. Los que tienen "zona" son comerciales y solo
 // ven el portafolio de los clientes de esa zona; los que no tienen zona ven el
@@ -264,7 +264,11 @@ async function cargarPortafolioInvitado(x) {
         }
         clienteNombre = '';
         portafolioPropio = todos;
-    } else if (x.portafolio) await cargarPortafolio(x.portafolio);
+    } else if (x.portafolio && await cargarPortafolio(x.portafolio)) {
+        // Un solo vademécum: también dice a qué tienda pertenece
+        const tienda = clienteNombre;
+        portafolioPropio = portafolioPropio.map(p => ({ ...p, tienda }));
+    }
 }
 
 function iniciarSesionInvitado(x) {
