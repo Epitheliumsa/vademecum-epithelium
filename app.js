@@ -1,6 +1,6 @@
 // CONFIGURACIÓN
 // Versión publicada: al cambiar, la app ofrece actualizarse (se genera junto con version.txt)
-const APP_VERSION = '202610301930';
+const APP_VERSION = '202610301933';
 
 // Usuarios internos de Epithelium. Los que tienen "zona" son comerciales y solo
 // ven el portafolio de los clientes de esa zona; los que no tienen zona ven el
@@ -498,7 +498,7 @@ function sugerirComponentes(inputId, listaId) {
         lista.appendChild(option);
     });
 }
-[['searchComponents', 'dlComponentes'], ['pfSearchComponents', 'pfDlComponentes']].forEach(([inp, dl]) =>
+[['searchComponents', 'dlComponentes'], ['pfSearchComponents', 'pfDlComponentes'], ['mpSearchUso', 'dlUsos']].forEach(([inp, dl]) =>
     document.getElementById(inp).addEventListener('input', () => sugerirComponentes(inp, dl)));
 
 // "Acido Glicolico 12%" -> "Acido Glicolico"
@@ -876,13 +876,15 @@ function inicializarFiltrosMP() {
 }
 
 function filtrarMP() {
-    const searchName = normalizar(document.getElementById('mpSearchName').value);
-    const searchUso = normalizar(document.getElementById('mpSearchUso').value);
+    // Varias materias primas a la vez separadas por coma (cualquiera de ellas); varios usos separados por coma (deben cumplirse todos)
+    const terminosName = normalizar(document.getElementById('mpSearchName').value).split(/[,;]/).map(t => t.trim());
+    const terminosUso = normalizar(document.getElementById('mpSearchUso').value).split(/[,;]/).map(t => t.trim()).filter(Boolean);
+    if (terminosName.length > 1) terminosName.splice(0, terminosName.length, ...terminosName.filter(Boolean));
     const filterCategoria = document.getElementById('mpFilterEtiqueta').value;
     materiasPrimasFiltradas = materiasPrimas.filter(m => {
-        const matchName = normalizar(m['Nombre']).includes(searchName);
+        const matchName = terminosName.some(t => normalizar(m['Nombre']).includes(t));
         const textoUso = normalizar(m['Uso Terapéutico y Cosmético'] + ' ' + m['Identificación Técnica']);
-        const matchUso = !searchUso || textoUso.includes(searchUso);
+        const matchUso = terminosUso.every(t => textoUso.includes(t));
         const matchCategoria = !filterCategoria || m['Categoria Principal'] === filterCategoria || m['Categoria Secundaria'] === filterCategoria;
         return matchName && matchUso && matchCategoria;
     });
