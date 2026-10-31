@@ -120,7 +120,7 @@ async function cargarDatos() {
     });
     productos.sort(compararProductos);
     console.log(`✅ ${productos.length} productos cargados`);
-    materiasPrimas = await descargarJSON('materias-primas.json') || [];
+    materiasPrimas = await desdeServidor({ accion: 'vademecumMateriasPrimas' }, 'materiasprimas', d => Array.isArray(d) && d.length > 50) || await descargarJSON('materias-primas.json') || [];
     console.log(`✅ ${materiasPrimas.length} materias primas cargadas`);
     categorias = await descargarJSON('categorias.json', d => d && typeof d === 'object') || {};
     indiceClientes = await descargarJSON('portafolios-index.json') || [];
