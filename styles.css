@@ -1027,3 +1027,10 @@ body.con-aviso-legal .screen { padding-bottom: calc(var(--pie-alto, 64px) + 8px)
 }
 .modal-content.theme-muestra #detailContent h2,
 .modal-content.theme-muestra #detailContent > strong { color: #7a4a00; }
+
+/* Vademécum Producto Terminado */
+.home-btn.home-btn-pt { border-left-color: #0f8a84; background: linear-gradient(135deg, #ffffff 60%, #dff3f1 100%); }
+.home-btn.home-btn-pt svg { background: linear-gradient(135deg, #0b5c58, #2bb3aa); }
+.home-btn.home-btn-pt .home-btn-text strong { color: #0b6b66; }
+#ptScreen .header, #ptScreen .header::before { background: linear-gradient(135deg, #0b5c58, #1d9c94); }
+#ptScreen .filters input:focus, #ptScreen .filters select:focus { border-color: #0f8a84; box-shadow: 0 0 5px rgba(15, 138, 132, 0.35); }

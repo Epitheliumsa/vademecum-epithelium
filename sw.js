@@ -27,7 +27,7 @@ const APP_SHELL = [
 ];
 
 // Datos que sí se guardan (se actualizan cuando hay conexión)
-const DATOS = ['data.json', 'materias-primas.json', 'categorias.json', 'categorias-productos.json', 'portafolios-index.json'];
+const DATOS = ['data.json', 'producto-terminado.json', 'materias-primas.json', 'categorias.json', 'categorias-productos.json', 'portafolios-index.json'];
 
 self.addEventListener('install', event => {
     event.waitUntil((async () => {
