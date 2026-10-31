@@ -1034,3 +1034,7 @@ body.con-aviso-legal .screen { padding-bottom: calc(var(--pie-alto, 64px) + 8px)
 .home-btn.home-btn-pt .home-btn-text strong { color: #0b6b66; }
 #ptScreen .header, #ptScreen .header::before { background: linear-gradient(135deg, #0b5c58, #1d9c94); }
 #ptScreen .filters input:focus, #ptScreen .filters select:focus { border-color: #0f8a84; box-shadow: 0 0 5px rgba(15, 138, 132, 0.35); }
+
+/* Saludo en dos líneas: la hora del día y debajo el nombre */
+.home-saludo .saludo-hora { display: block; font-size: 15px; font-weight: 500; color: #4a6a9c; }
+.home-saludo .saludo-nombre { display: block; font-size: 22px; font-weight: 700; line-height: 1.2; }

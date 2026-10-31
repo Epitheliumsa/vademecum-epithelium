@@ -590,8 +590,8 @@ function entrarApp() {
         intro.textContent = '';
         const saludo = document.createElement('span');
         saludo.className = 'home-saludo';
-        saludo.dataset.nombre = usuarioInterno.nombre;
-        saludo.textContent = `${saludoHora()}, ${usuarioInterno.nombre}`;
+        saludo.innerHTML = `<span class="saludo-hora"></span><span class="saludo-nombre"></span>`;
+        saludo.querySelector('.saludo-nombre').textContent = usuarioInterno.nombre;
         const detalle = document.createElement('small');
         detalle.textContent = usuarioInterno.detalle;
         saludo.appendChild(detalle);
@@ -606,8 +606,8 @@ function entrarApp() {
     if (saludoTexto) {
         const saludo = document.createElement('span');
         saludo.className = 'home-saludo';
-        saludo.dataset.nombre = saludoTexto;
-        saludo.textContent = `${saludoHora()}, ${saludoTexto}`;
+        saludo.innerHTML = `<span class="saludo-hora"></span><span class="saludo-nombre"></span>`;
+        saludo.querySelector('.saludo-nombre').textContent = saludoTexto;
         intro.prepend(saludo);
     }
     irInicio();
@@ -619,8 +619,8 @@ function saludoHora() {
     return h >= 5 && h < 12 ? 'Buenos días' : h >= 12 && h < 18 ? 'Buenas tardes' : 'Buenas noches';
 }
 function pintarSaludo() {
-    const s = document.querySelector('#homeIntro .home-saludo');
-    if (s && s.dataset.nombre) s.firstChild.nodeValue = `${saludoHora()}, ${s.dataset.nombre}`;
+    const s = document.querySelector('#homeIntro .saludo-hora');
+    if (s) s.textContent = `${saludoHora()},`;
 }
 
 function irInicio() {
