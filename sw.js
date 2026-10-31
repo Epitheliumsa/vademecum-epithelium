@@ -4,7 +4,7 @@
 // se guarda, para que el aviso de "versión nueva" siga siendo exacto.
 // La VERSION la actualiza actualizar-version.sh en cada publicación: al cambiar, se
 // borra la caché vieja y la app nunca se queda pegada en una versión anterior.
-const VERSION = '202610302206';
+const VERSION = '202610302217';
 const CACHE = 'vademecum-' + VERSION;
 
 // Archivos de la app (se guardan al instalar)
@@ -62,6 +62,9 @@ self.addEventListener('fetch', event => {
 
     // Solo gestionamos lo del mismo sitio; lo externo (p. ej. GitHub raw) pasa directo.
     if (url.origin !== self.location.origin) return;
+
+    // La vista previa (carpeta pruebas/) no pasa por el service worker ni toca la caché de la app oficial.
+    if (url.pathname.includes('/pruebas/')) return;
 
     // version.txt y portafolios de cliente: siempre a la red, nunca desde caché.
     if (esVersion(url) || esPortafolio(url)) return;
