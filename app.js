@@ -1,6 +1,6 @@
 // CONFIGURACIÓN
 // Versión publicada: al cambiar, la app ofrece actualizarse (se genera junto con version.txt)
-const APP_VERSION = '202610302106';
+const APP_VERSION = '202610302111';
 
 // Usuarios internos de Epithelium. Los que tienen "zona" son comerciales y solo
 // ven el portafolio de los clientes de esa zona; los que no tienen zona ven el
@@ -590,7 +590,8 @@ function entrarApp() {
         intro.textContent = '';
         const saludo = document.createElement('span');
         saludo.className = 'home-saludo';
-        saludo.textContent = `Hola, ${usuarioInterno.nombre}`;
+        saludo.dataset.nombre = usuarioInterno.nombre;
+        saludo.textContent = `${saludoHora()}, ${usuarioInterno.nombre}`;
         const detalle = document.createElement('small');
         detalle.textContent = usuarioInterno.detalle;
         saludo.appendChild(detalle);
@@ -599,19 +600,31 @@ function entrarApp() {
     }
     intro.textContent = '¿Qué quieres consultar?';
     let saludoTexto = '';
-    if (esCliente) saludoTexto = `Hola, ${clienteNombre}`;
+    if (esCliente) saludoTexto = clienteNombre;
     else if (modoUsuario === 'comercial') saludoTexto = `Comercial · ${zonaUsuario}`;
     else if (modoUsuario === 'equipo') saludoTexto = 'Equipo Epithelium';
     if (saludoTexto) {
         const saludo = document.createElement('span');
         saludo.className = 'home-saludo';
-        saludo.textContent = saludoTexto;
+        saludo.dataset.nombre = saludoTexto;
+        saludo.textContent = `${saludoHora()}, ${saludoTexto}`;
         intro.prepend(saludo);
     }
     irInicio();
 }
 
+// Saludo según la hora de Bogotá: 5:00-11:59 buenos días, 12:00-17:59 buenas tardes, el resto buenas noches
+function saludoHora() {
+    const h = Number(new Intl.DateTimeFormat('en-US', { hour: 'numeric', hour12: false, timeZone: 'America/Bogota' }).format(new Date())) % 24;
+    return h >= 5 && h < 12 ? 'Buenos días' : h >= 12 && h < 18 ? 'Buenas tardes' : 'Buenas noches';
+}
+function pintarSaludo() {
+    const s = document.querySelector('#homeIntro .home-saludo');
+    if (s && s.dataset.nombre) s.firstChild.nodeValue = `${saludoHora()}, ${s.dataset.nombre}`;
+}
+
 function irInicio() {
+    pintarSaludo();
     mostrarPantalla('homeScreen');
 }
 
