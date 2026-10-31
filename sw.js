@@ -4,7 +4,7 @@
 // se guarda, para que el aviso de "versión nueva" siga siendo exacto.
 // La VERSION la actualiza actualizar-version.sh en cada publicación: al cambiar, se
 // borra la caché vieja y la app nunca se queda pegada en una versión anterior.
-const VERSION = '202610301933';
+const VERSION = '202610301941';
 const CACHE = 'vademecum-' + VERSION;
 
 // Archivos de la app (se guardan al instalar)
@@ -27,7 +27,7 @@ const APP_SHELL = [
 ];
 
 // Datos que sí se guardan (se actualizan cuando hay conexión)
-const DATOS = ['data.json', 'materias-primas.json', 'categorias.json', 'categorias-productos.json', 'portafolios-index.json'];
+const DATOS = ['data.json', 'producto-terminado.json', 'materias-primas.json', 'categorias.json', 'categorias-productos.json', 'portafolios-index.json'];
 
 self.addEventListener('install', event => {
     event.waitUntil((async () => {
