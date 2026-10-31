@@ -1,6 +1,6 @@
 // CONFIGURACIÓN
 // Versión publicada: al cambiar, la app ofrece actualizarse (se genera junto con version.txt)
-const APP_VERSION = '202610302157';
+const APP_VERSION = '202610302205';
 
 // Usuarios internos de Epithelium. Los que tienen "zona" son comerciales y solo
 // ven el portafolio de los clientes de esa zona; los que no tienen zona ven el
@@ -254,8 +254,17 @@ async function buscarInvitado(usuario, clave) {
 }
 
 // Invitado que además es cliente: se carga su vademécum de cliente para mostrarle ese botón en el inicio
+// Con varias tiendas (`portafolios`) se juntan todos los productos en un solo portafolio y cada tarjeta dice a qué tienda pertenece
 async function cargarPortafolioInvitado(x) {
-    if (x.portafolio) await cargarPortafolio(x.portafolio);
+    if (x.portafolios && x.portafolios.length) {
+        const todos = [];
+        for (const huella of x.portafolios) {
+            const datos = await datosPortafolio(huella);
+            if (datos) datos.productos.forEach(p => todos.push({ ...p, tienda: datos.cliente }));
+        }
+        clienteNombre = '';
+        portafolioPropio = todos;
+    } else if (x.portafolio) await cargarPortafolio(x.portafolio);
 }
 
 function iniciarSesionInvitado(x) {
@@ -573,7 +582,7 @@ function entrarApp() {
     filtrarMP();
     const esCliente = modoUsuario === 'cliente';
     const varias = !!(usuarioInterno && usuarioInterno.portafolios && usuarioInterno.portafolios.length);
-    const veClientes = ((modoUsuario === 'equipo' || modoUsuario === 'comercial') || varias) && indiceClientes.length > 0;
+    const veClientes = (modoUsuario === 'equipo' || modoUsuario === 'comercial') && indiceClientes.length > 0;
     document.getElementById('btnPortafolioClientes').style.display = veClientes ? '' : 'none';
     document.getElementById('btnPortClientesTexto').textContent = varias ? 'Los vademécum de tus tiendas' : 'Consulta el portafolio de cualquier cliente';
     // El filtro de Etiqueta solo lo ven el equipo y los comerciales
@@ -588,7 +597,9 @@ function entrarApp() {
     document.getElementById('ptSearchName').placeholder = textoBusqueda;
     const totalNuevos = productos.filter(p => p['Etiquetas de producto'] === 'Nuevo').length;
     document.getElementById('loNuevoTexto').textContent = `${totalNuevos} productos nuevos de Epithelium`;
-    document.getElementById('btnPortafolio').style.display = (esCliente || (usuarioInterno && usuarioInterno.portafolio && portafolioPropio.length)) ? '' : 'none';
+    document.getElementById('btnPortafolio').style.display = (esCliente || (usuarioInterno && (usuarioInterno.portafolio || varias) && portafolioPropio.length)) ? '' : 'none';
+    const subPort = document.querySelector('#btnPortafolio small');
+    if (subPort) subPort.textContent = varias ? 'Los productos de tus tiendas' : 'Los productos de tu vademécum propio';
     const intro = document.getElementById('homeIntro');
     // Comerciales e internos con nombre: "Hola, <nombre>" y debajo su cargo o zona, igual que en Ruta Comercial
     if (!esCliente && usuarioInterno) {
@@ -860,7 +871,7 @@ function mostrarResultados(k = 'prod') {
         card.onclick = () => mostrarDetalle(p, cat.tema);
         const badge = p.nuevoEpithelium ? '<span class="badge-nuevo">NUEVO EPITHELIUM</span>' : (esNuevo ? '<span class="badge-nuevo">NUEVO</span>' : '');
         const barra = color ? `<span class="mp-barra" style="background:${rgbaHex(color, 0.55)}"></span>` : '';
-        card.innerHTML = `${barra}<h3>${p['Nombre']}${badge}</h3>${p.nombreEpithelium ? lineaEpithelium(p.nombreEpithelium) : ''}${p['Componentes'] ? `<p><strong>Componentes:</strong> ${p['Componentes']}</p>` : ''}<p><strong>Forma:</strong> ${p['Forma Farmacéutica']}</p>${p['Categoría del Producto'] ? `<p><strong>Categoría:</strong> ${p['Categoría del Producto']}</p>` : ''}${p['Indicación'] ? `<p style="font-size: 12px; color: #999; margin-top: 8px;">${p['Indicación'].substring(0, 100)}...</p>` : ''}`;
+        card.innerHTML = `${barra}${p.tienda ? `<div class="tienda-fila"><span class="tienda-tag">${p.tienda}</span></div>` : ''}<h3>${p['Nombre']}${badge}</h3>${p.nombreEpithelium ? lineaEpithelium(p.nombreEpithelium) : ''}${p['Componentes'] ? `<p><strong>Componentes:</strong> ${p['Componentes']}</p>` : ''}<p><strong>Forma:</strong> ${p['Forma Farmacéutica']}</p>${p['Categoría del Producto'] ? `<p><strong>Categoría:</strong> ${p['Categoría del Producto']}</p>` : ''}${p['Indicación'] ? `<p style="font-size: 12px; color: #999; margin-top: 8px;">${p['Indicación'].substring(0, 100)}...</p>` : ''}`;
         container.appendChild(card);
     });
 }
@@ -886,7 +897,7 @@ function mostrarDetalle(producto, tema = '') {
         mc.style.background = fondoCategoria(color);
         mc.style.borderTopColor = color;
     }
-    content.innerHTML = `<h2>${producto['Nombre']}</h2>${producto.nombreEpithelium ? lineaEpithelium(producto.nombreEpithelium) : ''}${producto['Componentes'] ? `<strong>Componentes</strong><p>${producto['Componentes'].replace(/\n/g, '<br>')}</p>` : ''}<strong>Especificaciones</strong><p>${producto['Categoría del Producto'] ? `<strong>Categoría:</strong> ${producto['Categoría del Producto']}<br>` : ''}<strong>Forma:</strong> ${producto['Forma Farmacéutica']}<br><strong>Presentación:</strong> ${producto['Presentación Farmacéutica']}<br><strong>Tamaño:</strong> ${producto['Tamaño']} ${producto['Masa']}</p>${producto['Indicación'] ? `<strong>Indicación</strong><p>${producto['Indicación'].replace(/\n/g, '<br>')}</p>` : ''}${producto['Dosis Recomendada'] ? `<strong>Dosis Recomendada</strong><p>${producto['Dosis Recomendada'].replace(/\n/g, '<br>')}</p>` : ''}<strong>Referencia Interna</strong><p>${producto['Referencia Interna']}</p>${(verEtiqueta && producto['Etiquetas de producto']) ? `<strong>Etiqueta</strong><p><span class="producto-label">${producto.nuevoEpithelium ? 'Nuevo Epithelium' : producto['Etiquetas de producto']}</span></p>` : ''}`;
+    content.innerHTML = `<h2>${producto['Nombre']}</h2>${producto.tienda ? `<div class="tienda-fila"><span class="tienda-tag">${producto.tienda}</span></div>` : ''}${producto.nombreEpithelium ? lineaEpithelium(producto.nombreEpithelium) : ''}${producto['Componentes'] ? `<strong>Componentes</strong><p>${producto['Componentes'].replace(/\n/g, '<br>')}</p>` : ''}<strong>Especificaciones</strong><p>${producto['Categoría del Producto'] ? `<strong>Categoría:</strong> ${producto['Categoría del Producto']}<br>` : ''}<strong>Forma:</strong> ${producto['Forma Farmacéutica']}<br><strong>Presentación:</strong> ${producto['Presentación Farmacéutica']}<br><strong>Tamaño:</strong> ${producto['Tamaño']} ${producto['Masa']}</p>${producto['Indicación'] ? `<strong>Indicación</strong><p>${producto['Indicación'].replace(/\n/g, '<br>')}</p>` : ''}${producto['Dosis Recomendada'] ? `<strong>Dosis Recomendada</strong><p>${producto['Dosis Recomendada'].replace(/\n/g, '<br>')}</p>` : ''}<strong>Referencia Interna</strong><p>${producto['Referencia Interna']}</p>${(verEtiqueta && producto['Etiquetas de producto']) ? `<strong>Etiqueta</strong><p><span class="producto-label">${producto.nuevoEpithelium ? 'Nuevo Epithelium' : producto['Etiquetas de producto']}</span></p>` : ''}`;
     modal.classList.add('active');
 }
 
