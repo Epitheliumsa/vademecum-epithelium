@@ -1,6 +1,6 @@
 // CONFIGURACIÓN
 // Versión publicada: al cambiar, la app ofrece actualizarse (se genera junto con version.txt)
-const APP_VERSION = '202610281831';
+const APP_VERSION = '202610301912';
 
 // Usuarios internos de Epithelium. Los que tienen "zona" son comerciales y solo
 // ven el portafolio de los clientes de esa zona; los que no tienen zona ven el
@@ -120,7 +120,7 @@ async function cargarDatos() {
     });
     productos.sort(compararProductos);
     console.log(`✅ ${productos.length} productos cargados`);
-    materiasPrimas = await descargarJSON('materias-primas.json') || [];
+    materiasPrimas = await desdeServidor({ accion: 'vademecumMateriasPrimas' }, 'materiasprimas', d => Array.isArray(d) && d.length > 50) || await descargarJSON('materias-primas.json') || [];
     console.log(`✅ ${materiasPrimas.length} materias primas cargadas`);
     categorias = await descargarJSON('categorias.json', d => d && typeof d === 'object') || {};
     indiceClientes = await descargarJSON('portafolios-index.json') || [];
