@@ -46,6 +46,7 @@ const URL_SERVIDOR = 'https://script.google.com/macros/s/AKfycbwji7WhPpF2VhCRQET
 
 let productos = [];
 let materiasPrimas = [];
+let productosTerminados = [];
 let categorias = {};
 let coloresProducto = {};
 let materiasPrimasFiltradas = [];
@@ -67,6 +68,11 @@ const CATALOGOS = {
         pantalla: 'mainScreen', tema: '',
         ids: { nombre: 'searchName', componentes: 'searchComponents', categoria: 'filterCategory', forma: 'filterFormula', etiqueta: 'filterEtiqueta', nuevo: 'btnNuevo', resultados: 'resultados' },
         datos: () => productosVisibles(), filtrados: [], soloNuevos: false
+    },
+    pt: {
+        pantalla: 'ptScreen', tema: '',
+        ids: { nombre: 'ptSearchName', componentes: 'ptSearchComponents', categoria: 'ptFilterCategory', forma: 'ptFilterFormula', etiqueta: 'ptFilterEtiqueta', nuevo: 'ptBtnNuevo', resultados: 'ptResultados' },
+        datos: () => productosTerminados, filtrados: [], soloNuevos: false
     },
     port: {
         pantalla: 'portScreen', tema: 'theme-port',
@@ -120,6 +126,9 @@ async function cargarDatos() {
     });
     productos.sort(compararProductos);
     console.log(`✅ ${productos.length} productos cargados`);
+    productosTerminados = await desdeServidor({ accion: 'vademecumProductoTerminado' }, 'productoterminado', d => Array.isArray(d) && d.length > 0) || await descargarJSON('producto-terminado.json') || [];
+    productosTerminados.forEach(p => { p['Categoría del Producto'] = (p['Categoría del Producto'] || '').replace(/^Producto Terminado\s*\/\s*/, ''); });
+    productosTerminados.sort(compararProductos);
     materiasPrimas = await desdeServidor({ accion: 'vademecumMateriasPrimas' }, 'materiasprimas', d => Array.isArray(d) && d.length > 50) || await descargarJSON('materias-primas.json') || [];
     console.log(`✅ ${materiasPrimas.length} materias primas cargadas`);
     categorias = await descargarJSON('categorias.json', d => d && typeof d === 'object') || {};
@@ -564,10 +573,12 @@ function entrarApp() {
     const verEtiqueta = modoUsuario === 'equipo' || modoUsuario === 'comercial';
     document.getElementById('filterEtiqueta').style.display = verEtiqueta ? '' : 'none';
     document.getElementById('pfFilterEtiqueta').style.display = verEtiqueta ? '' : 'none';
+    document.getElementById('ptFilterEtiqueta').style.display = verEtiqueta ? '' : 'none';
     // Solo el personal interno puede buscar también por código (Referencia Interna)
     const textoBusqueda = verEtiqueta ? 'Buscar por nombre o código...' : 'Buscar por nombre...';
     document.getElementById('searchName').placeholder = textoBusqueda;
     document.getElementById('pfSearchName').placeholder = textoBusqueda;
+    document.getElementById('ptSearchName').placeholder = textoBusqueda;
     const totalNuevos = productos.filter(p => p['Etiquetas de producto'] === 'Nuevo').length;
     document.getElementById('loNuevoTexto').textContent = `${totalNuevos} productos nuevos de Epithelium`;
     document.getElementById('btnPortafolio').style.display = (esCliente || (usuarioInterno && usuarioInterno.portafolio && portafolioPropio.length)) ? '' : 'none';
@@ -606,6 +617,12 @@ function abrirProductos() {
     limpiarFiltros('prod');
     ponerNuevo('prod', false);
     mostrarPantalla('mainScreen');
+}
+
+function abrirProductoTerminado() {
+    limpiarFiltros('pt');
+    filtrar('pt');
+    mostrarPantalla('ptScreen');
 }
 
 function abrirLoNuevo() {
@@ -739,7 +756,7 @@ function inicializarFiltros(k = 'prod') {
         .sort((a, b) => a.localeCompare(b, 'es', { sensitivity: 'base' }));
     llenarSelect(document.getElementById(cat.ids.categoria), categorias);
     llenarSelect(document.getElementById(cat.ids.etiqueta), etiquetas);
-    llenarDatalist(k === 'port' ? 'pfDlComponentes' : 'dlComponentes', opcionesUnicas(datos.flatMap(componentesDe)));
+    llenarDatalist(k === 'port' ? 'pfDlComponentes' : k === 'pt' ? 'ptDlComponentes' : 'dlComponentes', opcionesUnicas(datos.flatMap(componentesDe)));
     llenarSelect(document.getElementById(cat.ids.forma), formas);
 }
 
@@ -822,7 +839,7 @@ function mostrarResultados(k = 'prod') {
         card.onclick = () => mostrarDetalle(p, cat.tema);
         const badge = p.nuevoEpithelium ? '<span class="badge-nuevo">NUEVO EPITHELIUM</span>' : (esNuevo ? '<span class="badge-nuevo">NUEVO</span>' : '');
         const barra = color ? `<span class="mp-barra" style="background:${rgbaHex(color, 0.55)}"></span>` : '';
-        card.innerHTML = `${barra}<h3>${p['Nombre']}${badge}</h3>${p.nombreEpithelium ? lineaEpithelium(p.nombreEpithelium) : ''}<p><strong>Componentes:</strong> ${p['Componentes']}</p><p><strong>Forma:</strong> ${p['Forma Farmacéutica']}</p>${p['Categoría del Producto'] ? `<p><strong>Categoría:</strong> ${p['Categoría del Producto']}</p>` : ''}${p['Indicación'] ? `<p style="font-size: 12px; color: #999; margin-top: 8px;">${p['Indicación'].substring(0, 100)}...</p>` : ''}`;
+        card.innerHTML = `${barra}<h3>${p['Nombre']}${badge}</h3>${p.nombreEpithelium ? lineaEpithelium(p.nombreEpithelium) : ''}${p['Componentes'] ? `<p><strong>Componentes:</strong> ${p['Componentes']}</p>` : ''}<p><strong>Forma:</strong> ${p['Forma Farmacéutica']}</p>${p['Categoría del Producto'] ? `<p><strong>Categoría:</strong> ${p['Categoría del Producto']}</p>` : ''}${p['Indicación'] ? `<p style="font-size: 12px; color: #999; margin-top: 8px;">${p['Indicación'].substring(0, 100)}...</p>` : ''}`;
         container.appendChild(card);
     });
 }
