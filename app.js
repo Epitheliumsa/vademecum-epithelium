@@ -1,6 +1,6 @@
 // CONFIGURACIÓN
 // Versión publicada: al cambiar, la app ofrece actualizarse (se genera junto con version.txt)
-const APP_VERSION = '202610301912';
+const APP_VERSION = '202610301933';
 
 // Usuarios internos de Epithelium. Los que tienen "zona" son comerciales y solo
 // ven el portafolio de los clientes de esa zona; los que no tienen zona ven el
@@ -472,7 +472,10 @@ function opcionesUnicas(textos) {
     return [...mapa.values()].sort((a, b) => a.localeCompare(b, 'es', { sensitivity: 'base' }));
 }
 
+// Sugerencias de componentes (completas); al escribir una coma se ofrecen de nuevo para sumar otro componente
+const sugerenciasBase = {};
 function llenarDatalist(id, valores) {
+    sugerenciasBase[id] = valores;
     const lista = document.getElementById(id);
     lista.innerHTML = '';
     valores.forEach(v => {
@@ -481,6 +484,22 @@ function llenarDatalist(id, valores) {
         lista.appendChild(option);
     });
 }
+
+// Búsqueda de componentes: se pueden elegir varios, separados por coma ("minoxidil, finasteride": productos que tienen todos)
+function sugerirComponentes(inputId, listaId) {
+    const entrada = document.getElementById(inputId).value, i = entrada.lastIndexOf(',');
+    const previo = i >= 0 ? entrada.slice(0, i + 1).trim() + ' ' : '';
+    const yaElegidos = new Set(previo.split(',').map(t => normalizar(t)).filter(Boolean));
+    const lista = document.getElementById(listaId);
+    lista.innerHTML = '';
+    (sugerenciasBase[listaId] || []).filter(v => !yaElegidos.has(normalizar(v))).forEach(v => {
+        const option = document.createElement('option');
+        option.value = previo + v;
+        lista.appendChild(option);
+    });
+}
+[['searchComponents', 'dlComponentes'], ['pfSearchComponents', 'pfDlComponentes'], ['mpSearchUso', 'dlUsos']].forEach(([inp, dl]) =>
+    document.getElementById(inp).addEventListener('input', () => sugerirComponentes(inp, dl)));
 
 // "Acido Glicolico 12%" -> "Acido Glicolico"
 const componentesDe = p => String(p['Componentes'] || '').split(/\+|\n/)
@@ -740,16 +759,23 @@ function filtrar(k = 'prod') {
     const cat = CATALOGOS[k];
     const valor = campo => document.getElementById(cat.ids[campo]).value;
     const searchName = normalizar(valor('nombre'));
-    const searchComponents = normalizar(valor('componentes'));
+    const esInterno = modoUsuario === 'equipo' || modoUsuario === 'comercial';
+    // El personal interno puede buscar varios productos a la vez, separados por coma (o por espacio si son códigos): "MP1107, MP1108"
+    const esCodigo = t => /^[a-z]{2}\d{3,}$/.test(t);
+    const porEspacio = searchName.split(/\s+/).filter(Boolean);
+    const terminos = !esInterno ? [searchName]
+        : /[,;]/.test(searchName) ? searchName.split(/[,;]/).map(t => t.trim()).filter(Boolean)
+        : porEspacio.length > 1 && porEspacio.every(esCodigo) ? porEspacio : [searchName];
+    const terminosComponentes = normalizar(valor('componentes')).split(/[,;]/).map(t => t.trim()).filter(Boolean);
     const filterCategory = valor('categoria');
     const filterFormula = valor('forma');
     const filterEtiqueta = valor('etiqueta');
-    const esInterno = modoUsuario === 'equipo' || modoUsuario === 'comercial';
     cat.filtrados = cat.datos().filter(p => {
         // El personal interno (equipo y comerciales) también puede buscar por código (Referencia Interna)
-        const matchName = normalizar(p['Nombre']).includes(searchName) || normalizar(p.nombreEpithelium).includes(searchName)
-            || (esInterno && normalizar(p['Referencia Interna']).includes(searchName));
-        const matchComponents = !searchComponents || normalizar(p['Componentes']).includes(searchComponents);
+        const matchName = terminos.some(t => normalizar(p['Nombre']).includes(t) || normalizar(p.nombreEpithelium).includes(t)
+            || (esInterno && normalizar(p['Referencia Interna']).includes(t)));
+        const compuestos = normalizar(p['Componentes']);
+        const matchComponents = terminosComponentes.every(t => compuestos.includes(t));
         const matchCategory = !filterCategory || p['Categoría del Producto'] === filterCategory;
         const matchFormula = !filterFormula || p['Forma Farmacéutica'] === filterFormula;
         const matchEtiqueta = !filterEtiqueta || p['Etiquetas de producto'] === filterEtiqueta;
@@ -850,13 +876,15 @@ function inicializarFiltrosMP() {
 }
 
 function filtrarMP() {
-    const searchName = normalizar(document.getElementById('mpSearchName').value);
-    const searchUso = normalizar(document.getElementById('mpSearchUso').value);
+    // Varias materias primas a la vez separadas por coma (cualquiera de ellas); varios usos separados por coma (deben cumplirse todos)
+    const terminosName = normalizar(document.getElementById('mpSearchName').value).split(/[,;]/).map(t => t.trim());
+    const terminosUso = normalizar(document.getElementById('mpSearchUso').value).split(/[,;]/).map(t => t.trim()).filter(Boolean);
+    if (terminosName.length > 1) terminosName.splice(0, terminosName.length, ...terminosName.filter(Boolean));
     const filterCategoria = document.getElementById('mpFilterEtiqueta').value;
     materiasPrimasFiltradas = materiasPrimas.filter(m => {
-        const matchName = normalizar(m['Nombre']).includes(searchName);
+        const matchName = terminosName.some(t => normalizar(m['Nombre']).includes(t));
         const textoUso = normalizar(m['Uso Terapéutico y Cosmético'] + ' ' + m['Identificación Técnica']);
-        const matchUso = !searchUso || textoUso.includes(searchUso);
+        const matchUso = terminosUso.every(t => textoUso.includes(t));
         const matchCategoria = !filterCategoria || m['Categoria Principal'] === filterCategoria || m['Categoria Secundaria'] === filterCategoria;
         return matchName && matchUso && matchCategoria;
     });
