@@ -1,6 +1,6 @@
 // CONFIGURACIÓN
 // Versión publicada: al cambiar, la app ofrece actualizarse (se genera junto con version.txt)
-const APP_VERSION = '202610302217';
+const APP_VERSION = '202611030947';
 
 // Usuarios internos de Epithelium. Los que tienen "zona" son comerciales y solo
 // ven el portafolio de los clientes de esa zona; los que no tienen zona ven el
@@ -121,18 +121,24 @@ async function desdeServidor(cuerpo, campo, esValido) {
     return null;
 }
 const esPortafolio = d => d && Array.isArray(d.productos) && d.productos.length > 0;
-const datosPortafolio = async huella => await desdeServidor({ accion: 'vademecumPortafolio', huella }, 'portafolio', esPortafolio)
-    || await descargarJSON(`portafolios/${huella}.json`, d => d && Array.isArray(d.productos));
+// La categoría va limpia, sin el prefijo de Odoo ("Magistral de Pedido / Capilares" → "Capilares")
+const limpiarCategoria = c => String(c || '').replace(/^(Magistral de Pedido|Producto Terminado)\s*\/\s*/, '').trim();
+const datosPortafolio = async huella => {
+    const d = await desdeServidor({ accion: 'vademecumPortafolio', huella }, 'portafolio', esPortafolio)
+        || await descargarJSON(`portafolios/${huella}.json`, d => d && Array.isArray(d.productos));
+    if (d && Array.isArray(d.productos)) d.productos.forEach(p => { p['Categoría del Producto'] = limpiarCategoria(p['Categoría del Producto']); });
+    return d;
+};
 
 async function cargarDatos() {
     productos = await desdeServidor({ accion: 'vademecumMaestro' }, 'productos', d => Array.isArray(d) && d.length > 100) || await descargarJSON('data.json') || [];
     productos.forEach(p => {
-        p['Categoría del Producto'] = (p['Categoría del Producto'] || '').replace(/^Magistral de Pedido\s*\/\s*/, '');
+        p['Categoría del Producto'] = limpiarCategoria(p['Categoría del Producto']);
     });
     productos.sort(compararProductos);
     console.log(`✅ ${productos.length} productos cargados`);
     productosTerminados = await desdeServidor({ accion: 'vademecumProductoTerminado' }, 'productoterminado', d => Array.isArray(d) && d.length > 0) || await descargarJSON('producto-terminado.json') || [];
-    productosTerminados.forEach(p => { p['Categoría del Producto'] = (p['Categoría del Producto'] || '').replace(/^Producto Terminado\s*\/\s*/, ''); });
+    productosTerminados.forEach(p => { p['Categoría del Producto'] = limpiarCategoria(p['Categoría del Producto']); });
     productosTerminados.sort(compararProductos);
     materiasPrimas = await desdeServidor({ accion: 'vademecumMateriasPrimas' }, 'materiasprimas', d => Array.isArray(d) && d.length > 50) || await descargarJSON('materias-primas.json') || [];
     console.log(`✅ ${materiasPrimas.length} materias primas cargadas`);
