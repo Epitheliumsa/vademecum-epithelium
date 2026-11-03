@@ -1,0 +1,1058 @@
+// CONFIGURACIÓN
+// Versión publicada: al cambiar, la app ofrece actualizarse (se genera junto con version.txt)
+const APP_VERSION = '202610302206';
+
+// Usuarios internos de Epithelium. Los que tienen "zona" son comerciales y solo
+// ven el portafolio de los clientes de esa zona; los que no tienen zona ven el
+// portafolio de clientes completo. El médico no ve portafolio de clientes.
+const USUARIOS_INTERNOS = [
+    { clave: 'EPITHE-000', tipo: 'equipo', zona: null },   // General equipo (usuario vacío)
+    { clave: 'EPITHE-001', tipo: 'medico', zona: null },   // Médico (usuario vacío)
+    // nombre, cargo y detalle: el saludo del inicio, igual que en Ruta Comercial
+    { usuario: 'M.Castro',    clave: 'MC17',    tipo: 'comercial', zona: 'Zona Desarrollo', nombre: 'Maryi Castro', detalle: 'Visitador Médico Comercial · Zona Desarrollo' },
+    { usuario: 'H.Reyes',     clave: 'HR75',     tipo: 'equipo', zona: null, nombre: 'Hernán Reyes', detalle: 'Gerente General' },
+    { usuario: 'L.Ramos',     clave: 'LR73',     tipo: 'comercial', zona: 'Zona Norte', nombre: 'Lizeth Ramos', detalle: 'Visitador Médico Comercial · Zona Norte' },
+    { usuario: 'Y.Caballero', clave: 'YC11', tipo: 'comercial', zona: 'Zona Sur', nombre: 'Yunelis Caballero', detalle: 'Visitador Médico Comercial · Zona Sur' },
+    { usuario: 'J.Herrera',   clave: 'JH38',   tipo: 'equipo', zona: null, nombre: 'Jennifer Herrera', detalle: 'Coordinadora Comercial · Clientes Especiales' },   // Jefe comercial: ve todas las zonas
+    // Logística: entran solo desde Ruta Comercial. Se guarda únicamente el código de acceso (SHA-256), no su clave
+    { usuario: 'J.Arjona',  acceso: '87c883cb1dc60eeeb1f44b8cd783395d72f7c390593a9a97dfed9cff029711b0', tipo: 'equipo', zona: null, nombre: 'Javier Arjona', detalle: 'Coordinador Logístico' },
+    { usuario: 'E.Ovalle',  acceso: 'ce7f5ae557bb5d72633b63e7366573b914d1967646bfdeb3b22e851d1cc060ad', tipo: 'equipo', zona: null, nombre: 'Eric Ovalle', detalle: 'Auxiliar de Domicilios y Mensajería' },
+    { usuario: 'D.Barrero', acceso: '0db57b165dd9406abd8a3740e969fe9a0a4baa8651d8d290966003f0ff131349', tipo: 'equipo', zona: null, nombre: 'Deelan Barrero', detalle: 'Auxiliar de Domicilios y Mensajería' },
+    // Mercadeo: entra desde Ruta Comercial y ve todos los portafolios
+    { usuario: 'E.Rodriguez', acceso: 'edca2b16a4495d803a3ef65b27f3d729505bb7233d4eab5b76db54f28c61146e', tipo: 'equipo', zona: null, nombre: 'Erika Elena Rodriguez', detalle: 'Jefe de RRHH y Mercadeo' }
+];
+// Invitados: clientes externos con acceso al perfil Médico, con vencimiento y marca de agua con su nombre.
+// El repositorio es público: aquí solo va la huella (PBKDF2-SHA256 lento y con sal de "usuario:clave"), nunca la clave.
+// La clave es aleatoria de 8 caracteres (se escribe sin importar mayúsculas). Para retirar un acceso, se borra su fila.
+// Si el invitado también es cliente, `portafolio` es la huella de su vademécum de cliente (portafolios/<huella>.json).
+const INVITADOS = [
+    { usuario: 'dermaplast', sal: '1684fd48ba2a42c2d5b5a13bab8b3443', iter: 300000, huella: 'ccd8c24740608f439a9c2ea40642d3195fbacf34e45c62e0589c81fbcdceabb3', tipo: 'medico', zona: null,
+      nombre: 'Centro Medico de Especialistas Dermaplast S.A.S.', detalle: 'Acceso personal', vence: '2026-11-30' },
+    { usuario: 'scerquera', sal: '1fd166bba7c7cd33cad1e75a661c8b3e', iter: 300000, huella: 'b7734fb7e12138e5804883a695e1bdd690643948e243b5f2297bb03b18479314', tipo: 'medico', zona: null,
+      nombre: 'Sandra Janeth Cerquera', detalle: 'Acceso personal', vence: '2026-11-30', portafolio: '0adc1cc18e15aa88522b6480' },
+    { usuario: 'ecossio', sal: '7994d53cb2a7f19d18796b058b0d238f', iter: 300000, huella: '0c6030d0b6622cc20d2c7d2eaeea3ba7d22248872cd18cae5794fa982713e515', tipo: 'medico', zona: null,
+      nombre: 'Edgar Yarleyson Cossio Contrera', detalle: 'Acceso personal', vence: '2026-11-30', portafolio: 'd1121d754bb41f832b564089' },
+    { usuario: 'farmaciainst', sal: '3a87b7d54c2e7b1f36ca5b647c15de0c', iter: 300000, huella: 'ac89560ae2638db01e6bdb30b7d3819072b1a9aca253e5717d36b102c9fe1b58', tipo: 'medico', zona: null,
+      nombre: 'Farmacia Institucional', detalle: 'Acceso institucional', vence: '2026-11-30' },
+    { usuario: 'npena', sal: '54cc522c7b7c1609366c16da9588d09a', iter: 300000, huella: '1ef1ccfb2eb8debb9bef4012b16404dc9ffe052bee26b3e6aaaf7bf3ee439bea', tipo: 'medico', zona: null,
+      nombre: 'Dr. Néstor Peña Rodriguez', detalle: 'Acceso personal', vence: '2026-11-30', portafolio: 'b37fbc991b082c7467ed88b8' },
+    // Con varias tiendas: `portafolios` (lista de huellas); en el inicio entra por la lista de sus clientes
+    { usuario: 'nhernandez', sal: '4476cddd0ef4e67e3e4c58e8c62f6199', iter: 300000, huella: '24ecb8b15617d05cdf84c772197599eaed88dd6c2c6789ee80b7a90e175f4736', tipo: 'medico', zona: null,
+      nombre: 'Dra. Natalia Hernandez Mantilla', detalle: 'Acceso personal', vence: '2026-11-30', portafolios: ['ebf1dcc8f814705f9180970c', 'e4d0056914bd30e3ac9916fe'] }
+];
+let usuarioInterno = null;   // usuario interno con nombre (para el saludo)
+let avisoLogin = '';         // mensaje que se muestra en el login (p. ej. acceso vencido)
+
+const URL_DATOS = 'https://raw.githubusercontent.com/nanorsf/vademecum-epithelium/main/';
+
+// Los productos y los portafolios los sube el administrador desde "Bases de datos" de Ruta Comercial (servidor de Google).
+// Se piden primero allá; si no responde o no hay nada subido, se usan los archivos publicados con la app.
+const URL_SERVIDOR = 'https://script.google.com/macros/s/AKfycbwji7WhPpF2VhCRQETWXNFhF2PTAL8JP8z9SW-stsKdnjbyBa-KVucGCvm6seoTFLfl3Q/exec';
+
+let productos = [];
+let materiasPrimas = [];
+let productosTerminados = [];
+let categorias = {};
+let coloresProducto = {};
+let materiasPrimasFiltradas = [];
+let portafolio = [];
+let portafolioPropio = [];
+let clienteNombre = '';
+let indiceClientes = [];
+let clientesFiltrados = [];
+let modoAdmin = false;
+let modoUsuario = 'cliente';   // 'cliente' | 'medico' | 'equipo' | 'comercial'
+let zonaUsuario = null;        // zona del comercial (null = ve todas)
+
+// Vademécum de productos: el general de Epithelium y el portafolio propio de cada cliente
+// Las muestras (etiqueta "Muestras") solo las ven el equipo y los comerciales: ni clientes, ni médicos, ni invitados
+const productosVisibles = () => (modoUsuario === 'equipo' || modoUsuario === 'comercial') ? productos
+    : productos.filter(p => p['Etiquetas de producto'] !== 'Muestras');
+const CATALOGOS = {
+    prod: {
+        pantalla: 'mainScreen', tema: '',
+        ids: { nombre: 'searchName', componentes: 'searchComponents', categoria: 'filterCategory', forma: 'filterFormula', etiqueta: 'filterEtiqueta', nuevo: 'btnNuevo', resultados: 'resultados' },
+        datos: () => productosVisibles(), filtrados: [], soloNuevos: false
+    },
+    pt: {
+        pantalla: 'ptScreen', tema: '',
+        ids: { nombre: 'ptSearchName', componentes: 'ptSearchComponents', categoria: 'ptFilterCategory', forma: 'ptFilterFormula', etiqueta: 'ptFilterEtiqueta', nuevo: 'ptBtnNuevo', resultados: 'ptResultados' },
+        datos: () => productosTerminados, filtrados: [], soloNuevos: false
+    },
+    port: {
+        pantalla: 'portScreen', tema: 'theme-port',
+        ids: { nombre: 'pfSearchName', componentes: 'pfSearchComponents', categoria: 'pfFilterCategory', forma: 'pfFilterFormula', etiqueta: 'pfFilterEtiqueta', nuevo: 'pfBtnNuevo', resultados: 'pfResultados' },
+        datos: () => portafolio, filtrados: [], soloNuevos: false
+    }
+};
+
+// Inicializar app
+document.addEventListener('DOMContentLoaded', async () => {
+    await cargarDatos();
+    verificarAcceso();
+});
+
+// CARGAR DATOS
+// Primero se busca el archivo en el mismo sitio de la app; si falla, en GitHub
+async function descargarJSON(archivo, esValido = d => Array.isArray(d) && d.length > 0) {
+    const fuentes = [archivo, URL_DATOS + archivo];
+    for (const url of fuentes) {
+        try {
+            const response = await fetch(url, { cache: 'no-cache' });
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+            const datos = await response.json();
+            if (esValido(datos)) return datos;
+        } catch (error) {
+            console.warn(`No se pudo cargar ${url}:`, error);
+        }
+    }
+    return null;
+}
+
+async function desdeServidor(cuerpo, campo, esValido) {
+    return null;   // vista previa: datos de la rama
+    const corte = new AbortController(), reloj = setTimeout(() => corte.abort(), 12000);
+    try {
+        const resp = await fetch(URL_SERVIDOR, { method: 'POST', signal: corte.signal, headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(cuerpo) });
+        const r = await resp.json();
+        if (r.ok && esValido(r[campo])) return r[campo];
+    } catch (error) {
+        console.warn('No se pudo traer del servidor:', error);
+    } finally { clearTimeout(reloj); }
+    return null;
+}
+const esPortafolio = d => d && Array.isArray(d.productos) && d.productos.length > 0;
+const datosPortafolio = async huella => await desdeServidor({ accion: 'vademecumPortafolio', huella }, 'portafolio', esPortafolio)
+    || await descargarJSON(`portafolios/${huella}.json`, d => d && Array.isArray(d.productos));
+
+async function cargarDatos() {
+    productos = await desdeServidor({ accion: 'vademecumMaestro' }, 'productos', d => Array.isArray(d) && d.length > 100) || await descargarJSON('data.json') || [];
+    productos.forEach(p => {
+        p['Categoría del Producto'] = (p['Categoría del Producto'] || '').replace(/^Magistral de Pedido\s*\/\s*/, '');
+    });
+    productos.sort(compararProductos);
+    console.log(`✅ ${productos.length} productos cargados`);
+    productosTerminados = await desdeServidor({ accion: 'vademecumProductoTerminado' }, 'productoterminado', d => Array.isArray(d) && d.length > 0) || await descargarJSON('producto-terminado.json') || [];
+    productosTerminados.forEach(p => { p['Categoría del Producto'] = (p['Categoría del Producto'] || '').replace(/^Producto Terminado\s*\/\s*/, ''); });
+    productosTerminados.sort(compararProductos);
+    materiasPrimas = await desdeServidor({ accion: 'vademecumMateriasPrimas' }, 'materiasprimas', d => Array.isArray(d) && d.length > 50) || await descargarJSON('materias-primas.json') || [];
+    console.log(`✅ ${materiasPrimas.length} materias primas cargadas`);
+    categorias = await descargarJSON('categorias.json', d => d && typeof d === 'object') || {};
+    indiceClientes = await descargarJSON('portafolios-index.json') || [];
+    coloresProducto = await descargarJSON('categorias-productos.json', d => d && typeof d === 'object') || {};
+}
+
+// Color de la categoría de un producto (una sola categoría por producto)
+function colorProductoCat(categoria) {
+    const c = (categoria || '').replace(/^Magistral de Pedido\s*\/\s*/, '').trim();
+    return coloresProducto[c] || null;
+}
+function rgbaHex(hex, alfa) {
+    const [r, g, b] = hexRgb(hex);
+    return `rgba(${r}, ${g}, ${b}, ${alfa})`;
+}
+// Mezcla un color con blanco o negro (frac 0-1) y devuelve un rgb OPACO
+function mezclar(hex, hacia, frac) {
+    const [r, g, b] = hexRgb(hex);
+    const t = hacia === 'blanco' ? 255 : 0;
+    const m = v => Math.round(v + (t - v) * frac);
+    return `rgb(${m(r)}, ${m(g)}, ${m(b)})`;
+}
+// Versión clara opaca del color (para fondos que deben taparse) y oscura (para texto legible)
+const lavado = hex => mezclar(hex, 'blanco', 0.88);
+function textoLegible(hex) {
+    const [r, g, b] = hexRgb(hex);
+    const lum = 0.299 * r + 0.587 * g + 0.114 * b;   // qué tan claro es el color
+    return mezclar(hex, 'negro', lum > 150 ? 0.55 : 0.3);
+}
+// Fondo tenive OPACO para el detalle (claro arriba, blanco abajo)
+const fondoCategoria = hex => `linear-gradient(180deg, ${lavado(hex)} 0%, #ffffff 240px)`;
+
+// Color de cada categoría de materia prima (para las barras y el fondo tenue)
+function hexRgb(hex) {
+    hex = String(hex || '').replace('#', '');
+    if (hex.length === 3) hex = hex.split('').map(c => c + c).join('');
+    const n = parseInt(hex || '0', 16);
+    return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
+}
+function colorCategoria(nombre) {
+    return categorias[nombre] && categorias[nombre].color ? categorias[nombre].color : '#c9c9c9';
+}
+function rgbaCategoria(nombre, alfa) {
+    const [r, g, b] = hexRgb(colorCategoria(nombre));
+    return `rgba(${r}, ${g}, ${b}, ${alfa})`;
+}
+// Barra lateral: 70% categoría principal y 30% secundaria (si tiene), en tono tenue
+function barraCategorias(m) {
+    const p = rgbaCategoria(m['Categoria Principal'], 0.55);
+    const s = m['Categoria Secundaria'];
+    if (s && categorias[s]) {
+        return `linear-gradient(to bottom, ${p} 0 70%, ${rgbaCategoria(s, 0.55)} 70% 100%)`;
+    }
+    return p;
+}
+function categoriasDe(m) {
+    return [m['Categoria Principal'], m['Categoria Secundaria']].filter(c => c && categorias[c]);
+}
+
+async function reintentarCarga() {
+    await cargarDatos();
+    entrarApp();
+}
+
+// ACCESO
+// Cada cliente entra con usuario + clave; su portafolio está en portafolios/<huella>.json
+async function huellaCliente(usuario, clave) {
+    const bytes = new TextEncoder().encode(`${usuario}:${clave}`);
+    const hash = await crypto.subtle.digest('SHA-256', bytes);
+    return [...new Uint8Array(hash)].map(b => b.toString(16).padStart(2, '0')).join('').substring(0, 24);
+}
+
+async function cargarPortafolio(huella) {
+    const datos = await datosPortafolio(huella);
+    if (!datos) return false;
+    clienteNombre = datos.cliente;
+    portafolioPropio = datos.productos;
+    return true;
+}
+
+// Encuentra un usuario interno por usuario + clave (o por código, con el usuario vacío)
+function buscarUsuarioInterno(usuario, clave) {
+    const u = usuario.trim().toLowerCase();
+    const c = clave.trim();
+    for (const x of USUARIOS_INTERNOS) {
+        if (!x.clave) continue;   // los que tienen solo "acceso" entran desde Ruta Comercial
+        if (x.usuario) {
+            if (u === x.usuario.toLowerCase() && c.toLowerCase() === x.clave.toLowerCase()) return x;
+        } else {
+            const codigo = (c || u).toUpperCase();
+            if (codigo === x.clave.toUpperCase() && (!u || !c)) return x;
+        }
+    }
+    return null;
+}
+
+// Huella lenta (PBKDF2-SHA256 con sal): hace inviable adivinar la clave a partir de la huella publicada
+async function derivarClave(texto, salHex, iteraciones) {
+    const base = await crypto.subtle.importKey('raw', new TextEncoder().encode(texto), 'PBKDF2', false, ['deriveBits']);
+    const sal = new Uint8Array(salHex.match(/../g).map(h => parseInt(h, 16)));
+    const bits = await crypto.subtle.deriveBits({ name: 'PBKDF2', hash: 'SHA-256', salt: sal, iterations: iteraciones }, base, 256);
+    return [...new Uint8Array(bits)].map(b => b.toString(16).padStart(2, '0')).join('');
+}
+// El acceso es válido hasta el final del día de vencimiento
+const invitadoVigente = x => !x.vence || Date.now() <= new Date(x.vence + 'T23:59:59').getTime();
+const TEXTO_ACCESO_FINALIZADO = 'Tu acceso ha finalizado. Para renovar o cambiar tu clave, comunícate con tu proveedor Epithelium.';
+const textoVencido = () => TEXTO_ACCESO_FINALIZADO;
+
+// Invitado por usuario + clave (la clave se compara sin guiones, espacios ni mayúsculas)
+async function buscarInvitado(usuario, clave) {
+    const u = String(usuario || '').trim().toLowerCase();
+    const c = String(clave || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+    if (!u || !c) return null;
+    const x = INVITADOS.find(i => i.usuario === u);
+    if (!x) return null;
+    return (await derivarClave(`${u}:${c}`, x.sal, x.iter)) === x.huella ? x : null;
+}
+
+// Invitado que además es cliente: se carga su vademécum de cliente para mostrarle ese botón en el inicio
+// Con varias tiendas (`portafolios`) se juntan todos los productos en un solo portafolio y cada tarjeta dice a qué tienda pertenece
+async function cargarPortafolioInvitado(x) {
+    if (x.portafolios && x.portafolios.length) {
+        const todos = [];
+        for (const huella of x.portafolios) {
+            const datos = await datosPortafolio(huella);
+            if (datos) datos.productos.forEach(p => todos.push({ ...p, tienda: datos.cliente }));
+        }
+        clienteNombre = '';
+        portafolioPropio = todos;
+    } else if (x.portafolio && await cargarPortafolio(x.portafolio)) {
+        // Un solo vademécum: también dice a qué tienda pertenece
+        const tienda = clienteNombre;
+        portafolioPropio = portafolioPropio.map(p => ({ ...p, tienda }));
+    }
+}
+
+function iniciarSesionInvitado(x) {
+    modoUsuario = x.tipo;
+    zonaUsuario = null;
+    usuarioInterno = x;
+    localStorage.setItem('vp_vademecum_interno', JSON.stringify({ tipo: x.tipo, zona: null, usuario: x.usuario, invitado: true }));
+    localStorage.removeItem('vp_vademecum_cliente');
+    localStorage.setItem('vp_vademecum_timestamp', new Date().toISOString());
+}
+
+// Enlace directo para invitados: #invitado=usuario:clave (se borra de la barra de direcciones al entrar)
+async function accesoInvitadoPorEnlace() {
+    const m = location.hash.match(/invitado=([A-Za-z0-9_.-]+):([A-Za-z0-9-]+)/);
+    if (!m) return;
+    history.replaceState(null, '', location.pathname + location.search);
+    const x = await buscarInvitado(m[1], m[2]);
+    if (!x) { avisoLogin = '❌ Enlace no válido. Comunícate con tu proveedor Epithelium.'; return; }
+    if (!invitadoVigente(x)) { avisoLogin = textoVencido(x); return; }
+    iniciarSesionInvitado(x);
+}
+
+// Marca de agua tipo sello redondo, muy tenue, con el nombre del invitado (disuade copias y permite rastrear capturas)
+function lineasSello(nombre) {
+    // Reparte el nombre en líneas; si es muy largo, usa letra más pequeña y recorta con "…"
+    const partir = max => {
+        const out = [];
+        let actual = '';
+        nombre.split(/\s+/).forEach(p => {
+            if (actual && (actual + ' ' + p).length > max) { out.push(actual); actual = p; }
+            else actual = actual ? actual + ' ' + p : p;
+        });
+        if (actual) out.push(actual);
+        return out;
+    };
+    let lineas = partir(18), tam = 9.5, paso = 13;
+    if (lineas.length > 4) { lineas = partir(25); tam = 7.6; paso = 10.5; }
+    if (lineas.length > 5) { lineas = lineas.slice(0, 5); lineas[4] = lineas[4].replace(/.{0,3}$/, '') + '…'; }
+    return { lineas, tam, paso };
+}
+function ponerMarcaAgua(x) {
+    let el = document.getElementById('marcaAgua');
+    if (!x) { if (el) el.remove(); return; }
+    if (!el) { el = document.createElement('div'); el.id = 'marcaAgua'; document.body.appendChild(el); }
+    const esc = t => String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;');
+    const A = 0.07;   // intensidad del sello
+    const { lineas, tam, paso } = lineasSello(x.nombre);
+    const y0 = 171 - (lineas.length - 1) * paso / 2;
+    const texto = lineas.map((l, k) => `<text x="170" y="${y0 + k * paso}" font-size="${tam}" font-weight="bold">${esc(l)}</text>`).join('');
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="340" height="340" viewBox="0 0 340 340"><g transform="rotate(-18 170 170)" fill="rgba(0,107,79,${A})" stroke="rgba(0,107,79,${A})" font-family="Arial,Helvetica,sans-serif" text-anchor="middle"><defs><path id="c" d="M170,170 m-76,0 a76,76 0 1,1 152,0 a76,76 0 1,1 -152,0"/></defs><circle cx="170" cy="170" r="108" fill="none" stroke-width="3.2"/><circle cx="170" cy="170" r="102" fill="none" stroke-width="1"/><circle cx="170" cy="170" r="56" fill="none" stroke-width="1.6"/><g stroke="none"><text font-size="12" font-weight="bold" letter-spacing="1.2" word-spacing="3"><textPath href="#c" startOffset="50%">EPITHELIUM S.A. • USO EXCLUSIVO • CONFIDENCIAL •</textPath></text>${texto}<text x="170" y="${y0 + lineas.length * paso + 4}" font-size="7" letter-spacing="0.4">© Epithelium S.A.</text></g></g></svg>`;
+    el.style.backgroundImage = `url("data:image/svg+xml,${encodeURIComponent(svg)}")`;
+    ajustarMarca();
+}
+// Sello de seguridad: solo los usuarios externos (invitado, cliente y médico general) lo llevan, en todas las pantallas.
+// El equipo y los comerciales (internos) nunca lo llevan, ni siquiera al abrir el portafolio de un cliente.
+function actualizarMarca(pantalla) {
+    if (pantalla === 'loginScreen') return ponerMarcaAgua(null);
+    if (usuarioInterno && usuarioInterno.vence) return ponerMarcaAgua(usuarioInterno);          // invitado
+    if (modoUsuario === 'cliente' && clienteNombre) return ponerMarcaAgua({ nombre: clienteNombre });
+    if (modoUsuario === 'medico') return ponerMarcaAgua({ nombre: 'Acceso médico autorizado' });
+    ponerMarcaAgua(null);
+}
+// Sellos más espaciados: más grandes en pantallas amplias, más pequeños en celulares
+function ajustarMarca() {
+    const el = document.getElementById('marcaAgua');
+    if (!el) return;
+    const lado = window.innerWidth >= 700 ? 400 : 300;
+    el.style.backgroundSize = `${lado}px ${lado}px`;
+}
+window.addEventListener('resize', ajustarMarca);
+
+// Mide el pie de protección de datos para dejar espacio al final de las pantallas
+function ajustarPie() {
+    const pie = document.getElementById('avisoLegal');
+    if (!pie.hidden) document.documentElement.style.setProperty('--pie-alto', pie.offsetHeight + 'px');
+}
+window.addEventListener('resize', ajustarPie);
+
+// Cierra la sesión del invitado si su acceso venció mientras la app estaba abierta
+function revisarVencimiento() {
+    if (usuarioInterno && usuarioInterno.vence && !invitadoVigente(usuarioInterno)) {
+        avisoLogin = textoVencido(usuarioInterno);
+        limpiarSesion();
+        document.getElementById('errorMsg').textContent = avisoLogin;
+    }
+}
+
+// Acceso directo desde Ruta Comercial para el equipo interno: el enlace trae #acceso=<código>, que es
+// SHA-256 de "vademecum:usuario:clave" (en minúsculas). Solo sirve para los usuarios internos con nombre.
+async function accesoDesdeRutaComercial() {
+    const m = location.hash.match(/acceso=([0-9a-f]{64})/);
+    if (!m) return;
+    history.replaceState(null, '', location.pathname + location.search);   // el código no queda a la vista
+    for (const x of USUARIOS_INTERNOS.filter(u => u.usuario)) {
+        const bytes = new TextEncoder().encode(`vademecum:${x.usuario}:${x.clave}`.toLowerCase());
+        const hash = x.acceso || [...new Uint8Array(await crypto.subtle.digest('SHA-256', bytes))].map(b => b.toString(16).padStart(2, '0')).join('');
+        if (hash === m[1]) {
+            localStorage.setItem('vp_vademecum_interno', JSON.stringify({ tipo: x.tipo, zona: x.zona || null, usuario: x.usuario }));
+            localStorage.removeItem('vp_vademecum_cliente');
+            localStorage.setItem('vp_vademecum_timestamp', new Date().toISOString());
+            return;
+        }
+    }
+}
+
+async function verificarAcceso() {
+    await accesoDesdeRutaComercial();
+    await accesoInvitadoPorEnlace();
+    const interno = localStorage.getItem('vp_vademecum_interno');
+    const clienteGuardado = localStorage.getItem('vp_vademecum_cliente');
+    if (interno) {
+        try {
+            const s = JSON.parse(interno);
+            if (s.invitado) {
+                const inv = INVITADOS.find(x => x.usuario === s.usuario);
+                if (inv && invitadoVigente(inv)) {
+                    modoUsuario = inv.tipo;
+                    zonaUsuario = null;
+                    usuarioInterno = inv;
+                    await cargarPortafolioInvitado(inv);
+                    return entrarApp();
+                }
+                avisoLogin = TEXTO_ACCESO_FINALIZADO;
+            } else {
+                modoUsuario = s.tipo;
+                zonaUsuario = s.zona || null;
+                usuarioInterno = USUARIOS_INTERNOS.find(x => x.usuario && x.usuario === s.usuario) || null;
+                return entrarApp();
+            }
+        } catch (e) { localStorage.removeItem('vp_vademecum_interno'); }
+    }
+    if (clienteGuardado && await cargarPortafolio(clienteGuardado)) {
+        modoUsuario = 'cliente';
+        return entrarApp();
+    }
+    mostrarPantalla('loginScreen');
+    localStorage.removeItem('vp_vademecum_interno');
+    localStorage.removeItem('vp_vademecum_cliente');
+    if (avisoLogin) document.getElementById('errorMsg').textContent = avisoLogin;
+}
+
+async function verificarCodigo() {
+    const usuario = document.getElementById('accessUser').value.trim();
+    const clave = document.getElementById('accessCode').value.trim();
+    const errorMsg = document.getElementById('errorMsg');
+    if (!usuario && !clave) {
+        errorMsg.textContent = 'Ingresa tu usuario y clave';
+        return;
+    }
+    // Usuarios internos: equipo, comerciales y médico
+    const interno = buscarUsuarioInterno(usuario, clave);
+    if (interno) {
+        modoUsuario = interno.tipo;
+        zonaUsuario = interno.zona || null;
+        usuarioInterno = interno.usuario ? interno : null;
+        localStorage.setItem('vp_vademecum_interno', JSON.stringify({ tipo: interno.tipo, zona: interno.zona || null, usuario: interno.usuario || null }));
+        localStorage.removeItem('vp_vademecum_cliente');
+        localStorage.setItem('vp_vademecum_timestamp', new Date().toISOString());
+        errorMsg.textContent = '';
+        return entrarApp();
+    }
+    // Invitados: usuario + clave larga (con vencimiento)
+    if (usuario && clave) {
+        const inv = await buscarInvitado(usuario, clave);
+        if (inv) {
+            if (!invitadoVigente(inv)) {
+                errorMsg.textContent = textoVencido(inv);
+                document.getElementById('accessCode').value = '';
+                return;
+            }
+            iniciarSesionInvitado(inv);
+            await cargarPortafolioInvitado(inv);
+            errorMsg.textContent = '';
+            return entrarApp();
+        }
+    }
+    // Clientes: usuario + clave (iniciales en mayúscula + dos números, ej: AO84; da igual si la escriben en minúscula)
+    if (usuario && /^[A-Za-z]{2}\d{2}$/.test(clave)) {
+        errorMsg.textContent = 'Verificando...';
+        const huella = await huellaCliente(usuario.toLowerCase(), clave.toUpperCase());
+        if (await cargarPortafolio(huella)) {
+            modoUsuario = 'cliente';
+            localStorage.setItem('vp_vademecum_cliente', huella);
+            localStorage.removeItem('vp_vademecum_interno');
+            localStorage.setItem('vp_vademecum_timestamp', new Date().toISOString());
+            errorMsg.textContent = '';
+            return entrarApp();
+        }
+    }
+    errorMsg.textContent = '❌ Usuario o clave incorrectos';
+    document.getElementById('accessCode').value = '';
+}
+
+function limpiarSesion() {
+    localStorage.removeItem('vp_vademecum_interno');
+    localStorage.removeItem('vp_vademecum_cliente');
+    localStorage.removeItem('vp_vademecum_timestamp');
+    modoUsuario = 'cliente';
+    zonaUsuario = null;
+    usuarioInterno = null;
+    portafolio = [];
+    portafolioPropio = [];
+    clienteNombre = '';
+    ponerMarcaAgua(null);
+    document.getElementById('avisoLegal').hidden = true;
+    document.body.classList.remove('con-aviso-legal');
+    document.getElementById('modalDetail').classList.remove('active');
+    mostrarPantalla('loginScreen');
+    document.getElementById('accessUser').value = '';
+    document.getElementById('accessCode').value = '';
+    document.getElementById('errorMsg').textContent = '';
+}
+
+function cerrarSesion() {
+    if (confirm('¿Cerrar sesión?')) limpiarSesion();
+}
+
+// Búsqueda sin distinguir mayúsculas ni tildes
+const normalizar = t => String(t || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
+
+// Opciones únicas (sin repetir por mayúsculas/tildes) y en orden alfabético
+function opcionesUnicas(textos) {
+    const mapa = new Map();
+    textos.forEach(t => {
+        const limpio = t.replace(/\s+/g, ' ').trim();
+        if (limpio.length > 1 && !mapa.has(normalizar(limpio))) mapa.set(normalizar(limpio), limpio);
+    });
+    return [...mapa.values()].sort((a, b) => a.localeCompare(b, 'es', { sensitivity: 'base' }));
+}
+
+// Sugerencias de componentes (completas); al escribir una coma se ofrecen de nuevo para sumar otro componente
+const sugerenciasBase = {};
+function llenarDatalist(id, valores) {
+    sugerenciasBase[id] = valores;
+    const lista = document.getElementById(id);
+    lista.innerHTML = '';
+    valores.forEach(v => {
+        const option = document.createElement('option');
+        option.value = v;
+        lista.appendChild(option);
+    });
+}
+
+// Búsqueda de componentes: se pueden elegir varios, separados por coma ("minoxidil, finasteride": productos que tienen todos)
+function sugerirComponentes(inputId, listaId) {
+    const entrada = document.getElementById(inputId).value, i = entrada.lastIndexOf(',');
+    const previo = i >= 0 ? entrada.slice(0, i + 1).trim() + ' ' : '';
+    const yaElegidos = new Set(previo.split(',').map(t => normalizar(t)).filter(Boolean));
+    const lista = document.getElementById(listaId);
+    lista.innerHTML = '';
+    (sugerenciasBase[listaId] || []).filter(v => !yaElegidos.has(normalizar(v))).forEach(v => {
+        const option = document.createElement('option');
+        option.value = previo + v;
+        lista.appendChild(option);
+    });
+}
+[['searchComponents', 'dlComponentes'], ['pfSearchComponents', 'pfDlComponentes'], ['mpSearchUso', 'dlUsos']].forEach(([inp, dl]) =>
+    document.getElementById(inp).addEventListener('input', () => sugerirComponentes(inp, dl)));
+
+// "Acido Glicolico 12%" -> "Acido Glicolico"
+const componentesDe = p => String(p['Componentes'] || '').split(/\+|\n/)
+    .map(c => c.replace(/\s+\d[\d.,]*\s*(%|mg|ui)?(\s.*)?$/i, '').trim());
+
+// Usos cortos a partir del texto de "Uso Terapéutico y Cosmético"
+const usosDe = m => String(m['Uso Terapéutico y Cosmético'] || '').split(/[,;\n]|\s\/\s/)
+    .map(u => u.replace(/\(.*$/, '').replace(/^Función cosmética:\s*/i, '').replace(/[.:]+$/, '').trim())
+    .filter(u => u.length > 2 && u.length <= 45)
+    .map(u => u.charAt(0).toUpperCase() + u.slice(1));
+
+// Orden alfabético; si el nombre es el mismo (sin el "x 30 ml"), primero el menor volumen
+const nombreBase = p => p['Nombre'].replace(/\s+x\s+[\d.,]+\s*[a-zA-Z]*/i, '').trim();
+const volumen = p => parseFloat(String(p['Tamaño']).replace(',', '.')) || 0;
+function compararProductos(a, b) {
+    return nombreBase(a).localeCompare(nombreBase(b), 'es', { sensitivity: 'base', numeric: true })
+        || volumen(a) - volumen(b)
+        || a['Nombre'].localeCompare(b['Nombre'], 'es', { sensitivity: 'base' });
+}
+
+// Mi Portafolio = productos propios del cliente + los nuevos de Epithelium (si ya tiene uno con el mismo nombre, no se repite)
+function armarPortafolio(incluirNuevos = true) {
+    const nombre = p => p['Nombre'].trim().toLowerCase();
+    // Nombre del mismo producto (misma referencia) en el vademécum de Epithelium
+    const nombreGeneral = new Map(productos.map(p => [p['Referencia Interna'], p['Nombre']]));
+    portafolioPropio.forEach(p => {
+        const general = nombreGeneral.get(p['Referencia Interna']);
+        p.nombreEpithelium = general && general.trim().toLowerCase() !== nombre(p) ? general : '';
+    });
+    const propios = new Set(portafolioPropio.map(nombre));
+    // Los nuevos de Epithelium se suman al final (al cliente y a la fuerza de ventas)
+    const nuevosEpithelium = incluirNuevos ? productos
+        .filter(p => p['Etiquetas de producto'] === 'Nuevo' && !propios.has(nombre(p)))
+        .map(p => ({ ...p, nuevoEpithelium: true })) : [];
+    // Primero los productos propios del cliente y al final los nuevos de Epithelium, cada grupo en orden
+    portafolio = [...[...portafolioPropio].sort(compararProductos), ...nuevosEpithelium.sort(compararProductos)];
+}
+
+function entrarApp() {
+    const esInvitado = !!(usuarioInterno && usuarioInterno.vence);
+    ponerMarcaAgua(esInvitado ? usuarioInterno : null);   // el sello solo lo lleva el invitado
+    // Protección de datos: pie fijo para todos los usuarios, en todos los vademécums
+    document.getElementById('avisoLegal').hidden = false;
+    document.body.classList.add('con-aviso-legal');
+    document.getElementById('anioLegal').textContent = new Date().getFullYear();
+    ajustarPie();
+    armarPortafolio();
+    Object.keys(CATALOGOS).forEach(k => {
+        const cat = CATALOGOS[k];
+        cat.soloNuevos = false;
+        document.getElementById(cat.ids.nuevo).classList.remove('active');
+        document.getElementById(cat.pantalla).classList.remove('modo-nuevo');
+        inicializarFiltros(k);
+        filtrar(k);
+    });
+    inicializarFiltrosMP();
+    filtrarMP();
+    const esCliente = modoUsuario === 'cliente';
+    const varias = !!(usuarioInterno && usuarioInterno.portafolios && usuarioInterno.portafolios.length);
+    const veClientes = (modoUsuario === 'equipo' || modoUsuario === 'comercial') && indiceClientes.length > 0;
+    document.getElementById('btnPortafolioClientes').style.display = veClientes ? '' : 'none';
+    document.getElementById('btnPortClientesTexto').textContent = varias ? 'Los vademécum de tus tiendas' : 'Consulta el portafolio de cualquier cliente';
+    // El filtro de Etiqueta solo lo ven el equipo y los comerciales
+    const verEtiqueta = modoUsuario === 'equipo' || modoUsuario === 'comercial';
+    document.getElementById('filterEtiqueta').style.display = verEtiqueta ? '' : 'none';
+    document.getElementById('pfFilterEtiqueta').style.display = verEtiqueta ? '' : 'none';
+    document.getElementById('ptFilterEtiqueta').style.display = verEtiqueta ? '' : 'none';
+    // Solo el personal interno puede buscar también por código (Referencia Interna)
+    const textoBusqueda = verEtiqueta ? 'Buscar por nombre o código...' : 'Buscar por nombre...';
+    document.getElementById('searchName').placeholder = textoBusqueda;
+    document.getElementById('pfSearchName').placeholder = textoBusqueda;
+    document.getElementById('ptSearchName').placeholder = textoBusqueda;
+    const totalNuevos = productos.filter(p => p['Etiquetas de producto'] === 'Nuevo').length;
+    document.getElementById('loNuevoTexto').textContent = `${totalNuevos} productos nuevos de Epithelium`;
+    document.getElementById('btnPortafolio').style.display = (esCliente || (usuarioInterno && (usuarioInterno.portafolio || varias) && portafolioPropio.length)) ? '' : 'none';
+    const subPort = document.querySelector('#btnPortafolio small');
+    if (subPort) subPort.textContent = varias ? 'Los productos de tus tiendas' : 'Los productos de tu vademécum propio';
+    const intro = document.getElementById('homeIntro');
+    // Comerciales e internos con nombre: "Hola, <nombre>" y debajo su cargo o zona, igual que en Ruta Comercial
+    if (!esCliente && usuarioInterno) {
+        intro.textContent = '';
+        const saludo = document.createElement('span');
+        saludo.className = 'home-saludo';
+        saludo.innerHTML = `<span class="saludo-hora"></span><span class="saludo-nombre"></span>`;
+        saludo.querySelector('.saludo-nombre').textContent = usuarioInterno.nombre;
+        const detalle = document.createElement('small');
+        detalle.textContent = usuarioInterno.detalle;
+        saludo.appendChild(detalle);
+        intro.appendChild(saludo);
+        return irInicio();
+    }
+    intro.textContent = '¿Qué quieres consultar?';
+    let saludoTexto = '';
+    if (esCliente) saludoTexto = clienteNombre;
+    else if (modoUsuario === 'comercial') saludoTexto = `Comercial · ${zonaUsuario}`;
+    else if (modoUsuario === 'equipo') saludoTexto = 'Equipo Epithelium';
+    if (saludoTexto) {
+        const saludo = document.createElement('span');
+        saludo.className = 'home-saludo';
+        saludo.innerHTML = `<span class="saludo-hora"></span><span class="saludo-nombre"></span>`;
+        saludo.querySelector('.saludo-nombre').textContent = saludoTexto;
+        intro.prepend(saludo);
+    }
+    irInicio();
+}
+
+// Saludo según la hora de Bogotá: 5:00-11:59 buenos días, 12:00-17:59 buenas tardes, el resto buenas noches
+function saludoHora() {
+    const h = Number(new Intl.DateTimeFormat('en-US', { hour: 'numeric', hour12: false, timeZone: 'America/Bogota' }).format(new Date())) % 24;
+    return h >= 5 && h < 12 ? 'Buenos días' : h >= 12 && h < 18 ? 'Buenas tardes' : 'Buenas noches';
+}
+function pintarSaludo() {
+    const s = document.querySelector('#homeIntro .saludo-hora');
+    if (s) s.textContent = `${saludoHora()},`;
+}
+
+function irInicio() {
+    pintarSaludo();
+    mostrarPantalla('homeScreen');
+}
+
+function abrirProductos() {
+    limpiarFiltros('prod');
+    ponerNuevo('prod', false);
+    mostrarPantalla('mainScreen');
+}
+
+function abrirProductoTerminado() {
+    limpiarFiltros('pt');
+    filtrar('pt');
+    mostrarPantalla('ptScreen');
+}
+
+function abrirLoNuevo() {
+    limpiarFiltros('prod');
+    ponerNuevo('prod', true);
+    mostrarPantalla('mainScreen');
+}
+
+function abrirPortafolio() {
+    modoAdmin = false;
+    limpiarFiltros('port');
+    ponerNuevo('port', false);
+    document.getElementById('pfBtnNuevo').style.display = '';
+    document.getElementById('portTitulo').textContent = 'Vademécum Cliente';
+    document.getElementById('portBackBtn').innerHTML = '&larr; Inicio';
+    document.getElementById('portBackBtn').onclick = irInicio;
+    mostrarPantalla('portScreen');
+}
+
+// Clientes que puede ver el usuario: el comercial solo los de su zona; el equipo, todos
+function clientesVisibles() {
+    if (modoUsuario === 'medico' && usuarioInterno && usuarioInterno.portafolios) return indiceClientes.filter(c => usuarioInterno.portafolios.includes(c.huella));
+    return modoUsuario === 'comercial'
+        ? indiceClientes.filter(c => c.zona === zonaUsuario)
+        : indiceClientes;
+}
+
+function abrirListaClientes() {
+    clientesFiltrados = clientesVisibles();
+    document.getElementById('clSearchName').value = '';
+    const subtitulo = document.getElementById('clSubtitulo');
+    subtitulo.textContent = modoUsuario === 'comercial' ? zonaUsuario : '';
+    subtitulo.style.display = modoUsuario === 'comercial' ? '' : 'none';
+    // Quien ve todas las zonas puede filtrar por una
+    const selZona = document.getElementById('clZona');
+    selZona.style.display = modoUsuario === 'equipo' ? '' : 'none';
+    const zonas = [...new Set(indiceClientes.map(c => c.zona).filter(Boolean))].sort((a, b) => a.localeCompare(b, 'es', { sensitivity: 'base' }));
+    selZona.innerHTML = '<option value="">Todas las zonas</option>' + zonas.map(z => `<option>${z}</option>`).join('');
+    mostrarListaClientes();
+    mostrarPantalla('clientsListScreen');
+}
+
+function filtrarListaClientes() {
+    const q = normalizar(document.getElementById('clSearchName').value);
+    const zona = document.getElementById('clZona').value;
+    clientesFiltrados = clientesVisibles().filter(c => normalizar(c.cliente).includes(q) && (!zona || c.zona === zona));
+    mostrarListaClientes();
+}
+
+function mostrarListaClientes() {
+    const container = document.getElementById('clResultados');
+    container.innerHTML = '';
+    if (clientesFiltrados.length === 0) {
+        container.innerHTML = '<div class="no-results">No se encontraron clientes</div>';
+        return;
+    }
+    clientesFiltrados.forEach(c => {
+        const card = document.createElement('div');
+        card.className = 'producto-card cliente-card';
+        card.onclick = () => abrirPortafolioDeCliente(c.huella, c.cliente);
+        // El equipo ve la zona de cada cliente; el comercial ya está dentro de su zona
+        const zona = (modoUsuario === 'equipo' && c.zona) ? `<span class="cliente-zona">${c.zona}</span>` : '';
+        card.innerHTML = `<h3>${c.cliente}${zona}</h3>`;
+        container.appendChild(card);
+    });
+}
+
+// Deja en blanco la búsqueda y los filtros de un catálogo
+function limpiarFiltros(k) {
+    const ids = CATALOGOS[k].ids;
+    ['nombre', 'componentes', 'categoria', 'forma', 'etiqueta'].forEach(campo => {
+        document.getElementById(ids[campo]).value = '';
+    });
+}
+
+async function abrirPortafolioDeCliente(huella, nombre) {
+    const datos = await datosPortafolio(huella);
+    if (!datos) {
+        alert('No se pudo cargar el portafolio de este cliente. Revisa tu conexión e intenta de nuevo.');
+        return;
+    }
+    clienteNombre = datos.cliente;
+    portafolioPropio = datos.productos;
+    armarPortafolio();
+    inicializarFiltros('port');
+    limpiarFiltros('port');
+    ponerNuevo('port', false);
+    document.getElementById('pfBtnNuevo').style.display = '';
+    modoAdmin = true;
+    document.getElementById('portTitulo').textContent = nombre;
+    document.getElementById('portBackBtn').innerHTML = '&larr; Clientes';
+    document.getElementById('portBackBtn').onclick = abrirListaClientes;
+    mostrarPantalla('portScreen');
+}
+
+function abrirMateriasPrimas() {
+    limpiarFiltrosMP();
+    mostrarPantalla('mpScreen');
+}
+
+function mostrarPantalla(screenId) {
+    if (document.getElementById('app')) actualizarMarca(screenId);
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById(screenId).classList.add('active');
+}
+
+function llenarSelect(select, valores) {
+    select.length = 1;
+    // Siempre en orden alfabético (la opción "Todas..." queda de primera)
+    [...valores].sort((x, y) => x.localeCompare(y, 'es', { sensitivity: 'base' })).forEach(v => {
+        const option = document.createElement('option');
+        option.value = v;
+        option.textContent = v;
+        select.appendChild(option);
+    });
+}
+
+function inicializarFiltros(k = 'prod') {
+    const cat = CATALOGOS[k];
+    const datos = cat.datos();
+    // En el portafolio de cliente se ofrecen todas las categorías y formas que maneja la compañía
+    const fuente = k === 'port' ? [...productos, ...datos] : datos;
+    const categorias = [...new Set(fuente.map(p => p['Categoría del Producto']).filter(p => p))];
+    const formas = [...new Set(fuente.map(p => p['Forma Farmacéutica']).filter(p => p))];
+    if (k === 'port') {
+        categorias.sort();
+        formas.sort();
+    }
+    // Etiquetas (solo visibles para equipo y comerciales). En el portafolio se ofrecen todas
+    // las etiquetas vigentes de la compañía (del maestro) más "Cliente", no solo las del cliente.
+    const etiquetas = [...new Set(fuente.map(p => p['Etiquetas de producto']).filter(e => e))]
+        .sort((a, b) => a.localeCompare(b, 'es', { sensitivity: 'base' }));
+    llenarSelect(document.getElementById(cat.ids.categoria), categorias);
+    llenarSelect(document.getElementById(cat.ids.etiqueta), etiquetas);
+    llenarDatalist(k === 'port' ? 'pfDlComponentes' : k === 'pt' ? 'ptDlComponentes' : 'dlComponentes', opcionesUnicas(datos.flatMap(componentesDe)));
+    llenarSelect(document.getElementById(cat.ids.forma), formas);
+}
+
+function ponerNuevo(k, activo) {
+    const cat = CATALOGOS[k];
+    cat.soloNuevos = activo;
+    document.getElementById(cat.ids.nuevo).classList.toggle('active', activo);
+    document.getElementById(cat.pantalla).classList.toggle('modo-nuevo', activo);
+    filtrar(k);
+}
+
+function toggleNuevo(k = 'prod') {
+    ponerNuevo(k, !CATALOGOS[k].soloNuevos);
+}
+
+function filtrar(k = 'prod') {
+    const cat = CATALOGOS[k];
+    const valor = campo => document.getElementById(cat.ids[campo]).value;
+    const searchName = normalizar(valor('nombre'));
+    const esInterno = modoUsuario === 'equipo' || modoUsuario === 'comercial';
+    // El personal interno puede buscar varios productos a la vez, separados por coma (o por espacio si son códigos): "MP1107, MP1108"
+    const esCodigo = t => /^[a-z]{2}\d{3,}$/.test(t);
+    const porEspacio = searchName.split(/\s+/).filter(Boolean);
+    const terminos = !esInterno ? [searchName]
+        : /[,;]/.test(searchName) ? searchName.split(/[,;]/).map(t => t.trim()).filter(Boolean)
+        : porEspacio.length > 1 && porEspacio.every(esCodigo) ? porEspacio : [searchName];
+    const terminosComponentes = normalizar(valor('componentes')).split(/[,;]/).map(t => t.trim()).filter(Boolean);
+    const filterCategory = valor('categoria');
+    const filterFormula = valor('forma');
+    const filterEtiqueta = valor('etiqueta');
+    cat.filtrados = cat.datos().filter(p => {
+        // El personal interno (equipo y comerciales) también puede buscar por código (Referencia Interna)
+        const matchName = terminos.some(t => normalizar(p['Nombre']).includes(t) || normalizar(p.nombreEpithelium).includes(t)
+            || (esInterno && normalizar(p['Referencia Interna']).includes(t)));
+        const compuestos = normalizar(p['Componentes']);
+        const matchComponents = terminosComponentes.every(t => compuestos.includes(t));
+        const matchCategory = !filterCategory || p['Categoría del Producto'] === filterCategory;
+        const matchFormula = !filterFormula || p['Forma Farmacéutica'] === filterFormula;
+        const matchEtiqueta = !filterEtiqueta || p['Etiquetas de producto'] === filterEtiqueta;
+        const matchNuevo = !cat.soloNuevos || p['Etiquetas de producto'] === 'Nuevo';
+        return matchName && matchComponents && matchCategory && matchFormula && matchEtiqueta && matchNuevo;
+    });
+    mostrarResultados(k);
+}
+
+// Nombre del mismo producto en Epithelium, marcado con el símbolo del logo
+const lineaEpithelium = nombre => `<p class="nombre-epithelium" title="Nombre Epithelium"><img src="logo-simbolo.png" alt="Epithelium"><span>${nombre}</span></p>`;
+
+function mostrarResultados(k = 'prod') {
+    const cat = CATALOGOS[k];
+    const lista = cat.filtrados;
+    const container = document.getElementById(cat.ids.resultados);
+    container.innerHTML = '';
+    if (cat.datos().length === 0) {
+        container.innerHTML = '<div class="no-results">No se pudieron cargar los datos. Revisa tu conexión a internet.<br><button class="btn-nuevo" style="margin-top:15px" onclick="reintentarCarga()">Reintentar</button></div>';
+        return;
+    }
+    if (lista.length === 0) {
+        container.innerHTML = '<div class="no-results">No se encontraron productos</div>';
+        return;
+    }
+    if (cat.soloNuevos) {
+        container.innerHTML = `<div class="aviso-nuevo">✨ Estás viendo lo nuevo · ${lista.length} ${lista.length === 1 ? 'producto' : 'productos'}</div>`;
+    }
+    let separadorPuesto = false;
+    lista.forEach(p => {
+        // En Mi Portafolio, separar los nuevos de Epithelium (que el cliente no tiene) con un encabezado
+        if (p.nuevoEpithelium && !separadorPuesto && !cat.soloNuevos) {
+            const sep = document.createElement('div');
+            sep.className = 'separador-nuevos';
+            sep.textContent = 'Productos Nuevos Epithelium';
+            container.appendChild(sep);
+            separadorPuesto = true;
+        }
+        const esNuevo = p['Etiquetas de producto'] === 'Nuevo';
+        const esMuestra = p['Etiquetas de producto'] === 'Muestras';
+        const color = esMuestra ? null : colorProductoCat(p['Categoría del Producto']);   // las muestras llevan su propio color, sea cual sea su categoría
+        const card = document.createElement('div');
+        card.className = (esNuevo ? 'producto-card es-nuevo' : 'producto-card') + (esMuestra ? ' es-muestra' : '') + (color ? ' mp-card' : '');
+        card.onclick = () => mostrarDetalle(p, cat.tema);
+        const badge = p.nuevoEpithelium ? '<span class="badge-nuevo">NUEVO EPITHELIUM</span>' : (esNuevo ? '<span class="badge-nuevo">NUEVO</span>' : '');
+        const barra = color ? `<span class="mp-barra" style="background:${rgbaHex(color, 0.55)}"></span>` : '';
+        card.innerHTML = `${barra}${p.tienda ? `<div class="tienda-fila"><span class="tienda-tag">${p.tienda}</span></div>` : ''}<h3>${p['Nombre']}${badge}</h3>${p.nombreEpithelium ? lineaEpithelium(p.nombreEpithelium) : ''}${p['Componentes'] ? `<p><strong>Componentes:</strong> ${p['Componentes']}</p>` : ''}<p><strong>Forma:</strong> ${p['Forma Farmacéutica']}</p>${p['Categoría del Producto'] ? `<p><strong>Categoría:</strong> ${p['Categoría del Producto']}</p>` : ''}${p['Indicación'] ? `<p style="font-size: 12px; color: #999; margin-top: 8px;">${p['Indicación'].substring(0, 100)}...</p>` : ''}`;
+        container.appendChild(card);
+    });
+}
+
+function temaModal(tema) {
+    const box = document.querySelector('#modalDetail .modal-content');
+    box.classList.remove('theme-mp', 'theme-nuevo', 'theme-port', 'theme-muestra');
+    box.style.background = '';
+    box.style.borderTopColor = '';
+    if (tema) box.classList.add(tema);
+}
+
+function mostrarDetalle(producto, tema = '') {
+    const esMuestra = producto['Etiquetas de producto'] === 'Muestras';
+    temaModal(esMuestra ? 'theme-muestra' : producto['Etiquetas de producto'] === 'Nuevo' ? 'theme-nuevo' : tema);
+    const modal = document.getElementById('modalDetail');
+    const content = document.getElementById('detailContent');
+    // Fondo tenue con el color de la categoría del producto
+    const verEtiqueta = modoUsuario === 'equipo' || modoUsuario === 'comercial';
+    const color = esMuestra ? null : colorProductoCat(producto['Categoría del Producto']);
+    if (color) {
+        const mc = document.querySelector('#modalDetail .modal-content');
+        mc.style.background = fondoCategoria(color);
+        mc.style.borderTopColor = color;
+    }
+    content.innerHTML = `<h2>${producto['Nombre']}</h2>${producto.tienda ? `<div class="tienda-fila"><span class="tienda-tag">${producto.tienda}</span></div>` : ''}${producto.nombreEpithelium ? lineaEpithelium(producto.nombreEpithelium) : ''}${producto['Componentes'] ? `<strong>Componentes</strong><p>${producto['Componentes'].replace(/\n/g, '<br>')}</p>` : ''}<strong>Especificaciones</strong><p>${producto['Categoría del Producto'] ? `<strong>Categoría:</strong> ${producto['Categoría del Producto']}<br>` : ''}<strong>Forma:</strong> ${producto['Forma Farmacéutica']}<br><strong>Presentación:</strong> ${producto['Presentación Farmacéutica']}<br><strong>Tamaño:</strong> ${producto['Tamaño']} ${producto['Masa']}</p>${producto['Indicación'] ? `<strong>Indicación</strong><p>${producto['Indicación'].replace(/\n/g, '<br>')}</p>` : ''}${producto['Dosis Recomendada'] ? `<strong>Dosis Recomendada</strong><p>${producto['Dosis Recomendada'].replace(/\n/g, '<br>')}</p>` : ''}<strong>Referencia Interna</strong><p>${producto['Referencia Interna']}</p>${(verEtiqueta && producto['Etiquetas de producto']) ? `<strong>Etiqueta</strong><p><span class="producto-label">${producto.nuevoEpithelium ? 'Nuevo Epithelium' : producto['Etiquetas de producto']}</span></p>` : ''}`;
+    modal.classList.add('active');
+}
+
+// MATERIAS PRIMAS
+function limpiarFiltrosMP() {
+    document.getElementById('mpSearchName').value = '';
+    document.getElementById('mpSearchUso').value = '';
+    document.getElementById('mpFilterEtiqueta').value = '';
+    filtrarMP();
+}
+
+function inicializarFiltrosMP() {
+    const select = document.getElementById('mpFilterEtiqueta');
+    select.length = 1;
+    // Categorías presentes en las materias primas (principal o secundaria), en orden alfabético
+    const cats = [...new Set(materiasPrimas.flatMap(m => [m['Categoria Principal'], m['Categoria Secundaria']]).filter(c => c && categorias[c]))]
+        .sort((a, b) => a.localeCompare(b, 'es', { sensitivity: 'base' }));
+    llenarDatalist('dlUsos', opcionesUnicas(materiasPrimas.flatMap(usosDe)));
+    cats.forEach(e => {
+        const option = document.createElement('option');
+        option.value = e;
+        option.textContent = e;
+        select.appendChild(option);
+    });
+}
+
+function filtrarMP() {
+    // Varias materias primas a la vez separadas por coma (cualquiera de ellas); varios usos separados por coma (deben cumplirse todos)
+    const terminosName = normalizar(document.getElementById('mpSearchName').value).split(/[,;]/).map(t => t.trim());
+    const terminosUso = normalizar(document.getElementById('mpSearchUso').value).split(/[,;]/).map(t => t.trim()).filter(Boolean);
+    if (terminosName.length > 1) terminosName.splice(0, terminosName.length, ...terminosName.filter(Boolean));
+    const filterCategoria = document.getElementById('mpFilterEtiqueta').value;
+    materiasPrimasFiltradas = materiasPrimas.filter(m => {
+        const matchName = terminosName.some(t => normalizar(m['Nombre']).includes(t));
+        const textoUso = normalizar(m['Uso Terapéutico y Cosmético'] + ' ' + m['Identificación Técnica']);
+        const matchUso = terminosUso.every(t => textoUso.includes(t));
+        const matchCategoria = !filterCategoria || m['Categoria Principal'] === filterCategoria || m['Categoria Secundaria'] === filterCategoria;
+        return matchName && matchUso && matchCategoria;
+    });
+    mostrarResultadosMP();
+}
+
+function mostrarResultadosMP() {
+    const container = document.getElementById('mpResultados');
+    container.innerHTML = '';
+    if (materiasPrimas.length === 0) {
+        container.innerHTML = '<div class="no-results">No se pudieron cargar los datos. Revisa tu conexión a internet.<br><button class="btn-nuevo" style="margin-top:15px" onclick="reintentarCarga()">Reintentar</button></div>';
+        return;
+    }
+    if (materiasPrimasFiltradas.length === 0) {
+        container.innerHTML = '<div class="no-results">No se encontraron materias primas</div>';
+        return;
+    }
+    materiasPrimasFiltradas.forEach(m => {
+        const card = document.createElement('div');
+        card.className = 'producto-card mp-card';
+        card.onclick = () => mostrarDetalleMP(m);
+        const uso = m['Uso Terapéutico y Cosmético'];
+        const cats = categoriasDe(m).map(c => `<span class="mp-chip" style="background:${rgbaCategoria(c, 0.2)};color:${textoLegible(colorCategoria(c))}">${c}</span>`).join('');
+        card.innerHTML = `<span class="mp-barra" style="background:${barraCategorias(m)}"></span><h3>${m['Nombre']}</h3>${cats ? `<p class="mp-chips">${cats}</p>` : ''}${m['Concentración de Uso'] ? `<p><strong>Concentración:</strong> ${m['Concentración de Uso'].split('\n')[0]}</p>` : ''}${uso ? `<p style="font-size: 12px; color: #999; margin-top: 8px;">${uso.length > 100 ? uso.substring(0, 100) + '...' : uso}</p>` : ''}`;
+        container.appendChild(card);
+    });
+}
+
+function mostrarDetalleMP(m) {
+    temaModal('theme-mp');
+    const modal = document.getElementById('modalDetail');
+    const content = document.getElementById('detailContent');
+    // Fondo tenue con el color de la categoría principal
+    const box = document.querySelector('#modalDetail .modal-content');
+    box.style.background = fondoCategoria(colorCategoria(m['Categoria Principal']));
+    box.style.borderTopColor = colorCategoria(m['Categoria Principal']);
+    const bloque = (titulo, texto) => texto ? `<strong>${titulo}</strong><p>${texto.replace(/\n/g, '<br>')}</p>` : '';
+    const cats = categoriasDe(m);
+    const verRef = modoUsuario === 'equipo' || modoUsuario === 'comercial';
+    // Categorías como etiquetas: al tocarlas se muestra su descripción
+    const chips = cats.map(c => `<button type="button" class="mp-chip mp-chip-btn" style="background:${rgbaCategoria(c, 0.2)};color:${textoLegible(colorCategoria(c))};border-color:${rgbaCategoria(c, 0.5)}" onclick="mostrarCatDesc('${c.replace(/'/g, "\\'")}')">${c}</button>`).join('');
+    content.innerHTML = `<h2>${m['Nombre']}</h2>${cats.length ? `<div class="mp-cats">${chips}</div><div id="mpDescBox" class="mp-desc" hidden></div>` : ''}${bloque('Identificación Técnica', m['Identificación Técnica'])}${bloque('Uso Terapéutico y Cosmético', m['Uso Terapéutico y Cosmético'])}${bloque('Concentración de Uso', m['Concentración de Uso'])}${verRef ? bloque('Referencia Interna', m['Referencia Interna']) : ''}`;
+    modal.classList.add('active');
+}
+
+// Muestra la descripción de una categoría al tocar su etiqueta en el detalle
+function mostrarCatDesc(nombre) {
+    const box = document.getElementById('mpDescBox');
+    if (!box) return;
+    const cat = categorias[nombre];
+    const texto = cat && cat.descripcion ? cat.descripcion : '';
+    if (box.dataset.cat === nombre && !box.hidden) {
+        box.hidden = true;
+        box.dataset.cat = '';
+        return;
+    }
+    box.innerHTML = `<strong style="color:${textoLegible(colorCategoria(nombre))}">${nombre}</strong><p>${texto}</p>`;
+    box.style.borderColor = rgbaCategoria(nombre, 0.5);
+    box.dataset.cat = nombre;
+    box.hidden = false;
+}
+
+function cerrarModal() {
+    document.getElementById('modalDetail').classList.remove('active');
+}
+
+window.onclick = function(event) {
+    const modal = document.getElementById('modalDetail');
+    if (event.target === modal) {
+        modal.classList.remove('active');
+    }
+}
+
+// ACTUALIZACIÓN DE LA APP
+// Revisa si hay una versión nueva publicada y ofrece recargar (evita quedarse con la versión guardada en el celular)
+async function revisarVersion() {
+    try {
+        const resp = await fetch('version.txt?t=' + Date.now(), { cache: 'no-store' });
+        if (!resp.ok) return;
+        const publicada = (await resp.text()).trim();
+        if (publicada && publicada !== APP_VERSION) document.getElementById('avisoVersion').classList.add('visible');
+    } catch (e) { /* sin conexión: se revisa después */ }
+}
+
+async function actualizarApp() {
+    // Fuerza a buscar el service worker nuevo antes de recargar, para no quedarse pegado en la versión vieja
+    if (false && 'serviceWorker' in navigator) {
+        try {
+            const reg = await navigator.serviceWorker.getRegistration();
+            if (reg) await reg.update();
+        } catch (e) { /* sin conexión: recarga normal */ }
+    }
+    location.replace(location.pathname + '?v=' + Date.now());
+}
+
+// Registra el service worker para que la app funcione sin conexión (guarda app + datos; portafolios no)
+if (false && 'serviceWorker' in navigator) {
+    window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
+}
+
+document.addEventListener('DOMContentLoaded', revisarVersion);
+document.addEventListener('visibilitychange', () => { if (!document.hidden) { revisarVersion(); revisarVencimiento(); } });
+setInterval(revisarVencimiento, 5 * 60 * 1000);
+
+// VISTA PREVIA: entrar sin escribir la clave
+(function () {
+    const caja = document.getElementById('vpEntrar');
+    if (!caja) return;
+    caja.innerHTML = '<p>Vista previa: entrar como</p>' + [["Equipo", "", "EPITHE-000"], ["Médico", "", "EPITHE-001"], ["Comercial", "M.Castro", "MC17"]].map(([n, u, c]) => `<button type="button" data-u="${u}" data-c="${c}">${n}</button>`).join('');
+    caja.addEventListener('click', e => {
+        const b = e.target.closest('button[data-c]');
+        if (!b) return;
+        document.getElementById('accessUser').value = b.dataset.u;
+        document.getElementById('accessCode').value = b.dataset.c;
+        verificarCodigo();
+    });
+})();

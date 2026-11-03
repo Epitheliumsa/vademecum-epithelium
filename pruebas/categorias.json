@@ -1,0 +1,82 @@
+{
+ "Acné": {
+  "descripcion": "El acne es una enfermedad inflamatoria del foliculo pilosebaceo causada por hiperproduccion de sebo, obstruccion del poro y proliferacion de la bacteria Cutibacterium acnes. Esta categoria agrupa los principios activos usados en su manejo: queratoliticos que despejan el poro, antibacterianos que controlan la bacteria, seborreguladores que reducen la produccion de sebo y retinoides que normalizan la queratinizacion folicular.",
+  "color": "#FF99FF"
+ },
+ "Rosácea": {
+  "descripcion": "La rosacea es una enfermedad inflamatoria cronica facial que cursa con eritema persistente, vasos dilatados visibles y, en ocasiones, papulas y pustulas, de origen vascular, inmunologico y microbiano combinado. Agrupa ingredientes antiinflamatorios y calmantes que reducen el enrojecimiento y controlan los brotes inflamatorios propios de esta condicion.",
+  "color": "#FF4FA3"
+ },
+ "Corticoides": {
+  "descripcion": "Los corticoides (o corticosteroides) son moleculas sinteticas derivadas del cortisol, la hormona antiinflamatoria natural del cuerpo; al aplicarse sobre la piel inhiben la respuesta inmune e inflamatoria local. Se clasifican por su potencia, de baja a muy alta, y esta categoria reune corticoides topicos usados en dermatitis, eccemas y psoriasis; el vehiculo (crema, unguento, locion, gel) determina la absorcion percutanea y la zona corporal donde se pueden aplicar con seguridad.",
+  "color": "#A40052"
+ },
+ "Antibióticos Tópicos": {
+  "descripcion": "Los antibioticos son sustancias que eliminan o inhiben el crecimiento de bacterias. En su forma topica se aplican directamente sobre la piel infectada, alcanzando alta concentracion en el sitio de accion con minima absorcion sistemica, lo que reduce el riesgo de resistencia bacteriana asociado al uso oral.",
+  "color": "#DE0000"
+ },
+ "Cicatrizantes - Reparadores": {
+  "descripcion": "Son agentes que favorecen la reparacion tisular y restauran la barrera cutanea danada, mediante efecto calmante, estimulacion de la regeneracion celular o aporte de sustancias que aceleran el cierre de heridas; se emplean en piel irritada, heridas superficiales y cuidado post-procedimiento.",
+  "color": "#F2542D"
+ },
+ "Anestésicos Tópicos": {
+  "descripcion": "Los anestesicos topicos son moleculas que bloquean de forma reversible la conduccion nerviosa en la zona de aplicacion, generando insensibilidad local al dolor. Esta categoria incluye tambien analgesicos y antiinflamatorios locales (AINEs topicos) usados como coadyuvantes en procedimientos dermatologicos menores o para aliviar dolor y prurito sobre piel erosionada o mucosas.",
+  "color": "#B71C4A"
+ },
+ "Antivirales Dermatológicos": {
+  "descripcion": "Son principios activos dirigidos a inhibir la replicacion viral o a destruir el tejido infectado por virus, usados en el manejo de lesiones cutaneas de origen viral, incluidas las asociadas al virus del papiloma humano (verrugas, condilomas).",
+  "color": "#FF7F50"
+ },
+ "Queratolíticos - Exfoliantes": {
+  "descripcion": "La queratolisis es el proceso de disolver o desprender la capa cornea, la capa mas externa de la piel compuesta de queratina. Esta categoria agrupa acidos alfa/beta-hidroxi, urea, acido tricloroacetico y exfoliantes fisicos que actuan sobre trastornos de la queratinizacion, mejoran la textura cutanea y, al remover la capa cornea, potencian la penetracion de otros activos.",
+  "color": "#FF3300"
+ },
+ "Antiparasitarios": {
+  "descripcion": "Son agentes con actividad frente a parasitos externos (ectoparasitos como acaros y piojos) y hongos que afectan la piel, de aplicacion topica: escabicidas, pediculicidas y antifungicos.",
+  "color": "#CC2900"
+ },
+ "Protectores Solares": {
+  "descripcion": "Son sustancias que protegen la piel de la radiacion ultravioleta, ya sea reflejandola (filtros fisicos o minerales) o absorbiendola y disipandola como calor (filtros quimicos), previniendo el dano actinico UVA/UVB. Esta categoria incluye tambien agentes de bronceado sin sol (autobronceantes) dentro de la linea de fotoproteccion.",
+  "color": "#FDA94D"
+ },
+ "Vitaminas": {
+  "descripcion": "Las vitaminas son compuestos organicos esenciales que el cuerpo necesita en pequenas cantidades para su metabolismo normal y que actuan como cofactores de multiples reacciones enzimaticas; en la piel, ademas, muchas cumplen funcion antioxidante. Agrupa vitaminas y provitaminas de uso dermocosmetico como vitamina C, vitamina E, biotina y provitamina B5 (D-pantenol).",
+  "color": "#FFFF00"
+ },
+ "Capilares": {
+  "descripcion": "Agrupa ingredientes indicados en alopecia y trastornos del crecimiento del cabello: vasodilatadores que mejoran la irrigacion del foliculo, y antiandrogenicos e inhibidores de la 5-alfa-reductasa que bloquean la accion de hormonas responsables de la miniaturizacion folicular, actuando sobre las fases del ciclo capilar (anagena de crecimiento, catagena de transicion, telogena de reposo).",
+  "color": "#24A301"
+ },
+ "Shampoo Magistrales": {
+  "descripcion": "Materias primas formuladas especificamente como base de productos de limpieza capilar magistral, orientadas al control de la caspa (descamacion del cuero cabelludo), la seborrea (exceso de grasa) y la salud general del foliculo piloso.",
+  "color": "#00B050"
+ },
+ "Ungueales": {
+  "descripcion": "Agrupa ingredientes destinados al cuidado y tratamiento de la unidad ungueal (la una y sus estructuras asociadas), incluido el manejo de la onicomicosis (infeccion fungica de la una) y el fortalecimiento de la lamina ungueal.",
+  "color": "#00FFCC"
+ },
+ "Desodorantes - Antitranspirantes": {
+  "descripcion": "Los desodorantes controlan el olor corporal inhibiendo el crecimiento de las bacterias responsables del mal olor; los antitranspirantes, en cambio, bloquean fisicamente la actividad de las glandulas sudoriparas para reducir la produccion de sudor. Esta categoria agrupa ambos tipos de agentes, principalmente sales de aluminio y zirconio.",
+  "color": "#126ABA"
+ },
+ "Limpiadores Magistrales": {
+  "descripcion": "Los tensoactivos son moleculas que reducen la tension superficial y permiten arrastrar suciedad y grasa; los de tipo syndet (detergente sintetico) son suaves y de pH cercano al fisiologico de la piel. Esta categoria agrupa tensoactivos suaves usados como base de limpiadores magistrales para piel sensible, que limpian sin alterar la barrera cutanea.",
+  "color": "#0087A2"
+ },
+ "Despigmentantes": {
+  "descripcion": "La melanogenesis es el proceso por el cual las celulas producen melanina, el pigmento responsable del color de la piel, mediante la enzima tirosinasa. Esta categoria reune inhibidores de la melanogenesis usados para aclarar hiperpigmentaciones como el melasma y las manchas solares, mediante la decoloracion de la melanina existente y/o la prevencion de su formacion.",
+  "color": "#9966FF"
+ },
+ "Hidratantes": {
+  "descripcion": "Agrupa humectantes (atraen agua hacia la piel), emolientes (suavizan aportando lipidos) y agentes oclusivos (forman una pelicula que evita la perdida de agua), que en conjunto restauran el equilibrio hidrico de la piel y mejoran su suavidad y elasticidad.",
+  "color": "#8001E9"
+ },
+ "Antienvejecimiento": {
+  "descripcion": "El fotoenvejecimiento es el deterioro de la piel causado por la exposicion acumulada a la radiacion UV, que genera radicales libres y degrada el colageno y la elastina. Esta categoria agrupa antioxidantes, que neutralizan esos radicales libres, y activos biorreguladores que estimulan la sintesis de colageno y elastina, usados para prevenir y tratar arrugas, perdida de firmeza y pigmentacion irregular.",
+  "color": "#5E17EB"
+ },
+ "Antiestrias": {
+  "descripcion": "Las estrias son cicatrices dermicas que se forman cuando la piel se estira con rapidez y las fibras de colageno y elastina se rompen. Agrupa ingredientes orientados a mejorar la elasticidad cutanea y favorecer la remodelacion del tejido conectivo dermico, mejorando la apariencia de las estrias de distension.",
+  "color": "#A64DFF"
+ }
+}

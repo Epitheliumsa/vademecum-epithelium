@@ -1038,3 +1038,7 @@ body.con-aviso-legal .screen { padding-bottom: calc(var(--pie-alto, 64px) + 8px)
 /* Saludo en dos líneas: la hora del día y debajo el nombre */
 .home-saludo .saludo-hora { display: block; font-size: 15px; font-weight: 500; color: #4a6a9c; }
 .home-saludo .saludo-nombre { display: block; font-size: 22px; font-weight: 700; line-height: 1.2; }
+
+/* Invitado con varias tiendas: arriba a la derecha de cada producto, la tienda a la que pertenece */
+.tienda-fila { display: flex; justify-content: flex-end; margin: 0 0 6px; }
+.tienda-tag { display: inline-block; max-width: 100%; padding: 3px 10px; border-radius: 999px; background: #e3edfb; color: #164a9e; font-size: 11px; font-weight: 700; letter-spacing: .2px; text-align: right; }
