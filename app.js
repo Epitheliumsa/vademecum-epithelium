@@ -1,6 +1,6 @@
 // CONFIGURACIÓN
 // Versión publicada: al cambiar, la app ofrece actualizarse (se genera junto con version.txt)
-const APP_VERSION = '202611030947';
+const APP_VERSION = '202611031130';
 
 // Usuarios internos de Epithelium. Los que tienen "zona" son comerciales y solo
 // ven el portafolio de los clientes de esa zona; los que no tienen zona ven el
@@ -19,7 +19,7 @@ const USUARIOS_INTERNOS = [
     { usuario: 'E.Ovalle',  acceso: 'ce7f5ae557bb5d72633b63e7366573b914d1967646bfdeb3b22e851d1cc060ad', tipo: 'equipo', zona: null, nombre: 'Eric Ovalle', detalle: 'Auxiliar de Domicilios y Mensajería' },
     { usuario: 'D.Barrero', acceso: '0db57b165dd9406abd8a3740e969fe9a0a4baa8651d8d290966003f0ff131349', tipo: 'equipo', zona: null, nombre: 'Deelan Barrero', detalle: 'Auxiliar de Domicilios y Mensajería' },
     // Mercadeo: entra desde Ruta Comercial y ve todos los portafolios
-    { usuario: 'E.Rodriguez', acceso: 'edca2b16a4495d803a3ef65b27f3d729505bb7233d4eab5b76db54f28c61146e', tipo: 'equipo', zona: null, nombre: 'Erika Elena Rodriguez', detalle: 'Jefe de RRHH y Mercadeo' }
+    { usuario: 'E.Rodriguez', acceso: 'fad82eabb9c7b42312c3345b6a0cd8f26022e5d82c0af2db36013c9169efce98', tipo: 'equipo', zona: null, nombre: 'Erika Elena Rodriguez', detalle: 'Jefe de RRHH y Mercadeo' }
 ];
 // Invitados: clientes externos con acceso al perfil Médico, con vencimiento y marca de agua con su nombre.
 // El repositorio es público: aquí solo va la huella (PBKDF2-SHA256 lento y con sal de "usuario:clave"), nunca la clave.
