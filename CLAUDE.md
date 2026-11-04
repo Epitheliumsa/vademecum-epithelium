@@ -43,6 +43,12 @@
 - Vademécum de cliente del invitado: `portafolio` (una tienda) o `portafolios` (varias). En ambos casos "Vademécum Cliente" entra **directo** al
   portafolio (con varias, junta los productos de todas) y cada producto muestra **arriba a la derecha la tienda** a la que pertenece
   (tarjeta y detalle); los nuevos de Epithelium no llevan etiqueta. Los clientes con usuario y clave propios no llevan esa etiqueta.
+- **Accesos en lote para los médicos** (Excel "Acceso médicos a Vademécums cliente" que devuelve la fuerza de ventas): `python3 herramientas/accesos_lote.py plan EXCEL`
+  (crea un acceso por médico, quita los vademécums "Retirar", conserva los existentes), luego `docs` (instructivo PDF + enlace por médico, por zona) y `excel`
+  (Excel final sin claves, con usuario y tipo de acceso). Reglas: sin vademécum de cliente = Lo Nuevo + Vademécum Epithelium + Producto Terminado + Materias Primas;
+  con vademécum(s) de cliente = lo anterior + "Vademécum Cliente" (`portafolio`/`portafolios`); con "Vademecum CDFLL" = `solo` Producto Terminado y Materias Primas.
+  Usuario = nombre + último apellido (ej. `lauralopez`). El plan con las claves queda fuera del repositorio (`~/lote/plan.json`).
+- `solo` en `INVITADOS`: lista de lo único que ve el invitado en el inicio (lo-nuevo, epithelium, producto-terminado, materias-primas).
 - Accesos de invitado creados (todos vencen 2026-11-30, perfil Médico): dermaplast, scerquera (+ portafolio propio), ecossio (+ propio),
   farmaciainst, npena (MD Support Ltda), nhernandez (Natalia Hernandez Mantilla + Bella Piel S.A.S.). Las claves en claro solo las tiene
   el usuario y su archivo de enlace; el entorno de la sesión se reinicia y `~/entregas` se pierde: entregar los archivos con SendUserFile.
