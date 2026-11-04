@@ -60,7 +60,7 @@ def guardar_en_app(app, usuario, fila):
     if patron.search(bloque):
         bloque = patron.sub(lambda m: fila, bloque, count=1)
     else:
-        bloque = bloque + ',\n' + fila
+        bloque = bloque.rstrip().rstrip(',') + ',\n' + fila
     app.write_text(s[:ini] + bloque + s[fin:], encoding='utf-8')
 
 

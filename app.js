@@ -1,6 +1,6 @@
 // CONFIGURACIÓN
 // Versión publicada: al cambiar, la app ofrece actualizarse (se genera junto con version.txt)
-const APP_VERSION = '202611041656';
+const APP_VERSION = '202611041657';
 
 // Usuarios internos de Epithelium. Los que tienen "zona" son comerciales y solo
 // ven el portafolio de los clientes de esa zona; los que no tienen zona ven el
@@ -39,7 +39,7 @@ const INVITADOS = [
       nombre: 'Dr. Néstor Peña Rodriguez', detalle: 'Acceso personal', vence: '2026-11-30', portafolio: 'b37fbc991b082c7467ed88b8' },
     // Con varias tiendas: `portafolios` (lista de huellas); en el inicio entra por la lista de sus clientes
     { usuario: 'nhernandez', sal: '4476cddd0ef4e67e3e4c58e8c62f6199', iter: 300000, huella: '24ecb8b15617d05cdf84c772197599eaed88dd6c2c6789ee80b7a90e175f4736', tipo: 'medico', zona: null,
-      nombre: 'Dra. Natalia Hernandez Mantilla', detalle: 'Acceso personal', vence: '2026-11-30', portafolios: ['ebf1dcc8f814705f9180970c', 'e4d0056914bd30e3ac9916fe'] },,
+      nombre: 'Dra. Natalia Hernandez Mantilla', detalle: 'Acceso personal', vence: '2026-11-30', portafolios: ['ebf1dcc8f814705f9180970c', 'e4d0056914bd30e3ac9916fe'] },
     { usuario: 'cdfll', sal: '8630c1f626146e35e5053cc26add4463', iter: 300000, huella: '3685037290cda41ba11f1e19ecd01e080711bfa4288c7fb312f434aff7fbad67', tipo: 'medico', zona: null,
       nombre: 'Centro Dermatológico Federico Lleras Acosta (CDFLL)', detalle: 'Acceso institucional', vence: '2026-11-30', solo: ['producto-terminado', 'materias-primas'] }
 ];
