@@ -1,6 +1,6 @@
 // CONFIGURACIÓN
 // Versión publicada: al cambiar, la app ofrece actualizarse (se genera junto con version.txt)
-const APP_VERSION = '202611031130';
+const APP_VERSION = '202611041647';
 
 // Usuarios internos de Epithelium. Los que tienen "zona" son comerciales y solo
 // ven el portafolio de los clientes de esa zona; los que no tienen zona ven el
@@ -24,6 +24,7 @@ const USUARIOS_INTERNOS = [
 // Invitados: clientes externos con acceso al perfil Médico, con vencimiento y marca de agua con su nombre.
 // El repositorio es público: aquí solo va la huella (PBKDF2-SHA256 lento y con sal de "usuario:clave"), nunca la clave.
 // La clave es aleatoria de 8 caracteres (se escribe sin importar mayúsculas). Para retirar un acceso, se borra su fila.
+// `solo`: lista de lo único que ve en el inicio (lo-nuevo, epithelium, producto-terminado, materias-primas); sin `solo` ve todo.
 // Si el invitado también es cliente, `portafolio` es la huella de su vademécum de cliente (portafolios/<huella>.json).
 const INVITADOS = [
     { usuario: 'dermaplast', sal: '1684fd48ba2a42c2d5b5a13bab8b3443', iter: 300000, huella: 'ccd8c24740608f439a9c2ea40642d3195fbacf34e45c62e0589c81fbcdceabb3', tipo: 'medico', zona: null,
@@ -38,7 +39,9 @@ const INVITADOS = [
       nombre: 'Dr. Néstor Peña Rodriguez', detalle: 'Acceso personal', vence: '2026-11-30', portafolio: 'b37fbc991b082c7467ed88b8' },
     // Con varias tiendas: `portafolios` (lista de huellas); en el inicio entra por la lista de sus clientes
     { usuario: 'nhernandez', sal: '4476cddd0ef4e67e3e4c58e8c62f6199', iter: 300000, huella: '24ecb8b15617d05cdf84c772197599eaed88dd6c2c6789ee80b7a90e175f4736', tipo: 'medico', zona: null,
-      nombre: 'Dra. Natalia Hernandez Mantilla', detalle: 'Acceso personal', vence: '2026-11-30', portafolios: ['ebf1dcc8f814705f9180970c', 'e4d0056914bd30e3ac9916fe'] }
+      nombre: 'Dra. Natalia Hernandez Mantilla', detalle: 'Acceso personal', vence: '2026-11-30', portafolios: ['ebf1dcc8f814705f9180970c', 'e4d0056914bd30e3ac9916fe'] },
+    { usuario: 'fdll', sal: '592465eb471e1df46f3f0674c82a4219', iter: 300000, huella: 'f15114f8829615477b425ae446f0da64777b882f91d563761de592feafcc151f', tipo: 'medico', zona: null,
+      nombre: 'Centro Dermatológico Federico Lleras Acosta (FDLL)', detalle: 'Acceso institucional', vence: '2026-11-30', solo: ['producto-terminado', 'materias-primas'] }
 ];
 let usuarioInterno = null;   // usuario interno con nombre (para el saludo)
 let avisoLogin = '';         // mensaje que se muestra en el login (p. ej. acceso vencido)
@@ -608,6 +611,11 @@ function entrarApp() {
     const totalNuevos = productos.filter(p => p['Etiquetas de producto'] === 'Nuevo').length;
     document.getElementById('loNuevoTexto').textContent = `${totalNuevos} productos nuevos de Epithelium`;
     document.getElementById('btnPortafolio').style.display = (esCliente || (usuarioInterno && (usuarioInterno.portafolio || varias) && portafolioPropio.length)) ? '' : 'none';
+    // Invitado con menú limitado (`solo`): en el inicio ve únicamente esos vademécums (claves: lo-nuevo, epithelium, producto-terminado, materias-primas)
+    const solo = usuarioInterno && usuarioInterno.vence && usuarioInterno.solo;
+    [['btnLoNuevo', 'lo-nuevo'], ['btnEpithelium', 'epithelium'], ['btnProductoTerminado', 'producto-terminado'], ['btnMateriasPrimas', 'materias-primas']]
+        .forEach(([id, k]) => { document.getElementById(id).style.display = !solo || solo.includes(k) ? '' : 'none'; });
+    if (solo) ['btnPortafolio', 'btnPortafolioClientes'].forEach(id => { document.getElementById(id).style.display = 'none'; });
     const subPort = document.querySelector('#btnPortafolio small');
     if (subPort) subPort.textContent = varias ? 'Los productos de tus tiendas' : 'Los productos de tu vademécum propio';
     const intro = document.getElementById('homeIntro');
