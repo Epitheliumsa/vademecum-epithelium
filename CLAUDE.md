@@ -11,6 +11,9 @@
 - La agenda de visitas de la fuerza de ventas vive en otro repositorio: Epitheliumsa/ruta-comercial.
 - Responder en español, con tono sencillo, claro y conciso, tuteando.
 - Los archivos de Excel que se entreguen van sin líneas de cuadrícula.
+- Todo `.xlsx` hecho con openpyxl pasa por `python3 herramientas/arreglar_xlsx.py ARCHIVO [SALIDA]` antes de entregarlo (textos a sharedStrings, sin `<definedNames/>` vacío) para que
+  Excel no muestre "encontramos un problema con el contenido". Al crear tablas: el ancho de `ref` = número de columnas, encabezados con texto único; **no** se editan tablas existentes
+  agregando/quitando columnas o filas (se reconstruye el libro). Nombres de archivo entregados con espacios, sin guiones bajos.
 
 ## Sincronizar el maestro con todos los vademécums
 - El maestro de productos es `data.json`. Cuando se actualice (etiquetas, categorías, componentes,
