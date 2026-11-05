@@ -3,7 +3,7 @@
 
 Uso:
     python3 herramientas/nuevo_invitado.py USUARIO "Nombre para el sello y el saludo" \
-        [--detalle "Acceso personal"] [--vence 2026-11-30] [--portafolio HUELLA ...] [--clave XXXXXXXX] [--solo producto-terminado,materias-primas] \
+        [--detalle "Acceso personal"] [--vence AAAA-MM-DD (opcional: sin esto no vence)] [--portafolio HUELLA ...] [--clave XXXXXXXX] [--solo producto-terminado,materias-primas] \
         [--salida CARPETA] [--sin-instructivo] [--app RUTA_APP_JS]
 
 - Agrega la fila a `INVITADOS` de app.js (o reemplaza la del mismo USUARIO). Solo se guarda la huella PBKDF2-SHA256
@@ -39,6 +39,7 @@ def huella(usuario, clave, sal):
 
 
 def fila_js(usuario, sal, h, nombre, detalle, vence, portafolios, solo=()):
+    vence_js = f", vence: '{vence}'" if vence else ''
     extra = ''
     if len(portafolios) == 1:
         extra = f", portafolio: '{portafolios[0]}'"
@@ -48,7 +49,7 @@ def fila_js(usuario, sal, h, nombre, detalle, vence, portafolios, solo=()):
         extra += ', solo: [' + ', '.join(f"'{x}'" for x in solo) + ']'
     esc = lambda t: t.replace("\\", "\\\\").replace("'", "\\'")
     return (f"    {{ usuario: '{usuario}', sal: '{sal}', iter: {ITER}, huella: '{h}', tipo: 'medico', zona: null,\n"
-            f"      nombre: '{esc(nombre)}', detalle: '{esc(detalle)}', vence: '{vence}'{extra} }}")
+            f"      nombre: '{esc(nombre)}', detalle: '{esc(detalle)}'{vence_js}{extra} }}")
 
 
 def guardar_en_app(app, usuario, fila):
@@ -155,7 +156,7 @@ def main():
     ap.add_argument('usuario')
     ap.add_argument('nombre')
     ap.add_argument('--detalle', default='Acceso personal')
-    ap.add_argument('--vence', default='2026-11-30')
+    ap.add_argument('--vence', default=None, help='AAAA-MM-DD; sin esto el acceso no vence')
     ap.add_argument('--portafolio', action='append', default=[], metavar='HUELLA')
     ap.add_argument('--clave')
     ap.add_argument('--solo', help='lo único que ve en el inicio, separado por comas: lo-nuevo,epithelium,producto-terminado,materias-primas (sin esto ve todo)')
