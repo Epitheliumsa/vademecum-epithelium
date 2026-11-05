@@ -3,7 +3,7 @@
 
 Dos pasos (la clave en claro solo queda en el plan y en los entregables; a app.js solo va la huella):
 
-  1) python3 herramientas/accesos_lote.py plan EXCEL.xlsx [--vence AAAA-MM-DD] [--plan RUTA.json]
+  1) python3 herramientas/accesos_lote.py plan EXCEL.xlsx [--vence AAAA-MM-DD (opcional)] [--plan RUTA.json]
      - Quita de la hoja "Vademécums cliente" los que dicen "Retirar" en Observaciones (y de la lista de cada médico).
      - Por cada médico de la hoja "Médicos 20-21-22" crea un acceso (usuario, clave de 8 caracteres, huella) en INVITADOS:
          * sin Vademécum cliente  -> ve Lo Nuevo, Vademécum Epithelium, Producto Terminado y Materias Primas
@@ -211,7 +211,7 @@ def main():
     sub = ap.add_subparsers(dest='cmd', required=True)
     p1 = sub.add_parser('plan')
     p1.add_argument('excel')
-    p1.add_argument('--vence', default='2026-11-30')
+    p1.add_argument('--vence', default=None, help='AAAA-MM-DD; sin esto los accesos no vencen')
     p1.add_argument('--plan', default=str(HOME / 'plan.json'))
     p2 = sub.add_parser('docs')
     p2.add_argument('--plan', default=str(HOME / 'plan.json'))

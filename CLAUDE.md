@@ -24,7 +24,7 @@
 - Objetivo: evitar que los portafolios queden con datos viejos (desfase) respecto al maestro.
 
 ## Accesos de invitado (clientes externos con vencimiento)
-- Viven en `INVITADOS` de `app.js`: perfil Médico, con fecha de vencimiento (`vence`) y marca de agua tipo sello redondo (muy tenue, con su nombre) (el invitado lo lleva en todas las pantallas).
+- Viven en `INVITADOS` de `app.js`: perfil Médico, **sin vencimiento** (el campo `vence` AAAA-MM-DD es opcional: si se pone, el acceso caduca ese día y la app avisa que contacte a su proveedor) y marca de agua tipo sello redondo (muy tenue, con su nombre) (el invitado lo lleva en todas las pantallas).
 - El pie fijo de protección de datos (© Epithelium S.A.) se muestra a **todos** los usuarios en todos los vademécums.
 - Sello de seguridad: solo los **externos** (invitado, cliente y médico general) lo llevan, en **todas** las pantallas (nombre del
   invitado, nombre del cliente, o "Acceso médico autorizado"). El equipo y los comerciales **nunca** lo llevan, tampoco al abrir
@@ -49,7 +49,7 @@
   con vademécum(s) de cliente = lo anterior + "Vademécum Cliente" (`portafolio`/`portafolios`); con "Vademecum CDFLL" = `solo` Producto Terminado y Materias Primas.
   Usuario = nombre + último apellido (ej. `lauralopez`). El plan con las claves queda fuera del repositorio (`~/lote/plan.json`).
 - `solo` en `INVITADOS`: lista de lo único que ve el invitado en el inicio (lo-nuevo, epithelium, producto-terminado, materias-primas).
-- Accesos de invitado creados (todos vencen 2026-11-30, perfil Médico): dermaplast, scerquera (+ portafolio propio), ecossio (+ propio),
+- Accesos de invitado creados (ninguno vence desde el 05/11/2026, perfil Médico; los 271 médicos del lote van con usuario nombre+apellido): dermaplast, scerquera (+ portafolio propio), ecossio (+ propio),
   farmaciainst, npena (MD Support Ltda), nhernandez (Natalia Hernandez Mantilla + Bella Piel S.A.S.). Las claves en claro solo las tiene
   el usuario y su archivo de enlace; el entorno de la sesión se reinicia y `~/entregas` se pierde: entregar los archivos con SendUserFile.
 
