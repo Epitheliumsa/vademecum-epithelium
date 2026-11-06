@@ -1,6 +1,6 @@
 // CONFIGURACIÓN
 // Versión publicada: al cambiar, la app ofrece actualizarse (se genera junto con version.txt)
-const APP_VERSION = '202611041859';
+const APP_VERSION = '202611061539';
 
 // Usuarios internos de Epithelium. Los que tienen "zona" son comerciales y solo
 // ven el portafolio de los clientes de esa zona; los que no tienen zona ven el
@@ -8,6 +8,7 @@ const APP_VERSION = '202611041859';
 const USUARIOS_INTERNOS = [
     { clave: 'EPITHE-000', tipo: 'equipo', zona: null },   // General equipo (usuario vacío)
     { clave: 'EPITHE-001', tipo: 'medico', zona: null },   // Médico (usuario vacío)
+    { usuario: 'Epitheliumsa', clave: 'EPITHE-001', tipo: 'medico', zona: null, nombre: 'Vademécum Epithelium', detalle: 'Acceso médico' },   // Médico general con usuario
     // nombre, cargo y detalle: el saludo del inicio, igual que en Ruta Comercial
     { usuario: 'M.Castro',    clave: 'MC17',    tipo: 'comercial', zona: 'Zona Desarrollo', nombre: 'Maryi Castro', detalle: 'Visitador Médico Comercial · Zona Desarrollo' },
     { usuario: 'H.Reyes',     clave: 'HR75',     tipo: 'equipo', zona: null, nombre: 'Hernán Reyes', detalle: 'Gerente General' },
