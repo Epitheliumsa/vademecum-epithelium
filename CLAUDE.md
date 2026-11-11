@@ -11,6 +11,9 @@
 - La agenda de visitas de la fuerza de ventas vive en otro repositorio: Epitheliumsa/ruta-comercial.
 - Responder en español, con tono sencillo, claro y conciso, tuteando.
 - Los archivos de Excel que se entreguen van sin líneas de cuadrícula.
+- Todo `.xlsx` hecho con openpyxl pasa por `python3 herramientas/arreglar_xlsx.py ARCHIVO [SALIDA]` antes de entregarlo (textos a sharedStrings, sin `<definedNames/>` vacío) para que
+  Excel no muestre "encontramos un problema con el contenido". Al crear tablas: el ancho de `ref` = número de columnas, encabezados con texto único; **no** se editan tablas existentes
+  agregando/quitando columnas o filas (se reconstruye el libro). Nombres de archivo entregados con espacios, sin guiones bajos.
 
 ## Sincronizar el maestro con todos los vademécums
 - El maestro de productos es `data.json`. Cuando se actualice (etiquetas, categorías, componentes,
@@ -24,7 +27,7 @@
 - Objetivo: evitar que los portafolios queden con datos viejos (desfase) respecto al maestro.
 
 ## Accesos de invitado (clientes externos con vencimiento)
-- Viven en `INVITADOS` de `app.js`: perfil Médico, con fecha de vencimiento (`vence`) y marca de agua tipo sello redondo (muy tenue, con su nombre) (el invitado lo lleva en todas las pantallas).
+- Viven en `INVITADOS` de `app.js`: perfil Médico, **sin vencimiento** (el campo `vence` AAAA-MM-DD es opcional: si se pone, el acceso caduca ese día y la app avisa que contacte a su proveedor) y marca de agua tipo sello redondo (muy tenue, con su nombre) (el invitado lo lleva en todas las pantallas).
 - El pie fijo de protección de datos (© Epithelium S.A.) se muestra a **todos** los usuarios en todos los vademécums.
 - Sello de seguridad: solo los **externos** (invitado, cliente y médico general) lo llevan, en **todas** las pantallas (nombre del
   invitado, nombre del cliente, o "Acceso médico autorizado"). El equipo y los comerciales **nunca** lo llevan, tampoco al abrir
@@ -43,7 +46,13 @@
 - Vademécum de cliente del invitado: `portafolio` (una tienda) o `portafolios` (varias). En ambos casos "Vademécum Cliente" entra **directo** al
   portafolio (con varias, junta los productos de todas) y cada producto muestra **arriba a la derecha la tienda** a la que pertenece
   (tarjeta y detalle); los nuevos de Epithelium no llevan etiqueta. Los clientes con usuario y clave propios no llevan esa etiqueta.
-- Accesos de invitado creados (todos vencen 2026-11-30, perfil Médico): dermaplast, scerquera (+ portafolio propio), ecossio (+ propio),
+- **Accesos en lote para los médicos** (Excel "Acceso médicos a Vademécums cliente" que devuelve la fuerza de ventas): `python3 herramientas/accesos_lote.py plan EXCEL`
+  (crea un acceso por médico, quita los vademécums "Retirar", conserva los existentes), luego `docs` (instructivo PDF + enlace por médico, por zona) y `excel`
+  (Excel final sin claves, con usuario y tipo de acceso). Reglas: sin vademécum de cliente = Lo Nuevo + Vademécum Epithelium + Producto Terminado + Materias Primas;
+  con vademécum(s) de cliente = lo anterior + "Vademécum Cliente" (`portafolio`/`portafolios`); con "Vademecum CDFLL" = `solo` Producto Terminado y Materias Primas.
+  Usuario = nombre + último apellido (ej. `lauralopez`). El plan con las claves queda fuera del repositorio (`~/lote/plan.json`).
+- `solo` en `INVITADOS`: lista de lo único que ve el invitado en el inicio (lo-nuevo, epithelium, producto-terminado, materias-primas).
+- Accesos de invitado creados (ninguno vence desde el 05/11/2026, perfil Médico; los 271 médicos del lote van con usuario nombre+apellido): dermaplast, scerquera (+ portafolio propio), ecossio (+ propio),
   farmaciainst, npena (MD Support Ltda), nhernandez (Natalia Hernandez Mantilla + Bella Piel S.A.S.). Las claves en claro solo las tiene
   el usuario y su archivo de enlace; el entorno de la sesión se reinicia y `~/entregas` se pierde: entregar los archivos con SendUserFile.
 

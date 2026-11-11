@@ -3,7 +3,7 @@
 
 Uso:
     python3 herramientas/nuevo_invitado.py USUARIO "Nombre para el sello y el saludo" \
-        [--detalle "Acceso personal"] [--vence 2026-11-30] [--portafolio HUELLA ...] [--clave XXXXXXXX] \
+        [--detalle "Acceso personal"] [--vence AAAA-MM-DD (opcional: sin esto no vence)] [--portafolio HUELLA ...] [--clave XXXXXXXX] [--solo producto-terminado,materias-primas] \
         [--salida CARPETA] [--sin-instructivo] [--app RUTA_APP_JS]
 
 - Agrega la fila a `INVITADOS` de app.js (o reemplaza la del mismo USUARIO). Solo se guarda la huella PBKDF2-SHA256
@@ -38,15 +38,18 @@ def huella(usuario, clave, sal):
     return hashlib.pbkdf2_hmac('sha256', f'{usuario}:{clave.lower()}'.encode(), bytes.fromhex(sal), ITER).hex()
 
 
-def fila_js(usuario, sal, h, nombre, detalle, vence, portafolios):
+def fila_js(usuario, sal, h, nombre, detalle, vence, portafolios, solo=()):
+    vence_js = f", vence: '{vence}'" if vence else ''
     extra = ''
     if len(portafolios) == 1:
         extra = f", portafolio: '{portafolios[0]}'"
     elif portafolios:
         extra = ', portafolios: [' + ', '.join(f"'{x}'" for x in portafolios) + ']'
+    if solo:
+        extra += ', solo: [' + ', '.join(f"'{x}'" for x in solo) + ']'
     esc = lambda t: t.replace("\\", "\\\\").replace("'", "\\'")
     return (f"    {{ usuario: '{usuario}', sal: '{sal}', iter: {ITER}, huella: '{h}', tipo: 'medico', zona: null,\n"
-            f"      nombre: '{esc(nombre)}', detalle: '{esc(detalle)}', vence: '{vence}'{extra} }}")
+            f"      nombre: '{esc(nombre)}', detalle: '{esc(detalle)}'{vence_js}{extra} }}")
 
 
 def guardar_en_app(app, usuario, fila):
@@ -58,7 +61,7 @@ def guardar_en_app(app, usuario, fila):
     if patron.search(bloque):
         bloque = patron.sub(lambda m: fila, bloque, count=1)
     else:
-        bloque = bloque + ',\n' + fila
+        bloque = bloque.rstrip().rstrip(',') + ',\n' + fila
     app.write_text(s[:ini] + bloque + s[fin:], encoding='utf-8')
 
 
@@ -67,9 +70,14 @@ def tiendas_de(portafolios):
     return [indice.get(h, h) for h in portafolios]
 
 
-def html_instructivo(usuario, clave, nombre, tiendas):
+def html_instructivo(usuario, clave, nombre, tiendas, solo=()):
     logo = base64.b64encode((RAIZ / 'logo.png').read_bytes()).decode()
     enlace = f'{URL}#invitado={usuario}:{clave.lower()}'
+    nombres = {'epithelium': ('al', 'Vademécum Epithelium'), 'producto-terminado': ('al', 'Vademécum Producto Terminado'),
+               'materias-primas': ('a las', 'Materias Primas'), 'lo-nuevo': ('a', 'Lo Nuevo')}
+    lista = [nombres[x] for x in solo if x in nombres] or [nombres[x] for x in ('epithelium', 'producto-terminado', 'materias-primas')]
+    acceso_texto = ' y '.join(f'{a} <b>{n}</b>' for a, n in lista) if len(lista) < 3 else ', '.join(f'{a} <b>{n}</b>' for a, n in lista[:-1]) + f' y {lista[-1][0]} <b>{lista[-1][1]}</b>'
+    sin_senal = ', '.join(f'✅ <b>{n}</b>' for _, n in lista[:-1]) + (' y ' if len(lista) > 1 else '') + f'✅ <b>{lista[-1][1]}</b>'
     if len(tiendas) == 1:
         extra = f'<p>Además, en el inicio encontrarás el botón <b>Vademécum Cliente</b>, con el vademécum de <b>{tiendas[0]}</b>.</p>'
     elif tiendas:
@@ -97,7 +105,7 @@ p{{margin-bottom:5px}}.box{{background:#eef7f3;border-left:4px solid #009460;bor
 </style></head><body><div class="page">
 <div class="top"><img src="data:image/png;base64,{logo}"><div><h1>Instructivo: Vademécum Epithelium</h1><div class="sub">{nombre}</div></div></div>
 <h2><span class="n">1</span> Tu acceso</h2>
-<p>Este es tu acceso personal al <b>Vademécum Epithelium</b>, al <b>Vademécum Producto Terminado</b> y a las <b>Materias Primas</b>.</p>
+<p>Este es tu acceso personal {acceso_texto}.</p>
 {extra}
 <div class="box"><p><b>Entra con un toque</b> abriendo este enlace:</p><p class="link">{enlace}</p></div>
 <p style="margin-top:7px">Si te pide datos, escribe:</p>
@@ -112,7 +120,7 @@ p{{margin-bottom:5px}}.box{{background:#eef7f3;border-left:4px solid #009460;bor
 </div>
 <h2><span class="n">3</span> Usar sin internet</h2>
 <div class="box"><p><b>Paso clave:</b> abre la app <u>una vez con internet</u>. Así se guarda en tu equipo.</p></div>
-<ul style="margin-top:6px"><li>✅ <b>Vademécum Epithelium</b>, ✅ <b>Producto Terminado</b> y ✅ <b>Materias Primas</b> se consultan sin señal.{' Tu Vademécum Cliente necesita internet.' if tiendas else ''}</li><li>Cuando vuelvas a tener internet se actualiza sola. Si aparece <b>“Hay una versión nueva”</b>, toca <b>Actualizar</b>.</li></ul>
+<ul style="margin-top:6px"><li>{sin_senal} se consultan sin señal.{' Tu Vademécum Cliente necesita internet.' if tiendas else ''}</li><li>Cuando vuelvas a tener internet se actualiza sola. Si aparece <b>“Hay una versión nueva”</b>, toca <b>Actualizar</b>.</li></ul>
 <h2><span class="n">4</span> Qué debes saber</h2>
 <ul><li>El acceso es <b>personal e intransferible</b>. Las pantallas muestran una marca de agua con tu nombre.</li>
 <li>Si la app te indica que tu acceso finalizó, o necesitas cambiar tu clave, comunícate con tu proveedor Epithelium.</li>
@@ -148,9 +156,10 @@ def main():
     ap.add_argument('usuario')
     ap.add_argument('nombre')
     ap.add_argument('--detalle', default='Acceso personal')
-    ap.add_argument('--vence', default='2026-11-30')
+    ap.add_argument('--vence', default=None, help='AAAA-MM-DD; sin esto el acceso no vence')
     ap.add_argument('--portafolio', action='append', default=[], metavar='HUELLA')
     ap.add_argument('--clave')
+    ap.add_argument('--solo', help='lo único que ve en el inicio, separado por comas: lo-nuevo,epithelium,producto-terminado,materias-primas (sin esto ve todo)')
     ap.add_argument('--salida', default=str(Path.home() / 'entregas'))
     ap.add_argument('--sin-instructivo', action='store_true')
     ap.add_argument('--app', default=str(RAIZ / 'app.js'))
@@ -158,7 +167,7 @@ def main():
     usuario = a.usuario.strip().lower()
     clave = (a.clave or ''.join(secrets.choice(ALFABETO) for _ in range(8))).upper()
     sal = secrets.token_hex(16)
-    guardar_en_app(Path(a.app), usuario, fila_js(usuario, sal, huella(usuario, clave, sal), a.nombre, a.detalle, a.vence, a.portafolio))
+    guardar_en_app(Path(a.app), usuario, fila_js(usuario, sal, huella(usuario, clave, sal), a.nombre, a.detalle, a.vence, a.portafolio, [x for x in (a.solo or '').split(',') if x]))
     print(f'Acceso "{usuario}" guardado en {a.app} (solo la huella). Falta: sh actualizar-version.sh, probar y publicar con el sí del usuario.')
     salida = Path(a.salida)
     salida.mkdir(parents=True, exist_ok=True)
@@ -169,7 +178,7 @@ def main():
         f'Si te pide datos, usuario: {usuario} / clave: {clave}\nAdjunto el instructivo para instalarlo en tu celular o computador.\n'
         'El acceso es personal e intransferible; la información es de uso exclusivo y confidencial de Epithelium S.A.\n', encoding='utf-8')
     if not a.sin_instructivo:
-        pdf_instructivo(html_instructivo(usuario, clave, a.nombre, tiendas_de(a.portafolio)), salida / f'Instructivo_Vademecum_{usuario}.pdf', a.nombre)
+        pdf_instructivo(html_instructivo(usuario, clave, a.nombre, tiendas_de(a.portafolio), [x for x in (a.solo or '').split(',') if x]), salida / f'Instructivo_Vademecum_{usuario}.pdf', a.nombre)
     print(f'Entregables en {salida}: Enlace_acceso_{usuario}.txt' + ('' if a.sin_instructivo else f' y Instructivo_Vademecum_{usuario}.pdf'))
     print(f'CLAVE: {clave}  (solo para el usuario; no se guarda en el repositorio)')
 
