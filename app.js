@@ -1,6 +1,6 @@
 // CONFIGURACIÓN
 // Versión publicada: al cambiar, la app ofrece actualizarse (se genera junto con version.txt)
-const APP_VERSION = '202611111808';
+const APP_VERSION = '202611121707';
 
 // Usuarios internos de Epithelium. Los que tienen "zona" son comerciales y solo
 // ven el portafolio de los clientes de esa zona; los que no tienen zona ven el
@@ -586,7 +586,9 @@ const INVITADOS = [
     { usuario: 'yuranipineda', sal: '0ecb2cde3ae34e6461519b33bf28c61c', iter: 300000, huella: '9fb29a26b37889a6d3516f85bc4f9cf222b95149edc83bb33b924576818085d9', tipo: 'medico', zona: null,
       nombre: 'Yurani Pineda', detalle: 'Acceso personal' },
     { usuario: 'epitheliumsa', sal: 'e29401b8366599bf95b0978acd85c7fd', iter: 300000, huella: '955dfaac3e33711c3d5d3198eb2d3268f0e0630876d341d6259ffcb76effc7b2', tipo: 'medico', zona: null,
-      nombre: 'Acceso general Epithelium', detalle: 'Vademécum Epithelium' }
+      nombre: 'Acceso general Epithelium', detalle: 'Vademécum Epithelium' },
+    { usuario: 'mdsupport', sal: '054d73af1391ffc5a4e277f76dbb1aaf', iter: 300000, huella: '1532b85eae455565c765d9c578646a9bcc3f5a917f93105e6091b4d7ae76a0bf', tipo: 'medico', zona: null,
+      nombre: 'MD Support Ltda', detalle: 'Acceso institucional', portafolio: 'b37fbc991b082c7467ed88b8' }
 ];
 let usuarioInterno = null;   // usuario interno con nombre (para el saludo)
 let avisoLogin = '';         // mensaje que se muestra en el login (p. ej. acceso vencido)
