@@ -11,7 +11,7 @@ const USUARIOS_INTERNOS = [
     // nombre, cargo y detalle: el saludo del inicio, igual que en Ruta Comercial
     { usuario: 'M.Castro',    clave: 'MC17',    tipo: 'comercial', zona: 'Zona Desarrollo', nombre: 'Maryi Castro', detalle: 'Visitador Médico Comercial · Zona Desarrollo' },
     { usuario: 'H.Reyes',     clave: 'HR75',     tipo: 'equipo', zona: null, nombre: 'Hernán Reyes', detalle: 'Gerente General' },
-    { usuario: 'B.Aldana', acceso: 'd5e223c6b966f1bae43a2bc764e380d67dc7d52c3643fd18e83f6eb41b403a4d', tipo: 'equipo', zona: null, nombre: 'Brayan Aldana', detalle: 'Auxiliar Administrativo y de Operaciones' },
+    { usuario: 'B.Aldana', acceso: 'd72fe79b71764e11af23999801d3f5b565c2a38bb443e5aa3cb5ff52bf630d49', tipo: 'equipo', zona: null, nombre: 'Brayan Aldana', detalle: 'Auxiliar Administrativo y de Operaciones' },
     { usuario: 'L.Ramos',     clave: 'LR73',     tipo: 'comercial', zona: 'Zona Norte', nombre: 'Lizeth Ramos', detalle: 'Visitador Médico Comercial · Zona Norte' },
     { usuario: 'Y.Caballero', clave: 'YC11', tipo: 'comercial', zona: 'Zona Sur', nombre: 'Yunelis Caballero', detalle: 'Visitador Médico Comercial · Zona Sur' },
     { usuario: 'J.Herrera',   clave: 'JH38',   tipo: 'equipo', zona: null, nombre: 'Jennifer Herrera', detalle: 'Coordinadora Comercial · Clientes Especiales' },   // Jefe comercial: ve todas las zonas
